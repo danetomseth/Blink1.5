@@ -5,4 +5,4 @@ core.directive('blKeyboard', function(){
         templateUrl:'/templates/keyboard.html',
         controller: 'keyboardCtrl'
     }
-})
+});
