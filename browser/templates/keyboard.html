@@ -1,0 +1,8 @@
+<table border="2">
+    <tr ng-repeat="row in alphabet">
+        {{row}}
+            <td ng-repeat="letter in row" ng-class="{'selected' : letter === current}">
+                {{letter}}
+            </td>
+    </tr>
+</table>
