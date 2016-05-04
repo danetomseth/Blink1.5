@@ -3,6 +3,6 @@ core.directive('blKeyboard', function(){
         restrict: "E",
         scope: {},
         templateUrl:'/templates/keyboard.html',
-        controller: 'keyboardCtrl'
+        controller: 'KeyboardCtrl'
     }
 });

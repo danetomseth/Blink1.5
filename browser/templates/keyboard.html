@@ -2,9 +2,12 @@
 <table border="2">
     <tr ng-repeat="row in alphabet">
         {{row}}
-            <td ng-repeat="letter in row" ng-class="{'selected' : letter === current}">
+            <td ng-repeat="letter in row" ng-class="{'selected' : letter === current[0]}">
                 {{letter}}
             </td>
     </tr>
 </table>
 </md-content>
+
+
+{{word.join("")}}
