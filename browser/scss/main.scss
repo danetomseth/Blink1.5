@@ -2,9 +2,13 @@
   box-sizing: border-box;
 }
 
-body {
-  background: #fdfdfd;
+#bodyContainer {
+	background-color: #607D8B;
 }
+
+// body {
+//   background: #fdfdfd;
+// }
 
 @mixin clearfix {
   &:after {
@@ -26,3 +30,7 @@ body {
 @import 'login/main';
 @import 'custom/keyboard';
 @import 'custom/camera';
+@import 'custom/layout';
+@import 'custom/sidebar';
+@import 'custom/corners';
+

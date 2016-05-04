@@ -1,6 +1,16 @@
 'use strict';
-const core = angular.module('core', ['ui.router', 'ui.bootstrap', 'ngAnimate'] )
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'core']);
+const core = angular.module('core', ['ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial'] )
+
+window.app = angular.module('BlinkApp', ['blinkAuth', 'core']);
+
+
+core.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+    .primaryPalette('blue-grey')
+    .accentPalette('light-blue')
+    .warnPalette('amber')
+    .backgroundPalette('blue-grey');
+});
 
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
@@ -12,6 +22,7 @@ app.config(function ($urlRouterProvider, $locationProvider) {
         window.location.reload();
     });
 });
+
 
 // This app.run is for controlling access to specific states.
 app.run(function ($rootScope, AuthService, $state) {
