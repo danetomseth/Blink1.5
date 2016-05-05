@@ -9,26 +9,4 @@
 
 
 
-    <div class="row">
-    	<div class="col-md-9">
-    		<table border="2">
-    			<tr ng-repeat="row in alphabet">
-    				{{row}}
-    				<td ng-repeat="letter in row" ng-class="{'selected' : letter === current[0]}">
-    					{{letter}}
-    				</td>
-    			</tr>
-    		</table>
-    	</div>
-    	<div class="col-md-3">
-    		<div class='camera-window'>
-    			<video id="webcam" class="video-center" autoplay width="400px" height="300px"></video>
-    			<canvas id="canvas" class="canvas-center" width="400px" height="300px"></canvas>
-    		</div>
-    	</div>
-    </div>
-
-
-    
-
-    <button class="btn btn-primary" ng-click="zero()">ZERO</button>
+<bl-letter-scroll></bl-letter-scroll>    

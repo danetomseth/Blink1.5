@@ -1,7 +1,7 @@
-core.directive('letterScroll', function(ScrollFactory) {
+core.directive('blLetterScroll', function(ScrollFactory) {
     return {
         restrict: 'E',
-        templateUrl: 'templates/scroll-letters.html',
+        templateUrl: 'templates/scroll-letter.html',
         controller: 'ScrollCtrl',
         scope: '=',
         link: function(scope, elem, attr) {
@@ -16,14 +16,25 @@ core.directive('letterScroll', function(ScrollFactory) {
             scope.sentence = ''
             scope.selectedText = "";
 
-            scope.selectArray = [
-                ['A', 'B', 'C', 'D', 'E'],
-                ['F', 'G', 'H', 'I', 'J'],
-                ['K', 'L', 'M', 'N', 'O'],
-                ['P', 'Q', 'R', 'S', 'T'],
-                ['U', 'V', 'W', 'X', 'Y'],
-                ['Z', 'Back', '+ Word', '?', '?']
-            ]
+            scope.alphabet = [
+                ["A", "B", "C", "D", "E", "Yes"],
+                ["F", "G", "H", "I", "J", "No"],
+                ["K", "L", "M", "N", "O", "*"],
+                ["P", "Q", "R", "S", "T", "/"],
+                ["U", "V", "W", "X", "Y", "Z"],
+                ["0", "1", "2", "3", "4", "+"],
+                ["5", "6", "7", "8", "9", "-"]
+            ];
+            //let coords = [0, 0]; //Current spot in alphabet array
+
+            // scope.selectArray = [
+            //     ['A', 'B', 'C', 'D', 'E'],
+            //     ['F', 'G', 'H', 'I', 'J'],
+            //     ['K', 'L', 'M', 'N', 'O'],
+            //     ['P', 'Q', 'R', 'S', 'T'],
+            //     ['U', 'V', 'W', 'X', 'Y'],
+            //     ['Z', 'Back', '+ Word', '?', '?']
+            // ]
             scope.styleArray = [
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
@@ -64,14 +75,11 @@ core.directive('letterScroll', function(ScrollFactory) {
             var context = canvas.getContext("2d");
 
 
-            function drawLoop() {
-                requestAnimationFrame(drawLoop);
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                ctracker.draw(canvas);
-            }
+            
 
             //all interval based logic
             var intervalRead;
+
             function takeReading() {
                 intervalRead = setInterval(readPositions, 50)
             }
@@ -91,6 +99,7 @@ core.directive('letterScroll', function(ScrollFactory) {
 
 
             var cursorInterval;
+
             function moveCursor() {
                 cursorInterval = setInterval(selectRow, 500)
             }
@@ -228,22 +237,26 @@ core.directive('letterScroll', function(ScrollFactory) {
                     browDebounce = false
                     resetBrow();
                 }
+            }
+
+            function drawLoop() {
+                requestAnimationFrame(drawLoop);
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                ctracker.draw(canvas);
+            }
 
             //initial canvas drawing
             function positionLoop() {
                 requestAnimationFrame(positionLoop);
-                var positions = ctracker.getCurrentPosition();
             }
 
-            calibrate();
             if (navigator.getUserMedia) {
                 navigator.getUserMedia({
                     video: true
                 }, function(stream) {
-                    initialize();
                     video.src = window.URL.createObjectURL(stream);
                     console.log('video load');
-                    positionLoop();
+                    //positionLoop();
                     drawLoop();
                 }, errorCallback);
             } else {
@@ -252,5 +265,6 @@ core.directive('letterScroll', function(ScrollFactory) {
             }
 
         }
+
     }
 });
