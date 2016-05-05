@@ -1,3 +1,5 @@
+// Basic iteration and letter select/get
+
 core.factory("KeyboardFactory", function() {
     const alphabet = [
         ["A", "B", "C", "D", "E", "Yes"],
@@ -12,19 +14,19 @@ core.factory("KeyboardFactory", function() {
     //let word = [];
     let word = "";
     return {
-        // Returns current letter
         iterator: () => {
+            // Moves to next letter
             if(!coords) {
                 coords = [0,0];
             }
-            else if (coords[1] < 5) { 
-                coords[1]++ 
-            } 
+            else if (coords[1] < 5) {
+                coords[1]++;
+            }
             else if (coords[0] === 6) { coords = [0, 0] } else {
                 coords[0]++;
                 coords[1] = 0;
             }
-            //Cache new current letter
+            // Returns current letter
             return alphabet[coords[0]][coords[1]];
         },
         selectLetter: () => {
