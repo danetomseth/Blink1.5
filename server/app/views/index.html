@@ -22,11 +22,11 @@
 </head>
 <body ng-app="BlinkApp" layout="column">
     <div id="bodyContainer" class="md-primary">
-        <div layout="row">
-            <div flex="20">
+        <div layout="row" id="page-content">
+            <div flex="15">
             <bl-sidebar id="sidebar"></bl-sidebar>
             </div>
-            <div flex="80">
+            <div flex="85">
                 <div flex id="content" ui-view></div>
             </div>
         </div>

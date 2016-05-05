@@ -1,38 +1,13 @@
-<!-- <div class="container">
-<div class="row row-centered" id="grid-row">
-    <div class="col-xs-4 grid-item" ng-class="{'active-box': box[0]}">X</div>
-    <div class="col-xs-4 grid-item" ng-class="{'active-box': box[1]}">X</div>
-    <div class="col-xs-4 grid-item" ng-class="{'active-box': box[2]}">X</div>
-</div>
-<div class="row row-centered" id="grid-row">
-    <div class="col-xs-4 grid-item" ng-class="{'active-box': box[3]}">{{xDiff}}</div>
-    <div class="col-xs-4 grid-item" id="grid-center" ng-class="{'active-box': box[4]}"><button class="btn btn-primary" ng-click="zero()">Zero</button></div>
-    <div class="col-xs-4 grid-item" ng-class="{'active-box': box[5]}">{{yDiff}}</div>
-</div>
-<div class="row row-centered" id="grid-row">
-    <div class="col-xs-4 grid-item" ng-class="{'active-box': box[6]}">X</div>
-    <div class="col-xs-4 grid-item" ng-class="{'active-box': box[7]}">X</div>
-    <div class="col-xs-4 grid-item" ng-class="{'active-box': box[8]}">X</div>
-</div>
-</div> -->
-
-
-
-<!-- <div class='grid-video-wrapper'>
-  <video id="webcam" class="video-center" width="800px" height="600px" autoplay></video>
-  <canvas id="canvas" class="canvas-center" width="800px" height="600px"></canvas>
-</div> -->
-
 <md-content layout-padding>
-            <md-grid-list md-cols-gt-md="12" md-cols-sm="3" md-cols-md="3" md-row-height-gt-md="1:1" md-row-height="4:3"
-               md-gutter-gt-md="16px" md-gutter-gt-sm="8px" md-gutter="4px">
-               <md-grid-tile
-                  ng-repeat="tile in tiles"
-                  ng-style="{
-                     'background': tile.color
-                  }"
-                 
-                >
-               </md-grid-tile>
-            </md-grid-list>
+<md-grid-list md-cols-gt-md="3" md-cols-sm="3" md-cols-md="3" md-row-height-gt-md="1:1" md-row-height="3:3"
+md-gutter-gt-md="16px" md-gutter-gt-sm="8px" md-gutter="4px">
+<md-grid-tile
+ng-repeat="tile in tiles"
+ng-style="{
+'background': tile.color
+}"
+
+>
+</md-grid-tile>
+</md-grid-list>
 </md-content>

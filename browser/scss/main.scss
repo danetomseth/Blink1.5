@@ -33,6 +33,7 @@ $accentB: #B6B6B6;
 
 #bodyContainer {
 	background-color: $background;
+	border: 5px solid $accentB;
 	padding: 20px 5px;
 	height: 100%;
 }
