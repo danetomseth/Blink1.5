@@ -7,24 +7,21 @@ core.directive('blLetterScroll', function(ScrollFactory, KeyboardFactory, Positi
         link: function(scope, elem, attr) {
 
             scope.current = "A";
-
             scope.alphabet = KeyboardFactory.alphabet;
+            let browDebounce = true;
 
-            var browDebounce = true;
-
+            // Webcam
             navigator.getUserMedia = navigator.getUserMedia ||
                 navigator.webkitGetUserMedia ||
                 navigator.mozGetUserMedia ||
                 navigator.msGetUserMedia;
-            var errorCallback = function(e) {
-                console.log('Reeeejected!', e);
-            };
+
             var video = document.getElementById('webcam');
 
             //start tracker
-            var ctracker = new clm.tracker();
-            ctracker.init(pModel);
-            ctracker.start(video);
+            scope.ctracker = new clm.tracker();
+            scope.ctracker.init(pModel);
+            scope.ctracker.start(video);
             var canvas = document.getElementById("canvas");
             var context = canvas.getContext("2d");
 
@@ -56,14 +53,14 @@ core.directive('blLetterScroll', function(ScrollFactory, KeyboardFactory, Positi
             }
 
             scope.browZero = function() {
-                var positions = ctracker.getCurrentPosition();
+                var positions = scope.ctracker.getCurrentPosition();
                 PositionFactory.setBrowZero(positions);
                 takeReading();
             }
 
             function readPositions() {
                 //get position coords
-                var positions = ctracker.getCurrentPosition();
+                var positions = scope.ctracker.getCurrentPosition();
                 if (positions) {
                     if(PositionFactory.browCompare(positions) && browDebounce) {
                         console.log('Trigger!');
@@ -76,14 +73,20 @@ core.directive('blLetterScroll', function(ScrollFactory, KeyboardFactory, Positi
             function drawLoop() {
                 requestAnimationFrame(drawLoop);
                 context.clearRect(0, 0, canvas.width, canvas.height);
-                ctracker.draw(canvas);
+                scope.ctracker.draw(canvas);
             }
 
+            var errorCallback = function(e) {
+                console.log('Error connecting to source!', e);
+            };
+
+            // Processing video stream from webcam
             if (navigator.getUserMedia) {
                 navigator.getUserMedia({
                     video: true
                 }, function(stream) {
-                    video.src = window.URL.createObjectURL(stream);
+                    scope.videoStream = stream;
+                    video.src = window.URL.createObjectURL(scope.videoStream);
                     moveCursor();
                     drawLoop();
                 }, errorCallback);
