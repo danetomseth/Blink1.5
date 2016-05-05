@@ -18,6 +18,9 @@ var schema = new mongoose.Schema({
     salt: {
         type: String
     },
+    profilePicture: {
+        type: String
+    },
     photos: {
         type: [String]
     },
@@ -28,7 +31,13 @@ var schema = new mongoose.Schema({
     caregiver: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin', 'caregiver'],
+        default: 'user'
     }
+
     // twitter: {
     //     id: String,
     //     username: String,
