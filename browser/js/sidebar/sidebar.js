@@ -12,6 +12,21 @@ core.directive('blSidebar', function() {
                 { label: 'Settings', state: 'settings' },
                 { label: 'About', state: 'about' }
             ];
+            //
+            scope.sidebar;
+
+
+            //hide sidebar based on view
+
+            // scope.hideSide = (state) => {
+            // 	scope.sidebar = true;
+            // 	if(state !== 'home') {
+            // 		scope.sidebar = true;
+            // 		console.log('hiding');
+
+            // 	}
+            // 	else scope.sidebar = false;;
+            // }
 		}
 	}
 });

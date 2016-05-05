@@ -55,5 +55,9 @@ core.factory("KeyboardFactory", function($rootScope) {
         run: () => {
             return run
         },
+        endTracking: () => {
+            run = false;
+            clearInterval(cycle);
+        }
     }
 });
