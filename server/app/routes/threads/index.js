@@ -18,7 +18,7 @@ router.post('/', ensure.authenticated, (req, res) => { // create new
 });
 
 // ensure participant or admin
-router.get('/:id', ensure.authenticated, (req, res) => { // get one
+router.get('/:id', ensure.authenticated, (req, res, next) => { // get one
     Thread.findById(req.params.id)
     .then(thread => {
         if (ensure.participant(thread.participants)){ // may need to pass user ID as well. check for errors
@@ -30,11 +30,11 @@ router.get('/:id', ensure.authenticated, (req, res) => { // get one
 });
 
 // ensure participant or admin
-router.put('/:id', ensure.authenticated, (req, res) => { // edit one
+router.put('/:id', ensure.authenticated, (req, res, next) => { // edit one
+    delete req.body.messages // don't let anyone change the messages, but let them add or remove participants or update the subject
     Thread.findById(req.params.id)
     .then(thread => {
         if (ensure.participant(thread.participants)){ // may need to pass user ID as well. check for errors
-            delete req.body.messages // don't let anyone change the messages, but let them add or remove participants or update the subject
             for (let key in req.body){ // doesn't require sending the whole object back and forth
                 thread[key] = req.body[key]
             }

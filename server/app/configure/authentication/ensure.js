@@ -1,6 +1,6 @@
 
 // check if the user is logged in
-const authenticated = function (req, res, next) {
+const authenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     } else {
@@ -11,7 +11,7 @@ const authenticated = function (req, res, next) {
 
 // check if it's the user or admin making a request
 const selfOrAdmin = (req, res, next) => {
-    if (req.isAuthenticated() && (req.user._id === req.params.id || req.user.role === 'admin')) {
+    if (req.user._id === req.params.id || req.user.role === 'admin') {
         next();
     } else {
         res.status(401).end();
@@ -19,7 +19,7 @@ const selfOrAdmin = (req, res, next) => {
 };
 
 const participant = (participants) => {
-    if (req.isAuthenticated() && (participants.indexOf(req.user._id) || req.user.role === 'admin')){
+    if (participants.indexOf(req.user._id) || req.user.role === 'admin'){
         return true;
     } else {
         return false;
