@@ -3,7 +3,7 @@
       <table border="2">
          <tr ng-repeat="row in alphabet">
             {{row}}
-            <td ng-repeat="letter in row" ng-class="{'selected' : letter === current[0]}">
+            <td ng-repeat="letter in row" ng-class="{'selected' : letter === current}">
                {{letter}}
            </td>
        </tr>
@@ -18,4 +18,4 @@
     </div>
 </div>
 
-<button class="btn btn-primary" ng-click="zero()">ZERO</button>
+<button class="btn btn-primary" ng-click="browZero()">ZERO</button>

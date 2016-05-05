@@ -1,4 +1,4 @@
-core.factory("ScrollFactory", function($rootScope) {
+core.factory("ScrollFactory", function() {
 	return {
 		selectLetter: () => {
 			console.log("hello!");
