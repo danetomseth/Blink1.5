@@ -41,7 +41,6 @@ var schema = new mongoose.Schema({
         enum: ['user', 'admin', 'caregiver'],
         default: 'user'
     }
-
     // twitter: {
     //     id: String,
     //     username: String,
@@ -75,14 +74,11 @@ var encryptPassword = function (plainText, salt) {
 };
 
 schema.pre('save', function (next) {
-
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
-
     next();
-
 });
 
 schema.statics.generateSalt = generateSalt;

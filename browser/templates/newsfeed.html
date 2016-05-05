@@ -1,0 +1,14 @@
+<div ng-cloak>
+  <md-content>
+    <md-list>
+      <md-subheader class="md-no-sticky">Social Feed</md-subheader>
+      <md-list-item class="md-3-line md-long-text" ng-repeat="post in posts">
+        <img ng-src="{{post.author.img}}?{{$index}}" class="md-avatar" alt="{{post.author}}" />
+        <div class="md-list-item-text">
+          <h3>{{ post.author.firstName }}</h3>
+          <p>{{post.text}}</p>
+        </div>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</div>
