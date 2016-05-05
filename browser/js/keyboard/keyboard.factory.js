@@ -53,7 +53,11 @@ core.factory("KeyboardFactory", function($rootScope) {
             return word;
         },
         run: () => {
-            return run
+            return run;
         },
+        endTracking: () => {
+            run = false;
+            clearInterval(cycle);
+        }
     }
 });

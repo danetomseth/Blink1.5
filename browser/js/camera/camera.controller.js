@@ -1,7 +1,10 @@
-core.controller("CameraCtrl", function($scope, ClmFactory) {
+core.controller("CameraCtrl", function($scope, $state, ClmFactory) {
     //initiates webcam
 
     //const context = canvas.getContext("2d");
+    
+   
+
 
     navigator.getUserMedia = navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
