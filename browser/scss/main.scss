@@ -1,15 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
-#bodyContainer {
-	background-color: #607D8B;
-}
-
-// body {
-//   background: #fdfdfd;
-// }
-
 @mixin clearfix {
   &:after {
     content: "";
@@ -18,12 +6,16 @@
   }
 }
 
-#main {
-  padding-top: 60px;
-  margin: 0 auto;
-}
+$primary: #607D8B;
+$dark: #455A64;
+$light: #CFD8DC;
+$secondaryText: #727272;
+$background: #CFD8DC;
+$accentA: #03A9F4;
+$accentB: #B6B6B6;
 
 @import 'directives/main';
+@import 'material/main';
 @import 'home/main';
 @import 'about/main';
 @import 'tutorial/main';
@@ -33,4 +25,34 @@
 @import 'custom/layout';
 @import 'custom/sidebar';
 @import 'custom/corners';
+
+
+* {
+  box-sizing: border-box;
+}
+
+#bodyContainer {
+	background-color: $background;
+	padding: 20px 5px;
+	height: 100%;
+}
+
+body {
+	background-color: $dark;
+	padding: 10px;
+	height: 100%;
+}
+
+// body {
+//   background: #fdfdfd;
+// }
+
+
+
+#main {
+  padding-top: 60px;
+  margin: 0 auto;
+}
+
+
 
