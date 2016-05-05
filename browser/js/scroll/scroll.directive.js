@@ -9,11 +9,9 @@ core.directive('blLetterScroll', function(ScrollFactory) {
             scope.ready = false;
             scope.imageStable = false;
 
-
-
             scope.rowSelect = true;
             scope.letterSelect = false;
-            scope.sentence = ''
+            scope.sentence = '';
             scope.selectedText = "";
 
             scope.alphabet = [
@@ -55,7 +53,6 @@ core.directive('blLetterScroll', function(ScrollFactory) {
             var browZeroArray = [];
             var browDebounce = true;
 
-
             var browArray = [20, 21, 17, 16];
 
             navigator.getUserMedia = navigator.getUserMedia ||
@@ -74,16 +71,12 @@ core.directive('blLetterScroll', function(ScrollFactory) {
             var canvas = document.getElementById("canvas");
             var context = canvas.getContext("2d");
 
-
-            
-
             //all interval based logic
             var intervalRead;
 
             function takeReading() {
                 intervalRead = setInterval(readPositions, 50)
             }
-
 
             //ready to start selecting letters
             scope.startLetters = function() {
@@ -96,7 +89,6 @@ core.directive('blLetterScroll', function(ScrollFactory) {
                 scope.rowArray = [1, 0, 0, 0, 0, 0];
                 scope.rowIndex = 0;
             }
-
 
             var cursorInterval;
 
@@ -116,7 +108,6 @@ core.directive('blLetterScroll', function(ScrollFactory) {
                     scope.rowArray[scope.rowIndex] = 1;
                 }
             }
-
 
             //moves cursor across letters
             function selectLetter() {
