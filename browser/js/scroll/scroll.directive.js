@@ -7,10 +7,11 @@ core.directive('blLetterScroll', function(ScrollFactory, KeyboardFactory, Positi
         link: function(scope, elem, attr) {
 
             scope.current = "A";
+            //scope.wordInput = "Hellooo";
 
             scope.alphabet = KeyboardFactory.alphabet;
 
-            var browDebounce = true;
+            scope.browDebounce = true;
 
             navigator.getUserMedia = navigator.getUserMedia ||
                 navigator.webkitGetUserMedia ||
@@ -40,18 +41,19 @@ core.directive('blLetterScroll', function(ScrollFactory, KeyboardFactory, Positi
             }
 
             function keyboardIterator() {
-                if(browDebounce) {
+                if(scope.browDebounce) {
                     scope.current = KeyboardFactory.iterator();
                 }
                 scope.$digest();
             }
 
             function resetBrow() {
-                KeyboardFactory.selectLetter();
+                scope.wordInput = KeyboardFactory.selectLetter();
+                console.log('word', scope.wordInput)
                 setTimeout(function() {
                     KeyboardFactory.resetPosition();
                     scope.$digest();
-                    browDebounce = true;
+                    scope.browDebounce = true;
                 }, 750)
             }
 
@@ -64,10 +66,10 @@ core.directive('blLetterScroll', function(ScrollFactory, KeyboardFactory, Positi
             function readPositions() {
                 //get position coords
                 var positions = ctracker.getCurrentPosition();
-                if (positions) {
-                    if(PositionFactory.browCompare(positions) && browDebounce) {
+                if (positions && scope.browDebounce) {
+                    if(PositionFactory.browCompare(positions)) {
                         console.log('Trigger!');
-                        browDebounce = false;
+                        scope.browDebounce = false;
                         resetBrow();
                     }
                 }

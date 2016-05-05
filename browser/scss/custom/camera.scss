@@ -12,6 +12,9 @@
 .video-center{
     position: absolute;
     display: block;
+	border: 2px solid $light;
+	box-shadow: 2px 2px 3px 2px $accentD;
+
 }
 
 .canvas-center{
