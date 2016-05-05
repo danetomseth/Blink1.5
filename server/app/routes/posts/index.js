@@ -8,6 +8,7 @@ const ensure = require('../../configure/authentication/ensure');
 // no auth
 router.get('/', (req, res) => {  // get all
     Post.find({})
+    .populate('author likes inReplyTo')
     .then(posts => res.send(posts))
 });
 
@@ -16,6 +17,7 @@ router.post('/', ensure.authenticated, (req, res) => { // create new
     if(!req.body.author) {return res.status(401).end()} // make sure theres an author for this post
     req.body.author = req.user._id // force the author to be the requester, ensures nobody spoofs someone else. Could also make sure author === requester, but I prefer this method
     Post.create(req.body)
+    .populate('author likes inReplyTo')
     .then(newPost => res.send(newPost))
 });
 
