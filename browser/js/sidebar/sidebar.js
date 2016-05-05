@@ -1,6 +1,7 @@
 core.directive('blSidebar', function() {
 	return {
 		restrict: 'E',
+        controller: 'SidebarCtrl',
 		scope: {},
 		templateUrl: '/templates/sidebar.html',
 		link: function(scope) {
