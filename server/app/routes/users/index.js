@@ -3,10 +3,10 @@ const router = require('express').Router();
 module.exports = router;
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
-const ensure = require('../../configure/authentication/utils');
+const ensure = require('../../configure/authentication/ensure');
 
 // must be logged in
-router.get('/', ensure.authentication, (req, res) => {  // get all
+router.get('/', ensure.authenticated, (req, res) => {  // get all
     User.find({})
     .then(users => res.send(users))
 });
@@ -18,7 +18,7 @@ router.post('/', (req, res) => { // create new
 });
 
 // must be logged in
-router.get('/:id', ensure.authentication, (req, res) => { // get one
+router.get('/:id', ensure.authenticated, (req, res) => { // get one
     User.findById(req.params.id)
     .then(user => res.send(user))
 });

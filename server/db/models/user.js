@@ -14,7 +14,8 @@ var schema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String
@@ -23,7 +24,8 @@ var schema = new mongoose.Schema({
         type: String
     },
     profilePicture: {
-        type: String
+        type: String,
+        default: "https://d30y9cdsu7xlg0.cloudfront.net/noun-svg/169696.svg?Expires=1462482913&Signature=jWIBsZNWRrjf32rsrhtmR~z0Rb2AlmyCFCGE0nQNeh4fd6gUy8xqnc2-6JJR5WaNObrcBNsMmwjGsrhmFP~h5i0g7yoTHWS7gEZtPfxhL42-aIECCcIgpfyELyNZaSCm8YnMrkqJYLC8I-xGHjz72zUtcM4wZV7IZWVF2cE1wSw_&Key-Pair-Id=APKAI5ZVHAXN65CHVU2Q"
     },
     photos: {
         type: [String]
@@ -54,6 +56,10 @@ var schema = new mongoose.Schema({
     //     id: String
     // }
 });
+
+schema.virtual('username').get(function(){
+    return this.firstName + " " + this.lastName[0] + "."
+})
 
 // method to remove sensitive information from user objects before sending them out
 schema.methods.sanitize = function () {
