@@ -1,6 +1,17 @@
-<div class="row">
-   <div class="col-md-10">
-      <table border="2">
+
+<!-- <button class="btn btn-primary" ng-click="browZero()">ZERO</button> -->
+<md-button ng-click="browZero()" class="md-raised md-accent">
+  ZERO
+</md-button>
+<div layout="column" layout-margin>
+  <div flex>
+    <div class="webcam-container">
+    <video id="webcam" class="video-center box-center" autoplay width="300px" height="225px"></video>
+    <canvas id="canvas" class="canvas-center box-center" width="300px" height="225px"></canvas>
+    </div>
+  </div>
+  <div flex>
+    <table border="2">
          <tr ng-repeat="row in alphabet">
             {{row}}
             <td ng-repeat="letter in row" ng-class="{'selected' : letter === current}">
@@ -8,14 +19,6 @@
            </td>
        </tr>
    </table>
+  </div>
 </div>
 
-</div>
-<div class="col-md-3">
-    <div class='camera-window'>
-        <video id="webcam" class="video-center" autoplay width="400px" height="300px"></video>
-        <canvas id="canvas" class="canvas-center" width="400px" height="300px"></canvas>
-    </div>
-</div>
-
-<button class="btn btn-primary" ng-click="browZero()">ZERO</button>

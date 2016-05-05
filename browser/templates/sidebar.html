@@ -1,7 +1,7 @@
-<span  ng-hide="sidebar">
+<span ng-hide="sidebar" class="clearfix">
 <md-sidenav md-is-locked-open="true" class="md-primary md-sidenav-left full-height full-width" >
 <section layout="row" layout-sm="column" layout-align="center center" layout-wrap >
-	<img class="sidebar-logo" src="assets/blink-logo.png"></img>
+	<!-- <img class="sidebar-logo" src="assets/blink-logo.png"></img> -->
 	<md-button ng-repeat="item in items" ng-click="hideSide(item.state)"  ui-sref="{{ item.state }}" class="md-raised md-primary sidebar-btn">{{item.label}}</md-button>
 </section>
 </md-sidenav>

@@ -6,10 +6,9 @@ window.app = angular.module('BlinkApp', ['blinkAuth', 'core']);
 
 core.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
-    .primaryPalette('blue-grey')
-    .accentPalette('light-blue')
-    .warnPalette('amber')
-    .backgroundPalette('blue-grey');
+    .primaryPalette('deep-purple')
+    .accentPalette('green')
+    .warnPalette('amber');
 });
 
 app.config(function ($urlRouterProvider, $locationProvider) {
