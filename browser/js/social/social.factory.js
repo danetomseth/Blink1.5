@@ -1,5 +1,8 @@
 core.factory("SocialFactory", function($http) {
-    let SocialFactory = {};
-
-    // SocialFactory.allPosts =
-})
+    return {
+        getAllPosts: () => {
+            return $http.get('/api/posts')
+                .then((posts) => posts.data);
+        }
+    }
+});
