@@ -8,8 +8,12 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
             let ctracker;
 
             scope.current = "A";
+
             scope.alphabet = KeyboardFactory.alphabet;
+            
+            // Keep either or
             let browDebounce = true;
+            scope.browDebounce = true;
 
             // Webcam
             navigator.getUserMedia = navigator.getUserMedia ||
@@ -47,11 +51,12 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
             }
 
             function resetBrow() {
-                KeyboardFactory.selectLetter();
+                scope.wordInput = KeyboardFactory.selectLetter();
+                console.log('word', scope.wordInput)
                 setTimeout(function() {
                     KeyboardFactory.resetPosition();
                     scope.$digest();
-                    browDebounce = true;
+                    scope.browDebounce = true;
                 }, 750)
             }
 
@@ -65,9 +70,9 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 //get position coords
                 var positions = ctracker.getCurrentPosition();
                 if (positions) {
-                    if (PositionFactory.browCompare(positions) && browDebounce) {
+                    if (PositionFactory.browCompare(positions) && scope.browDebounce) {
                         console.log('Trigger!');
-                        browDebounce = false;
+                        scope.browDebounce = false;
                         resetBrow();
                     }
                 }

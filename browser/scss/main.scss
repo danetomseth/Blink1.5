@@ -33,7 +33,6 @@ $accentD: #1B5E20;
 
 #bodyContainer {
 	background-color: $background;
-	//border: 5px solid $light;
   box-shadow: 3px 3px 4px 2px $dark;
 	padding: 20px 5px;
 }
@@ -41,10 +40,6 @@ $accentD: #1B5E20;
 body {
 	background-color: $accentL;
 	padding: 10px;
-	//height: 100%;
- 
-  // overflow: scroll;
-  //clear: both;
 }
 
 

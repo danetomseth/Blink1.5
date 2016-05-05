@@ -11,7 +11,8 @@ core.factory("KeyboardFactory", function() {
         ["5", "6", "7", "8", "9", "-"]
     ];
     let coords = [0, 0]; //Current spot in alphabet array
-    let word = [];
+    //let word = [];
+    let word = "";
     return {
         iterator: () => {
             // Moves to next letter
@@ -29,7 +30,8 @@ core.factory("KeyboardFactory", function() {
             return alphabet[coords[0]][coords[1]];
         },
         selectLetter: () => {
-            word.push(alphabet[coords[0]][coords[1]])
+            //word.push(alphabet[coords[0]][coords[1]])
+            word += alphabet[coords[0]][coords[1]]
             return word;
         },
         resetPosition: () => {
