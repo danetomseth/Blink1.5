@@ -6,7 +6,7 @@ core.config(function ($stateProvider) {
     });
 });
 
-core.controller('ScrollCtrl', function($state, $scope, KeyboardFactory, ClmFactory) {
+core.controller('ScrollCtrl', function($state, $scope) {
 	var currentState = $state.is('scroll');
 	if(!currentState) {
         console.log('no tracking!!!');
