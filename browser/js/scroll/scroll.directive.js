@@ -10,8 +10,9 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
             scope.current = "A";
 
             scope.alphabet = KeyboardFactory.alphabet;
+            
+            // Keep either or
             let browDebounce = true;
-
             scope.browDebounce = true;
 
             // Webcam
@@ -69,7 +70,7 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 //get position coords
                 var positions = ctracker.getCurrentPosition();
                 if (positions) {
-                    if (PositionFactory.browCompare(positions) && browDebounce) {
+                    if (PositionFactory.browCompare(positions) && scope.browDebounce) {
                         console.log('Trigger!');
                         scope.browDebounce = false;
                         resetBrow();
