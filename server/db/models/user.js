@@ -21,8 +21,13 @@ var schema = new mongoose.Schema({
     photos: {
         type: [String]
     },
-    friends: {
-        type:
+    friends: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    caregiver: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
     // twitter: {
     //     id: String,
