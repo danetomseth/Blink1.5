@@ -1,10 +1,11 @@
-core.directive('blLetterScroll', function(ScrollFactory, KeyboardFactory, PositionFactory) {
+core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionFactory) {
     return {
         restrict: 'E',
         templateUrl: 'templates/scroll-letter.html',
-        controller: 'ScrollCtrl',
         scope: '=',
         link: function(scope, elem, attr) {
+            let videoStream;
+            let ctracker;
 
             scope.current = "A";
             scope.alphabet = KeyboardFactory.alphabet;
@@ -19,25 +20,27 @@ core.directive('blLetterScroll', function(ScrollFactory, KeyboardFactory, Positi
             var video = document.getElementById('webcam');
 
             //start tracker
-            scope.ctracker = new clm.tracker();
-            scope.ctracker.init(pModel);
-            scope.ctracker.start(video);
+            ctracker = new clm.tracker();
+            ctracker.init(pModel);
+            ctracker.start(video);
             var canvas = document.getElementById("canvas");
             var context = canvas.getContext("2d");
 
             //all interval based logic
             var intervalRead;
+
             function takeReading() {
                 intervalRead = setInterval(readPositions, 50);
             }
 
             var cursorInterval;
+
             function moveCursor() {
                 cursorInterval = setInterval(keyboardIterator, 750);
             }
 
             function keyboardIterator() {
-                if(browDebounce) {
+                if (browDebounce) {
                     scope.current = KeyboardFactory.iterator();
                 }
                 scope.$digest();
@@ -53,16 +56,16 @@ core.directive('blLetterScroll', function(ScrollFactory, KeyboardFactory, Positi
             }
 
             scope.browZero = function() {
-                var positions = scope.ctracker.getCurrentPosition();
+                var positions = ctracker.getCurrentPosition();
                 PositionFactory.setBrowZero(positions);
                 takeReading();
             }
 
             function readPositions() {
                 //get position coords
-                var positions = scope.ctracker.getCurrentPosition();
+                var positions = ctracker.getCurrentPosition();
                 if (positions) {
-                    if(PositionFactory.browCompare(positions) && browDebounce) {
+                    if (PositionFactory.browCompare(positions) && browDebounce) {
                         console.log('Trigger!');
                         browDebounce = false;
                         resetBrow();
@@ -73,7 +76,7 @@ core.directive('blLetterScroll', function(ScrollFactory, KeyboardFactory, Positi
             function drawLoop() {
                 requestAnimationFrame(drawLoop);
                 context.clearRect(0, 0, canvas.width, canvas.height);
-                scope.ctracker.draw(canvas);
+                ctracker.draw(canvas);
             }
 
             var errorCallback = function(e) {
@@ -85,8 +88,8 @@ core.directive('blLetterScroll', function(ScrollFactory, KeyboardFactory, Positi
                 navigator.getUserMedia({
                     video: true
                 }, function(stream) {
-                    scope.videoStream = stream;
-                    video.src = window.URL.createObjectURL(scope.videoStream);
+                    videoStream = stream;
+                    video.src = window.URL.createObjectURL(videoStream);
                     moveCursor();
                     drawLoop();
                 }, errorCallback);
@@ -95,6 +98,11 @@ core.directive('blLetterScroll', function(ScrollFactory, KeyboardFactory, Positi
                 alert('Cannot connect');
             }
 
+            // Disables video stream and clmTracker when leaving the state
+            $rootScope.$on('$stateChangeStart', function() {
+                videoStream.getVideoTracks()[0].stop();
+                ctracker.stop();
+            });
         }
 
     }
