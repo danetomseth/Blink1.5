@@ -27,7 +27,7 @@ const participant = (participants) => {
 };
 
 module.exports = {
-    authenticated: () => true,
-    selfOrAdmin: () => true,
-    participant: () => true
+    authenticated: (req, res, next) => next(),
+    selfOrAdmin: (req, res, next) => next(),
+    participant: (req, res, next) => next()
 };
