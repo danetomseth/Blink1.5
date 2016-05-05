@@ -19,22 +19,28 @@
 
 
 #sidebar-wrapper {
-	height: 100%;
+	//height: 100%;
 }
 
 #sidebar {
+	clear: both;
 }
 
 
-#body-container {
+#bodyContainer {
 	height: 100%;
 }
 
 
 .full-height {
-	height: 100%;
+	//height: 100%;
 }
 
 .full-width {
 	width: 100% !important;
+}
+
+.box-center {
+	margin: 0 auto;
+	//display: inline-block;
 }

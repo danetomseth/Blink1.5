@@ -6,15 +6,15 @@
   }
 }
 
-$primary: #607D8B;
-$dark: #455A64;
-$light: #CFD8DC;
-$secondaryText: #727272;
-$background: #CFD8DC;
-$accentA: #03A9F4;
-$accentB: #B6B6B6;
+$primary: #673AB7;
+$dark: #311B92;
+$light: #B39DDB;
+$secondaryText: #FAFAFA;
+$background: white;
+$accentP: #4CAF50;
+$accentL: #A5D6A7;
+$accentD: #1B5E20;
 
-@import 'directives/main';
 @import 'material/main';
 @import 'home/main';
 @import 'about/main';
@@ -33,25 +33,15 @@ $accentB: #B6B6B6;
 
 #bodyContainer {
 	background-color: $background;
-	border: 5px solid $accentB;
+  box-shadow: 3px 3px 4px 2px $dark;
 	padding: 20px 5px;
-	height: 100%;
 }
 
 body {
-	background-color: $dark;
+	background-color: $accentL;
 	padding: 10px;
-	//height: 100%;
-  position:fixed;
-  top:0px;
-  bottom:0px;
-  left:0px;
-  right:0px;
 }
 
-// body {
-//   background: #fdfdfd;
-// }
 
 
 
