@@ -18,3 +18,27 @@
 #corner-canvas {
     position: relative;
 }
+
+#webcam-background {
+    position: absolute;
+    z-index: 5;
+    top: 225px;
+    left: 535px;
+    opacity: 0.7;
+}
+
+#webcam-bg {
+    z-index: 5;
+}
+
+#canvas-bg {
+    z-index: 5;
+}
+
+#webcam-overlay {
+    z-index: 10;
+    div {
+        z-index: 10;
+        // opacity: 0.8;
+    }
+}

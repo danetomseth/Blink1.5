@@ -27,13 +27,7 @@
             <div ng-if="!$root.showNav" flex="15">
                 <bl-sidebar id="sidebar"></bl-sidebar>
             </div>
-           <!--  <div flex="85" ng-hide="$root.showNav">
-                <div flex id="content" ui-view></div>
-            </div> -->
-            <div flex="85" ng-if="!$root.showNav">
-                <div flex id="content" ui-view></div>
-            </div>
-            <div flex="100" ng-if="$root.showNav">
+            <div flex="85">
                 <div flex id="content" ui-view></div>
             </div>
         </div>

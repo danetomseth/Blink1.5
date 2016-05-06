@@ -1,0 +1,27 @@
+<div class="corner-container">
+<div id="webcam-background">
+		<video id="webcam-bg" class="video-center contrast" autoplay width="500px" height="375px"></video>
+		<canvas id="canvas-bg" class="canvas-center" width="500px" height="375px"></canvas>
+</div>
+
+<div class="container" id="webcam-overlay">
+<div class="row row-centered" id="grid-row">
+    <div class="col-xs-4 grid-item colored" ng-class="{'active-box': box[0]}">X</div>
+    <div class="col-xs-4 grid-item" ng-class="{'active-box': box[1]}"></div>
+    <div class="col-xs-4 grid-item colored" ng-class="{'active-box': box[2]}">X</div>
+</div>
+<div class="row row-centered" id="grid-row">
+    <div class="col-xs-4 grid-item" ng-class="{'active-box': box[3]}">{{xDiff}}</div>
+    <div class="col-xs-4 grid-item" id="grid-center" ng-class="{'active-box': box[4]}"><button class="btn btn-primary" ng-click="zeroEyes()">Zero</button></div>
+    <div class="col-xs-4 grid-item" ng-class="{'active-box': box[5]}">{{yDiff}}</div>
+</div>
+<div class="row row-centered contrast" id="grid-row">
+    <div class="col-xs-4 grid-item colored" ng-class="{'active-box': box[6]}">X</div>
+    <div class="col-xs-4 grid-item" ng-class="{'active-box': box[7]}"></div>
+    <div class="col-xs-4 grid-item colored" ng-class="{'active-box': box[8]}">X</div>
+</div>
+</div>
+
+
+</div>
+

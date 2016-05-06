@@ -19,7 +19,6 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
             ctracker = new clm.tracker();
             ctracker.init(pModel);
             ctracker.start(video);
-            //[x, y, width, height]
             var canvas = document.getElementById("corner-canvas");
             var context = canvas.getContext("2d");
 
@@ -49,7 +48,6 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
                 var converge = ctracker.getConvergence();
                 if (converge < 300) {
                     count++;
-                    console.log('stable');
                     if (count > 20) {
                         clearInterval(calibrateInterval);
                         scope.browZero();
@@ -62,7 +60,6 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
             function resetBrow() {
                 clearInterval(cursorInterval);
                 clearInterval(intervalRead);
-                clearInterval(drawInterval);
                 console.log(videoStream.getVideoTracks());
                 videoStream.getVideoTracks()[0].stop();
                 ctracker.stop();
@@ -87,12 +84,6 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
                         resetBrow();
                     }
                 }
-            }
-
-            var drawInterval;
-
-            function drawCanvas() {
-                drawInterval = setInterval(drawLoop, 20)
             }
 
             function drawLoop() {
@@ -130,15 +121,6 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
                 console.log('cannot find cam');
                 alert('Cannot connect');
             }
-            scope.$on('$stateChangeStart', function() {
-            	scope.cache = $cacheFactory('cacheId');
-            	console.log(scope.cache.info());
-                clearInterval(cursorInterval);
-                clearInterval(intervalRead);
-                clearInterval(drawInterval);
-                videoStream.getVideoTracks()[0].stop();
-                ctracker.stop();
-            });
         }
     }
 });
