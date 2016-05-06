@@ -25,7 +25,7 @@ var schema = new mongoose.Schema({
     },
     profilePicture: {
         type: String,
-        default: "https://d30y9cdsu7xlg0.cloudfront.net/noun-svg/169696.svg?Expires=1462482913&Signature=jWIBsZNWRrjf32rsrhtmR~z0Rb2AlmyCFCGE0nQNeh4fd6gUy8xqnc2-6JJR5WaNObrcBNsMmwjGsrhmFP~h5i0g7yoTHWS7gEZtPfxhL42-aIECCcIgpfyELyNZaSCm8YnMrkqJYLC8I-xGHjz72zUtcM4wZV7IZWVF2cE1wSw_&Key-Pair-Id=APKAI5ZVHAXN65CHVU2Q"
+        default: "http://pbs.twimg.com/profile_images/646789025823457281/yFarHEX9.jpg"
     },
     photos: {
         type: [String]
@@ -43,7 +43,6 @@ var schema = new mongoose.Schema({
         enum: ['user', 'admin', 'caregiver'],
         default: 'user'
     }
-
     // twitter: {
     //     id: String,
     //     username: String,
@@ -81,14 +80,11 @@ var encryptPassword = function (plainText, salt) {
 };
 
 schema.pre('save', function (next) {
-
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
-
     next();
-
 });
 
 schema.statics.generateSalt = generateSalt;

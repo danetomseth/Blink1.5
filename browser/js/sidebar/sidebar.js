@@ -8,7 +8,7 @@ core.directive('blSidebar', function() {
                 { label: 'Home', state: 'home' },
                 { label: 'Scroll', state: 'scroll' },
                 { label: 'Corners', state: 'corners' },
-                { label: 'Social', state: 'social' },
+                { label: 'Social', state: 'newsfeed' },
                 { label: 'Settings', state: 'settings' },
                 { label: 'About', state: 'about' }
             ];

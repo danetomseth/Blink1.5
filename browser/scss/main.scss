@@ -25,7 +25,7 @@ $accentD: #1B5E20;
 @import 'custom/layout';
 @import 'custom/sidebar';
 @import 'custom/corners';
-
+@import 'custom/angular_material';
 
 * {
   box-sizing: border-box;
@@ -42,13 +42,7 @@ body {
 	padding: 10px;
 }
 
-
-
-
 #main {
   padding-top: 60px;
   margin: 0 auto;
 }
-
-
-

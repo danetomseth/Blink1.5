@@ -10,7 +10,7 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
             scope.current = "A";
 
             scope.alphabet = KeyboardFactory.alphabet;
-            
+
             // Keep either or
             let browDebounce = true;
             scope.browDebounce = true;
@@ -79,6 +79,7 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
             }
 
             function drawLoop() {
+                console.log("DRAWING")
                 requestAnimationFrame(drawLoop);
                 context.clearRect(0, 0, canvas.width, canvas.height);
                 ctracker.draw(canvas);
