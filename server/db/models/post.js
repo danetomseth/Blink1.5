@@ -46,18 +46,19 @@ const schema = new mongoose.Schema({
 // Hooks
 
 // all new posts should come in with a threadId which we want to use and then remove before saving to the DB
-schema.pre('save', function (next) {
+// schema.pre('save', function (next) {
+//     console.log(this)
 
-    let threadId = this.threadId;
-    delete this.threadId;
-    Thread.findById(threadId) // find the post it's in reply to
-    .then(thread => {
-        thread.messages.push(this._id) // add this post to the thread messages
-        return thread.save() // save it
-    })
-    .then(next)
+//     let threadId = this.threadId;
+//     delete this.threadId;
+//     Thread.findById(threadId) // find the post it's in reply to
+//     .then(thread => {
+//         thread.messages.push(this._id) // add this post to the thread messages
+//         return thread.save() // save it
+//     })
+//     .then(next)
 
-});
+// });
 
 // Virtuals
 
