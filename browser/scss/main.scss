@@ -15,6 +15,7 @@ $accentP: #4CAF50;
 $accentL: #A5D6A7;
 $accentD: #1B5E20;
 
+@import 'custom/angular_material';
 @import 'material/main';
 @import 'home/main';
 @import 'about/main';
@@ -44,13 +45,7 @@ body {
 	padding: 10px;
 }
 
-
-
-
 #main {
   padding-top: 60px;
   margin: 0 auto;
 }
-
-
-
