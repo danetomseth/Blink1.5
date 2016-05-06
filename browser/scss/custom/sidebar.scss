@@ -1,13 +1,38 @@
-.sidebar-btn {
-	height: 100px;
-	width: 75%;
-	line-height: 100px !important;
+md-sidenav {
+    background: linear-gradient(#337AB7, #B6CBD4);
+    height: 100vh !important;
+}
+
+a.md-button {
+    padding: 10px 0px;
+    letter-spacing: 3px;
+    font-size: 28px;
+    width: 75%;
+    color: rgba(0, 0, 0, 0.2);
+    transition: cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+a.md-button::before {
+    color: #fff;
+    content: attr(data-hover);
+    position: absolute;
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+    -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+a.md-button:hover::before,
+a.md-button:focus::before {
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    transform: scale(0.9);
+    opacity: 0;
 }
 
 .sidebar-logo {
-	margin-top: -10px;
-	margin-bottom: -10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	height: 200px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 200px;
 }

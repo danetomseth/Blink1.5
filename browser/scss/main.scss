@@ -6,6 +6,15 @@
   }
 }
 
+logo {
+  padding: 10px;
+  font-family: 'Belgrano', serif;
+  font-size: 62px;
+  color: white;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
 $primary: #673AB7;
 $dark: #311B92;
 $light: #B39DDB;
@@ -31,15 +40,9 @@ $accentD: #1B5E20;
   box-sizing: border-box;
 }
 
-#bodyContainer {
-	background-color: $background;
-  box-shadow: 3px 3px 4px 2px $dark;
-	padding: 20px 5px;
-}
-
 body {
+  height: 100vh;
 	background-color: $accentL;
-	padding: 10px;
 }
 
 #main {
