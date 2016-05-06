@@ -1,2 +1,8 @@
 
-<h1 class="text-center">Main</h1>
+<md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="4:1" md-gutter="12px" md-gutter-gt-sm="8px" >
+	<md-grid-tile class="gray" ng-repeat="link in links" md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1">
+		<md-button ui-sref="{{ link.state }}" id="home-btn" class="md-raised md-primary" ng-class="{'btn-highlight' : $index === $root.selectedLink}">{{link.label}}</md-button>
+	</md-grid-tile>
+</md-grid-list>
+
+<bl-webcam ng-model="cacheId"></bl-webcam>

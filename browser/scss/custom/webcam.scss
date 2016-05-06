@@ -1,0 +1,20 @@
+.webcam-corner-container {
+	width: 300px;
+	//margin: 0 auto;
+    float: right;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+#corner-webcam {
+    position: absolute;
+    display: block;
+	border: 2px solid $light;
+	box-shadow: 2px 2px 3px 2px $accentD;
+
+}
+
+#corner-canvas {
+    position: relative;
+}
