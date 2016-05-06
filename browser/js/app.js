@@ -23,7 +23,7 @@ core.config(function($mdThemingProvider) {
     };
     $mdThemingProvider
         .definePalette('customPrimary',
-                        customPrimary);
+            customPrimary);
 
     var customAccent = {
         '50': '#37ad53',
@@ -43,7 +43,7 @@ core.config(function($mdThemingProvider) {
     };
     $mdThemingProvider
         .definePalette('customAccent',
-                        customAccent);
+            customAccent);
 
     var customWarn = {
         '50': '#9bd7d4',
@@ -63,7 +63,7 @@ core.config(function($mdThemingProvider) {
     };
     $mdThemingProvider
         .definePalette('customWarn',
-                        customWarn);
+            customWarn);
 
     var customBackground = {
         '50': '#9a8d8d',
@@ -83,13 +83,13 @@ core.config(function($mdThemingProvider) {
     };
     $mdThemingProvider
         .definePalette('customBackground',
-                        customBackground);
+            customBackground);
 
-   $mdThemingProvider.theme('default')
-       .primaryPalette('customPrimary')
-       .accentPalette('customAccent')
-       .warnPalette('customWarn')
-       .backgroundPalette('customBackground')
+    $mdThemingProvider.theme('default')
+        .primaryPalette('customPrimary')
+        .accentPalette('customAccent')
+        .warnPalette('customWarn')
+        .backgroundPalette('customBackground')
 });
 
 app.config(function($urlRouterProvider, $locationProvider) {
@@ -105,7 +105,7 @@ app.config(function($urlRouterProvider, $locationProvider) {
 
 
 // This app.run is for controlling access to specific states.
-app.run(function($rootScope, AuthService, $state) {
+app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory) {
 
     // The given state requires an authenticated user.
     var destinationStateRequiresAuth = function(state) {
@@ -117,6 +117,12 @@ app.run(function($rootScope, AuthService, $state) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
 
         //console.log("to state", toState);
+        if ($rootScope.videoActive) {
+            $rootScope.videoActive = false;
+            TrackingFactory.endTracking();
+            WebcamFactory.endWebcam();
+            console.log('ended tracking!!');
+        }
 
         if (!destinationStateRequiresAuth(toState)) {
             // The destination state does not require authentication
