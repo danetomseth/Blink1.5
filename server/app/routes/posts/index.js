@@ -8,7 +8,7 @@ const ensure = require('../../configure/authentication/ensure');
 
 // no auth
 router.get('/', (req, res) => {  // get all
-    Post.find({})
+    Post.find({type: 'post'})
     .populate('author likes inReplyTo')
     .then(posts => res.send(posts))
 });
