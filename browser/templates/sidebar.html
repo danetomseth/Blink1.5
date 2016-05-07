@@ -1,10 +1,13 @@
-<span class="clearfix">
-<md-sidenav md-is-locked-open="true" class="md-primary md-sidenav-left full-height full-width" >
+<!-- <span class="clearfix">
+<md-sidenav md-is-locked-open="true" class="md-primary md-sidenav-left full-height full-width" > -->
+
+<span ng-hide="sidebar" class="clearfix">
+<md-sidenav md-is-locked-open="true" class="md-primary md-sidenav-left" >
 <section layout="row" layout-sm="column" layout-align="center center" layout-wrap >
-	<!-- <img class="sidebar-logo" src="assets/blink-logo.png"></img> -->
-	<md-button ng-repeat="item in items" ng-click="hideSide(item.state)"  ui-sref="{{ item.state }}" class="md-raised md-primary sidebar-btn">{{item.label}}</md-button>
+<logo> Blink </logo>
+    <md-button style="text-align:left" ng-repeat="item in items" ng-click="hideSide(item.state)"  ui-sref="{{ item.state }}" ng-class="sidebar-btn" data-hover="{{item.label}}">{{item.label}}</md-button>
 </section>
 </md-sidenav>
 </span>
 
-
+<!-- class="md-raised md-primary sidebar-btn" -->
