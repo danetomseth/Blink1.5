@@ -21,7 +21,7 @@ core.factory('SidebarFactory', function($state) {
 			return itemIndex;
 		},
 		changeState: () => {
-			console.log(links[itemIndex].state);
+			console.log('link', links[itemIndex].state);
 			$state.go(links[itemIndex].state)
 		},
 		getLinks: () => {
