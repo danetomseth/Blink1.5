@@ -760,8 +760,6 @@ button.md-button::-moz-focus-inner {
     .md-button.md-fab.ng-hide, .md-button.md-fab.ng-leave {
       transition: none; }
   .md-button:not([disabled]).md-raised.md-focused, .md-button:not([disabled]).md-fab.md-focused {
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
-  .md-button:not([disabled]).md-raised:active, .md-button:not([disabled]).md-fab:active {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4); }
   .md-button .md-ripple-container {
     border-radius: 3px;
