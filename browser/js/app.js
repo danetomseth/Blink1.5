@@ -105,7 +105,7 @@ app.config(function($urlRouterProvider, $locationProvider) {
 
 
 // This app.run is for controlling access to specific states.
-app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory) {
+app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory, $mdSidenav) {
 
     // The given state requires an authenticated user.
     var destinationStateRequiresAuth = function(state) {
@@ -117,11 +117,24 @@ app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
 
         //console.log("to state", toState);
+        if (toState.name === 'home') {
+            console.log("entering home state");
+            $rootScope.sidebarActive = false;
+            $mdSidenav('left').close();
+            //$rootScope.$digest();
+        } else {
+            console.log('not home');
+            $mdSidenav('left').open();
+            $rootScope.sidebarActive = true;
+        }
+
         if ($rootScope.videoActive) {
             $rootScope.videoActive = false;
             TrackingFactory.endTracking();
             WebcamFactory.endWebcam();
-            console.log('ended tracking!!');
+            clearInterval($rootScope.cursorInterval);
+            clearInterval($rootScope.calibrateInterval);
+            clearInterval($rootScope.intervalRead);
         }
 
         if (!destinationStateRequiresAuth(toState)) {

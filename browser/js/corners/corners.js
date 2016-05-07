@@ -1,45 +1,48 @@
-app.directive('blCorners', function() {
+core.directive('blCorners', function($rootScope, TrackingFactory, WebcamFactory) {
 
     return {
         restrict: 'E',
         scope: {},
         templateUrl: 'templates/corners-grid.html',
-        link: function(scope) {
+        link: function(scope, elem, attr) {
 
             let zero = [];
 
+
+            scope.TLBox = ["A", "B", "C", "D", "E", ""];
+            scope.TMBox = 'blankTM';
+            scope.MLBox = 'blankML';
+            scope.MRBox = 'blankMR';
+            scope.BMBox = 'blankBM';
+            scope.MMBox = 'middle';
+            scope.TRBox = ["F", "G", "H", "I", "J", ""];
+            //scope.MMBox = ["K", "L", "M", "N", "O", ""];
+            scope.BLBox = ["P", "Q", "R", "S", "T", ""];
+            scope.BRBox = ["U", "V", "W", "X", "Y", "Z"];
+
+            let defaultBoxes = [scope.TLBox, scope.TMBox, scope.TRBox, scope.MLBox, scope.MMBox, scope.MRBox, scope.BLBox, scope.BMBox, scope.BRBox];
+            scope.boxes = defaultBoxes
+
             scope.zeroEyes = function() {
                 zero = [scope.eyeX, scope.eyeY]
-                console.log(zero);
             }
 
-            //initiates webcam
-            navigator.getUserMedia = navigator.getUserMedia ||
-                navigator.webkitGetUserMedia ||
-                navigator.mozGetUserMedia ||
-                navigator.msGetUserMedia;
-
-            var errorCallback = function(e) {
-                console.log('Reeeejected!', e);
-            };
-
-            var video = document.getElementById('webcam-bg');
+            // var box = angular.element(document.getElementById('box'));
+            // console.log('box width', box[0].clientWidth);
+            scope.boxHeight = '50px';
 
 
-
-            //start tracker
-            var ctracker = new clm.tracker();
-            ctracker.init(pModel);
-            ctracker.start(video);
-            var canvas = document.getElementById("canvas-bg");
-            var context = canvas.getContext("2d");
+            // var video = document.getElementById('webcam-bg');
+            // var canvas = document.getElementById("canvas-bg");
+            // TrackingFactory.startTracking(canvas, video);
+            // WebcamFactory.startWebcam(video);
+            // videoStatus();
 
             scope.box = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
             function eyePosition() {
                 var xDiff = zero[0] - scope.eyeX;
                 var yDiff = zero[1] - scope.eyeY;
-                var thresholdX = 4;
                 scope.xDiff = xDiff.toFixed(1);
                 scope.yDiff = yDiff.toFixed(1);
 
@@ -54,17 +57,16 @@ app.directive('blCorners', function() {
                 }
             }
 
-            // var trackInterval;
 
-            // function trackEyes() {
-            //     trackInterval = setInterval(positionLoop, 10);
-            // }
+            $rootScope.intervalRead;
+
+            function takeReading() {
+                $rootScope.intervalRead = setInterval(readPositions, 50);
+            }
 
 
-            //initial canvas drawing
-            function positionLoop() {
-                requestAnimationFrame(positionLoop);
-                var positions = ctracker.getCurrentPosition();
+            function readPositions() {
+                var positions = TrackingFactory.getPositions();
                 if (positions) {
                     scope.eyeX = positions[27][0] + positions[32][0]
                     scope.eyeY = positions[27][1] + positions[32][1]
@@ -73,28 +75,16 @@ app.directive('blCorners', function() {
                 }
             }
 
-            //draws on canvas, needed to position over video
-            function drawLoop() {
-                requestAnimationFrame(drawLoop);
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                ctracker.draw(canvas);
+            var videoInterval
+            function videoStatus() {
+                videoInterval = setInterval(function() {
+                    if($rootScope.videoActive) {
+                        clearInterval(videoInterval);
+                        TrackingFactory.drawLoop();
+                        takeReading();
+                    }
+                }, 100)
             }
-
-            //trackEyes();
-            if (navigator.getUserMedia) {
-                navigator.getUserMedia({
-                    video: true
-                }, function(stream) {
-                    video.src = window.URL.createObjectURL(stream);
-                    console.log('video load');
-                    drawLoop();
-                    positionLoop();
-                }, errorCallback);
-            } else {
-                console.log('cannot find cam');
-                alert('Cannot connect')
-            }
-
 
         }
     };

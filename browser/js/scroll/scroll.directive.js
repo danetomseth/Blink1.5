@@ -1,114 +1,120 @@
-core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionFactory) {
+core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionFactory, TrackingFactory, WebcamFactory) {
     return {
         restrict: 'E',
         templateUrl: 'templates/scroll-letter.html',
         scope: '=',
         link: function(scope, elem, attr) {
-            let videoStream;
-            let ctracker;
-
-            scope.current = "A";
-
+            let count = 0;
+            let selectingLetter = false;
+            let resumeKeyboard = true;
+            scope.current = 1;
             scope.alphabet = KeyboardFactory.alphabet;
 
-            // Keep either or
-            let browDebounce = true;
             scope.browDebounce = true;
 
-            // Webcam
-            navigator.getUserMedia = navigator.getUserMedia ||
-                navigator.webkitGetUserMedia ||
-                navigator.mozGetUserMedia ||
-                navigator.msGetUserMedia;
 
             var video = document.getElementById('webcam');
-
-            //start tracker
-            ctracker = new clm.tracker();
-            ctracker.init(pModel);
-            ctracker.start(video);
             var canvas = document.getElementById("canvas");
-            var context = canvas.getContext("2d");
+
+            TrackingFactory.startTracking(canvas, video);
+            WebcamFactory.startWebcam(video);
+            videoStatus();
+            
 
             //all interval based logic
-            var intervalRead;
+            $rootScope.intervalRead;
 
             function takeReading() {
-                intervalRead = setInterval(readPositions, 50);
+                $rootScope.intervalRead = setInterval(readPositions, 50);
             }
 
-            var cursorInterval;
+            $rootScope.cursorInterval;
 
             function moveCursor() {
-                cursorInterval = setInterval(keyboardIterator, 750);
+                $rootScope.cursorInterval = setInterval(keyboardIterator, 700);
             }
 
             function keyboardIterator() {
-                if (browDebounce) {
-                    scope.current = KeyboardFactory.iterator();
+                if (resumeKeyboard && !selectingLetter) {
+                    scope.current = KeyboardFactory.iterateRow();
                 }
-                scope.$digest();
+                else if (resumeKeyboard && selectingLetter) {
+                    scope.current = KeyboardFactory.iterateLetter();
+                }
+            }
+
+            $rootScope.calibrateInterval;
+            function calibrate() {
+                $rootScope.calibrateInterval = setInterval(setZero, 50)
+            }
+
+            function setZero() {
+                var converge = TrackingFactory.convergence();
+                if (converge < 300) {
+                    count++;
+                    if (count > 20) {
+                        clearInterval($rootScope.calibrateInterval);
+                        scope.browZero();
+                    }
+                } else {
+                    count = 0;
+                }
+            }
+
+            function pauseKeyboard() {
+                resumeKeyboard = false;
+                setTimeout(function() {
+                    resumeKeyboard = true;
+                    scope.selected = '';
+                }, 750)
             }
 
             function resetBrow() {
-                scope.wordInput = KeyboardFactory.selectLetter();
-                console.log('word', scope.wordInput)
+                scope.selected = scope.current;
+                scope.current = '';
+                if(selectingLetter) {
+                    scope.wordInput = KeyboardFactory.selectLetter();
+                    selectingLetter = false;
+                }
+                else {
+                    selectingLetter = true;
+                }
+                scope.$digest();
                 setTimeout(function() {
-                    KeyboardFactory.resetPosition();
                     scope.$digest();
                     scope.browDebounce = true;
                 }, 750)
             }
 
             scope.browZero = function() {
-                var positions = ctracker.getCurrentPosition();
+                var positions = TrackingFactory.getPositions();
                 PositionFactory.setBrowZero(positions);
+                clearInterval($rootScope.calibrateInterval);
+                moveCursor();
                 takeReading();
             }
 
             function readPositions() {
-                //get position coords
-                var positions = ctracker.getCurrentPosition();
+                var positions = TrackingFactory.getPositions();
                 if (positions) {
                     if (PositionFactory.browCompare(positions) && scope.browDebounce) {
-                        console.log('Trigger!');
+                        pauseKeyboard();
                         scope.browDebounce = false;
                         resetBrow();
                     }
                 }
+                scope.$digest();
             }
-
-            function drawLoop() {
-                console.log("DRAWING")
-                requestAnimationFrame(drawLoop);
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                ctracker.draw(canvas);
+            var videoInterval
+            function videoStatus() {
+                videoInterval = setInterval(function() {
+                    if($rootScope.videoActive) {
+                        clearInterval(videoInterval);
+                        TrackingFactory.drawLoop();
+                        calibrate();
+                    }
+                }, 100)
             }
-
-            var errorCallback = function(e) {
-                console.log('Error connecting to source!', e);
-            };
-
-            // Processing video stream from webcam
-            if (navigator.getUserMedia) {
-                navigator.getUserMedia({
-                    video: true
-                }, function(stream) {
-                    videoStream = stream;
-                    video.src = window.URL.createObjectURL(videoStream);
-                    moveCursor();
-                    drawLoop();
-                }, errorCallback);
-            } else {
-                console.log('cannot find cam');
-                alert('Cannot connect');
-            }
-
-            // Disables video stream and clmTracker when leaving the state
-            $rootScope.$on('$stateChangeStart', function() {
-                videoStream.getVideoTracks()[0].stop();
-                ctracker.stop();
-            });
         }
 
     }

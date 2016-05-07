@@ -25,11 +25,11 @@
 </head>
 <body ng-app="BlinkApp" layout="column">
     <div class="md-primary">
-        <div layout="row" id="page-content">
-            <div ng-if="!$root.showNav" flex="20">
+        <div layout="row" id="page-content" ng-model="sidebarActive">
+            <div ng-class="{'flex-20': sidebarActive}">
                 <bl-sidebar id="sidebar"></bl-sidebar>
             </div>
-            <div flex="85">
+            <div ng-class="{'flex-80': sidebarActive, 'flex-100': !sidebarActive}">
                 <div flex id="content" ui-view></div>
             </div>
         </div>

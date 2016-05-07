@@ -1,5 +1,13 @@
-.selected {
+
+.letter-row {
+	background: $light;
+}
+.highlighted {
     background: $accentL;
+}
+
+.selected {
+	background: $accentD;
 }
 
 td {

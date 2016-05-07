@@ -23,7 +23,7 @@
   <table border="2">
    <tr ng-repeat="row in alphabet">
     {{row}}
-    <td ng-repeat="letter in row" ng-class="{'selected' : letter === current}">
+    <td ng-repeat="letter in row" ng-class="{'highlighted' : letter === current, 'letter-row' : letter%1==0, 'selected' : letter === selected}">
      {{letter}}
    </td>
  </tr>

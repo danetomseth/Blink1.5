@@ -1,4 +1,4 @@
-core.config(function ($stateProvider) {
+core.config(function($stateProvider) {
     $stateProvider.state('settings', {
         url: '/settings',
         controller: 'SettingsCtrl',
@@ -6,6 +6,8 @@ core.config(function ($stateProvider) {
     });
 });
 
-core.controller('SettingsCtrl', function($scope) {
-
+core.controller('SettingsCtrl', function($scope, $mdSidenav) {
+    $scope.toggleSidebar = () => {
+        $mdSidenav('left').toggle();
+    }
 });
