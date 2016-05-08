@@ -2,7 +2,7 @@ core.factory('SidebarFactory', function($state) {
 	let itemIndex = null;
 	let links = [
                 { label: 'Home', state: 'home' },
-                { label: 'Scroll', state: 'scroll' },
+                { label: 'Type', state: 'scroll' },
                 { label: 'Corners', state: 'corners' },
                 { label: 'Social', state: 'newsfeed' },
                 { label: 'Settings', state: 'settings' },

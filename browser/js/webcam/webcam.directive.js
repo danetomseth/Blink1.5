@@ -1,4 +1,4 @@
-core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope, WebcamFactory, TrackingFactory) {
+core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope, WebcamFactory, TrackingFactory, TimerFactory) {
     return {
         restrict: 'E',
         controller: 'HomeCtrl',
@@ -13,41 +13,20 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
 
             TrackingFactory.startTracking(canvas, video);
             WebcamFactory.startWebcam(video);
-            videoStatus();
 
-            var intervalRead;
-            function takeReading() {
-                intervalRead = setInterval(readPositions, 50);
-            }
-
-            
-
-            function takeReading() {
-                intervalRead = setInterval(readPositions, 50);
-            }
-
-            var cursorInterval;
-
-            function moveCursor() {
-                cursorInterval = setInterval(keyboardIterator, 1000);
-            }
 
             function keyboardIterator() {
                 $rootScope.selectedLink = SidebarFactory.moveSelected();
                 scope.$digest();
             }
 
-            let calibrateInterval;
-            function calibrate() {
-                calibrateInterval = setInterval(setZero, 50)
-            }
 
             function setZero() {
                 var converge = TrackingFactory.convergence();
                 if (converge < 300) {
                     count++;
                     if (count > 20) {
-                        clearInterval(calibrateInterval);
+                        clearInterval($rootScope.calibrateInt);
                         scope.browZero();
                     }
                 } else {
@@ -56,17 +35,12 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
             }
 
             function resetBrow() {
-                clearInterval(cursorInterval);
-                clearInterval(intervalRead);
+                clearInterval($rootScope.cursorInt);
+                clearInterval($rootScope.readPositionInt);
                 SidebarFactory.changeState();
             }
 
-            scope.browZero = function() {
-                var positions = TrackingFactory.getPositions();
-                PositionFactory.setBrowZero(positions);
-                moveCursor();
-                takeReading();
-            }
+
 
             function readPositions() {
                 var positions = TrackingFactory.getPositions();
@@ -78,16 +52,23 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
                 }
             }
 
-            var videoInterval
-            function videoStatus() {
-                videoInterval = setInterval(function() {
-                    if($rootScope.videoActive) {
-                        clearInterval(videoInterval);
-                        TrackingFactory.drawLoop();
-                        calibrate();
-                    }
-                }, 100)
+            scope.browZero = function() {
+                var positions = TrackingFactory.getPositions();
+                PositionFactory.setBrowZero(positions);
+                TimerFactory.startReading(readPositions, 50);
+                TimerFactory.moveCursor(keyboardIterator, 1000);
             }
+
+            let videoStatus = () => {
+                if ($rootScope.videoActive) {
+                    clearInterval($rootScope.videoInterval);
+                    TrackingFactory.drawLoop();
+                    TimerFactory.calibrate(setZero, 50);
+                }
+            }
+
+            TimerFactory.videoStatus(videoStatus, 100);
+
 
         }
     }

@@ -1,6 +1,7 @@
-core.factory('WebcamFactory', function($rootScope) {
+core.factory('WebcamFactory', function($rootScope, $state) {
     let errorCallback = function(e) {
         console.log('Error connecting to source!', e);
+        $state.reload();
     };
     $rootScope.videoActive = false;
     return {

@@ -116,13 +116,7 @@ app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
 
-        //console.log("to state", toState);
-        if (toState.name === 'home') {
-            console.log("entering home state");
-            $rootScope.sidebarActive = false;
-            $mdSidenav('left').close();
-            //$rootScope.$digest();
-        } else {
+        if(toState.name !== 'home') {
             console.log('not home');
             $mdSidenav('left').open();
             $rootScope.sidebarActive = true;
@@ -135,6 +129,10 @@ app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory
             clearInterval($rootScope.cursorInterval);
             clearInterval($rootScope.calibrateInterval);
             clearInterval($rootScope.intervalRead);
+            clearInterval($rootScope.readPositionInt);
+            clearInterval($rootScope.cursorInterval);
+            clearInterval($rootScope.calibrateInterval);
+            clearInterval($rootScope.videoInterval);
         }
 
         if (!destinationStateRequiresAuth(toState)) {

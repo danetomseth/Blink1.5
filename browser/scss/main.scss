@@ -15,11 +15,79 @@ logo {
   letter-spacing: 2px;
 }
 
-$primary: #673AB7;
+$primary-color: (
+  '50': '#ffffff',
+  '100': '#ffffff',
+  '200': '#ffffff',
+  '300': '#fafef3',
+  '400': '#effdda',
+  '500': '#E5FCC2',
+  '600': '#dbfbaa',
+  '700': '#d0fa91',
+  '800': '#c6f879',
+  '900': '#bcf761'
+  );
+
+
+$primary: (
+  #ffffff,
+  #ffffff,
+  #ffffff,
+  #fafef3,
+  #effdda,
+  #E5FCC2,
+  #dbfbaa,
+  #d0fa91,
+  #c6f879,
+  #bcf761
+  );
+$accent: (
+  #37ad53,
+  #3dc15c,
+  #4fc76c,
+  #63ce7c,
+  #76d48d,
+  #8ada9d,
+  #b0e6bd,
+  #c4eccd,
+  #d7f2de,
+  #eaf9ee
+  );
+$background: (
+  #5f7a85,
+  #546d77,
+  #4a5f68,
+  #3f5159,
+  #35444a,
+  #2A363B,
+  #1f282c,
+  #151b1d,
+  #0a0d0e,
+  #000000
+  );
+$text: (
+  #99aeb8,
+#8aa2ae,
+#7a96a3,
+#6b8a99,
+#607D8B,
+#566f7c,
+#4b626d,
+#41545e,
+#36474f,
+#b7c6cd,
+#c6d2d8,
+#d5dee2,
+#2c3940
+  );
+
+
+
+//$primary: #673AB7;
 $dark: #311B92;
 $light: #B39DDB;
 $secondaryText: #FAFAFA;
-$background: white;
+//$background: white;
 $accentP: #4CAF50;
 $accentL: #A5D6A7;
 $accentD: #1B5E20;
@@ -37,6 +105,7 @@ $accentD: #1B5E20;
 @import 'custom/corners';
 @import 'custom/home';
 @import 'custom/webcam';
+@import 'custom/static-nav';
 
 
 * {

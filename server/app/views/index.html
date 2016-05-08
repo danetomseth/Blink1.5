@@ -32,6 +32,10 @@
             <div ng-class="{'flex-80': sidebarActive, 'flex-100': !sidebarActive}">
                 <div flex id="content" ui-view></div>
             </div>
+            <div id="nav-btns" ng-controller="LinkCtrl">
+                <md-button class="nav-btn" ng-click="hideSidebar()">Toggle</md-button>
+                <md-button class="nav-btn" ng-click="hideSidebar()">Webcam</md-button>
+            </div>
         </div>
     </div>
 </body>

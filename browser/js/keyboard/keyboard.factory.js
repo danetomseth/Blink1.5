@@ -59,8 +59,8 @@ core.factory("KeyboardFactory", function($state) {
             coords = [null, null];
         },
         alphabet: alphabet,
-        getCurrentWord: () => {
-            return word;
+        getCurrentLetter: () => {
+            return alphabet[rowIndex][letterIndex];
         }
     }
 });
