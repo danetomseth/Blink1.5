@@ -45,6 +45,6 @@ a.md-button:focus::before {
 }
 
 .btn-highlight {
-	background-color: $accentL !important;
+	background-color: nth($accent, 3) !important;
 }
 

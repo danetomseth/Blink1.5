@@ -26,16 +26,13 @@
 <body ng-app="BlinkApp" layout="column">
     <div class="md-primary">
         <div layout="row" id="page-content" ng-model="sidebarActive">
-            <div ng-class="{'flex-20': sidebarActive}">
+            <div>
                 <bl-sidebar id="sidebar"></bl-sidebar>
             </div>
-            <div ng-class="{'flex-80': sidebarActive, 'flex-100': !sidebarActive}">
+            <div flex="100">
                 <div flex id="content" ui-view></div>
             </div>
-            <div id="nav-btns" ng-controller="LinkCtrl">
-                <md-button class="nav-btn" ng-click="hideSidebar()">Toggle</md-button>
-                <md-button class="nav-btn" ng-click="hideSidebar()">Webcam</md-button>
-            </div>
+            <bl-static-nav></bl-static-nav>
         </div>
     </div>
 </body>

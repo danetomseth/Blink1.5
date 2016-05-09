@@ -1,4 +1,4 @@
-core.factory('SidebarFactory', function($state) {
+core.factory('SidebarFactory', function($state, $mdSidenav) {
 	let itemIndex = null;
 	let links = [
                 { label: 'Home', state: 'home' },

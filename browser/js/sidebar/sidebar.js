@@ -1,11 +1,19 @@
-core.directive('blSidebar', function(SidebarFactory, TrackingFactory, WebcamFactory, $rootScope, $mdSidenav) {
+core.directive('blSidebar', function(SidebarFactory, TrackingFactory, TimerFactory, WebcamFactory, $rootScope, $mdSidenav) {
     return {
         restrict: 'E',
-        controller: 'SidebarCtrl',
         scope: {},
         templateUrl: 'templates/sidebar.html',
-        link: function(scope) {
+        resolve: {
+            sidebarInstance: () => {
+                return $mdSidenav('left').then(instance => {
+                    return instance;
+                });
+            }
+        },
+        controller: 'SidebarCtrl',
+        link: function(scope, sidebarInstance) {
             scope.items = SidebarFactory.getLinks();
+            scope.selectedLink = 0;
 
             scope.endWebcam = () => {
                 $rootScope.videoActive = false;
@@ -13,10 +21,23 @@ core.directive('blSidebar', function(SidebarFactory, TrackingFactory, WebcamFact
                 WebcamFactory.endWebcam();
             }
 
-            scope.hideSidebar = () => {
-            	$mdSidenav('left').toggle();
-            	$rootScope.sidebarActive = !$rootScope.sidebarActive
+
+           
+
+            function iterateLinks() {
+                console.log('moving');
+                if(scope.selectedLink > scope.items.length -1) {
+                    scope.selectedLink = 0;
+                }
+                else scope.selectedLink++;
+                scope.$digest();
             }
+
+            scope.selectLinks = () => {
+                TimerFactory.moveCursor(iterateLinks, 750);
+            }
+
         }
     }
 });
+

@@ -1,9 +1,11 @@
-core.controller('SidebarCtrl', function($scope, $state, $rootScope) {
-    //$scope.showNav = $rootScope.showNav;
-    // $scope.$watch('showNav', function(newValue, oldValue) {
-    // 	console.log('watching');
-    //     //$scope.counter = $scope.counter + 1;
-    // });
+core.controller('SidebarCtrl', function($scope, $state, $rootScope, $mdSidenav, SidebarFactory) {
+    let sidebarReady = false;
+    $scope.toggleSidebar = () => {
+        $mdSidenav('left')
+            .toggle()
+            .then(() => {
+            	console.log('toggled');
+            });
+    }
+
 });
-
-
