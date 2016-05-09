@@ -2,12 +2,12 @@
 <!-- <button class="btn btn-primary" ng-click="browZero()">ZERO</button> -->
 
 <div layout="column" layout-margin>
-  <div flex>
+  <div flex id="toast-box">
     <form>
       <md-input-container class="md-block">
       <label>Description</label>
       <input name="Text" ng-model="wordInput" flex="80">
-      <md-button ng-click="browZero()" class="md-raised md-accent">
+      <md-button ng-click="browZero()" class="md-raised md-primary">
       ZERO
     </md-button>
   </md-input-container>
@@ -23,7 +23,7 @@
   <table border="2">
    <tr ng-repeat="row in alphabet">
     {{row}}
-    <td ng-repeat="letter in row" ng-class="{'selected' : letter === current}">
+    <td ng-repeat="letter in row" class="md-body-2" ng-class="{'highlighted' : letter === current, 'letter-row' : letter%1==0, 'selected' : letter === selected}">
      {{letter}}
    </td>
  </tr>

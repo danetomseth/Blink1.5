@@ -1,0 +1,16 @@
+#nav-btns {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 250px;
+	height: 50px;
+	background: nth($accent,9);
+	border-radius: 3px;
+	box-shadow: -2px 2px 2px nth($text,1)
+}
+
+
+.nav-btn {
+	background: nth($background, 3);
+	color: nth($primary,2);
+}

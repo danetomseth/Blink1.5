@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 
 /*
 
@@ -68,7 +68,7 @@ var seedUsers = function () {
 var users;
 var threads;
 var firstPosts;
-let postUserStuff = function(){
+var postUserStuff = function(){
     return User.find({})
 }
 
