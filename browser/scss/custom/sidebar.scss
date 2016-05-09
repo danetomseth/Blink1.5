@@ -1,8 +1,14 @@
 md-sidenav {
     background: linear-gradient(#337AB7, #B6CBD4);
     height: 100vh !important;
-    //box-shadow: 3px 3px 4px 2px $dark;
+    width: 25vw !important;
 }
+
+// bl-sidebar {
+//     display: block;
+//     width: 100px;
+//     height: 100vh;
+// }
 
 a.md-button {
     padding: 10px 0px;
@@ -31,9 +37,14 @@ a.md-button:focus::before {
 }
 
 .sidebar-logo {
-    margin-top: -10px;
-    margin-bottom: -10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    height: 200px;
+	margin-top: -10px;
+	margin-bottom: -10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	height: 200px;
 }
+
+.btn-highlight {
+	background-color: $accentL !important;
+}
+

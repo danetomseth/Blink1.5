@@ -1,10 +1,19 @@
-.selected {
+
+.letter-row {
+	background: $light;
+}
+.highlighted {
     background: $accentL;
 }
 
+.selected {
+	background: $accentD;
+}
+
 td {
-font-size:20px;
+	font-size:20px;
     width: 12.5vw;
     height: 50px;
     text-align: center;
+    color: nth($text, 8);
 }

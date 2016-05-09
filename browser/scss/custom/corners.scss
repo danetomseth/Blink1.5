@@ -1,0 +1,43 @@
+#grid-row{
+	height: 200px;
+	text-align: center;
+	line-height: 200px;
+	margin: 10px;
+	background: nth($primary, 7);
+	div {
+		width: 30%;
+		margin: 5px;
+		font-size: 2em;
+		font-weight: 2em;
+		color: $secondaryText;
+	}
+	div.colored {
+		background-color: $accentL;
+	}
+}
+
+#box {
+	background: nth($accent, 7);
+}
+
+.active-box {
+	background-color: $accentD !important;
+}
+
+.corner-container {
+	border: 4px solid $accentD;
+	padding: 20px;
+	//background-color: $primary;
+	//opacity: 0.6;
+}
+
+.box-container {
+	text-align: center;
+	line-height: 100%;
+	//height: 33vw;
+}
+
+.contrast {
+  // filter: contrast(600%);
+  filter: grayscale(50%) !important;
+}
