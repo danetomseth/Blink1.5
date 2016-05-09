@@ -6,15 +6,115 @@
   }
 }
 
-$primary: #673AB7;
+logo {
+  padding: 10px;
+  font-family: 'Belgrano', serif;
+  font-size: 62px;
+  color: white;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+//navy blue
+$primary: (
+  #586687,
+  #4e5b78,
+  #444f68,
+  #3a4359,
+  #303849,
+  #262C3A,
+  #1c202b,
+  #12151b,
+  #08090c,
+  #000000,
+  #637296,
+  #717fa2,
+  #808dac,
+  #000000
+  );
+
+//teal
+$accent: (
+  #004442,
+  #005d5b,
+  #007774,
+  #00908d,
+  #00aaa6,
+  #00c3bf,
+  #00f6f1,
+  #11fffa,
+  #2afffa,
+  #44fffb,
+  #00f6f1,
+  #00DDD8,
+  #00c3bf,
+  #5dfffb
+  );
+
+//red
+$warn: (
+  #ffdfe2,
+  #ffc6cb,
+  #ffacb4,
+  #ff939c,
+  #ff7985,
+  #FF606E,
+  #ff4657,
+  #ff2d3f,
+  #ff1328,
+  #f90016,
+  #fff9fa,
+  #ffffff,
+  #ffffff,
+  #df0014
+  );
+//white
+$background: (
+  #ffffff,
+  #ffffff,
+  #ffffff,
+  #ffffff,
+  #ffffff,
+  #FFFFFF,
+  #f2f2f2,
+  #e6e6e6,
+  #d9d9d9,
+  #cccccc,
+  #ffffff,
+  #ffffff,
+  #ffffff,
+  #bfbfbf
+  );
+
+//blue
+$text: (
+  #9db3cb,
+  #8da6c2,
+  #7c99b9,
+  #6c8db0,
+  #5b80a8,
+  #486687,
+  #3f5a77,
+  #364d66,
+  #2e4155,
+  #aec0d4,
+  #bfcddd,
+  #cfdae6,
+  #253445
+  );
+
+
+
+//$primary: #673AB7;
 $dark: #311B92;
 $light: #B39DDB;
 $secondaryText: #FAFAFA;
-$background: white;
+//$background: white;
 $accentP: #4CAF50;
 $accentL: #A5D6A7;
 $accentD: #1B5E20;
 
+@import 'custom/angular_material';
 @import 'material/main';
 @import 'home/main';
 @import 'about/main';
@@ -25,21 +125,18 @@ $accentD: #1B5E20;
 @import 'custom/layout';
 @import 'custom/sidebar';
 @import 'custom/corners';
-@import 'custom/angular_material';
+@import 'custom/home';
+@import 'custom/webcam';
+@import 'custom/static-nav';
+
 
 * {
   box-sizing: border-box;
 }
 
-#bodyContainer {
-	background-color: $background;
-  box-shadow: 3px 3px 4px 2px $dark;
-	padding: 20px 5px;
-}
-
 body {
-	background-color: $accentL;
-	padding: 10px;
+  height: 100vh;
+	//background-color: $accentL;
 }
 
 #main {

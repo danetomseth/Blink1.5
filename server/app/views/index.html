@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blink</title>
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
+    <link href='https://fonts.googleapis.com/css?family=Belgrano' rel='stylesheet' type='text/css'>
     <!-- <link rel="stylesheet" type="text/css" href="/angular-material/angular-material.css"> -->
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <script src="/lodash/index.js"></script>
     <script src="/angular/angular.js"></script>
     <script src="/angular-animate/angular-animate.js"></script>
-    <script src="/angular-aria/angular-aria.js"></script> 
+    <script src="/angular-aria/angular-aria.js"></script>
     <script src="/angular-material/angular-material.js"></script>
     <script src="/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="/angular-ui-bootstrap/ui-bootstrap.js"></script>
@@ -18,20 +19,24 @@
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/clm/clmtrackr.js"></script>
     <script src="/clm/models/model_pca_20_svm.js"></script>
+    <script src="/modernizr.js"></script>
     <!-- <script src="/clm/models/model_pca_20_mosse.js"></script> -->
     <script src="/main.js"></script>
 </head>
 <body ng-app="BlinkApp" layout="column">
-    <div id="bodyContainer" class="md-primary">
-        <div layout="row" id="page-content">
-            <div flex="15">
-            <bl-sidebar id="sidebar"></bl-sidebar>
+    <div class="md-primary">
+        <div layout="row" id="page-content" ng-model="sidebarActive">
+            <div ng-class="{'flex-20': sidebarActive}">
+                <bl-sidebar id="sidebar"></bl-sidebar>
             </div>
-            <div flex="85">
+            <div ng-class="{'flex-80': sidebarActive, 'flex-100': !sidebarActive}">
                 <div flex id="content" ui-view></div>
+            </div>
+            <div id="nav-btns" ng-controller="LinkCtrl">
+                <md-button class="nav-btn" ng-click="hideSidebar()">Toggle</md-button>
+                <md-button class="nav-btn" ng-click="hideSidebar()">Webcam</md-button>
             </div>
         </div>
     </div>
-    <!-- <div id="main" ui-view></div> -->
 </body>
 </html>
