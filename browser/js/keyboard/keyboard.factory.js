@@ -3,56 +3,49 @@
 core.factory("KeyboardFactory", function($state) {
     let rowIndex = 0;
     let letterIndex = 0;
-    let startRow = true;
+    let returnRow;
+    let returnLetter;
     const alphabet = [
-        [1, "A", "B", "C", "D", "E"],
-        [2, "F", "G", "H", "I", "J"],
-        [3, "K", "L", "M", "N", "O"],
-        [4, "P", "Q", "R", "S", "T"],
-        [5, "U", "V", "W", "X", "Y"],
-        ['Nav', 'home', 'newsfeed', 'corners', 'settings', 'stop']
+        ["A", "B", "C", "D", "E"],
+        ["F", "G", "H", "I", "J"],
+        ["K", "L", "M", "N", "O"],
+        ["P", "Q", "R", "S", "T"],
+        ["U", "V", "W", "X", "Y"],
+        ['space', 'YES', 'NO', 'faces', 'NAV']
     ];
-    //let word = [];
+    let rowLength = alphabet[0].length;
     let word = "";
     return {
         iterateRow: () => {
-            //start row is used to reset row position to 0,0
-            if(startRow) {
-                startRow = false;
-                return alphabet[0][0];
+            returnRow = rowIndex;
+            rowIndex++;
+            if (rowIndex > alphabet.length - 1) {
+                rowIndex = 0;
             }
-            else {
-                if(rowIndex < alphabet.length - 1) {
-                    rowIndex++;
-                }
-                else {
-                    rowIndex = 0;
-                }
-                return alphabet[rowIndex][letterIndex];
-            }
+            return returnRow;
         },
         iterateLetter: () => {
+            returnLetter = letterIndex;
             letterIndex++;
-            if(letterIndex === alphabet[rowIndex].length) {
-                letterIndex = 1;
+            if(letterIndex > alphabet[returnRow].length - 1) {
+                letterIndex = 0;
             }
-            return alphabet[rowIndex][letterIndex];
+            return alphabet[returnRow][returnLetter];
         },
         selectLetter: () => {
-            if(alphabet[rowIndex][letterIndex].length > 1) {
+            if(alphabet[returnRow][returnLetter].length > 1) {
                 $state.go(alphabet[rowIndex][letterIndex]);
             }
             else {
-                word += alphabet[rowIndex][letterIndex];
-                rowIndex = 0;
+                word += alphabet[returnRow][returnLetter];
                 letterIndex = 0;
-                startRow = true;
+                rowIndex = 0;
                 return word;
             }
         },
-        resetPosition: () => {
-            rowIndex = 0;
-            letterIndex = 0;
+        resetKeyboard: () => {
+            letterIndex = rowLength;
+            rowIndex = alphabet.length;
         },
         alphabet: alphabet,
         getCurrentLetter: () => {

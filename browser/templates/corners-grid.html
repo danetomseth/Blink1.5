@@ -1,43 +1,6 @@
-<!-- <div class="corner-container">
-    <div id="webcam-background">
-      <video id="webcam-bg" class="video-center contrast" autoplay width="500px" height="375px"></video>
-      <canvas id="canvas-bg" class="canvas-center" width="500px" height="375px"></canvas>
-  </div>
-
-  <div class="container" id="webcam-overlay">
-    <div class="row row-centered" id="grid-row">
-        <div class="col-xs-4 grid-item colored md-whiteframe-24dp" ng-class="{'active-box': box[0]}">X</div>
-        <div class="col-xs-4 grid-item" ng-class="{'active-box': box[1]}"></div>
-        <div class="col-xs-4 grid-item colored md-whiteframe-24dp" ng-class="{'active-box': box[2]}">X</div>
-    </div>
-    <div class="row row-centered" id="grid-row">
-        <div class="col-xs-4 grid-item" ng-class="{'active-box': box[3]}">{{xDiff}}</div>
-        <div class="col-xs-4 grid-item" id="grid-center" ng-class="{'active-box': box[4]}"><button class="btn btn-primary" ng-click="zeroEyes()">Zero</button></div>
-        <div class="col-xs-4 grid-item" ng-class="{'active-box': box[5]}">{{yDiff}}</div>
-    </div>
-    <div class="row row-centered contrast" id="grid-row">
-        <div class="col-xs-4 grid-item colored md-whiteframe-24dp" ng-class="{'active-box': box[6]}">X</div>
-        <div class="col-xs-4 grid-item" ng-class="{'active-box': box[7]}"></div>
-        <div class="col-xs-4 grid-item colored md-whiteframe-24dp" ng-class="{'active-box': box[8]}">X</div>
-    </div>
-</div>
-
-</div> -->
-
-
-
-
 <div flex class="md-primary md-whiteframe-10dp">
-        <!-- <video id="webcam-bg"  autoplay width="500px" height="375px"></video> -->
-        <div layout="row" layout-wrap layout-margin>
-            <!-- <div id="box" flex="33" class="box-container md-whiteframe-10dp" style="height: {{boxHeight}}" ng-repeat="box in boxes"></div> -->
-            <bl-box ng-repeat="box in boxes" flex="30"></bl-box>
-        </div>
-
-        <div id="box-cont" style="width:300px; height:225px" class="md-whiteframe-10dp"></div>
-        <!-- <canvas id="canvas-bg"  width="500px" height="375px"></canvas> -->
-
-
-
+    <div layout="row" layout-wrap layout-margin>
+        <bl-box ng-repeat="box in boxes" flex="30"></bl-box>
+    </div>
+    <div id="box-cont" style="width:300px; height:225px" class="md-whiteframe-10dp"></div>
 </div>
-
