@@ -54,7 +54,8 @@ core.factory("KeyboardFactory", function($state) {
             }
         },
         resetPosition: () => {
-            coords = [null, null];
+            rowIndex = 0;
+            letterIndex = 0;
         },
         alphabet: alphabet,
         getCurrentLetter: () => {
