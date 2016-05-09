@@ -10,7 +10,6 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
 
             //makes sure first element is highlighted on page load
             scope.currentRow = 0;
-            // scope.currentLetter = 0;
             scope.alphabet = KeyboardFactory.alphabet;
             scope.browDebounce = true;
 
@@ -45,7 +44,6 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                     scope.browDebounce = true;
                 }, 750)
             }
-
 
             function readPositions() {
                 var positions = TrackingFactory.getPositions();
