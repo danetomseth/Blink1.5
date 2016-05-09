@@ -2,7 +2,7 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
     return {
         restrict: 'E',
         templateUrl: 'templates/scroll-letter.html',
-        scope: '=',
+        scope: {},
         link: function(scope, elem, attr) {
 
             let count = 0;
@@ -13,9 +13,9 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
             scope.alphabet = KeyboardFactory.alphabet;
             scope.browDebounce = true;
 
-            var video = document.getElementById('webcam');
-            var canvas = document.getElementById("canvas");
-
+            var video = document.getElementById('sidebar-webcam');
+            var canvas = document.getElementById("sidebar-canvas");
+           
             TrackingFactory.startTracking(canvas, video);
             WebcamFactory.startWebcam(video);
 

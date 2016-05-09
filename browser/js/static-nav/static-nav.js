@@ -4,13 +4,6 @@ core.directive('blStaticNav', function() {
 		controller: 'SidebarCtrl',
 		scope: {},
 		templateUrl: 'templates/static-nav.html',
-		resolve: {
-            sidebarInstance: () => {
-                return $mdSidenav('left').then(instance => {
-                    return instance;
-                });
-            }
-        },
 		link: function(scope, elem, attr) {
 
 		}

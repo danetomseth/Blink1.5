@@ -13,29 +13,20 @@ core.directive('blSidebar', function(SidebarFactory, TrackingFactory, TimerFacto
         controller: 'SidebarCtrl',
         link: function(scope, sidebarInstance) {
             scope.items = SidebarFactory.getLinks();
-            scope.selectedLink = 0;
+            //scope.selectedLink = 0;
+          
+            // function iterateLinks() {
+            //     console.log('moving');
+            //     if(scope.selectedLink > scope.items.length -1) {
+            //         scope.selectedLink = 0;
+            //     }
+            //     else scope.selectedLink++;
+            //     scope.$digest();
+            // }
 
-            scope.endWebcam = () => {
-                $rootScope.videoActive = false;
-                TrackingFactory.endTracking();
-                WebcamFactory.endWebcam();
-            }
-
-
-           
-
-            function iterateLinks() {
-                console.log('moving');
-                if(scope.selectedLink > scope.items.length -1) {
-                    scope.selectedLink = 0;
-                }
-                else scope.selectedLink++;
-                scope.$digest();
-            }
-
-            scope.selectLinks = () => {
-                TimerFactory.moveCursor(iterateLinks, 750);
-            }
+            // scope.selectLinks = () => {
+            //     TimerFactory.moveCursor(iterateLinks, 750);
+            // }
 
         }
     }
