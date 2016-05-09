@@ -19,7 +19,7 @@
     <div flex>
             <div flex layout="row" ng-repeat="row in alphabet" class="md-primary letter-row" layout-wrap layout-margin ng-class="{'highlighted-row': $index === currentRow}">
                 <div flex class="keys md-whiteframe-3dp" ng-repeat="letter in row" ng-class="{'highlighted-letter' : letter === currentLetter, 'selected' : letter === selected}">
-                    {{letter}}, {{$index}}
+                    {{letter}}
                 </div>
             </div>
         </div>
