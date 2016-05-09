@@ -7,14 +7,11 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
 
             let count = 0;
             let selectingLetter = false;
-            let resumeKeyboard = true;
 
             //makes sure first element is highlighted on page load
-            scope.current = 1;
+            scope.currentRow = 0;
             scope.alphabet = KeyboardFactory.alphabet;
-
             scope.browDebounce = true;
-
 
             var video = document.getElementById('webcam');
             var canvas = document.getElementById("canvas");
@@ -22,26 +19,18 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
             TrackingFactory.startTracking(canvas, video);
             WebcamFactory.startWebcam(video);
 
-
             function keyboardIterator() {
-                if (resumeKeyboard && !selectingLetter) {
-                    scope.current = KeyboardFactory.iterateRow();
-                } else if (resumeKeyboard && selectingLetter) {
-                    scope.current = KeyboardFactory.iterateLetter();
+                if (scope.browDebounce && !selectingLetter) {
+                    scope.currentRow = KeyboardFactory.iterateRow();
+                } else if (scope.browDebounce && selectingLetter) {
+                    scope.currentLetter = KeyboardFactory.iterateLetter();
+                    console.log('current letter', scope.currentLetter);
                 }
+                scope.$digest();
             }
-
-            function pauseKeyboard() {
-                resumeKeyboard = false;
-                setTimeout(function() {
-                    resumeKeyboard = true;
-                    scope.selected = '';
-                }, 750)
-            }
-
             function resetBrow() {
-                scope.selected = scope.current;
-                scope.current = '';
+                scope.selected = scope.currentLetter;
+                scope.currentLetter = '';
                 if (selectingLetter) {
                     scope.wordInput = KeyboardFactory.selectLetter();
                     selectingLetter = false;
@@ -50,17 +39,16 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 }
                 scope.$digest();
                 setTimeout(function() {
+                    scope.selected = '';
                     scope.$digest();
                     scope.browDebounce = true;
                 }, 750)
             }
 
-
             function readPositions() {
                 var positions = TrackingFactory.getPositions();
                 if (positions) {
                     if (PositionFactory.browCompare(positions) && scope.browDebounce) {
-                        pauseKeyboard();
                         scope.browDebounce = false;
                         resetBrow();
                     }

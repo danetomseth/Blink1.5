@@ -1,6 +1,6 @@
 // Analysis of tracker positions
 core.factory('PositionFactory', function() {
-    let browThreshold = 20;
+    let browThreshold = 15;
     let browZero = [];
     const browArray = [20, 21, 17, 16];
 
