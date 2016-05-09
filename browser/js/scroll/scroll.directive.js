@@ -5,19 +5,11 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
         scope: '=',
         link: function(scope, elem, attr) {
 
-            function showToast(letter) {
-                scope.$digest();
-                $mdToast.show($mdToast.simple({
-                    position: 'top right',
-                    hideDelay: 1000
-                }
-                ).textContent(letter));
-            }
-
             let count = 0;
             let selectingLetter = false;
             let resumeKeyboard = true;
 
+            //makes sure first element is highlighted on page load
             scope.current = 1;
             scope.alphabet = KeyboardFactory.alphabet;
 
@@ -51,7 +43,6 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 scope.selected = scope.current;
                 scope.current = '';
                 if (selectingLetter) {
-                    showToast(KeyboardFactory.getCurrentLetter());
                     scope.wordInput = KeyboardFactory.selectLetter();
                     selectingLetter = false;
                 } else {
@@ -77,7 +68,8 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 scope.$digest();
             }
 
-             function setZero() {
+            //calibrate function that checks converge of model
+            function setZero() {
                 var converge = TrackingFactory.convergence();
                 if (converge < 300) {
                     count++;
@@ -95,10 +87,10 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(readPositions, 50);
                 clearInterval($rootScope.calibrateInt);
-                TimerFactory.moveCursor(keyboardIterator,750);
+                TimerFactory.moveCursor(keyboardIterator, 750);
             }
 
-
+            //this function waits until the video stream starts then runs draw loop and starts auto calibrate
             let videoStatus = () => {
                 if ($rootScope.videoActive) {
                     clearInterval($rootScope.videoInterval);
@@ -106,7 +98,6 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                     TimerFactory.calibrate(setZero, 50);
                 }
             }
-
             TimerFactory.videoStatus(videoStatus, 100);
 
         }

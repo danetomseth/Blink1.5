@@ -26,61 +26,61 @@ core.config(function($mdThemingProvider) {
             customPrimary);
 
     var customAccent = {
-        '50': '#37ad53',
-        '100': '#3dc15c',
-        '200': '#4fc76c',
-        '300': '#63ce7c',
-        '400': '#76d48d',
-        '500': '#8ada9d',
-        '600': '#b0e6bd',
-        '700': '#c4eccd',
-        '800': '#d7f2de',
-        '900': '#eaf9ee',
-        'A100': '#b0e6bd',
-        'A200': '#9DE0AD',
-        'A400': '#8ada9d',
-        'A700': '#fefffe'
+        '50': '#004442',
+        '100': '#005d5b',
+        '200': '#007774',
+        '300': '#00908d',
+        '400': '#00aaa6',
+        '500': '#00c3bf',
+        '600': '#00f6f1',
+        '700': '#11fffa',
+        '800': '#2afffa',
+        '900': '#44fffb',
+        'A100': '#00f6f1',
+        'A200': '#00DDD8',
+        'A400': '#00c3bf',
+        'A700': '#5dfffb'
     };
     $mdThemingProvider
         .definePalette('customAccent',
             customAccent);
-
+        //redish color
     var customWarn = {
-        '50': '#9bd7d4',
-        '100': '#88d0cc',
-        '200': '#76c8c4',
-        '300': '#64c1bd',
-        '400': '#52bab5',
-        '500': '#45ADA8',
-        '600': '#3e9b96',
-        '700': '#368985',
-        '800': '#2f7673',
-        '900': '#286461',
-        'A100': '#addedc',
-        'A200': '#bfe5e4',
-        'A400': '#d1edeb',
-        'A700': '#21524f'
-    };
+        '50': '#ffdfe2',
+        '100': '#ffc6cb',
+        '200': '#ffacb4',
+        '300': '#ff939c',
+        '400': '#ff7985',
+        '500': '#FF606E',
+        '600': '#ff4657',
+        '700': '#ff2d3f',
+        '800': '#ff1328',
+        '900': '#f90016',
+        'A100': '#fff9fa',
+        'A200': '#ffffff',
+        'A400': '#ffffff',
+        'A700': '#df0014'
+    }; 
     $mdThemingProvider
         .definePalette('customWarn',
             customWarn);
 
-    var customBackground = {
-        '50': '#5f7a85',
-        '100': '#546d77',
-        '200': '#4a5f68',
-        '300': '#3f5159',
-        '400': '#35444a',
-        '500': '#2A363B',
-        '600': '#1f282c',
-        '700': '#151b1d',
-        '800': '#0a0d0e',
-        '900': '#000000',
-        'A100': '#6a8894',
-        'A200': '#78949f',
-        'A400': '#87a0aa',
-        'A700': '#000000'
-    };
+     var customBackground = {
+        '50': '#ffffff',
+        '100': '#ffffff',
+        '200': '#ffffff',
+        '300': '#ffffff',
+        '400': '#ffffff',
+        '500': '#FFFFFF',
+        '600': '#f2f2f2',
+        '700': '#e6e6e6',
+        '800': '#d9d9d9',
+        '900': '#cccccc',
+        'A100': '#ffffff',
+        'A200': '#ffffff',
+        'A400': '#ffffff',
+        'A700': '#bfbfbf'
+    }; 
     $mdThemingProvider
         .definePalette('customBackground',
             customBackground);

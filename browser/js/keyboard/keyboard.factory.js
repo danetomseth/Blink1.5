@@ -12,11 +12,11 @@ core.factory("KeyboardFactory", function($state) {
         [5, "U", "V", "W", "X", "Y"],
         ['Nav', 'home', 'newsfeed', 'corners', 'settings', 'stop']
     ];
-    let coords = [0, 0]; //Current spot in alphabet array
     //let word = [];
     let word = "";
     return {
         iterateRow: () => {
+            //start row is used to reset row position to 0,0
             if(startRow) {
                 startRow = false;
                 return alphabet[0][0];
@@ -37,9 +37,6 @@ core.factory("KeyboardFactory", function($state) {
                 letterIndex = 1;
             }
             return alphabet[rowIndex][letterIndex];
-        },
-        selectRow: () => {
-            return alphabet[coords[0]][coords[1]];
         },
         selectLetter: () => {
             if(alphabet[rowIndex][letterIndex].length > 1) {

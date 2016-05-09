@@ -3,6 +3,7 @@
 	text-align: center;
 	line-height: 200px;
 	margin: 10px;
+	background: nth($primary, 7);
 	div {
 		width: 30%;
 		margin: 5px;
@@ -13,6 +14,10 @@
 	div.colored {
 		background-color: $accentL;
 	}
+}
+
+#box {
+	background: nth($accent, 7);
 }
 
 .active-box {

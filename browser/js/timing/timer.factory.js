@@ -1,3 +1,5 @@
+//this sets all of timer dependent functions to the same intervals to clear on state change
+
 core.factory('TimerFactory', function($rootScope) {
 
 	return {

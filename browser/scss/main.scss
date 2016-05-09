@@ -15,70 +15,92 @@ logo {
   letter-spacing: 2px;
 }
 
-$primary-color: (
-  '50': '#ffffff',
-  '100': '#ffffff',
-  '200': '#ffffff',
-  '300': '#fafef3',
-  '400': '#effdda',
-  '500': '#E5FCC2',
-  '600': '#dbfbaa',
-  '700': '#d0fa91',
-  '800': '#c6f879',
-  '900': '#bcf761'
-  );
-
-
+//navy blue
 $primary: (
-  #ffffff,
-  #ffffff,
-  #ffffff,
-  #fafef3,
-  #effdda,
-  #E5FCC2,
-  #dbfbaa,
-  #d0fa91,
-  #c6f879,
-  #bcf761
-  );
-$accent: (
-  #37ad53,
-  #3dc15c,
-  #4fc76c,
-  #63ce7c,
-  #76d48d,
-  #8ada9d,
-  #b0e6bd,
-  #c4eccd,
-  #d7f2de,
-  #eaf9ee
-  );
-$background: (
-  #5f7a85,
-  #546d77,
-  #4a5f68,
-  #3f5159,
-  #35444a,
-  #2A363B,
-  #1f282c,
-  #151b1d,
-  #0a0d0e,
+  #586687,
+  #4e5b78,
+  #444f68,
+  #3a4359,
+  #303849,
+  #262C3A,
+  #1c202b,
+  #12151b,
+  #08090c,
+  #000000,
+  #637296,
+  #717fa2,
+  #808dac,
   #000000
   );
+
+//teal
+$accent: (
+  #004442,
+  #005d5b,
+  #007774,
+  #00908d,
+  #00aaa6,
+  #00c3bf,
+  #00f6f1,
+  #11fffa,
+  #2afffa,
+  #44fffb,
+  #00f6f1,
+  #00DDD8,
+  #00c3bf,
+  #5dfffb
+  );
+
+//red
+$warn: (
+  #ffdfe2,
+  #ffc6cb,
+  #ffacb4,
+  #ff939c,
+  #ff7985,
+  #FF606E,
+  #ff4657,
+  #ff2d3f,
+  #ff1328,
+  #f90016,
+  #fff9fa,
+  #ffffff,
+  #ffffff,
+  #df0014
+  );
+//white
+$background: (
+  #ffffff,
+  #ffffff,
+  #ffffff,
+  #ffffff,
+  #ffffff,
+  #FFFFFF,
+  #f2f2f2,
+  #e6e6e6,
+  #d9d9d9,
+  #cccccc,
+  #ffffff,
+  #ffffff,
+  #ffffff,
+  #bfbfbf
+  );
+
+//blue
 $text: (
-  #99aeb8,
-#8aa2ae,
-#7a96a3,
-#6b8a99,
-#607D8B,
-#566f7c,
-#4b626d,
-#41545e,
-#36474f,
-#b7c6cd,
-#c6d2d8,
-#d5dee2,
-#2c3940
+  #9db3cb,
+  #8da6c2,
+  #7c99b9,
+  #6c8db0,
+  #5b80a8,
+  #486687,
+  #3f5a77,
+  #364d66,
+  #2e4155,
+  #aec0d4,
+  #bfcddd,
+  #cfdae6,
+  #253445
   );
 
 
