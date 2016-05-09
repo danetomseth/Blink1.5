@@ -15,8 +15,20 @@ core.factory("PredictFactory", function($http){
         return res.data
     })
 
+    let injest = () => $http.put("/api/words/", {file: ""}).then(res => {
+        console.log(res.data)
+        return res.data
+    })
+
+    let update = (text) => $http.put("/api/words/", {text: text}).then(res => {
+        console.log(res.data)
+        return res.data
+    })
+
     return {
-        nextWords: nextWords
+        nextWords: nextWords,
+        injest: injest,
+        update: update
     }
 });
 
@@ -34,6 +46,9 @@ core.controller("PredictCtrl", function($scope, PredictFactory){
         $scope.word += word;
         $scope.predict(word);
     }
+
+    $scope.injest = () => PredictFactory.injest($scope.file)
+    $scope.update = () => PredictFactory.update($scope.word)
 
 });
 
