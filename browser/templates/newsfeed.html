@@ -1,29 +1,50 @@
-<div ng-cloak>
+<div ng-cloak class="md-whiteframe-10dp">
     <md-content class="md-padding">
         <md-tabs class="md-accent" md-selected="data.selectedIndex" md-align-tabs="top">
             <md-tab id="tab1">
                 <md-tab-label>All Feeds</md-tab-label>
                 <md-tab-body>
-                  <md-list>
-                      <md-list-item class="md-3-line md-long-text" ng-repeat="post in posts">
-                          <img ng-src="{{post.author.profilePicture}}" class="md-avatar" />
-                          <div class="md-list-item-text">
-                              <h3>{{ post.author.firstName }} {{post.author.lastName[0]}}.</h3>
-                              <p>{{post.content}}</p>
-                          </div>
-                      </md-list-item>
-                  </md-list>
+                    <md-list>
+                        <md-list-item class="md-3-line md-long-text" ng-repeat="post in allPosts">
+                            <div>
+                                <img ng-src="{{post.author.profilePicture}}" class="md-avatar" />
+                                <span class="glyphicon glyphicon-user" ng-click="addFriend(post.author._id)">+</span>
+                            </div>
+                            <div class="md-list-item-text">
+                                <h3>{{ post.author.firstName }} {{post.author.lastName[0]}}.</h3>
+                                <p>{{post.content}}</p>
+                            </div>
+                        </md-list-item>
+                    </md-list>
                 </md-tab-body>
             </md-tab>
             <md-tab id="tab2">
                 <md-tab-label>My Feeds</md-tab-label>
                 <md-tab-body>
+                    <md-list>
+                        <md-list-item class="md-3-line md-long-text" ng-repeat="post in myFeed">
+                            <div>
+                                <img ng-src="{{post.author.profilePicture}}" class="md-avatar" /> '
+                                <span class="glyphicon glyphicon-user" ng-click="addFriend(post.author._id)">+</span>',
+                            </div>
+                            <div class="md-list-item-text">
+                                <h3>{{ post.author.firstName }} {{post.author.lastName[0]}}.</h3>
+                                <p>{{post.content}}</p>
+                            </div>
+                        </md-list-item>
+                    </md-list>
                 </md-tab-body>
             </md-tab>
-            <md-tab id="tab2">
+            <md-tab id="tab3">
                 <md-tab-label>Private Threads</md-tab-label>
                 <md-tab-body>
                     View for Item #2
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="tab4">
+                <md-tab-label id="newThread">New Thread</md-tab-label>
+                <md-tab-body>
+                    <bl-add-post>hi</bl-add-post>
                 </md-tab-body>
             </md-tab>
         </md-tabs>

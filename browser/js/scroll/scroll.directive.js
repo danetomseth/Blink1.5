@@ -28,6 +28,7 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 }
                 scope.$digest();
             }
+
             function resetBrow() {
                 scope.selected = scope.currentLetter;
                 scope.currentLetter = '';

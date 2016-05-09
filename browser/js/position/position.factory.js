@@ -21,7 +21,6 @@ core.factory('PositionFactory', function() {
             browZero = browArray.map(function(index) {
                 return positions[index][1];
             });
-            console.log('brow', browZero);
         },
         // Setting custom thresholds for User
         setThreshold: (threshold) => {

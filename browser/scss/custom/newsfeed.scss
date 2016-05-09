@@ -1,0 +1,17 @@
+md-tabs-content-wrapper {
+    height: 600px;
+}
+
+md-selected {}
+
+md-tab-label:nth-child(2) {
+    background-color: white !important;
+}
+
+.after-tabs-area > span {
+    margin-top: 25px;
+    padding-right: 15px;
+    vertical-align: middle;
+    line-height: 30px;
+    height: 100px;
+}
