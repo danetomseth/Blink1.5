@@ -3,8 +3,7 @@ core.controller('NewsfeedCtrl', function($scope, posts) {
 
     $scope.data = {
       selectedIndex: 0,
-      secondLabel:   "Private Feed",
-      thirdLabel: "Other Private Feed"
+      secondLabel:   "Private Threads"
     };
 
     $scope.next = function() {
@@ -13,5 +12,8 @@ core.controller('NewsfeedCtrl', function($scope, posts) {
     $scope.previous = function() {
       $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
     };
+    $scope.addFeed = function() {
+      // Adds a feed to the logged in user
+    }
 
 });

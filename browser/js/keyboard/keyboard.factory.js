@@ -5,36 +5,28 @@ core.factory("KeyboardFactory", function($state) {
     let letterIndex = 0;
     let startRow = true;
     const alphabet = [
-        [1, "A", "B", "C", "D", "E"],
-        [2, "F", "G", "H", "I", "J"],
-        [3, "K", "L", "M", "N", "O"],
-        [4, "P", "Q", "R", "S", "T"],
-        [5, "U", "V", "W", "X", "Y"],
-        ['Nav', 'home', 'newsfeed', 'corners', 'settings', 'stop']
+        ["A", "B", "C", "D", "E"],
+        ["F", "G", "H", "I", "J"],
+        ["K", "L", "M", "N", "O"],
+        ["P", "Q", "R", "S", "T"],
+        ["U", "V", "W", "X", "Y"],
+        ['home', 'newsfeed', 'corners', 'settings', 'stop']
     ];
-    //let word = [];
     let word = "";
     return {
         iterateRow: () => {
-            //start row is used to reset row position to 0,0
-            if(startRow) {
-                startRow = false;
-                return alphabet[0][0];
+            rowIndex++;
+            // rowIndex = alphabet.length % rowIndex;
+            if (rowIndex >= alphabet.length) {
+                rowIndex = 0;
+                return rowIndex;
             }
-            else {
-                if(rowIndex < alphabet.length - 1) {
-                    rowIndex++;
-                }
-                else {
-                    rowIndex = 0;
-                }
-                return alphabet[rowIndex][letterIndex];
-            }
+            return rowIndex;
         },
         iterateLetter: () => {
             letterIndex++;
-            if(letterIndex === alphabet[rowIndex].length) {
-                letterIndex = 1;
+            if(letterIndex >= alphabet[rowIndex].length) {
+                letterIndex = 0;
             }
             return alphabet[rowIndex][letterIndex];
         },
@@ -51,8 +43,7 @@ core.factory("KeyboardFactory", function($state) {
             }
         },
         resetPosition: () => {
-            rowIndex = 0;
-            letterIndex = 0;
+            rowIndex = alphabet.length;
         },
         alphabet: alphabet,
         getCurrentLetter: () => {
