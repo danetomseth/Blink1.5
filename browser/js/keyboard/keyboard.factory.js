@@ -10,7 +10,7 @@ core.factory("KeyboardFactory", function($state) {
         ["K", "L", "M", "N", "O"],
         ["P", "Q", "R", "S", "T"],
         ["U", "V", "W", "X", "Y"],
-        ['home', 'newsfeed', 'corners', 'settings', 'stop']
+        ['space', 'YES', 'NO', 'faces', 'NAV']
     ];
     let word = "";
     return {
