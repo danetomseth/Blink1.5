@@ -11,8 +11,6 @@ core.factory("KeyboardFactory", function($state) {
         [4, "P", "Q", "R", "S", "T"],
         [5, "U", "V", "W", "X", "Y"],
         ['Nav', 'home', 'newsfeed', 'corners', 'settings', 'stop']
-        // [6, "0", "1", "2", "3", "4"],
-        // [7, "5", "6", "7", "8", "9"]
     ];
     let coords = [0, 0]; //Current spot in alphabet array
     //let word = [];
