@@ -1,17 +1,31 @@
-
 .letter-row {
-	background: $light;
+    justify-content: space-between;
+    font-size: 36px;
+    text-align: center;
 }
-.highlighted {
-    background: $accentL;
+
+.inputBox {
+    font-size: 36px;
+}
+
+.keys {
+    text-align: center;
+}
+
+.highlighted-row {
+    background: nth($accent, 4);
+}
+
+.highlighted-letter {
+    background: nth($accent, 8);
 }
 
 .selected {
-	background: $accentD;
+    color: red;
 }
 
 td {
-	font-size:20px;
+    font-size: 20px;
     width: 12.5vw;
     height: 50px;
     text-align: center;

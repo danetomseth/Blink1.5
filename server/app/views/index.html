@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blink</title>
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
     <link href='https://fonts.googleapis.com/css?family=Belgrano' rel='stylesheet' type='text/css'>
-    <!-- <link rel="stylesheet" type="text/css" href="/angular-material/angular-material.css"> -->
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/angular-material/angular-material.css">
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <script src="/lodash/index.js"></script>
     <script src="/angular/angular.js"></script>
@@ -20,9 +22,9 @@
     <script src="/clm/clmtrackr.js"></script>
     <script src="/clm/models/model_pca_20_svm.js"></script>
     <script src="/modernizr.js"></script>
-    <!-- <script src="/clm/models/model_pca_20_mosse.js"></script> -->
     <script src="/main.js"></script>
 </head>
+
 <body ng-app="BlinkApp" layout="column">
     <div class="md-primary">
         <div layout="row" id="page-content" ng-model="sidebarActive">
@@ -33,7 +35,9 @@
                 <div flex id="content" ui-view></div>
             </div>
             <bl-static-nav></bl-static-nav>
+            <logo class="pull-right"><img src="http://i.imgur.com/yt37067.gif"> Blink </logo>
         </div>
     </div>
 </body>
+
 </html>

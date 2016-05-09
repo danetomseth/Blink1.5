@@ -1,9 +1,8 @@
 
 <md-sidenav md-is-open="true" class="md-primary md-sidenav-left" md-component-id="left" flex="20">
 <section layout="row" layout-sm="column" layout-align="center center" layout-wrap >
-<logo> Blink </logo>
     <md-button style="text-align:left" ng-repeat="item in items" ng-click="hideSide(item.state)"  ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}" data-hover="{{item.label}}">{{item.label}}</md-button>
+	<md-button ng-click="selectLinks()">Select Links</md-button>
 </section>
-<md-button ng-click="selectLinks()">Select Links</md-button>
 </md-sidenav>
 

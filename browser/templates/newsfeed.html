@@ -2,7 +2,7 @@
     <md-content class="md-padding">
         <md-tabs class="md-accent" md-selected="data.selectedIndex" md-align-tabs="top">
             <md-tab id="tab1">
-                <md-tab-label>Newsfeed</md-tab-label>
+                <md-tab-label>All Feeds</md-tab-label>
                 <md-tab-body>
                   <md-list>
                       <md-list-item class="md-3-line md-long-text" ng-repeat="post in posts">
@@ -16,17 +16,14 @@
                 </md-tab-body>
             </md-tab>
             <md-tab id="tab2">
-                <md-tab-label>{{data.secondLabel}}</md-tab-label>
+                <md-tab-label>My Feeds</md-tab-label>
                 <md-tab-body>
-                    View for Item #2
-                    <br/> data.selectedIndex = 1;
                 </md-tab-body>
             </md-tab>
-            <md-tab id="tab3">
-                <md-tab-label>Item Three</md-tab-label>
+            <md-tab id="tab2">
+                <md-tab-label>Private Threads</md-tab-label>
                 <md-tab-body>
-                    View for Item #3
-                    <br/> data.selectedIndex = 2;
+                    View for Item #2
                 </md-tab-body>
             </md-tab>
         </md-tabs>

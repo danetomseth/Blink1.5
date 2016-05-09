@@ -27,17 +27,13 @@
 .corner-container {
 	border: 4px solid $accentD;
 	padding: 20px;
-	//background-color: $primary;
-	//opacity: 0.6;
 }
 
 .box-container {
 	text-align: center;
 	line-height: 100%;
-	//height: 33vw;
 }
 
 .contrast {
-  // filter: contrast(600%);
   filter: grayscale(50%) !important;
 }
