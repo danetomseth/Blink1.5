@@ -7,7 +7,6 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
 
             let count = 0;
             let selectingLetter = false;
-            let resumeKeyboard = true;
 
             //makes sure first element is highlighted on page load
             scope.currentRow = 0;
@@ -21,11 +20,13 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
             WebcamFactory.startWebcam(video);
 
             function keyboardIterator() {
-                if (resumeKeyboard && !selectingLetter) {
+                if (scope.browDebounce && !selectingLetter) {
                     scope.currentRow = KeyboardFactory.iterateRow();
-                } else if (resumeKeyboard && selectingLetter) {
+                } else if (scope.browDebounce && selectingLetter) {
                     scope.currentLetter = KeyboardFactory.iterateLetter();
+                    console.log('current letter', scope.currentLetter);
                 }
+                scope.$digest();
             }
 
             function resetBrow() {
@@ -39,11 +40,11 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 }
                 scope.$digest();
                 setTimeout(function() {
+                    scope.selected = '';
                     scope.$digest();
                     scope.browDebounce = true;
                 }, 750)
             }
-
 
             function readPositions() {
                 var positions = TrackingFactory.getPositions();

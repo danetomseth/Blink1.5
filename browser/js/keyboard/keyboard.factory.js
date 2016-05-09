@@ -3,7 +3,8 @@
 core.factory("KeyboardFactory", function($state) {
     let rowIndex = 0;
     let letterIndex = 0;
-    let startRow = true;
+    let returnRow;
+    let returnLetter;
     const alphabet = [
         ["A", "B", "C", "D", "E"],
         ["F", "G", "H", "I", "J"],
@@ -12,36 +13,38 @@ core.factory("KeyboardFactory", function($state) {
         ["U", "V", "W", "X", "Y"],
         ['space', 'YES', 'NO', 'faces', 'NAV']
     ];
+    let rowLength = alphabet[0].length;
     let word = "";
     return {
         iterateRow: () => {
+            returnRow = rowIndex;
             rowIndex++;
-            // rowIndex = alphabet.length % rowIndex;
-            if (rowIndex >= alphabet.length) {
+            if (rowIndex > alphabet.length - 1) {
                 rowIndex = 0;
-                return rowIndex;
             }
-            return rowIndex;
+            return returnRow;
         },
         iterateLetter: () => {
+            returnLetter = letterIndex;
             letterIndex++;
-            if(letterIndex >= alphabet[rowIndex].length) {
+            if(letterIndex > alphabet[returnRow].length - 1) {
                 letterIndex = 0;
             }
-            return alphabet[rowIndex][letterIndex];
+            return alphabet[returnRow][returnLetter];
         },
         selectLetter: () => {
-            if(alphabet[rowIndex][letterIndex].length > 1) {
+            if(alphabet[returnRow][returnLetter].length > 1) {
                 $state.go(alphabet[rowIndex][letterIndex]);
             }
             else {
-                word += alphabet[rowIndex][letterIndex];
-                rowIndex = 0;
+                word += alphabet[returnRow][returnLetter];
                 letterIndex = 0;
+                rowIndex = 0;
                 return word;
             }
         },
-        resetPosition: () => {
+        resetKeyboard: () => {
+            letterIndex = rowLength;
             rowIndex = alphabet.length;
         },
         alphabet: alphabet,
