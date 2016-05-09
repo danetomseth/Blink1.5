@@ -119,6 +119,7 @@ $accentD: #1B5E20;
 @import 'custom/home';
 @import 'custom/webcam';
 @import 'custom/static-nav';
+@import 'custom/newsfeed';
 
 logo {
   padding: 20px;
@@ -138,6 +139,11 @@ logo {
 
 body {
   font-family: 'PT Sans', sans-serif;
+  font-size: 18px;
+  height: 100vh;
+}
+
+#content {
   height: 100vh;
 }
 

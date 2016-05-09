@@ -23,6 +23,7 @@
     <script src="/clm/models/model_pca_20_svm.js"></script>
     <script src="/modernizr.js"></script>
     <script src="/main.js"></script>
+
 </head>
 
 <body ng-app="BlinkApp" layout="column">
@@ -31,8 +32,8 @@
                 <bl-sidebar id="sidebar"></bl-sidebar>
                 <div flex="100" id="content" ui-view></div>
             <div id="nav-btns" ng-controller="LinkCtrl">
-                <md-button class="nav-btn" ng-click="hideSidebar()">Toggle</md-button>
-                <md-button class="nav-btn" ng-click="hideSidebar()">Webcam</md-button>
+                <md-button class="nav-btn">Toggle</md-button>
+                <md-button class="nav-btn">Webcam</md-button>
             </div>
             <logo class="pull-right"><img src="http://i.imgur.com/yt37067.gif"> Blink </logo>
         </div>

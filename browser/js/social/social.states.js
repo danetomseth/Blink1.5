@@ -7,6 +7,9 @@ core.config(function ($stateProvider) {
             posts: function(SocialFactory) {
                 // return first 100 posts
                 return SocialFactory.getAllPosts();
+            },
+            user: function(AuthService) {
+                return AuthService.getLoggedInUser();
             }
         }
     });

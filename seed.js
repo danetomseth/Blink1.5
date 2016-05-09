@@ -28,13 +28,10 @@ var Thread = mongoose.model('Thread');
 var Post = mongoose.model('Post');
 
 var wipeCollections = function () {
-    var removeUsers = User.remove({});
-    var removePosts = Post.remove({});
-    var removeThreads = Thread.remove({});
     return Promise.all([
-        removeUsers,
-        removePosts,
-        removeThreads
+        User.remove({}),
+        Post.remove({}),
+        Thread.remove({})
     ]);
 };
 
@@ -69,11 +66,11 @@ var users;
 var threads;
 var firstPosts;
 var postUserStuff = function(){
-    return User.find({})
+    return User.find({});
 }
 
 var rando = function(){
-    return users[Math.floor(Math.random()*(users.length+1))]
+    return users[Math.floor(Math.random()*(users.length))]
 }
 
 var seedThreads = function() {

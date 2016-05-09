@@ -38,7 +38,6 @@ core.factory("KeyboardFactory", function($state) {
                 word += alphabet[rowIndex][letterIndex];
                 rowIndex = 0;
                 letterIndex = 0;
-                startRow = true;
                 return word;
             }
         },

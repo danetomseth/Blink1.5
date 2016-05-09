@@ -11,7 +11,6 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
 
             //makes sure first element is highlighted on page load
             scope.currentRow = 0;
-            // scope.currentLetter = 0;
             scope.alphabet = KeyboardFactory.alphabet;
             scope.browDebounce = true;
 
@@ -28,14 +27,6 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                     scope.currentLetter = KeyboardFactory.iterateLetter();
                 }
             }
-
-            // function pauseKeyboard() {
-            //     resumeKeyboard = false;
-            //     setTimeout(function() {
-            //         resumeKeyboard = true;
-            //         scope.selected = "";
-            //     }, 750)
-            // }
 
             function resetBrow() {
                 scope.selected = scope.currentLetter;
