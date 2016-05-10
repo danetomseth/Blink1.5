@@ -1,34 +1,57 @@
 md-sidenav {
-    background: linear-gradient(nth($primary, 4), nth($primary, 1));
+    padding-top: 20px;
+    background: nth($background, 9);
     height: 100vh !important;
-    width: 10vw !important;
+    //border-right: 1px solid nth($primary, 2);
+    box-shadow: 2px 2px 2px nth($accent, 2);
+    //width: 10vw !important;
 }
 
-a.md-button {
-    padding: 10px 0px;
-    letter-spacing: 3px;
-    font-size: 30px;
-    font-weight: bold;
-    width: 75%;
-    color: rgba(0, 0, 0, 0.2);
-    transition: cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+#sidebar-container {
+    display: block;
+    width: 25%;
 }
 
-a.md-button::before {
-    color: #fff;
-    content: attr(data-hover);
+#locked-sidebar {
+    width: 100%;
+    margin: 0px;
+}
+
+#nav-btn {
+    font-size: 2em;
+    width: 70%;
+    height: 8%;
+    padding-top: 8%;
+    padding-left: 10px;
+    margin-left: 15%;
+    background-color: nth($accent,6);
+    color: nth($text, 9);
+}
+#sidebar-webcam {
     position: absolute;
-    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-    -moz-transition: -moz-transform 0.3s, opacity 0.3s;
-    transition: transform 0.3s, opacity 0.3s;
+    left: -40%;
+    top: -75px;
+}
+#sidebar-canvas {
+    position: absolute;
+    left: -40%;
+    top: -75px;
+    z-index: 10;
 }
 
-a.md-button:hover::before,
-a.md-button:focus::before {
-    -webkit-transform: scale(0.9);
-    -moz-transform: scale(0.9);
-    transform: scale(0.9);
-    opacity: 0;
+#sidebar-webcam-container {
+    position: absolute;
+    left: 2px;;
+    width: 98%;
+    //height: 150px;
+    margin: 0px;
+    border: 2px solid nth($accent, 2);
+    overflow: hidden;
+    background-color: nth($background,4);
+}
+
+.nav-bottom {
+    padding-top: 20px;
 }
 
 .sidebar-logo {
@@ -40,6 +63,6 @@ a.md-button:focus::before {
 }
 
 .btn-highlight {
-	background-color: $accentL !important;
+	background-color: nth($background, 3) !important;
 }
 

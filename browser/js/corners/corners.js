@@ -1,4 +1,4 @@
-core.directive('blCorners', function($rootScope, TrackingFactory, WebcamFactory) {
+core.directive('blCorners', function($rootScope, TrackingFactory, WebcamFactory, TimerFactory, PositionFactory) {
 
     return {
         restrict: 'E',
@@ -7,6 +7,7 @@ core.directive('blCorners', function($rootScope, TrackingFactory, WebcamFactory)
         link: function(scope, elem, attr) {
 
             let zero = [];
+            scope.selectedBox = 4;
 
 
             scope.TLBox = ["A", "B", "C", "D", "E", ""];
@@ -27,16 +28,8 @@ core.directive('blCorners', function($rootScope, TrackingFactory, WebcamFactory)
                 zero = [scope.eyeX, scope.eyeY]
             }
 
-            // var box = angular.element(document.getElementById('box'));
-            // console.log('box width', box[0].clientWidth);
             scope.boxHeight = '50px';
 
-
-            // var video = document.getElementById('webcam-bg');
-            // var canvas = document.getElementById("canvas-bg");
-            // TrackingFactory.startTracking(canvas, video);
-            // WebcamFactory.startWebcam(video);
-            // videoStatus();
 
             scope.box = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -47,21 +40,19 @@ core.directive('blCorners', function($rootScope, TrackingFactory, WebcamFactory)
                 scope.yDiff = yDiff.toFixed(1);
 
                 if (xDiff < 0 && yDiff > 0) { // LEFT TOP
+                    console.log('left top');
+                    scope.selectedBox = 0;
                     scope.box = [1, 0, 0, 0, 0, 0, 0, 0, 0]
                 } else if (xDiff > 0 && yDiff > 0) { // RIGHT TOP
+                    scope.selectedBox = 2;
                     scope.box = [0, 0, 1, 0, 0, 0, 0, 0, 0]
                 } else if (xDiff > 0 && yDiff < 0) { // BOTTOM RIGHT
+                    scope.selectedBox = 8;
                     scope.box = [0, 0, 0, 0, 0, 0, 0, 0, 1]
                 } else if (xDiff < 0 && yDiff < 0) { // BOTTOM LEFT
+                    scope.selectedBox = 6;
                     scope.box = [0, 0, 0, 0, 0, 0, 1, 0, 0]
                 }
-            }
-
-
-            $rootScope.intervalRead;
-
-            function takeReading() {
-                $rootScope.intervalRead = setInterval(readPositions, 50);
             }
 
 
@@ -75,16 +66,16 @@ core.directive('blCorners', function($rootScope, TrackingFactory, WebcamFactory)
                 }
             }
 
-            var videoInterval
-            function videoStatus() {
-                videoInterval = setInterval(function() {
-                    if($rootScope.videoActive) {
-                        clearInterval(videoInterval);
-                        TrackingFactory.drawLoop();
-                        takeReading();
-                    }
-                }, 100)
+             let videoStatus = () => {
+                if ($rootScope.videoActive) {
+                    TimerFactory.videoReady();
+                    TrackingFactory.drawLoop();
+                    scope.zeroEyes();
+                    TimerFactory.startReading(readPositions, 50);
+                    //TimerFactory.calibrate(setZero, 50);
+                }
             }
+            TimerFactory.videoStatus(videoStatus, 100);
 
         }
     };

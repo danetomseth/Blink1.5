@@ -28,13 +28,12 @@
 <body ng-app="BlinkApp" layout="column">
     <div class="md-primary">
         <div layout="row" id="page-content" ng-model="sidebarActive">
-                <bl-sidebar id="sidebar"></bl-sidebar>
-                <div flex="100" id="content" ui-view></div>
-            <div id="nav-btns" ng-controller="LinkCtrl">
-                <md-button class="nav-btn" ng-click="hideSidebar()">Toggle</md-button>
-                <md-button class="nav-btn" ng-click="hideSidebar()">Webcam</md-button>
+            <bl-sidebar id="sidebar-container"></bl-sidebar>
+            <div flex="100">
+                <div flex id="content" ui-view></div>
             </div>
-            <logo class="pull-right"><img src="http://i.imgur.com/yt37067.gif"> Blink </logo>
+            <!-- <bl-static-nav></bl-static-nav> -->
+            <!-- <logo class="pull-right"><img src="http://i.imgur.com/yt37067.gif"> Blink </logo> -->
         </div>
     </div>
 </body>

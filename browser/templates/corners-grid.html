@@ -1,6 +1,6 @@
 <div flex class="md-primary md-whiteframe-10dp">
     <div layout="row" layout-wrap layout-margin>
-        <bl-box ng-repeat="box in boxes" flex="30"></bl-box>
+        <bl-box ng-class="{'active-box':  $index === selectedBox}" ng-repeat="box in boxes" flex="30"></bl-box>
     </div>
-    <div id="box-cont" style="width:300px; height:225px" class="md-whiteframe-10dp"></div>
+    <md-button class="md-raised md-accent" ng-click="zeroEyes()">Zero</md-button>
 </div>
