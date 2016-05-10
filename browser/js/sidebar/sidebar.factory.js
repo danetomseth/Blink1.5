@@ -7,7 +7,7 @@ core.factory('SidebarFactory', function($state, TimerFactory, $mdSidenav) {
                 { label: 'Corners', state: 'corners' },
                 { label: 'Social', state: 'newsfeed' },
                 { label: 'Settings', state: 'settings' },
-                { label: 'About', state: 'about' }
+                { label: 'Login', state: 'login' }
             ];
 	return {
 		moveSelected: () => {
@@ -19,7 +19,6 @@ core.factory('SidebarFactory', function($state, TimerFactory, $mdSidenav) {
 			return returnIndex;
 		},
 		changeState: () => {
-			console.log('link', links[returnIndex].state);
 			$mdSidenav('left').close();
 			if(links[returnIndex].state === 'exit') TimerFactory.clearAll();
 			else $state.go(links[returnIndex].state)

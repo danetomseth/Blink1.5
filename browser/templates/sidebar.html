@@ -1,18 +1,26 @@
-
-<!-- Fluid sidebar -->
-<!-- <md-sidenav md-is-open="true" class="md-primary md-sidenav-left" md-component-id="left" flex="15">
-    <md-button style="text-align:left" class="md-raised" id="nav-btn" ng-repeat="item in items" ng-click="hideSide(item.state)"  ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}" data-hover="{{item.label}}">{{item.label}}</md-button>
-	<md-button ng-click="selectLinks()">Select Links</md-button>
-<div flex>
-	<bl-sidebar-webcam></bl-sidebar-webcam>
-</md-sidenav>
- -->
-
-
 <!-- Locked Open  -->
 <md-sidenav id="locked-sidebar" md-is-locked-open="true" class="md-primary md-sidenav-left" md-component-id="left">
-    <md-button style="text-align:left" class="md-raised" id="nav-btn" ng-repeat="item in items" ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}" data-hover="{{item.label}}">{{item.label}}</md-button>
-    <md-button style="text-align:left" class="md-raised" id="nav-btn" ng-click="stopTacking()" ng-hide="trackingStopped">Stop</md-button>
-	<bl-sidebar-webcam></bl-sidebar-webcam>
+    <logo class="pull-right"><img src="http://i.imgur.com/yt37067.gif"> Blink </logo>
+    <div class="dynamicBox">
+            <md-button style="text-align:left" class="md-raised" id="nav-btn" ng-repeat="item in items" ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}" data-hover="{{item.label}}">{{item.label}}</md-button>
+        <!-- <md-button class="md-fab" ui-sref="home">
+            <md-icon md-svg-src="templates/icomoon/home.svg">HOME</md-icon>
+        </md-button>
+        <md-button class="md-fab" ui-sref="scroll">
+            <md-icon md-svg-src="templates/icomoon/keyboard.svg">TYPE</md-icon>
+        </md-button>
+        <md-button class="md-fab" ui-sref="corners">
+            <md-icon md-svg-src="templates/icomoon/enlarge.svg">CORNERS</md-icon>
+        </md-button>
+        <md-button class="md-fab" ui-sref="newsfeed">
+            <md-icon md-svg-src="templates/icomoon/earth.svg">SOCIAL</md-icon>
+        </md-button>
+        <md-button class="md-fab" ui-sref="settings">
+            <md-icon md-svg-src="templates/icomoon/eye.svg">SETTINGS</md-icon>
+        </md-button>
+        <md-button class="md-fab" ui-sref="about">
+            <md-icon md-svg-src="templates/icomoon/svg.svg">ABOUT</md-icon>
+        </md-button> -->
+    </div>
+    <bl-sidebar-webcam></bl-sidebar-webcam>
 </md-sidenav>
-

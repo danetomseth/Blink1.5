@@ -1,0 +1,20 @@
+<div layout="column" ng-cloak class="md-inline-form">
+    <md-content layout-padding>
+        <div>
+            <form name="userForm">
+                <md-button ng-click="addPost(post)">ADD POST</md-button>
+                <div layout-gt-sm="row">
+                    <md-input-container>
+                        <label>Title</label>
+                        <input ng-model="post.title">
+                    </md-input-container>
+                </div>
+                <div>
+                    <md-input-container class="md-block">
+                        <label>Content</label>
+                        <textarea ng-model="post.content" md-maxlength="500" rows="10" md-select-on-focus></textarea>
+                    </md-input-container>
+            </form>
+            </div>
+    </md-content>
+    </div>

@@ -11,6 +11,8 @@ const authenticated = (req, res, next) => {
 
 // check if it's the user or admin making a request
 const selfOrAdmin = (req, res, next) => {
+    console.log("req.user.id is", req.user._id);
+    console.log("req.params.id is", req.params.id);
     if (req.user._id === req.params.id || req.user.role === 'admin') {
         next();
     } else {

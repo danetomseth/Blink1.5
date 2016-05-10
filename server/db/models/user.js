@@ -42,6 +42,14 @@ var schema = new mongoose.Schema({
         type: String,
         enum: ['user', 'admin', 'caregiver'],
         default: 'user'
+    },
+    keyboardSpeed : {
+        type: Number,
+        default: 3
+    },
+    trackingFeature: {
+        type: String,
+        default: 'brow'
     }
     // twitter: {
     //     id: String,
@@ -57,29 +65,38 @@ var schema = new mongoose.Schema({
     // }
 });
 
-schema.virtual('username').get(function(){
+schema.virtual('username').get(function() {
     return this.firstName + " " + this.lastName[0] + "."
 })
 
 // method to remove sensitive information from user objects before sending them out
-schema.methods.sanitize = function () {
+schema.methods.sanitize = function() {
     return _.omit(this.toJSON(), ['password', 'salt']);
+};
+
+// Adding friends
+schema.methods.addFriend = function(id) {
+    // Add friend if not already in friend array
+    if (this.friends.indexOf(id) < 0) {
+        this.friends.push(id);
+    }
+    return this.save();
 };
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
-var generateSalt = function () {
+var generateSalt = function() {
     return crypto.randomBytes(16).toString('base64');
 };
 
-var encryptPassword = function (plainText, salt) {
+var encryptPassword = function(plainText, salt) {
     var hash = crypto.createHash('sha1');
     hash.update(plainText);
     hash.update(salt);
     return hash.digest('hex');
 };
 
-schema.pre('save', function (next) {
+schema.pre('save', function(next) {
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
@@ -90,7 +107,7 @@ schema.pre('save', function (next) {
 schema.statics.generateSalt = generateSalt;
 schema.statics.encryptPassword = encryptPassword;
 
-schema.method('correctPassword', function (candidatePassword) {
+schema.method('correctPassword', function(candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 

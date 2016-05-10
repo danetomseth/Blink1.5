@@ -2,11 +2,11 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
     return {
         restrict: 'E',
         templateUrl: 'templates/scroll-letter.html',
-        scope: {},
+        // scope: {},
         link: function(scope, elem, attr) {
-
             let count = 0;
             let selectingLetter = false;
+            let delay = scope.delay; // reference from ScrollCtrl
             scope.wordInput = '';
 
             //makes sure first element is highlighted on page load
@@ -52,7 +52,7 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                     scope.selected = '';
                     scope.$digest();
                     scope.browDebounce = true;
-                }, 750)
+                }, delay)
             }
 
             function readPositions() {
@@ -91,7 +91,7 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(readPositions, 50);
                 clearInterval($rootScope.calibrateInt);
-                TimerFactory.moveCursor(keyboardIterator, 750);
+                TimerFactory.moveCursor(keyboardIterator, delay);
             }
 
             //this function waits until the video stream starts then runs draw loop and starts auto calibrate
