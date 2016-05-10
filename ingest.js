@@ -1,5 +1,5 @@
 'use strict'
-// injests texts to build a dictionary model
+// ingests texts to build a dictionary model
 
 const fs = require('fs');
 const source = "input.txt"; // where is this coming from. Used only for initial injestion
