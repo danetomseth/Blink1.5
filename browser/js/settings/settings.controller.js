@@ -7,7 +7,5 @@ core.config(function($stateProvider) {
 });
 
 core.controller('SettingsCtrl', function($scope, $mdSidenav) {
-    $scope.toggleSidebar = () => {
-        $mdSidenav('left').toggle();
-    }
+    
 });

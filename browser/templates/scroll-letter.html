@@ -10,18 +10,17 @@
             </md-input-container>
         </form>
     </div>
-    <div flex>
+    <!-- <div flex>
         <div class="webcam-container">
             <video id="webcam" class="video-center box-center" autoplay width="300px" height="225px"></video>
             <canvas id="canvas" class="canvas-center box-center" width="300px" height="225px"></canvas>
         </div>
-    </div>
+    </div> -->
     <div flex>
             <div flex layout="row" ng-repeat="row in alphabet" class="md-primary letter-row" layout-wrap layout-margin ng-class="{'highlighted-row': $index === currentRow}">
-                <div flex class="keys md-whiteframe-3dp" ng-repeat="letter in row" ng-class="{'highlighted-letter' : letter === currentLetter, 'selected' : letter === selected}">
+                <div flex ng-click="addLetter(letter)" class="keys md-whiteframe-3dp" ng-repeat="letter in row" ng-class="{'highlighted-letter' : letter === currentLetter, 'selected' : letter === selected}">
                     {{letter}}
                 </div>
             </div>
         </div>
 </div>
-{{word.join("")}}

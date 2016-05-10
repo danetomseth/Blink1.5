@@ -40,7 +40,7 @@ core.factory("KeyboardFactory", function($state, PredictFactory) {
         iterateLetter: () => {
             returnLetter = letterIndex;
             letterIndex++;
-            if(letterIndex > alphabet[returnRow].length - 1) {
+            if (letterIndex > alphabet[returnRow].length - 1) {
                 letterIndex = 0;
             }
             return alphabet[returnRow][returnLetter];

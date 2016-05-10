@@ -14,6 +14,24 @@ core.factory('TimerFactory', function($rootScope) {
 		},
 		videoStatus: (iterator, delay) => {
 			$rootScope.videoInterval = setInterval(iterator, delay);
+		},
+		clearAll: () => {
+			clearInterval($rootScope.videoInterval);
+			clearInterval($rootScope.calibrateInt);
+			clearInterval($rootScope.cursorInt);
+			clearInterval($rootScope.readPositionInt);
+		},
+		clearTracking: () => {
+			clearInterval($rootScope.calibrateInt);
+			clearInterval($rootScope.cursorInt);
+			clearInterval($rootScope.readPositionInt);
+		},
+		//we know that the webcam is loaded and can start tracking
+		videoReady: () => {
+			clearInterval($rootScope.videoInterval);
+		},
+		calibrationFinished: () => {
+			clearInterval($rootScope.calibrateInt);
 		}
 	}
 
