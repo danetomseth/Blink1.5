@@ -1,6 +1,6 @@
 'use strict'
 
-core.factory('SpeechFactory', function($http){
+core.factory('SpeechFactory', function(){
 
     return {
         say: (sentence) => {
