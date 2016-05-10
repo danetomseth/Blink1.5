@@ -1,17 +1,10 @@
-core.directive('blSidebar', function(SidebarFactory, TrackingFactory, TimerFactory, WebcamFactory, $rootScope, $mdSidenav) {
+core.directive('blSidebar', function(SidebarFactory, TrackingFactory, TimerFactory, WebcamFactory, $rootScope) {
     return {
         restrict: 'E',
         scope: {},
         templateUrl: 'templates/sidebar.html',
-        resolve: {
-            sidebarInstance: () => {
-                return $mdSidenav('left').then(instance => {
-                    return instance;
-                });
-            }
-        },
         controller: 'SidebarCtrl',
-        link: function(scope, sidebarInstance) {
+        link: function(scope) {
             scope.items = SidebarFactory.getLinks();
             //scope.selectedLink = 0;
           
@@ -27,7 +20,6 @@ core.directive('blSidebar', function(SidebarFactory, TrackingFactory, TimerFacto
             // scope.selectLinks = () => {
             //     TimerFactory.moveCursor(iterateLinks, 750);
             // }
-
         }
     }
 });
