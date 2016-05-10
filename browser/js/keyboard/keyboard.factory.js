@@ -1,6 +1,6 @@
 // Basic iteration and letter select/get
 
-core.factory("KeyboardFactory", function($state, PredictFactory) {
+core.factory("KeyboardFactory", function($state, PredictFactory, SpeechFactory) {
     let rowIndex = 0;
     let letterIndex = 0;
     let returnRow;
@@ -12,7 +12,7 @@ core.factory("KeyboardFactory", function($state, PredictFactory) {
         ["K", "L", "M", "N", "O"],
         ["P", "Q", "R", "S", "T"],
         ["U", "V", "W", "X", "Y"],
-        ['space', 'YES', 'NO', 'faces', 'NAV']
+        ['space', 'Speak', 'YES', 'NO', 'NAV']
     ];
     let rowLength = alphabet[0].length;
     let word = "";
@@ -49,6 +49,8 @@ core.factory("KeyboardFactory", function($state, PredictFactory) {
             if(returnRow === alphabet.length-1) { // if we are in the last row (which is all operations)
                 if (alphabet[returnRow][returnLetter] === 'space'){ // when someone selects "space", add a space and check for next words
                     return predictWords() // add a space and update the predicted words
+                } else if (alphabet[returnRow][returnLetter] === 'Speak'){
+                    SpeechFactory.say(word)
                 }
             } else if( returnRow === 0 ){ // if we are on the suggested word row
                 if (word[word.length-1] !== " ") {// if the last character isn't a space, replace the whole word
