@@ -57,14 +57,14 @@ core.directive('blSidebarWebcam', function(SidebarFactory, PositionFactory, $roo
                 TimerFactory.moveCursor(linkIterator, 1000);
             }
 
-            // let videoStatus = () => {
-            //     if ($rootScope.videoActive) {
-            //         TimerFactory.videoReady();
-            //         TrackingFactory.drawLoop();
-            //         //TimerFactory.calibrate(setZero, 50);
-            //     }
-            // }
-            // TimerFactory.videoStatus(videoStatus, 100);
+            let videoStatus = () => {
+                if ($rootScope.videoActive) {
+                    TimerFactory.videoReady();
+                    TrackingFactory.drawLoop();
+                    //TimerFactory.calibrate(setZero, 50);
+                }
+            }
+            TimerFactory.videoStatus(videoStatus, 100);
 
 
         }

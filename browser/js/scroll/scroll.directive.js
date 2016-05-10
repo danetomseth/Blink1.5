@@ -7,27 +7,36 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
 
             let count = 0;
             let selectingLetter = false;
+            scope.wordInput = '';
 
             //makes sure first element is highlighted on page load
-            scope.currentRow = 0;
+            scope.currentRow = null;
             scope.alphabet = KeyboardFactory.alphabet;
             scope.browDebounce = true;
 
             var video = document.getElementById('sidebar-webcam');
             var canvas = document.getElementById("sidebar-canvas");
-           
+
             TrackingFactory.startTracking(canvas, video);
             WebcamFactory.startWebcam(video);
 
             function keyboardIterator() {
+
                 if (scope.browDebounce && !selectingLetter) {
+                    //would be nice if it paused longer on first row
+                    // if (scope.currentRow === 0) {
+                    //     setTimeout(function() {
+                    //         console.log('waiting');
+                    //         scope.currentRow = KeyboardFactory.iterateRow();
+                    //     }, 200)
+                    // }
                     scope.currentRow = KeyboardFactory.iterateRow();
                 } else if (scope.browDebounce && selectingLetter) {
                     scope.currentLetter = KeyboardFactory.iterateLetter();
-                    console.log('current letter', scope.currentLetter);
                 }
                 scope.$digest();
             }
+
             function resetBrow() {
                 scope.selected = scope.currentLetter;
                 scope.currentLetter = '';
@@ -68,6 +77,12 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 } else {
                     count = 0;
                 }
+            }
+
+            scope.addLetter = (letter) => {
+                console.log('letter:', letter);
+                scope.currentLetter = letter;
+                scope.wordInput += letter;
             }
 
             scope.browZero = function() {

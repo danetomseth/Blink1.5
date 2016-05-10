@@ -7,8 +7,7 @@ core.factory('SidebarFactory', function($state, TimerFactory, $mdSidenav) {
                 { label: 'Corners', state: 'corners' },
                 { label: 'Social', state: 'newsfeed' },
                 { label: 'Settings', state: 'settings' },
-                { label: 'About', state: 'about' },
-                { label: 'Exit', state: 'exit'}
+                { label: 'About', state: 'about' }
             ];
 	return {
 		moveSelected: () => {

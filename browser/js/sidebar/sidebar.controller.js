@@ -14,4 +14,9 @@ core.controller('SidebarCtrl', function($scope, $state, $rootScope, $mdSidenav, 
     	TimerFactory.clearAll();
     }
 
+    $scope.stopTacking = () => {
+        TimerFactory.clearTracking();
+        $scope.trackingStopped = true;
+    }
+
 });

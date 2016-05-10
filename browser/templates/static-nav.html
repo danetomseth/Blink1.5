@@ -1,7 +1,4 @@
 <div id="nav-btns" ng-controller="LinkCtrl">
-	<div class="center-contents">
-		<md-button ng-hide="sidebarOpen" class="nav-btn-small" ng-click="openSidebar()">Open</md-button>
-		<md-button ng-show="sidebarOpen" class="nav-btn-small" ng-click="closeSidebar()">Close</md-button>
-		<md-button class="nav-btn-small" ng-click="selectLinks()">Webcam</md-button>
-	</div>
+<md-button class="nav-btn" ng-click="toggleSidebar()">Toggle</md-button>
+	<md-button class="nav-btn" ng-click="selectLinks()">Webcam</md-button>
 </div>
