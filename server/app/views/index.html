@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
     <link href='https://fonts.googleapis.com/css?family=Belgrano' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://i.icomoon.io/public/ddc73b7975/Blink/style.css">
     <link rel="stylesheet" type="text/css" href="/angular-material/angular-material.css">
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <script src="/lodash/index.js"></script>
@@ -23,14 +24,13 @@
     <script src="/clm/models/model_pca_20_svm.js"></script>
     <script src="/modernizr.js"></script>
     <script src="/main.js"></script>
-
 </head>
 
 <body ng-app="BlinkApp" layout="column">
     <div class="md-primary">
         <div layout="row" id="page-content" ng-model="sidebarActive">
-                <bl-sidebar id="sidebar"></bl-sidebar>
-                <div flex="100" id="content" ui-view></div>
+            <bl-sidebar id="sidebar"></bl-sidebar>
+            <div flex="100" id="content" ui-view></div>
             <div id="nav-btns" ng-controller="LinkCtrl">
                 <md-button class="nav-btn">Toggle</md-button>
                 <md-button class="nav-btn">Webcam</md-button>

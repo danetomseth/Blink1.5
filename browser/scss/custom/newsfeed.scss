@@ -2,7 +2,10 @@ md-tabs-content-wrapper {
     height: 600px;
 }
 
-md-selected {}
+.icon-user-plus:before {
+    content: "\e909";
+    color: nth($accent, 12);;
+}
 
 md-tab-label:nth-child(2) {
     background-color: white !important;

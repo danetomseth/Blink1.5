@@ -19,13 +19,31 @@ core.controller('NewsfeedCtrl', function($scope, posts, user, SocialFactory) {
     }
 
     $scope.addFriend = function(friendId) {
-      SocialFactory.addFriend(me._id, friendId);
-      $scope.$digest();
+        SocialFactory.addFriend(me._id, friendId);
+        $scope.$digest();
     }
 
     $scope.myFeed = posts.filter((elem) => {
         return me.friends.indexOf(elem.author._id) > -1;
-    }
+    });
 
-    );
+// // POST FUNCITONALITY
+//     $scope.newPost = new Post();
+
+//     $scope.removePost = function(Post) {
+//         Post.destroy()
+//             .then(function() {
+//                 var idx = $scope.stories.indexOf(Post);
+//                 $scope.stories.splice(idx, 1);
+//             });
+//     };
+
+//     $scope.addPost = function() {
+//         $scope.newPost.save()
+//             .then(function(created) {
+//                 created.author = $scope.newPost.author;
+//                 $scope.newPost = new Post();
+//                 $scope.stories.unshift(created);
+//             });
+//     };
 });

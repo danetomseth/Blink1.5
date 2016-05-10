@@ -9,6 +9,7 @@ core.factory("SocialFactory", function($http) {
         },
         addPost: (post) => {
             return $http.post('/api/posts', {post});
-        }
+        },
+
     }
 });
