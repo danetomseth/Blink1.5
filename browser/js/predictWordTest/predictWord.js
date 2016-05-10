@@ -12,38 +12,37 @@ core.config(function ($stateProvider) {
 
 core.factory("PredictFactory", function($http){
     return {
-        nextWords: (word) => {
-            console.log("_______________WORD____________", word)
+        nextWords: (sentence) => {
+            var word = sentence.split(" ").splice(-1)[0].toLowerCase()
             return $http.get("/api/words/"+word)
             .then(res => {
-                console.log(res.data)
                 return res.data
             })
         },
         injest: () => {
             return $http.put("/api/words/", {file: ""})
             .then(res => {
-                console.log(res.data)
                 return res.data
             })
         },
         update: (text) => {
             return $http.put("/api/words/", {text: text})
             .then(res => {
-                console.log(res.data)
                 return res.data
             })
         },
         completeWord: (partial)=>{
-            var regex = new RegExp("\\b[^\\s]*("+partial+")[^\\s]*\\b", "g")
+            let search = partial.split(" ").splice(-1)[0].toLowerCase() // grab the last partial word in the sentence to match
+            var regex = new RegExp("\\b("+search+")[^\\s]*\\b", "g") //new RegExp("\\b[^\\s]*("+partial+")[^\\s]*\\b", "g")
             var i = 0, results = [];
             let result;
             while (result = regex.exec(words)) {
-                console.log("AUTOCOMPLETE", result)
-                results.push(result[0]);
+                results.push(result[0].toUpperCase());
                 i += 1;
                 if (i >= 5) {break;}
             }
+            // if(!results.length) {return} // if we found no results, return nothing
+            console.log("autocomplete results", results)
             return results
         }
     }
@@ -62,6 +61,9 @@ core.controller("PredictCtrl", function($scope, PredictFactory){
         $scope.word += " ";
         $scope.word += word;
         $scope.predict(word);
+    }
+    $scope.auto = () => {
+        $scope.results = PredictFactory.completeWord($scope.word)
     }
 
     $scope.injest = () => PredictFactory.injest($scope.file)

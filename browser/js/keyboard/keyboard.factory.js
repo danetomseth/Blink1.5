@@ -6,7 +6,7 @@ core.factory("KeyboardFactory", function($state, PredictFactory) {
     let returnRow;
     let returnLetter;
     const alphabet = [
-        ["I", "I'M", "Can", "We", "Hello"],
+        ["I", "I'M", "CAN", "WE", "HELLO"],
         ["A", "B", "C", "D", "E"],
         ["F", "G", "H", "I", "J"],
         ["K", "L", "M", "N", "O"],
@@ -18,10 +18,11 @@ core.factory("KeyboardFactory", function($state, PredictFactory) {
     let word = "";
 
     const predictWords = () => {
-            let lastWord = word.split(" ").splice(-1)[0].toLowerCase() // grab the last word from the current sentence
-            console.log("looking for suggestions on", lastWord)
-            PredictFactory.nextWords(lastWord)
-            .then(words => angular.copy(words.splice(0, 5), alphabet[0])); // push the 5 most common words after the last word into the top row.
+            PredictFactory.nextWords(word) // sends whole sentence to the predictor where it is spliced
+            .then(words => {
+                let upperWords = words.splice(0, 5).join(",").toUpperCase().split(",") // take the first 5, convert them to upper case
+                angular.copy(upperWords, alphabet[0]) // push them onto the alphabet array
+            });
             word += " "; // add a space that the user asked for
             letterIndex = 0;
             rowIndex = 0;
@@ -45,24 +46,24 @@ core.factory("KeyboardFactory", function($state, PredictFactory) {
             return alphabet[returnRow][returnLetter];
         },
         selectLetter: () => {
-            console.log("selected")
             if(returnRow === alphabet.length-1) { // if we are in the last row (which is all operations)
-                console.log(2)
                 if (alphabet[returnRow][returnLetter] === 'space'){ // when someone selects "space", add a space and check for next words
                     return predictWords() // add a space and update the predicted words
                 }
             } else if( returnRow === 0 ){ // if we are on the suggested word row
-                console.log(1)
-                word += alphabet[returnRow][returnLetter] // adds the word to the sentence
+                if (word[word.length-1] !== " ") {// if the last character isn't a space, replace the whole word
+                    word = word.replace(/[\w!.,'"/\(\)\-]+$/g, alphabet[returnRow][returnLetter]) // repace the last word with the full word
+                } else {
+                    word += alphabet[returnRow][returnLetter] // adds the word to the sentence
+                }
                 return predictWords() // adds a space and updates the predicted words.
             }
             else {
                 word += alphabet[returnRow][returnLetter]; // otherwise, add the letter to the word and auto-suggest
                 letterIndex = 0;
                 rowIndex = 0;
-                console.log(PredictFactory.completeWord(word))
-                angular.copy(PredictFactory.completeWord(word), alphabet[0]);
-                console.log("factory word", word)
+                let suggest = PredictFactory.completeWord(word);
+                if (suggest.length) {angular.copy(suggest, alphabet[0])}; // every time a letter is typed, attempt to autocomplete it
                 return word;
             }
         },

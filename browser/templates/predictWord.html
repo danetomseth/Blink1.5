@@ -1,5 +1,8 @@
+<div class="col-md-8 col-md-offset-4">
 <input ng-model="word" />
+<button ng-click="auto()">AutoComplete </button>
 <button ng-click="predict()">Predict</button>
 <button ng-click="update()">Update dictionary</button>
 Results:
 <button ng-repeat="result in results" ng-click="select(result)">{{result}}</button>
+</div>
