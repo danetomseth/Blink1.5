@@ -5,6 +5,7 @@ module.exports = router;
 router.use('/posts', require('./posts'));
 router.use('/users', require('./users'));
 router.use('/threads', require('./threads'));
+router.use('/words', require('./predictions'));
 
 // Make sure this is after all of
 // the registered routes!
