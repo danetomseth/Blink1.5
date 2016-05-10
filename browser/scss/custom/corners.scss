@@ -21,7 +21,9 @@
 }
 
 .active-box {
-	background-color: $accentD !important;
+	div {
+		background-color: nth($primary, 2) !important;
+	}
 }
 
 .corner-container {

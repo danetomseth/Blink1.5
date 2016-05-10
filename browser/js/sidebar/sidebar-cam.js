@@ -1,32 +1,34 @@
-core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope, WebcamFactory, TrackingFactory, TimerFactory) {
+core.directive('blSidebarWebcam', function(SidebarFactory, PositionFactory, $rootScope, WebcamFactory, TrackingFactory, TimerFactory, $mdSidenav) {
     return {
         restrict: 'E',
-        controller: 'HomeCtrl',
-        templateUrl: 'templates/webcam.html',
+        controller: 'SidebarCtrl',
+        templateUrl: 'templates/sidebar-webcam.html',
         link: function(scope) {
+            var webcamWidth = angular.element(document.getElementById('sidebar-webcam-container'));
+            console.log(webcamWidth[0].clientWidth);
+            scope.containerHeight = webcamWidth[0].clientWidth * .75 + 'px';
+            scope.videoWidth = (webcamWidth[0].clientWidth * 2) + 'px';
+            scope.videoHeight = (webcamWidth[0].clientWidth * 2) * 0.75 + 'px';
             let count = 0;
-            scope.browDebounce = true;
-
             //var video;
-            var video = document.getElementById('corner-webcam');
-            var canvas = document.getElementById("corner-canvas");
+            var video = document.getElementById('sidebar-webcam');
+            var canvas = document.getElementById("sidebar-canvas");
 
             TrackingFactory.startTracking(canvas, video);
             WebcamFactory.startWebcam(video);
 
 
-            function keyboardIterator() {
-                $rootScope.selectedLink = SidebarFactory.moveSelected();
+            function linkIterator() {
+                scope.selectedLink = SidebarFactory.moveSelected();
                 scope.$digest();
             }
-
 
             function setZero() {
                 var converge = TrackingFactory.convergence();
                 if (converge < 300) {
                     count++;
                     if (count > 20) {
-                        clearInterval($rootScope.calibrateInt);
+                        TimerFactory.calibrationFinished();
                         scope.browZero();
                     }
                 } else {
@@ -34,18 +36,16 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
                 }
             }
 
-            function resetBrow() {
-                clearInterval($rootScope.cursorInt);
-                clearInterval($rootScope.readPositionInt);
+            function goToPage() {
+                TimerFactory.clearAll();
                 SidebarFactory.changeState();
             }
 
             function readPositions() {
                 var positions = TrackingFactory.getPositions();
                 if (positions) {
-                    if (PositionFactory.browCompare(positions) && scope.browDebounce) {
-                        scope.browDebounce = false;
-                        resetBrow();
+                    if (PositionFactory.browCompare(positions)) {
+                        goToPage();
                     }
                 }
             }
@@ -54,17 +54,16 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
                 var positions = TrackingFactory.getPositions();
                 PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(readPositions, 50);
-                TimerFactory.moveCursor(keyboardIterator, 1000);
+                TimerFactory.moveCursor(linkIterator, 1000);
             }
 
             let videoStatus = () => {
                 if ($rootScope.videoActive) {
-                    clearInterval($rootScope.videoInterval);
+                    TimerFactory.videoReady();
                     TrackingFactory.drawLoop();
-                    TimerFactory.calibrate(setZero, 50);
+                    //TimerFactory.calibrate(setZero, 50);
                 }
             }
-
             TimerFactory.videoStatus(videoStatus, 100);
 
 

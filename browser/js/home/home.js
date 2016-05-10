@@ -10,10 +10,6 @@ core.config(function($stateProvider) {
 
 });
 
-core.controller('HomeCtrl', function($scope, $state, $rootScope, SidebarFactory, $mdSidenav) {
-    if ($mdSidenav('left').isOpen()) {
-        $mdSidenav('left').close();
-        $rootScope.sidebarActive = false;
-    }
+core.controller('HomeCtrl', function($scope, $state, $rootScope, SidebarFactory) {
     $scope.links = SidebarFactory.getLinks();
 });

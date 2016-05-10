@@ -104,6 +104,8 @@ app.config(function($urlRouterProvider, $locationProvider) {
 });
 
 
+
+
 // This app.run is for controlling access to specific states.
 app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory, $mdSidenav) {
 
@@ -115,12 +117,6 @@ app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory
     // $stateChangeStart is an event fired
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
-
-        if(toState.name !== 'home') {
-            console.log('not home');
-            $mdSidenav('left').open();
-            $rootScope.sidebarActive = true;
-        }
 
         if ($rootScope.videoActive) {
             $rootScope.videoActive = false;

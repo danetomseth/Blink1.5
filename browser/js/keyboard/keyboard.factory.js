@@ -27,21 +27,16 @@ core.factory("KeyboardFactory", function($state) {
         iterateLetter: () => {
             returnLetter = letterIndex;
             letterIndex++;
-            if(letterIndex > alphabet[returnRow].length - 1) {
+            if (letterIndex > alphabet[returnRow].length - 1) {
                 letterIndex = 0;
             }
             return alphabet[returnRow][returnLetter];
         },
         selectLetter: () => {
-            if(alphabet[returnRow][returnLetter].length > 1) {
-                $state.go(alphabet[rowIndex][letterIndex]);
-            }
-            else {
-                word += alphabet[returnRow][returnLetter];
-                letterIndex = 0;
-                rowIndex = 0;
-                return word;
-            }
+            word += alphabet[returnRow][returnLetter];
+            letterIndex = 0;
+            rowIndex = 0;
+            return word;
         },
         resetKeyboard: () => {
             letterIndex = rowLength;

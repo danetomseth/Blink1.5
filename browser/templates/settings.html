@@ -1,36 +1,18 @@
-<div ng-controller="SettingsCtrl as ctrl" layout="column" ng-cloak>
-
-<md-card>
-  <!-- <img ng-src="icomoon/fonts/" class="md-card-image" alt="Washed Out"> -->
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Username</span>
-            <span class="md-subhead">Subheading</span>
-          </md-card-title-text>
-          <md-card-title-media>
-            <div class="md-media-lg card-media"></div>
-          </md-card-title-media>
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="end center">
-          <md-button>Action 1</md-button>
-          <md-button>Action 2</md-button>
-        </md-card-actions>
-      </md-card>
-
-    <md-content class="md-padding" layout="column">
-     <md-toolbar class="md-primary">
-        <div class="md-toolbar-tools">
-            <h2 class="md-flex">Keyboard Speed</h2>
-        </div>
-        </md-toolbar>
-        <form name="keyboard">
-        </form>
-        <br/>
-         <md-toolbar class="md-primary">
-        <div class="md-toolbar-tools">
-            <h2 class="md-flex">Calibrate Face</h2>
-        </div>
-        </md-toolbar>
-        <br/>
-    </md-content>
+<div flex-xs flex-gt-xs="50" layout="column" ng-cloak>
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{name}}</span>
+                    <span class="md-subhead">Member</span>
+                </md-card-title-text>
+                <md-card-title-media>
+                    <img class="md-media-lg card-media" ng-src="{{user.profilePicture}}" class="md-card-image" alt="Profile Picture">
+                </md-card-title-media>
+            </md-card-title>
+        </md-card>
+        <h1 class="md-flex"><a ui-sref="settings.keyboard">Keyboard Speed</a></h2>
+        <h1 class="md-flex"><a ui-sref="settings.features">Feature Selection</h2>
+</div>
+<div flex-xs flex-gt-xs="50" layout="column" class="userOptions">
+<ui-view></ui-view>
 </div>

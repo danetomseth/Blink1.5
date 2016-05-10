@@ -42,6 +42,14 @@ var schema = new mongoose.Schema({
         type: String,
         enum: ['user', 'admin', 'caregiver'],
         default: 'user'
+    },
+    keyboardSpeed : {
+        type: Number,
+        default: 3
+    },
+    trackingFeature: {
+        type: String,
+        default: 'brow'
     }
     // twitter: {
     //     id: String,

@@ -2,29 +2,37 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
     return {
         restrict: 'E',
         templateUrl: 'templates/scroll-letter.html',
-        scope: '=',
+        // scope: {},
         link: function(scope, elem, attr) {
-
             let count = 0;
             let selectingLetter = false;
+            let delay = scope.delay; // reference from ScrollCtrl
+            scope.wordInput = '';
 
             //makes sure first element is highlighted on page load
-            scope.currentRow = 0;
+            scope.currentRow = null;
             scope.alphabet = KeyboardFactory.alphabet;
             scope.browDebounce = true;
 
-            var video = document.getElementById('webcam');
-            var canvas = document.getElementById("canvas");
+            var video = document.getElementById('sidebar-webcam');
+            var canvas = document.getElementById("sidebar-canvas");
 
             TrackingFactory.startTracking(canvas, video);
             WebcamFactory.startWebcam(video);
 
             function keyboardIterator() {
+
                 if (scope.browDebounce && !selectingLetter) {
+                    //would be nice if it paused longer on first row
+                    // if (scope.currentRow === 0) {
+                    //     setTimeout(function() {
+                    //         console.log('waiting');
+                    //         scope.currentRow = KeyboardFactory.iterateRow();
+                    //     }, 200)
+                    // }
                     scope.currentRow = KeyboardFactory.iterateRow();
                 } else if (scope.browDebounce && selectingLetter) {
                     scope.currentLetter = KeyboardFactory.iterateLetter();
-                    console.log('current letter', scope.currentLetter);
                 }
                 scope.$digest();
             }
@@ -43,7 +51,7 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                     scope.selected = '';
                     scope.$digest();
                     scope.browDebounce = true;
-                }, 750)
+                }, delay)
             }
 
             function readPositions() {
@@ -71,12 +79,18 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 }
             }
 
+            scope.addLetter = (letter) => {
+                console.log('letter:', letter);
+                scope.currentLetter = letter;
+                scope.wordInput += letter;
+            }
+
             scope.browZero = function() {
                 var positions = TrackingFactory.getPositions();
                 PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(readPositions, 50);
                 clearInterval($rootScope.calibrateInt);
-                TimerFactory.moveCursor(keyboardIterator, 750);
+                TimerFactory.moveCursor(keyboardIterator, delay);
             }
 
             //this function waits until the video stream starts then runs draw loop and starts auto calibrate
