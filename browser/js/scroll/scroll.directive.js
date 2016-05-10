@@ -33,6 +33,7 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 scope.currentLetter = '';
                 if (selectingLetter) {
                     scope.wordInput = KeyboardFactory.selectLetter();
+                    console.log("frontend scope", scope.wordInput)
                     selectingLetter = false;
                 } else {
                     selectingLetter = true;
