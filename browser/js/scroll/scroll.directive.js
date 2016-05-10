@@ -1,4 +1,4 @@
-core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionFactory, TrackingFactory, WebcamFactory, TimerFactory, $mdToast) {
+core.directive('blLetterScroll', function($rootScope, SpeechFactory, KeyboardFactory, PositionFactory, TrackingFactory, WebcamFactory, TimerFactory, $mdToast) {
     return {
         restrict: 'E',
         templateUrl: 'templates/scroll-letter.html',
@@ -93,6 +93,8 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 clearInterval($rootScope.calibrateInt);
                 TimerFactory.moveCursor(keyboardIterator, 750);
             }
+
+            scope.say = () => SpeechFactory.say(scope.wordInput);
 
             //this function waits until the video stream starts then runs draw loop and starts auto calibrate
             let videoStatus = () => {
