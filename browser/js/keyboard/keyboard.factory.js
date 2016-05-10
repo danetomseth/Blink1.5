@@ -32,7 +32,11 @@ core.factory("KeyboardFactory", function($state) {
             }
             return alphabet[returnRow][returnLetter];
         },
-        selectLetter: () => {
+        selectLetter: (nav) => {
+            if(nav) {
+                console.log('go to nav');
+                return '';
+            }
             word += alphabet[returnRow][returnLetter];
             letterIndex = 0;
             rowIndex = 0;

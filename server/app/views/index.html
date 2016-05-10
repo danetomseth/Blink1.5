@@ -26,14 +26,12 @@
 </head>
 
 <body ng-app="BlinkApp" layout="column">
-    <div class="md-primary">
+    <div class="md-primary" ng-controller="MainCtrl">
         <div layout="row" id="page-content" ng-model="sidebarActive">
-            <bl-sidebar id="sidebar-container"></bl-sidebar>
+            <bl-sidebar control="sidebar" id="sidebar-container"></bl-sidebar>
             <div flex="100">
                 <div flex id="content" ui-view></div>
             </div>
-            <!-- <bl-static-nav></bl-static-nav> -->
-            <!-- <logo class="pull-right"><img src="http://i.imgur.com/yt37067.gif"> Blink </logo> -->
         </div>
     </div>
 </body>

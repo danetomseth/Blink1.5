@@ -1,14 +1,16 @@
-core.factory('SidebarFactory', function($state, TimerFactory, $mdSidenav) {
+core.factory('SidebarFactory', function($state, TimerFactory, TrackingFactory, PositionFactory) {
 	let itemIndex = 0;
+	let count = 0;
 	let returnIndex;
 	let links = [
-                { label: 'Home', state: 'home' },
-                { label: 'Type', state: 'scroll' },
-                { label: 'Corners', state: 'corners' },
-                { label: 'Social', state: 'newsfeed' },
-                { label: 'Settings', state: 'settings' },
-                { label: 'About', state: 'about' }
-            ];
+	{ label: 'Home', state: 'home' },
+	{ label: 'Type', state: 'scroll' },
+	{ label: 'Corners', state: 'corners' },
+	{ label: 'Social', state: 'newsfeed' },
+	{ label: 'Settings', state: 'settings' },
+	{ label: 'About', state: 'about' }
+	];
+
 	return {
 		moveSelected: () => {
 			returnIndex = itemIndex;
@@ -18,20 +20,13 @@ core.factory('SidebarFactory', function($state, TimerFactory, $mdSidenav) {
 			}
 			return returnIndex;
 		},
-		changeState: () => {
-			console.log('link', links[returnIndex].state);
-			$mdSidenav('left').close();
-			if(links[returnIndex].state === 'exit') TimerFactory.clearAll();
-			else $state.go(links[returnIndex].state)
-		},
 		getLinks: () => {
 			return links;
 		},
-		openSidebar: () => {
-			$mdSidenav('left').open();
+		changeState: () => {
+			itemIndex = 0;
+			if(links[returnIndex].state === 'exit') TimerFactory.clearAll();
+			else $state.go(links[returnIndex].state)
 		},
-		closeSidebar: () => {
-			$mdSidenav('left').close();
-		}
 	}
 });

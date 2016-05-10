@@ -14,12 +14,6 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
             scope.alphabet = KeyboardFactory.alphabet;
             scope.browDebounce = true;
 
-            var video = document.getElementById('sidebar-webcam');
-            var canvas = document.getElementById("sidebar-canvas");
-
-            TrackingFactory.startTracking(canvas, video);
-            WebcamFactory.startWebcam(video);
-
             function keyboardIterator() {
 
                 if (scope.browDebounce && !selectingLetter) {
@@ -81,6 +75,9 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
 
             scope.addLetter = (letter) => {
                 console.log('letter:', letter);
+                if(letter === 'NAV') {
+                    KeyboardFactory.selectLetter(true);
+                }
                 scope.currentLetter = letter;
                 scope.wordInput += letter;
             }
@@ -93,15 +90,17 @@ core.directive('blLetterScroll', function($rootScope, KeyboardFactory, PositionF
                 TimerFactory.moveCursor(keyboardIterator, 750);
             }
 
+            TimerFactory.calibrate(setZero, 50);
+
             //this function waits until the video stream starts then runs draw loop and starts auto calibrate
-            let videoStatus = () => {
-                if ($rootScope.videoActive) {
-                    clearInterval($rootScope.videoInterval);
-                    TrackingFactory.drawLoop();
-                    TimerFactory.calibrate(setZero, 50);
-                }
-            }
-            TimerFactory.videoStatus(videoStatus, 100);
+            // let videoStatus = () => {
+            //     if ($rootScope.videoActive) {
+            //         clearInterval($rootScope.videoInterval);
+            //         TrackingFactory.drawLoop();
+            //         TimerFactory.calibrate(setZero, 50);
+            //     }
+            // }
+            // TimerFactory.videoStatus(videoStatus, 100);
 
         }
 
