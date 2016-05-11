@@ -1,4 +1,4 @@
-core.directive('blLetterScroll', function(KeyboardFactory, TimerFactory, IterateFactory) {
+core.directive('blLetterScroll', function(KeyboardFactory, SpeechFactory, TimerFactory, IterateFactory) {
     return {
         restrict: 'E',
         templateUrl: 'templates/scroll-letter.html',
