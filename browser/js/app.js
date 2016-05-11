@@ -5,6 +5,10 @@ window.app = angular.module('BlinkApp', ['blinkAuth', 'core']);
 
 
 core.config(function($mdThemingProvider) {
+    //angular material icons
+    
+     
+
     var customPrimary = {
         '50': '#586687',
         '100': '#4e5b78',

@@ -1,6 +1,6 @@
 //factory used to determine what function to iterate
 
-core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactory, TrackingFactory, PositionFactory, SidebarFactory) {
+core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, KeyboardFactory, TrackingFactory, PositionFactory, SidebarFactory) {
     var iterateObj = {};
     var count = 0;
     var debounce = true;
@@ -16,6 +16,14 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
              angular.copy(arr, iterateObj.scopeValue);
         } else if (debounce && selectingLetter) {
             iterateObj.scopeValue[1] = KeyboardFactory.iterateLetter();
+        }
+    }
+    var popupIterator = function() {
+        if (debounce && !selectingLetter) {
+             let arr = [PopupFactory.iterateRow(), iterateObj.scopeValue[1]]
+             angular.copy(arr, iterateObj.scopeValue);
+        } else if (debounce && selectingLetter) {
+            iterateObj.scopeValue[1] = PopupFactory.iterateLetter();
         }
     }
 
@@ -40,6 +48,10 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
             }
         }
     // Position Functions 
+    function goToPage() {
+        TimerFactory.clearAll();
+        SidebarFactory.changeState();
+    }
 
     function analyzePositions(cb) {
         var positions = TrackingFactory.getPositions();
@@ -57,15 +69,35 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
         }
     }
 
+    function popupCallback() {
+        if (debounce) {
+            debounce = false;
+            popupSelect();
+        }
+    }
+
     function navCallback() {
         TimerFactory.clearTracking();
         iterateObj.scopeValue[0] = null;
         goToPage();
     }
 
-    function goToPage() {
-        TimerFactory.clearAll();
-        SidebarFactory.changeState();
+    
+
+    function popupSelect() {
+       iterateObj.selectedLetter = iterateObj.scopeValue[1];
+        //check to make sure the selected letter is not undefined
+        if (selectingLetter && iterateObj.selectedLetter) {
+            iterateObj.word = PopupFactory.selectLetter();
+            iterateObj.scopeValue[1] = "";
+            selectingLetter = false;
+        } else {
+            selectingLetter = true;
+        }
+        setTimeout(function() {
+            iterateObj.selectedLetter = '';
+            debounce = true;
+        }, 750)
     }
 
     function selectLetter() {
@@ -107,6 +139,10 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
                 TimerFactory.startReading(analyzePositions, 50, keyboardCallback);
                 TimerFactory.moveCursor(keyboardIterator, 750);
                 break;
+            case 'popup': 
+                PositionFactory.setBrowZero(positions);
+                TimerFactory.startReading(analyzePositions, 50, popupCallback);
+                TimerFactory.moveCursor(popupIterator, 750);
         }
     }
 

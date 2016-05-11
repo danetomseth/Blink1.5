@@ -1,0 +1,9 @@
+<md-bottom-sheet id="bottom-keyboard" layout="column" id="bottom-sheet" class="md-grid" ng-cloak>
+	<input class="form-control" ng-model='wordInput'/>
+	<div layout="row" ng-repeat="row in keyboard" class="keyboard-row" ng-class="{'hover-row': $index === scopeValue[0]}">
+		<div flex="20" class="row-box" ng-class="{'letter-hover': letter === scopeValue[1]}" ng-repeat="letter in row">{{letter}}</div>
+	</div>
+	
+</md-bottom-sheet>
+
+

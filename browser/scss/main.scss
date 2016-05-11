@@ -5,9 +5,9 @@
     clear: both;
   }
 }
-.md-primary {
-  color: white !important;
-}
+// .md-primary {
+//   color: white !important;
+// }
 //navy blue
 $primary: (
   #586687,
@@ -122,6 +122,7 @@ $accentD: #1B5E20;
 @import 'custom/static-nav';
 @import 'custom/newsfeed';
 @import 'custom/settings';
+@import 'custom/buttons';
 
 
 
@@ -142,4 +143,5 @@ body {
 #main {
   padding-top: 60px;
   margin: 0 auto;
+  color: nth($text, 5);
 }

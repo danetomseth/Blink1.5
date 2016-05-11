@@ -74,6 +74,11 @@ logo {
     padding-top: 5px;
 }
 
+.static-btn {
+    position: absolute;
+    bottom: 10px;
+}
+
 .btn-highlight {
     background-color: nth($accent, 3) !important;
 }

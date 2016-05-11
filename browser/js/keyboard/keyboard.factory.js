@@ -14,6 +14,13 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         ["U", "V", "W", "X", "Y"],
         ['SPACE', 'SAY', '<<', 'NO', 'NAV']
     ];
+    const smallKeyboard = [
+        ["A", "B", "C", "D", "E"],
+        ["F", "G", "H", "I", "J"],
+        ["K", "L", "M", "N", "O"],
+        ["P", "Q", "R", "S", "T"],
+        ["U", "V", "W", "X", "Y"]
+    ];
     let rowLength = alphabet[0].length;
     let phrase = "";
 
@@ -89,6 +96,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         //     rowIndex = alphabet.length;
         // },
         alphabet: alphabet, // used in scroll directive
+        smallKeyboard: smallKeyboard,
         getCurrentLetter: () => {
             return alphabet[rowIndex][letterIndex];
         }

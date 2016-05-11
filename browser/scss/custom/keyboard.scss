@@ -28,3 +28,40 @@
     color: red;
     text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;
 }
+
+#bottom-keyboard {
+    background: nth($background, 8);
+}
+
+.keyboard-row {
+    height: 50px;
+    margin: 2px 5px;
+   // margin: 
+}
+
+.row-box {
+    margin: 0px 5px;
+    line-height: 50px;
+    background: nth($accent, 3);
+    text-align: center;
+    font-size: 20px;
+    color: nth($background, 5);
+}
+
+.letter-hover {
+    border: 1px solid nth($accent, 3) !important;
+    line-height: 42px;
+    /* offset-x | offset-y | blur-radius | spread-radius | color */
+    box-shadow: 2px 2px 2px 1px nth($text, 8);
+}
+.hover-row {
+    div {
+        background: nth($primary, 1) !important;
+    }
+}
+
+
+
+
+
+
