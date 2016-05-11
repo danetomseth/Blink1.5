@@ -25,8 +25,7 @@ core.factory('SidebarFactory', function($state, TimerFactory, TrackingFactory, P
 		},
 		changeState: () => {
 			itemIndex = 0;
-			if(links[returnIndex].state === 'exit') TimerFactory.clearAll();
-			else $state.go(links[returnIndex].state)
+			$state.go(links[returnIndex].state)
 		},
 	}
 });

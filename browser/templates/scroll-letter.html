@@ -11,9 +11,9 @@
         </form>
     </div>
     <div flex>
-            <div flex layout="row" ng-repeat="row in alphabet" class="md-primary letter-row" layout-wrap layout-margin ng-class="{'highlighted-row': $index === currentRow}">
-                <div flex ng-click="addLetter(letter)" class="keys md-whiteframe-3dp" ng-repeat="letter in row" ng-class="{'highlighted-letter' : letter === currentLetter, 'selected' : letter === selected}">
-                    {{letter}}
+            <div flex layout="row" ng-repeat="row in alphabet" class="md-primary letter-row" layout-wrap layout-margin ng-class="{'highlighted-row': $index === scopeValue[0]}">
+                <div flex ng-click="addLetter(letter)" class="keys md-whiteframe-3dp" ng-repeat="letter in row" ng-class="{'highlighted-letter' : letter === scopeValue[1], 'selected' : letter === selected}">
+                    {{letter}} 
                 </div>
             </div>
         </div>

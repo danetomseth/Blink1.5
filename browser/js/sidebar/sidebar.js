@@ -1,4 +1,4 @@
-core.directive('blSidebar', function(SidebarFactory, TrackingFactory, TimerFactory, WebcamFactory, PositionFactory) {
+core.directive('blSidebar', function($state, SidebarFactory, TimerFactory, IterateFactory) {
     return {
         restrict: 'E',
         scope: {
@@ -8,54 +8,22 @@ core.directive('blSidebar', function(SidebarFactory, TrackingFactory, TimerFacto
         controller: 'SidebarCtrl',
         link: function(scope) {
             scope.items = SidebarFactory.getLinks();
+
+            //need to clean up scope.localCtrl .... was originally used to link stuff
             scope.localCtrl = scope.control || {};
             let count = 0;
-            
+            scope.selectedLink = IterateFactory.linkValue;
 
-            function linkIterator() {
-                scope.selectedLink = SidebarFactory.moveSelected();
-                scope.$digest();
-            }
-
-            function goToPage() {
-                TimerFactory.clearAll();
-                SidebarFactory.changeState();
-            }
-
-            function readPositions() {
-                var positions = TrackingFactory.getPositions();
-                if (positions) {
-                    if (PositionFactory.browCompare(positions)) {
-                        TimerFactory.clearTracking();
-                        scope.selectedLink = null;
-                        goToPage();
-                    }
+            scope.$watch(function() {
+                return IterateFactory.linkValue
+            }, function(newVal, oldVal) {
+                console.log('change!!', newVal);
+                if (typeof newVal !== 'undefined') {
+                    scope.selectedLink = IterateFactory.linkValue;
                 }
-            }
-
-            scope.localCtrl.browZero = function() {
-                var positions = TrackingFactory.getPositions();
-                PositionFactory.setBrowZero(positions);
-                TimerFactory.startReading(readPositions, 50);
-                TimerFactory.moveCursor(linkIterator, 1000);
-            }
-            
-            function setZero() {
-                var converge = TrackingFactory.convergence();
-                if (converge < 300) {
-                    count++;
-                    if (count > 20) {
-                        TimerFactory.calibrationFinished();
-                        scope.localCtrl.browZero();
-                    }
-                } else {
-                    count = 0;
-                }
-            }
-
-            scope.localCtrl.selectLinks = () => {
-                TimerFactory.calibrate(setZero, 50);
-            }
+            });
+            //IterateFactory.zero('nav');
+           
         }
     }
 });

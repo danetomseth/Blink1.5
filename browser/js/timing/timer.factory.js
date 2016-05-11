@@ -1,37 +1,44 @@
 //this sets all of timer dependent functions to the same intervals to clear on state change
 
-core.factory('TimerFactory', function($rootScope) {
+core.factory('TimerFactory', function($rootScope, $interval) {
+	var calibrateInt;
+	var cursorInt;
+	var positionInt;
+	var videoInt;
 
 	return {
-		startReading: (iterator, delay) => {
-			$rootScope.readPositionInt = setInterval(iterator, delay);
+		startReading: (iterator, delay, callback) => {
+			positionInt = $interval(iterator, delay, 0, true, callback);
 		},
 		moveCursor: (iterator, delay) => {
-			$rootScope.cursorInt = setInterval(iterator, delay);
+			cursorInt = $interval(iterator, delay);
 		},
-		calibrate: (iterator, delay) => {
-			$rootScope.calibrateInt = setInterval(iterator, delay);
+		calibrate: (iterator, delay, page) => {
+			calibrateInt = $interval(iterator, delay, 0, true, page);
 		},
 		videoStatus: (iterator, delay) => {
-			$rootScope.videoInterval = setInterval(iterator, delay);
+			videoInt = $interval(iterator, delay);
 		},
 		clearAll: () => {
-			clearInterval($rootScope.videoInterval);
-			clearInterval($rootScope.calibrateInt);
-			clearInterval($rootScope.cursorInt);
-			clearInterval($rootScope.readPositionInt);
+			$interval.cancel(calibrateInt);
+			$interval.cancel(cursorInt);
+			$interval.cancel(positionInt);
+			$interval.cancel(videoInt);
+
 		},
 		clearTracking: () => {
-			clearInterval($rootScope.calibrateInt);
-			clearInterval($rootScope.cursorInt);
-			clearInterval($rootScope.readPositionInt);
+			$interval.cancel(calibrateInt);
+			$interval.cancel(cursorInt);
+			$interval.cancel(positionInt);
+	
 		},
 		//we know that the webcam is loaded and can start tracking
 		videoReady: () => {
-			clearInterval($rootScope.videoInterval);
+			$interval.cancel(videoInt);
+			//clearInterval($rootScope.videoInterval);
 		},
 		calibrationFinished: () => {
-			clearInterval($rootScope.calibrateInt);
+			$interval.cancel(calibrateInt);
 		}
 	}
 
