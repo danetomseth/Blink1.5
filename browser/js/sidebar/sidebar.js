@@ -5,9 +5,10 @@ core.directive('blSidebar', function(SidebarFactory, TrackingFactory, TimerFacto
         templateUrl: 'templates/sidebar.html',
         controller: 'SidebarCtrl',
         link: function(scope) {
-            scope.items = SidebarFactory.getLinks();
+            scope.links = SidebarFactory.getLinks();
+
             //scope.selectedLink = 0;
-          
+
             // function iterateLinks() {
             //     console.log('moving');
             //     if(scope.selectedLink > scope.items.length -1) {

@@ -2,7 +2,7 @@
 // ingests texts to build a dictionary model
 
 const fs = require('fs');
-const source = "input.txt"; // where is this coming from. Used only for initial injestion
+const source = "input.txt"; // where is this coming from. Used only for initial ingestion
 const store = "/dict/"; // folder where are we storing this
 
 const clean = (text) => {
@@ -24,11 +24,10 @@ const checkWord = (word, nextWord) =>{
             wordModel[word].n[nextWord].f++; // if we have seen it before, increment the frequency
         }
     }
-    console.log("wordModel after", wordModel);
 }
 
-const injest = (text) => {
-    console.log("injesting");
+const ingest = (text) => {
+    console.log("ingesting");
     let data = clean(text);
     console.log(data.length, "words");
     for (let i in data) {
@@ -37,7 +36,6 @@ const injest = (text) => {
         let wordModel = checkWord(word, nextWord);
         fs.writeFileSync(store+word+".json", wordModel);
     }
-    console.log("done injesting");
 }
 
-injest(source);
+ingest(source);
