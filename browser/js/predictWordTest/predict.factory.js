@@ -11,7 +11,7 @@ core.factory("PredictFactory", function($http){
                 return res.data
             })
         },
-        injest: () => {
+        ingest: () => {
             return $http.put("/api/words/", {file: ""})
             .then(res => {
                 return res.data
