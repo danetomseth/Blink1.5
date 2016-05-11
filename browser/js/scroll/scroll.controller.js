@@ -10,7 +10,6 @@ core.config(function ($stateProvider) {
         },
         onEnter: function(IterateFactory) {
         	//this starts nav iteration on home page
-        	console.log('Entering scroll!');
         	IterateFactory.zero('scroll');
         }
     });
@@ -18,7 +17,6 @@ core.config(function ($stateProvider) {
 
 core.controller('ScrollCtrl', function($state, $scope, user) {
     $scope.delay; // keyboard iteration speed
-
     // Key-value pairs for keyboard speed based on user's settings
     const translateDelay = {
         5: 500,
@@ -29,10 +27,9 @@ core.controller('ScrollCtrl', function($state, $scope, user) {
         0: 1750
     }
 
-    if (user) { $scope.delay = translateDelay[user.keyboardSpeed] } else { $scope.delay = translateDelay[3] };
+    if (user) { $scope.delay = translateDelay[user.keyboardSpeed] } else { $scope.delay = translateDelay[5] };
 
 });
-
 
 
 

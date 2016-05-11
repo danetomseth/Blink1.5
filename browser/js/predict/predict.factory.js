@@ -8,7 +8,8 @@ core.factory("PredictFactory", function($http){
             var word = sentence.split(" ").splice(-1)[0].toLowerCase()
             return $http.get("/api/words/"+word)
             .then(res => {
-                return res.data
+                let upperWords = res.data.splice(0, 5).join(",").toUpperCase().split(",") // take the first 5, convert them to upper case
+                return upperWords
             })
         },
         ingest: () => {
