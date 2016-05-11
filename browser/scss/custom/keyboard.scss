@@ -1,17 +1,19 @@
 .letter-row {
     justify-content: space-between;
-    font-size: 36px;
     text-align: center;
 }
 
 .inputBox {
-    font-size: 34px;
+    font-size: 40px;
+    line-height: 2.5;
 }
 
 .keys {
     text-align: center;
-    font-size: 50px;
-    color: nth($primary, 7);
+    font-size: 40px;
+    background-color: nth($background, 8);
+    color: black;
+    opacity: 0.6;
 }
 
 .highlighted-row {
