@@ -1,6 +1,6 @@
 // Basic iteration and letter select/get
 
-core.factory("KeyboardFactory", function($state, PredictFactory, SpeechFactory) {
+core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, SpeechFactory) {
     let rowIndex = 0;
     let letterIndex = 0;
     let returnRow;
@@ -12,7 +12,7 @@ core.factory("KeyboardFactory", function($state, PredictFactory, SpeechFactory) 
         ["K", "L", "M", "N", "O"],
         ["P", "Q", "R", "S", "T"],
         ["U", "V", "W", "X", "Y"],
-        ['space', 'Speak', 'YES', 'NO', 'NAV']
+        ['space', 'Speak', '<<', 'NO', 'NAV']
     ];
     let rowLength = alphabet[0].length;
     let word = "";
@@ -20,7 +20,6 @@ core.factory("KeyboardFactory", function($state, PredictFactory, SpeechFactory) 
     const predictWords = () => {
             PredictFactory.nextWords(word) // sends whole sentence to the predictor where it is spliced
             .then(words => {
-                let upperWords = words.splice(0, 5).join(",").toUpperCase().split(",") // take the first 5, convert them to upper case
                 angular.copy(upperWords, alphabet[0]) // push them onto the alphabet array
             });
             word += " "; // add a space that the user asked for
@@ -47,10 +46,25 @@ core.factory("KeyboardFactory", function($state, PredictFactory, SpeechFactory) 
         },
         selectLetter: () => {
             if(returnRow === alphabet.length-1) { // if we are in the last row (which is all operations)
-                if (alphabet[returnRow][returnLetter] === 'space'){ // when someone selects "space", add a space and check for next words
-                    return predictWords() // add a space and update the predicted words
-                } else if (alphabet[returnRow][returnLetter] === 'Speak'){
-                    SpeechFactory.say(word)
+                // if (alphabet[returnRow][returnLetter] === 'space'){ // when someone selects "space", add a space and check for next words
+                //     return predictWords() // add a space and update the predicted words
+                // } else if (alphabet[returnRow][returnLetter] === 'Speak'){
+                //     SpeechFactory.say(word)
+                // }
+                let action = alphabet[returnRow][returnLetter]
+                switch (action){
+                    case 'space':
+                        return predictWords();
+                        break;
+                    case 'Speak':
+                        SpeechFactory.say(word);
+                        word = ""
+                        break;
+                    case '<<':
+                        return word.slice(0, word.length-1)
+                        break;
+                    default:
+                        console.log("Error: Action "+action+" not found");
                 }
             } else if( returnRow === 0 ){ // if we are on the suggested word row
                 if (word[word.length-1] !== " ") {// if the last character isn't a space, replace the whole word

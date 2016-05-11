@@ -7,4 +7,4 @@ core.factory('SpeechFactory', function(){
             responsiveVoice.speak(sentence, 'UK English Male')
         }
     }
-})
+});
