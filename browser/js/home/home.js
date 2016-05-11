@@ -3,8 +3,10 @@ core.config(function($stateProvider) {
         url: '/',
         templateUrl: 'templates/home.html',
         controller: 'HomeCtrl',
-        onEnter: function() {
+        onEnter: function(IterateFactory) {
+        	//this starts nav iteration on home page
         	console.log('Entering home!');
+        	IterateFactory.zero('nav');
         }
     });
 

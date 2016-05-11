@@ -20,6 +20,11 @@
 	background: nth($accent, 7);
 }
 
+.center-box {
+	font-size: 3em;
+	font-weight: 3em;
+}
+
 .active-box {
 	div {
 		background-color: nth($primary, 2) !important;

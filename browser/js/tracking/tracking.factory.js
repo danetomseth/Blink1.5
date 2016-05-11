@@ -18,24 +18,37 @@ core.factory('TrackingFactory', function($rootScope) {
     };
 
     trackObj.drawLoop = () => {
-    	if($rootScope.videoActive) {
-    		requestAnimationFrame(trackObj.drawLoop);
-        	context.clearRect(0, 0, canvas.width, canvas.height);
-        	tracker.draw(canvas);
-    	}
+        if ($rootScope.videoActive) {
+            requestAnimationFrame(trackObj.drawLoop);
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            tracker.draw(canvas);
+        }
     };
 
     trackObj.convergence = () => {
-    	return tracker.getConvergence();
+        return tracker.getConvergence();
     }
 
     trackObj.getPositions = () => {
-    	return tracker.getCurrentPosition();
+        return tracker.getCurrentPosition();
     };
 
     trackObj.endTracking = () => {
-    	tracker.stop();
+        tracker.stop();
     };
+
+    trackObj.setZero = () => {
+        var converge = TrackingFactory.convergence();
+        if (converge < 300) {
+            count++;
+            if (count > 20) {
+                TimerFactory.calibrationFinished();
+                
+            }
+        } else {
+            count = 0;
+        }
+    }
 
     return trackObj
 });

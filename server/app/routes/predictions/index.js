@@ -4,18 +4,18 @@ module.exports = router;
 const predict = require('predict-next-word');
 
 router.get('/seed', (req, res) =>{
-    console.log("injesting file")
     predict.ingestFile() // sync
     res.send("seeded")
-})
-router.get('/:words', (req, res, next) => {
+});
+
+router.get('/:words', (req, res) => {
     let prediction = predict.getNextWords(req.params.words)
     res.send(prediction)
-})
+});
 
 router.put('/', (req, res) => {
-    console.log("injesting text")
+    console.log("ingesting text")
     predict.ingest(req.body.text) // sync
-    res.send("injested")
-})
+    res.send("ingested")
+});
 

@@ -1,3 +1,4 @@
+
 core.factory('SidebarFactory', function($state, AuthService, TimerFactory, $mdSidenav) {
 
     let itemIndex = 0;
@@ -14,33 +15,24 @@ core.factory('SidebarFactory', function($state, AuthService, TimerFactory, $mdSi
         { label: 'Signup', state: 'signup', show: !isLoggedIn}
     ];
 
-    const SidebarFactory = {
+    return {
         moveSelected: () => {
             returnIndex = itemIndex;
             itemIndex++;
-            if (itemIndex >= links.length) {
+            if(itemIndex >= links.length) {
                 itemIndex = 0;
             }
             return returnIndex;
         },
-        changeState: () => {
-            $mdSidenav('left').close();
-            if (links[returnIndex].state === 'exit') TimerFactory.clearAll();
-            else $state.go(links[returnIndex].state)
-        },
         getLinks: () => {
             return links;
         },
-        openSidebar: () => {
-            $mdSidenav('left').open();
-        },
-        closeSidebar: () => {
-            $mdSidenav('left').close();
+        changeState: () => {
+            itemIndex = 0;
+            $state.go(links[returnIndex].state)
         },
         checkLogin: () => {
             isLoggedIn = !!(AuthService.isAuthenticated());
         }
     }
-
-    return SidebarFactory;
 });

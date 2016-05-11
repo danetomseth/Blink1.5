@@ -1,12 +1,25 @@
 md-sidenav {
     position: absolute;
-    padding-top: 20px;
+    padding-top: 10px;
     background: linear-gradient(nth($primary, 9), nth($primary, 2));
     height: 100vh !important;
     box-shadow: 3px 3px 3px nth($background, 8);
     logo {
         color: nth($background, 4);
     }
+}
+
+
+logo {
+  padding: 5px 20px;
+  font-family: 'Belgrano', serif !important;
+  font-size: 66px;
+  color: nth($primary, 8);
+  font-weight: 400;
+  letter-spacing: 2px;
+  img {
+  width: 60px;
+  }
 }
 
 #sidebar-container {
@@ -55,7 +68,7 @@ md-sidenav {
 }
 
 .nav-bottom {
-    padding-top: 20px;
+    padding-top: 5px;
 }
 
 .sidebar-logo {
@@ -67,5 +80,5 @@ md-sidenav {
 }
 
 .btn-highlight {
-    background-color: nth($background, 3);
+    background-color: nth($accent, 3) !important;
 }
