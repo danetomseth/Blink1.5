@@ -18,7 +18,6 @@ core.config(function ($stateProvider) {
 
 core.controller('ScrollCtrl', function($state, $scope, user) {
     $scope.delay; // keyboard iteration speed
-    console.log(1)
     // Key-value pairs for keyboard speed based on user's settings
     const translateDelay = {
         5: 500,
