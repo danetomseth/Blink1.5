@@ -24,7 +24,6 @@ const checkWord = (word, nextWord) =>{
             wordModel[word].n[nextWord].f++; // if we have seen it before, increment the frequency
         }
     }
-    console.log("wordModel after", wordModel);
 }
 
 const ingest = (text) => {
@@ -37,7 +36,6 @@ const ingest = (text) => {
         let wordModel = checkWord(word, nextWord);
         fs.writeFileSync(store+word+".json", wordModel);
     }
-    console.log("done ingesting");
 }
 
 ingest(source);

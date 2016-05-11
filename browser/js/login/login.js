@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('LoginCtrl', function ($scope, AuthService, $state) {
+app.controller('LoginCtrl', function ($scope, AuthService, $state, SidebarFactory) {
 
     $scope.login = {};
     $scope.error = null;
@@ -24,5 +24,6 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
         });
 
     };
+
 
 });

@@ -11,8 +11,9 @@
     <!-- <logo class="pull-right"><img src="http://i.imgur.com/yt37067.gif"> Blink </logo> -->
     <logo class="pull-right">Blink</logo>
     <div class="dynamicBox">
-            <md-button style="text-align:left" class="md-raised" id="nav-btn" ng-repeat="item in items" ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}" data-hover="{{item.label}}">{{item.label}}</md-button>
-            <md-button style="text-align:left" class="md-raised" id="nav-btn" ng-click="stopTacking()" ng-hide="trackingStopped">Stop</md-button>
+            <md-button style="text-align:left" class="md-raised" id="nav-btn" ng-repeat="item in items" ng-show="{{item.show}}" ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}" data-hover="{{item.label}}">{{item.label}}</md-button>
+
+            <md-button style="text-align:left" class="md-raised" id="nav-btn" ng-show="{{signedIn}}" ng-click="logOut()" ng-class="{'btn-highlight' : $index === selectedLink}">Log Out</md-button>
     </div>
     <bl-sidebar-webcam></bl-sidebar-webcam>
 </md-sidenav>

@@ -6,7 +6,7 @@ core.factory('WebcamFactory', function($rootScope, $state) {
     $rootScope.videoActive = false;
     return {
         startWebcam: (videoElem) => {
-            //starts webcam 
+            //starts webcam
             if (Modernizr.getusermedia) {
                 var gUM = Modernizr.prefixed('getUserMedia', navigator);
                 gUM({
@@ -16,7 +16,7 @@ core.factory('WebcamFactory', function($rootScope, $state) {
                     $rootScope.videoActive = true;
                     videoElem.src = window.URL.createObjectURL($rootScope.videoStream);
                 }, errorCallback);
-                
+
             }
         },
         endWebcam: () => {

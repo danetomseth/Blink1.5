@@ -7,6 +7,7 @@ core.directive('blSidebar', function($state, SidebarFactory, TimerFactory, Itera
         templateUrl: 'templates/sidebar.html',
         controller: 'SidebarCtrl',
         link: function(scope) {
+
             scope.items = SidebarFactory.getLinks();
 
             //need to clean up scope.localCtrl .... was originally used to link stuff
@@ -23,7 +24,7 @@ core.directive('blSidebar', function($state, SidebarFactory, TimerFactory, Itera
                 }
             });
             //IterateFactory.zero('nav');
-           
+
         }
     }
 });
