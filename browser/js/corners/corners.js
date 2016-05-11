@@ -1,34 +1,18 @@
-core.directive('blCorners', function($rootScope, TrackingFactory, WebcamFactory, TimerFactory, PositionFactory) {
+core.directive('blCorners', function($rootScope, TrackingFactory, CornersFactory, WebcamFactory, TimerFactory, PositionFactory) {
 
     return {
         restrict: 'E',
         scope: {},
         templateUrl: 'templates/corners-grid.html',
         link: function(scope, elem, attr) {
-
             let zero = [];
             scope.selectedBox = 4;
+            scope.boxes = CornersFactory.getBoxes()
 
-
-            scope.TLBox = ["A", "B", "C", "D", "E", ""];
-            scope.TMBox = 'blankTM';
-            scope.MLBox = 'blankML';
-            scope.MRBox = 'blankMR';
-            scope.BMBox = 'blankBM';
-            scope.MMBox = 'middle';
-            scope.TRBox = ["F", "G", "H", "I", "J", ""];
-            //scope.MMBox = ["K", "L", "M", "N", "O", ""];
-            scope.BLBox = ["P", "Q", "R", "S", "T", ""];
-            scope.BRBox = ["U", "V", "W", "X", "Y", "Z"];
-
-            let defaultBoxes = [scope.TLBox, scope.TMBox, scope.TRBox, scope.MLBox, scope.MMBox, scope.MRBox, scope.BLBox, scope.BMBox, scope.BRBox];
-            scope.boxes = defaultBoxes
 
             scope.zeroEyes = function() {
                 zero = [scope.eyeX, scope.eyeY]
             }
-
-            scope.boxHeight = '50px';
 
 
             scope.box = [0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -66,16 +50,25 @@ core.directive('blCorners', function($rootScope, TrackingFactory, WebcamFactory,
                 }
             }
 
-             let videoStatus = () => {
-                if ($rootScope.videoActive) {
-                    TimerFactory.videoReady();
-                    TrackingFactory.drawLoop();
+            function zeroEyes() {
+                let count = 6;
+                let countInterval;
+                countInterval = setInterval(function(){
+                    count--;
+                    scope.boxes[4].contents = count;
+                    scope.$digest();
+                }, 1000)
+                setTimeout(function() {
                     scope.zeroEyes();
-                    TimerFactory.startReading(readPositions, 50);
-                    //TimerFactory.calibrate(setZero, 50);
-                }
+                    scope.selectedBox = null;
+                    scope.boxes[4].contents = "";
+                    clearInterval(countInterval)
+                }, 5000);
             }
-            TimerFactory.videoStatus(videoStatus, 100);
+
+            TimerFactory.startReading(readPositions, 50);
+            zeroEyes();
+
 
         }
     };

@@ -6,20 +6,20 @@ window.app = angular.module('BlinkApp', ['blinkAuth', 'core']);
 
 core.config(function($mdThemingProvider) {
     var customPrimary = {
-        '50': '#ffffff',
-        '100': '#ffffff',
-        '200': '#ffffff',
-        '300': '#fafef3',
-        '400': '#effdda',
-        '500': '#E5FCC2',
-        '600': '#dbfbaa',
-        '700': '#d0fa91',
-        '800': '#c6f879',
-        '900': '#bcf761',
-        'A100': '#ffffff',
-        'A200': '#ffffff',
-        'A400': '#ffffff',
-        'A700': '#b1f648'
+        '50': '#586687',
+        '100': '#4e5b78',
+        '200': '#444f68',
+        '300': '#3a4359',
+        '400': '#303849',
+        '500': '#262c3a',
+        '600': '#1c202b',
+        '700': '#12151b',
+        '800': '#08090c',
+        '900': '#000000',
+        'A100': '#637296',
+        'A200': '#717fa2',
+        'A400': '#808dac',
+        'A700': '#000000'
     };
     $mdThemingProvider
         .definePalette('customPrimary',
@@ -107,7 +107,7 @@ app.config(function($urlRouterProvider, $locationProvider) {
 
 
 // This app.run is for controlling access to specific states.
-app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory, $mdSidenav) {
+app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory, TimerFactory) {
 
     // The given state requires an authenticated user.
     var destinationStateRequiresAuth = function(state) {
@@ -118,19 +118,7 @@ app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
 
-        if ($rootScope.videoActive) {
-            $rootScope.videoActive = false;
-            TrackingFactory.endTracking();
-            WebcamFactory.endWebcam();
-            clearInterval($rootScope.cursorInterval);
-            clearInterval($rootScope.calibrateInterval);
-            clearInterval($rootScope.intervalRead);
-            clearInterval($rootScope.readPositionInt);
-            clearInterval($rootScope.cursorInterval);
-            clearInterval($rootScope.calibrateInterval);
-            clearInterval($rootScope.videoInterval);
-        }
-
+        TimerFactory.clearTracking();
         if (!destinationStateRequiresAuth(toState)) {
             // The destination state does not require authentication
             // Short circuit with return.

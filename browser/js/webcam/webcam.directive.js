@@ -11,7 +11,9 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
             var video = document.getElementById('corner-webcam');
             var canvas = document.getElementById("corner-canvas");
 
+            // Initialize and start new clm tracker
             TrackingFactory.startTracking(canvas, video);
+            // Start video stream from webcam
             WebcamFactory.startWebcam(video);
 
 
@@ -19,7 +21,6 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
                 $rootScope.selectedLink = SidebarFactory.moveSelected();
                 scope.$digest();
             }
-
 
             function setZero() {
                 var converge = TrackingFactory.convergence();
@@ -66,7 +67,6 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
             }
 
             TimerFactory.videoStatus(videoStatus, 100);
-
 
         }
     }

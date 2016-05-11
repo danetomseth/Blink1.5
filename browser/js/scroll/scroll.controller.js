@@ -7,6 +7,11 @@ core.config(function ($stateProvider) {
             user: function(AuthService) {
                 return AuthService.getLoggedInUser();
             }
+        },
+        onEnter: function(IterateFactory) {
+        	//this starts nav iteration on home page
+        	console.log('Entering scroll!');
+        	IterateFactory.zero('scroll');
         }
     });
 });
@@ -26,8 +31,8 @@ core.controller('ScrollCtrl', function($state, $scope, user) {
 
     if (user) { $scope.delay = translateDelay[user.keyboardSpeed] } else { $scope.delay = translateDelay[5] };
     console.log("Keyboard Speed", $scope.delay)
-});
 
+});
 
 
 
