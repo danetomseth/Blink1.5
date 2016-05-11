@@ -1,8 +1,17 @@
 
 <!-- Locked Open  -->
-<md-sidenav id="locked-sidebar" md-is-locked-open="true" class="md-primary md-sidenav-left" md-component-id="left">
+<!-- <md-sidenav id="locked-sidebar" md-is-locked-open="true" class="md-primary md-sidenav-left" md-component-id="left">
 <md-button style="text-align:left" class="md-raised" id="nav-btn" ng-repeat="item in items" ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}" data-hover="{{item.label}}">{{item.label}}</md-button>
 <md-button style="text-align:left" class="md-raised" id="nav-btn" ng-click="stopTacking()" ng-hide="trackingStopped">Stop</md-button>
-<bl-sidebar-webcam local="control"></bl-sidebar-webcam>
+<bl-sidebar-webcam local="control"></bl-sidebar-webcam> -->
 
 
+<!-- Locked Open  -->
+<md-sidenav id="locked-sidebar" md-is-locked-open="true" class="md-primary md-sidenav-left" md-component-id="left">
+    <logo class="pull-right"><img src="http://i.imgur.com/yt37067.gif"> Blink </logo>
+    <div class="dynamicBox">
+            <md-button style="text-align:left" class="md-raised" id="nav-btn" ng-repeat="item in items" ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}" data-hover="{{item.label}}">{{item.label}}</md-button>
+            <md-button style="text-align:left" class="md-raised" id="nav-btn" ng-click="stopTacking()" ng-hide="trackingStopped">Stop</md-button>
+    </div>
+    <bl-sidebar-webcam></bl-sidebar-webcam>
+</md-sidenav>

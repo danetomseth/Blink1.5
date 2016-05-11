@@ -1,0 +1,6 @@
+<md-list ng-cloak>
+    <md-subheader class="md-no-sticky">Keyboard Iteration Speed (slowest to fastest)</md-subheader>
+    <md-list-item class="secondary-button-padding" ng-repeat="speed in speeds">
+        <p ng-click="setSpeed(speed)" ng-class="{selectedOption: feature===selected}">{{speed}}</p>
+    </md-list-item>
+</md-list>

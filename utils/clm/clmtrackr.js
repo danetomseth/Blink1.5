@@ -134,13 +134,13 @@ var clm = {
             sketchH = sketchCanvas.height = modelHeight + (searchWindow-1) + patchSize-1;
 
             if (model.hints && mosseFilter && left_eye_filter && right_eye_filter && nose_filter) {
-                //var mossef_lefteye = new mosseFilter({drawResponse : document.getElementById('overlay2')});
+
                 mossef_lefteye = new mosseFilter();
                 mossef_lefteye.load(left_eye_filter);
-                //var mossef_righteye = new mosseFilter({drawResponse : document.getElementById('overlay2')});
+
                 mossef_righteye = new mosseFilter();
                 mossef_righteye.load(right_eye_filter);
-                //var mossef_nose = new mosseFilter({drawResponse : document.getElementById('overlay2')});
+
                 mossef_nose = new mosseFilter();
                 mossef_nose.load(nose_filter);
             } else {
@@ -405,21 +405,6 @@ var clm = {
                 }
             }
 
-            /*print weights*/
-            /*sketchCC.clearRect(0, 0, sketchW, sketchH);
-            var nuWeights;
-            for (var i = 0;i < numPatches;i++) {
-                nuWeights = weights[i].map(function(x) {return x*2000+127;});
-                drawData(sketchCC, nuWeights, patchSize, patchSize, false, patchPositions[i][0]-(patchSize/2), patchPositions[i][1]-(patchSize/2));
-            }*/
-
-            // print patches
-            /*sketchCC.clearRect(0, 0, sketchW, sketchH);
-            for (var i = 0;i < numPatches;i++) {
-                if ([27,32,44,50].indexOf(i) > -1) {
-                    drawData(sketchCC, patches[i], pw, pl, false, patchPositions[i][0]-(pw/2), patchPositions[i][1]-(pl/2));
-                }
-            }*/
             if (patchType == "SVM") {
                 if (typeof(webglFi) !== "undefined") {
                     responses = getWebGLResponses(patches);
@@ -441,22 +426,6 @@ var clm = {
                 }
             }
 
-            // print responses
-            /*sketchCC.clearRect(0, 0, sketchW, sketchH);
-            var nuWeights;
-            for (var i = 0;i < numPatches;i++) {
-
-                nuWeights = [];
-                for (var j = 0;j < responses[i].length;j++) {
-                    nuWeights.push(responses[i][j]*255);
-                }
-
-                //if ([27,32,44,50].indexOf(i) > -1) {
-                //  drawData(sketchCC, nuWeights, searchWindow, searchWindow, false, patchPositions[i][0]-((searchWindow-1)/2), patchPositions[i][1]-((searchWindow-1)/2));
-                //}
-                drawData(sketchCC, nuWeights, searchWindow, searchWindow, false, patchPositions[i][0]-((searchWindow-1)/2), patchPositions[i][1]-((searchWindow-1)/2));
-            }*/
-
             // iterate until convergence or max 10, 20 iterations?:
             var originalPositions = currentPositions;
             var jac;
@@ -466,10 +435,6 @@ var clm = {
 
                 // calculate jacobian
                 jac = createJacobian(currentParameters, eigenVectors);
-
-                // for debugging
-                //var debugMVs = [];
-                //
 
                 var opj0, opj1;
 
@@ -483,39 +448,8 @@ var clm = {
                     // calculate meanshift-vector
                     gpopt2(searchWindow, vecpos, updatePosition, vecProbs, vpsum, opj0, opj1, scaling);
 
-                    // for debugging
-                    //var debugMatrixMV = gpopt2(searchWindow, vecpos, updatePosition, vecProbs, vpsum, opj0, opj1);
-
-                    // evaluate here whether to increase/decrease stepSize
-                    /*if (vpsum >= prevCostFunc[j]) {
-                        learningRate[j] *= stepParameter;
-                    } else {
-                        learningRate[j] = 1.0;
-                    }
-                    prevCostFunc[j] = vpsum;*/
-
-                    // compute mean shift vectors
-                    // extrapolate meanshiftvectors
-                    /*var msv = [];
-                    msv[0] = learningRate[j]*(vecpos[0] - currentPositions[j][0]);
-                    msv[1] = learningRate[j]*(vecpos[1] - currentPositions[j][1]);
-                    meanshiftVectors[j] = msv;*/
                     meanshiftVectors[j] = [vecpos[0] - currentPositions[j][0], vecpos[1] - currentPositions[j][1]];
-
-                    //if (isNaN(msv[0]) || isNaN(msv[1])) debugger;
-
-                    //for debugging
-                    //debugMVs[j] = debugMatrixMV;
-                    //
                 }
-
-                // draw meanshiftVector
-                /*sketchCC.clearRect(0, 0, sketchW, sketchH);
-                var nuWeights;
-                for (var npidx = 0;npidx < numPatches;npidx++) {
-                    nuWeights = debugMVs[npidx].map(function(x) {return x*255*500;});
-                    drawData(sketchCC, nuWeights, searchWindow, searchWindow, false, patchPositions[npidx][0]-((searchWindow-1)/2), patchPositions[npidx][1]-((searchWindow-1)/2));
-                }*/
 
                 var meanShiftVector = numeric.rep([numPatches*2, 1],0.0);
                 for (var k = 0;k < numPatches;k++) {
@@ -875,6 +809,8 @@ var clm = {
             return jacobian;
         }
 
+        // START HERE
+
         // calculate positions from parameters
         var calculatePositions = function(parameters, useTransforms) {
             var x, y, a, b;
@@ -895,7 +831,6 @@ var clm = {
                 }
                 positions[i] = [x,y];
             }
-
             return positions;
         }
 

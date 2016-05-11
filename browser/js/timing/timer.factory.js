@@ -41,5 +41,4 @@ core.factory('TimerFactory', function($rootScope, $interval) {
 			$interval.cancel(calibrateInt);
 		}
 	}
-
 });

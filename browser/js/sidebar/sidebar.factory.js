@@ -3,14 +3,13 @@ core.factory('SidebarFactory', function($state, TimerFactory, TrackingFactory, P
 	let count = 0;
 	let returnIndex;
 	let links = [
-	{ label: 'Home', state: 'home' },
-	{ label: 'Type', state: 'scroll' },
-	{ label: 'Corners', state: 'corners' },
-	{ label: 'Social', state: 'newsfeed' },
-	{ label: 'Settings', state: 'settings' },
-	{ label: 'About', state: 'about' }
-	];
-
+                { label: 'Home', state: 'home' },
+                { label: 'Type', state: 'scroll' },
+                { label: 'Corners', state: 'corners' },
+                { label: 'Social', state: 'newsfeed' },
+                { label: 'Settings', state: 'settings' },
+                { label: 'Login', state: 'login' }
+            ];
 	return {
 		moveSelected: () => {
 			returnIndex = itemIndex;

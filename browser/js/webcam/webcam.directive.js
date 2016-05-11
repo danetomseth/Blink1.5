@@ -40,8 +40,6 @@ core.directive('blWebcam', function(SidebarFactory, PositionFactory, $rootScope,
                 SidebarFactory.changeState();
             }
 
-
-
             function readPositions() {
                 var positions = TrackingFactory.getPositions();
                 if (positions) {

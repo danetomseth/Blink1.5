@@ -1,10 +1,12 @@
 md-sidenav {
+    position: absolute;
     padding-top: 20px;
-    background: nth($background, 9);
+    background: linear-gradient(nth($primary, 9), nth($primary, 2));
     height: 100vh !important;
-    //border-right: 1px solid nth($primary, 2);
-    box-shadow: 2px 2px 2px nth($accent, 2);
-    //width: 10vw !important;
+    box-shadow: 3px 3px 3px nth($background, 8);
+    logo {
+        color: nth($background, 4);
+    }
 }
 
 #sidebar-container {
@@ -19,19 +21,22 @@ md-sidenav {
 
 #nav-btn {
     font-size: 2em;
-    width: 70%;
-    height: 8%;
-    padding-top: 8%;
-    padding-left: 10px;
-    margin-left: 15%;
-    background-color: nth($accent,6);
-    color: nth($text, 9);
+    font-size: 3.5vh;
+    width: 100%;
+    height: auto;
+    min-height: 6vh;
+    background-color: transparent;
+    //margin-left: 15%;
+    //background-color: nth($accent, 6);
+    color: nth($background, 10);
 }
+
 #sidebar-webcam {
     position: absolute;
-    left: -40%;
     top: -75px;
+    left: -40%;
 }
+
 #sidebar-canvas {
     position: absolute;
     left: -40%;
@@ -41,13 +46,12 @@ md-sidenav {
 
 #sidebar-webcam-container {
     position: absolute;
-    left: 2px;;
+    left: 2px;
     width: 98%;
-    //height: 150px;
     margin: 0px;
     border: 2px solid nth($accent, 2);
     overflow: hidden;
-    background-color: nth($background,4);
+    //background-color: nth($background, 4);
 }
 
 .nav-bottom {
@@ -55,14 +59,13 @@ md-sidenav {
 }
 
 .sidebar-logo {
-	margin-top: -10px;
-	margin-bottom: -10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	height: 200px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 200px;
 }
 
 .btn-highlight {
-	background-color: nth($background, 3) !important;
+    background-color: nth($background, 3);
 }
-

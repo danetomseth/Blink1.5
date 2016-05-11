@@ -5,12 +5,13 @@
 }
 
 .inputBox {
-    font-size: 36px;
+    font-size: 34px;
 }
 
 .keys {
     text-align: center;
-    color: nth($text, 5);
+    font-size: 50px;
+    color: nth($primary, 7);
 }
 
 .highlighted-row {
@@ -23,12 +24,5 @@
 
 .selected {
     color: red;
-}
-
-td {
-    font-size: 20px;
-    width: 12.5vw;
-    height: 50px;
-    text-align: center;
-    color: nth($text, 8);
+    text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;
 }

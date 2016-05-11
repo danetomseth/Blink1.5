@@ -2,14 +2,14 @@ core.directive('blLetterScroll', function(KeyboardFactory, TimerFactory, Iterate
     return {
         restrict: 'E',
         templateUrl: 'templates/scroll-letter.html',
-        link: function(scope, elem, attr) {
 
+        link: function(scope, elem, attr) {
             let count = 0;
             let selectingLetter = false;
+            let delay = scope.delay; // reference from ScrollCtrl
             scope.wordInput = '';
 
             //makes sure first element is highlighted on page load
-            scope.currentRow = null;
             scope.alphabet = KeyboardFactory.alphabet;
             scope.browDebounce = true;
 
@@ -30,6 +30,7 @@ core.directive('blLetterScroll', function(KeyboardFactory, TimerFactory, Iterate
                 }
             });
 
+
            scope.scopeValue = IterateFactory.scopeValue;
 
 
@@ -42,9 +43,9 @@ core.directive('blLetterScroll', function(KeyboardFactory, TimerFactory, Iterate
             //     scope.currentLetter = letter;
             //     scope.wordInput += letter;
             // }
+            scope.say = () => SpeechFactory.say(scope.wordInput);
 
 
-          
 
         }
 
