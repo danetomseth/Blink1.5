@@ -31,10 +31,10 @@ core.directive('blLetterScroll', function(KeyboardFactory, SpeechFactory, TimerF
             });
 
 
-           scope.scopeValue = IterateFactory.scopeValue;
+            scope.scopeValue = IterateFactory.scopeValue;
 
 
-           //adds click to letters
+            //adds click to letters
             // scope.addLetter = (letter) => {
             //     console.log('letter:', letter);
             //     if(letter === 'NAV') {
@@ -44,8 +44,6 @@ core.directive('blLetterScroll', function(KeyboardFactory, SpeechFactory, TimerF
             //     scope.wordInput += letter;
             // }
             scope.say = () => SpeechFactory.say(scope.wordInput);
-
-
 
         }
 
