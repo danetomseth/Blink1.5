@@ -3,8 +3,8 @@
 core.factory("KeyboardFactory", function($state, PredictFactory, SpeechFactory) {
     let rowIndex = 0;
     let letterIndex = 0;
-    let returnRow;
-    let returnLetter;
+    let returnRow = 0;
+    let returnLetter = 0;
     const alphabet = [
         ["I", "I'M", "CAN", "WE", "HELLO"],
         ["A", "B", "C", "D", "E"],

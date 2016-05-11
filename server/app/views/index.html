@@ -28,12 +28,12 @@
 </head>
 
 <body ng-app="BlinkApp" layout="column">
-    <div class="md-primary">
+    <div class="md-primary" ng-controller="MainCtrl">
         <div layout="row" id="page-content" ng-model="sidebarActive">
-            <bl-sidebar id="sidebar-container"></bl-sidebar>
+            <bl-sidebar control="sidebar" id="sidebar-container"></bl-sidebar>
             <div flex="100">
                 <div flex id="content" ui-view></div>
-                            </div>
+            </div>
         </div>
     </div>
 </body>

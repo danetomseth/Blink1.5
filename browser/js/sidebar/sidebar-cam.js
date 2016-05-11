@@ -1,70 +1,89 @@
 core.directive('blSidebarWebcam', function(SidebarFactory, PositionFactory, $rootScope, WebcamFactory, TrackingFactory, TimerFactory, $mdSidenav) {
     return {
         restrict: 'E',
-        controller: 'SidebarCtrl',
+        controller: 'MainCtrl',
+        scope: {
+            local: '='
+        },
         templateUrl: 'templates/sidebar-webcam.html',
         link: function(scope) {
+            
             var webcamWidth = angular.element(document.getElementById('sidebar-webcam-container'));
-            console.log(webcamWidth[0].clientWidth);
             scope.containerHeight = webcamWidth[0].clientWidth * .75 + 'px';
             scope.videoWidth = (webcamWidth[0].clientWidth * 2) + 'px';
             scope.videoHeight = (webcamWidth[0].clientWidth * 2) * 0.75 + 'px';
-            let count = 0;
-            //var video;
+
             var video = document.getElementById('sidebar-webcam');
             var canvas = document.getElementById("sidebar-canvas");
 
             TrackingFactory.startTracking(canvas, video);
             WebcamFactory.startWebcam(video);
 
+            // let count = 0;
+            // scope.selectedLink = 0;
+            // //var video;
+            // var video = document.getElementById('sidebar-webcam');
+            // var canvas = document.getElementById("sidebar-canvas");
 
-            function linkIterator() {
-                scope.selectedLink = SidebarFactory.moveSelected();
-                scope.$digest();
-            }
+            // TrackingFactory.startTracking(canvas, video);
+            // WebcamFactory.startWebcam(video);
 
-            function setZero() {
-                var converge = TrackingFactory.convergence();
-                if (converge < 300) {
-                    count++;
-                    if (count > 20) {
-                        TimerFactory.calibrationFinished();
-                        scope.browZero();
-                    }
-                } else {
-                    count = 0;
-                }
-            }
+            // function linkIterator() {
+            //     scope.selectedLink = SidebarFactory.moveSelected();
+            //     scope.$digest();
+            // }
 
-            function goToPage() {
-                TimerFactory.clearAll();
-                SidebarFactory.changeState();
-            }
+            // function setZero() {
+            //     var converge = TrackingFactory.convergence();
+            //     if (converge < 300) {
+            //         count++;
+            //         if (count > 20) {
+            //             TimerFactory.calibrationFinished();
+            //             scope.browZero();
+            //         }
+            //     } else {
+            //         count = 0;
+            //     }
+            // }
 
-            function readPositions() {
-                var positions = TrackingFactory.getPositions();
-                if (positions) {
-                    if (PositionFactory.browCompare(positions)) {
-                        goToPage();
-                    }
-                }
-            }
+            // function goToPage() {
+            //     TimerFactory.clearAll();
+            //     SidebarFactory.changeState();
+            // }
 
-            scope.browZero = function() {
-                var positions = TrackingFactory.getPositions();
-                PositionFactory.setBrowZero(positions);
-                TimerFactory.startReading(readPositions, 50);
-                TimerFactory.moveCursor(linkIterator, 1000);
-            }
+            // function readPositions() {
+            //     var positions = TrackingFactory.getPositions();
+            //     if (positions) {
+            //         if (PositionFactory.browCompare(positions)) {
+            //             goToPage();
+            //         }
+            //     }
+            // }
 
-            let videoStatus = () => {
-                if ($rootScope.videoActive) {
-                    TimerFactory.videoReady();
-                    TrackingFactory.drawLoop();
-                    //TimerFactory.calibrate(setZero, 50);
-                }
-            }
-            TimerFactory.videoStatus(videoStatus, 100);
+            // scope.local.browZero = function() {
+            //     var positions = TrackingFactory.getPositions();
+            //     PositionFactory.setBrowZero(positions);
+            //     TimerFactory.startReading(readPositions, 50);
+            //     TimerFactory.moveCursor(linkIterator, 1000);
+            // }
+
+            // scope.local.runFunc = function() {
+            //     console.log('Runnnninggg')
+            // }
+            // console.log('local', scope.local)
+
+            // scope.local.selectLinks = () => {
+            //     TimerFactory.moveCursor(linkIterator, 750);
+            // }
+
+            // let videoStatus = () => {
+            //     if ($rootScope.videoActive) {
+            //         TimerFactory.videoReady();
+            //         TrackingFactory.drawLoop();
+            //         //TimerFactory.calibrate(setZero, 50);
+            //     }
+            // }
+            // TimerFactory.videoStatus(videoStatus, 100);
 
 
         }

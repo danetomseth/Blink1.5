@@ -1,26 +1,29 @@
-core.directive('blSidebar', function(SidebarFactory, TrackingFactory, TimerFactory, WebcamFactory, $rootScope) {
+core.directive('blSidebar', function($state, SidebarFactory, TimerFactory, IterateFactory) {
     return {
         restrict: 'E',
-        scope: {},
+        scope: {
+            control: '='
+        },
         templateUrl: 'templates/sidebar.html',
         controller: 'SidebarCtrl',
         link: function(scope) {
             scope.items = SidebarFactory.getLinks();
-            //scope.selectedLink = 0;
-          
-            // function iterateLinks() {
-            //     console.log('moving');
-            //     if(scope.selectedLink > scope.items.length -1) {
-            //         scope.selectedLink = 0;
-            //     }
-            //     else scope.selectedLink++;
-            //     scope.$digest();
-            // }
 
-            // scope.selectLinks = () => {
-            //     TimerFactory.moveCursor(iterateLinks, 750);
-            // }
+            //need to clean up scope.localCtrl .... was originally used to link stuff
+            scope.localCtrl = scope.control || {};
+            let count = 0;
+            scope.selectedLink = IterateFactory.linkValue;
+
+            scope.$watch(function() {
+                return IterateFactory.linkValue
+            }, function(newVal, oldVal) {
+                console.log('change!!', newVal);
+                if (typeof newVal !== 'undefined') {
+                    scope.selectedLink = IterateFactory.linkValue;
+                }
+            });
+            //IterateFactory.zero('nav');
+           
         }
     }
 });
-

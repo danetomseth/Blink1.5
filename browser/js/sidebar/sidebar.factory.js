@@ -1,5 +1,6 @@
-core.factory('SidebarFactory', function($state, TimerFactory, $mdSidenav) {
+core.factory('SidebarFactory', function($state) {
 	let itemIndex = 0;
+	let count = 0;
 	let returnIndex;
 	let links = [
                 { label: 'Home', state: 'home' },
@@ -18,19 +19,12 @@ core.factory('SidebarFactory', function($state, TimerFactory, $mdSidenav) {
 			}
 			return returnIndex;
 		},
-		changeState: () => {
-			$mdSidenav('left').close();
-			if(links[returnIndex].state === 'exit') TimerFactory.clearAll();
-			else $state.go(links[returnIndex].state)
-		},
 		getLinks: () => {
 			return links;
 		},
-		openSidebar: () => {
-			$mdSidenav('left').open();
+		changeState: () => {
+			itemIndex = 0;
+			$state.go(links[returnIndex].state)
 		},
-		closeSidebar: () => {
-			$mdSidenav('left').close();
-		}
 	}
 });
