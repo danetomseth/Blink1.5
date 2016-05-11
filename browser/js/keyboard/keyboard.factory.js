@@ -1,6 +1,6 @@
 // Basic iteration and letter select/get
 
-core.factory("KeyboardFactory", function($state, PredictFactory, SpeechFactory) {
+core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, SpeechFactory) {
     let rowIndex = 0;
     let letterIndex = 0;
     let returnRow = 0;
@@ -12,68 +12,83 @@ core.factory("KeyboardFactory", function($state, PredictFactory, SpeechFactory) 
         ["K", "L", "M", "N", "O"],
         ["P", "Q", "R", "S", "T"],
         ["U", "V", "W", "X", "Y"],
-        ['space', 'Speak', 'YES', 'NO', 'NAV']
+        ['SPACE', 'SAY', '<<', 'NO', 'NAV']
     ];
     let rowLength = alphabet[0].length;
-    let word = "";
+    let phrase = "";
 
-    const predictWords = () => {
-            PredictFactory.nextWords(word) // sends whole sentence to the predictor where it is spliced
-            .then(words => {
-                let upperWords = words.splice(0, 5).join(",").toUpperCase().split(",") // take the first 5, convert them to upper case
-                angular.copy(upperWords, alphabet[0]) // push them onto the alphabet array
-            });
-            word += " "; // add a space that the user asked for
+    const resetKeyboardPosition = () => {
             letterIndex = 0;
             rowIndex = 0;
-            return word // send the current word back to the user
+    }
+
+    const predictWords = () => {
+            PredictFactory.nextWords(phrase) // sends whole sentence to the predictor where it is spliced
+            .then(words => {
+                if (words.length > 1) {angular.copy(words, alphabet[0])} // if there are suggestions, push them onto the alphabet array
+            });
+            phrase += " "; // add a space that the user asked for
+            resetKeyboardPosition(); // go back to the start of
+            return phrase // send the current word back to the user
     }
     return {
         iterateRow: () => {
-            returnRow = rowIndex;
-            rowIndex++;
-            if (rowIndex > alphabet.length - 1) {
-                rowIndex = 0;
-            }
+            returnRow = rowIndex; // save the row we're at
+            // rowIndex++;
+            (rowIndex > alphabet.length - 1) ? rowIndex = 0 : rowIndex++; // if we're at the last row, go to the first row, otherwise, go to the next row
+            // if (rowIndex > alphabet.length - 1) {
+            //     rowIndex = 0;
+            // }
+            // console.log("returnRow", returnRow)
             return returnRow;
         },
         iterateLetter: () => {
-            returnLetter = letterIndex;
-            letterIndex++;
-            if (letterIndex > alphabet[returnRow].length - 1) {
-                letterIndex = 0;
-            }
+            returnLetter = letterIndex; // save the letter we're at
+            (letterIndex > alphabet[returnRow].length - 1) ? letterIndex = 0 : letterIndex++; // if we're at the end of the line, go back to the start, otherwise, increment where we are
             return alphabet[returnRow][returnLetter];
         },
         selectLetter: () => {
             if(returnRow === alphabet.length-1) { // if we are in the last row (which is all operations)
-                if (alphabet[returnRow][returnLetter] === 'space'){ // when someone selects "space", add a space and check for next words
-                    return predictWords() // add a space and update the predicted words
-                } else if (alphabet[returnRow][returnLetter] === 'Speak'){
-                    SpeechFactory.say(word)
+                let action = alphabet[returnRow][returnLetter]
+                switch (action){
+                    case 'SPACE':
+                        console.log("space")
+                        return predictWords();
+                        // break;
+                    case 'SAY':
+                        console.log("say")
+                        SpeechFactory.say(phrase); // try to pause the scrolling while we speak stuff
+                        phrase = ""
+                        return phrase
+                        break;
+                    case '<<':
+                        console.log("delete")
+                        return phrase.slice(0, phrase.length-1)
+                        // break;
+                    default:
+                        console.log("Error: Action "+action+" not found");
                 }
             } else if( returnRow === 0 ){ // if we are on the suggested word row
-                if (word[word.length-1] !== " ") {// if the last character isn't a space, replace the whole word
-                    word = word.replace(/[\w!.,'"/\(\)\-]+$/g, alphabet[returnRow][returnLetter]) // repace the last word with the full word
+                if (phrase[phrase.length-1] !== " ") {// if the last character isn't a space, replace the whole word
+                    phrase = phrase.replace(/[\w!.,'"/\(\)\-]+$/g, alphabet[returnRow][returnLetter]) // repace the last word with the full word
                 } else {
-                    word += alphabet[returnRow][returnLetter] // adds the word to the sentence
+                    phrase += alphabet[returnRow][returnLetter] // adds the word to the sentence
                 }
                 return predictWords() // adds a space and updates the predicted words.
             }
             else {
-                word += alphabet[returnRow][returnLetter]; // otherwise, add the letter to the word and auto-suggest
-                letterIndex = 0;
-                rowIndex = 0;
-                let suggest = PredictFactory.completeWord(word);
-                if (suggest.length) {angular.copy(suggest, alphabet[0])}; // every time a letter is typed, attempt to autocomplete it
-                return word;
+                phrase += alphabet[returnRow][returnLetter]; // otherwise, add the letter to the word and auto-suggest
+                resetKeyboardPosition()
+                let suggest = PredictFactory.completeWord(phrase); // get suggested autocompletes
+                if (suggest.length) {angular.copy(suggest, alphabet[0])}; // every time a letter is typed, if we have suggestions, copy them into the object
+                return phrase;
             }
         },
-        resetKeyboard: () => {
-            letterIndex = rowLength;
-            rowIndex = alphabet.length;
-        },
-        alphabet: alphabet,
+        // resetKeyboard: () => {
+        //     letterIndex = rowLength;
+        //     rowIndex = alphabet.length;
+        // },
+        alphabet: alphabet, // used in scroll directive
         getCurrentLetter: () => {
             return alphabet[rowIndex][letterIndex];
         }
