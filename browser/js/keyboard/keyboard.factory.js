@@ -15,17 +15,17 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         ['space', 'Speak', '<<', 'NO', 'NAV']
     ];
     let rowLength = alphabet[0].length;
-    let word = "";
+    let phrase = "";
 
     const predictWords = () => {
-            PredictFactory.nextWords(word) // sends whole sentence to the predictor where it is spliced
+            PredictFactory.nextWords(phrase) // sends whole sentence to the predictor where it is spliced
             .then(words => {
                 angular.copy(upperWords, alphabet[0]) // push them onto the alphabet array
             });
-            word += " "; // add a space that the user asked for
+            phrase += " "; // add a space that the user asked for
             letterIndex = 0;
             rowIndex = 0;
-            return word // send the current word back to the user
+            return phrase // send the current word back to the user
     }
     return {
         iterateRow: () => {
@@ -57,30 +57,30 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
                         return predictWords();
                         break;
                     case 'Speak':
-                        SpeechFactory.say(word);
-                        word = ""
+                        SpeechFactory.say(phrase);
+                        phrase = ""
                         break;
                     case '<<':
-                        return word.slice(0, word.length-1)
+                        return phrase.slice(0, phrase.length-1)
                         break;
                     default:
                         console.log("Error: Action "+action+" not found");
                 }
             } else if( returnRow === 0 ){ // if we are on the suggested word row
-                if (word[word.length-1] !== " ") {// if the last character isn't a space, replace the whole word
-                    word = word.replace(/[\w!.,'"/\(\)\-]+$/g, alphabet[returnRow][returnLetter]) // repace the last word with the full word
+                if (phrase[phrase.length-1] !== " ") {// if the last character isn't a space, replace the whole word
+                    phrase = phrase.replace(/[\w!.,'"/\(\)\-]+$/g, alphabet[returnRow][returnLetter]) // repace the last word with the full word
                 } else {
-                    word += alphabet[returnRow][returnLetter] // adds the word to the sentence
+                    phrase += alphabet[returnRow][returnLetter] // adds the word to the sentence
                 }
                 return predictWords() // adds a space and updates the predicted words.
             }
             else {
-                word += alphabet[returnRow][returnLetter]; // otherwise, add the letter to the word and auto-suggest
+                phrase += alphabet[returnRow][returnLetter]; // otherwise, add the letter to the word and auto-suggest
                 letterIndex = 0;
                 rowIndex = 0;
-                let suggest = PredictFactory.completeWord(word);
+                let suggest = PredictFactory.completeWord(phrase);
                 if (suggest.length) {angular.copy(suggest, alphabet[0])}; // every time a letter is typed, attempt to autocomplete it
-                return word;
+                return phrase;
             }
         },
         resetKeyboard: () => {
