@@ -1,6 +1,6 @@
 core.controller('MainCtrl', function($scope, $state, $rootScope, IterateFactory, TimerFactory, TrackingFactory) {
     $scope.$on('$viewContentLoaded', function() {
-   
+
     });
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
@@ -37,4 +37,5 @@ core.controller('MainCtrl', function($scope, $state, $rootScope, IterateFactory,
         }
     }
     TimerFactory.videoStatus(videoStatus, 100);
+
 });

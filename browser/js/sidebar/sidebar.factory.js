@@ -3,16 +3,16 @@ core.factory('SidebarFactory', function($state, AuthService, TimerFactory, $mdSi
 
     let itemIndex = 0;
     let returnIndex;
-    let isLoggedIn = !!(AuthService.isAuthenticated());
-    console.log("IS LOGGED IN", isLoggedIn)
+    var isLoggedIn = true;
+
     let links = [
-        { label: 'Home', state: 'home', show: true},
-        { label: 'Type', state: 'scroll', show: true},
-        { label: 'Corners', state: 'corners', show: true},
-        { label: 'Social', state: 'newsfeed', show: isLoggedIn},
-        { label: 'Settings', state: 'settings', show: isLoggedIn},
-        { label: 'Login', state: 'login', show: !isLoggedIn},
-        { label: 'Signup', state: 'signup', show: !isLoggedIn}
+        { label: 'Home', state: 'home', show: 'always'},
+        { label: 'Type', state: 'scroll', show: 'always'},
+        { label: 'Corners', state: 'corners', show: 'always'},
+        { label: 'Social', state: 'newsfeed', show: 'isLoggedIn'},
+        { label: 'Settings', state: 'settings', show: 'isLoggedIn'},
+        { label: 'Login', state: 'login', show: "isLoggedOut"},
+        { label: 'Signup', state: 'signup', show: 'isLoggedOut'}
     ];
 
     return {
@@ -30,9 +30,6 @@ core.factory('SidebarFactory', function($state, AuthService, TimerFactory, $mdSi
         changeState: () => {
             itemIndex = 0;
             $state.go(links[returnIndex].state)
-        },
-        checkLogin: () => {
-            isLoggedIn = !!(AuthService.isAuthenticated());
         }
     }
 });

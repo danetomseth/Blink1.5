@@ -1,24 +1,30 @@
 md-sidenav {
     position: absolute;
     padding-top: 10px;
+    padding-left: 15px;
     background: linear-gradient(nth($primary, 9), nth($primary, 2));
     height: 100vh !important;
-    box-shadow: 3px 3px 3px nth($background, 8);
+    box-shadow: 5px 3px 3px nth($background, 8);
     logo {
         color: nth($background, 4);
     }
 }
 
+#welcomeMessage {
+    margin-top: 0px;
+    font-style: italic;
+}
 
 logo {
-  padding: 5px 20px;
+  width: 100%;
+  padding-top: 5px;
   font-family: 'Belgrano', serif !important;
   font-size: 66px;
   color: nth($primary, 8);
   font-weight: 400;
   letter-spacing: 2px;
   img {
-  width: 60px;
+    width: 10%;
   }
 }
 
@@ -39,8 +45,6 @@ logo {
     height: auto;
     min-height: 6vh;
     background-color: transparent;
-    //margin-left: 15%;
-    //background-color: nth($accent, 6);
     color: nth($background, 10);
 }
 
@@ -64,19 +68,10 @@ logo {
     margin: 0px;
     border: 2px solid nth($accent, 2);
     overflow: hidden;
-    //background-color: nth($background, 4);
 }
 
 .nav-bottom {
     padding-top: 5px;
-}
-
-.sidebar-logo {
-    margin-top: -10px;
-    margin-bottom: -10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    height: 200px;
 }
 
 .btn-highlight {
