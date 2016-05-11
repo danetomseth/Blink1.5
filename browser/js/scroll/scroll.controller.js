@@ -29,7 +29,7 @@ core.controller('ScrollCtrl', function($state, $scope, user) {
         0: 1750
     }
 
-    if (user) { $scope.delay = translateDelay[user.keyboardSpeed] } else { $scope.delay = 3 };
+    if (user) { $scope.delay = translateDelay[user.keyboardSpeed] } else { $scope.delay = translateDelay[3] };
 
 });
 

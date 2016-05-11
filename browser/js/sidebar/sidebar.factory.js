@@ -1,4 +1,4 @@
-core.factory('SidebarFactory', function($state, TimerFactory, TrackingFactory, PositionFactory) {
+core.factory('SidebarFactory', function($state) {
 	let itemIndex = 0;
 	let count = 0;
 	let returnIndex;
