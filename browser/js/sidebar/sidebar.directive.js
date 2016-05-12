@@ -16,8 +16,6 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
                     if(user) {
                         scope.username = user.firstName;
                         scope.userLoggedIn = true;
-                        console.log('user', user);
-                        console.log("rootscopeuser", $rootScope.user)
                     }
                     scope.items = SidebarFactory.getLinks(scope.userLoggedIn);
                 });
