@@ -49,11 +49,8 @@
 }
 
 .letter-hover {
-    // border: 1px solid nth($accent, 3) !important;
-    // background: nth($primary, 6);
     color: nth($primary, 8);
     background: nth($background, 1);
-    /* offset-x | offset-y | blur-radius | spread-radius | color */
 }
 .hover-row {
     background: nth($primary, 2) !important;
