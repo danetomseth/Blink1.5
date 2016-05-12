@@ -46,7 +46,6 @@ core.directive('blCorners', function($rootScope, TrackingFactory, CornersFactory
                     scope.eyeX = positions[27][0] + positions[32][0]
                     scope.eyeY = positions[27][1] + positions[32][1]
                     eyePosition();
-                    scope.$digest();
                 }
             }
 

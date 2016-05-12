@@ -7,26 +7,37 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
         templateUrl: 'templates/sidebar.html',
         controller: 'SidebarCtrl',
         link: function(scope) {
+            scope.userLoggedIn = false;
             var setUser = function() {
                 AuthService.getLoggedInUser().then(function(user) {
+<<<<<<< HEAD
                     $rootScope.user = user;
                     scope.username = user.firstName;
+=======
+                    if(user) {
+                        scope.username = user.firstName;
+                        scope.userLoggedIn = true;
+                        console.log('user', user);
+                    }
+                    
+                    scope.items = SidebarFactory.getLinks(scope.userLoggedIn);
+>>>>>>> master
                 });
             };
 
             var removeUser = function() {
+<<<<<<< HEAD
                 $rootScope.user = null;
+=======
+                scope.items = SidebarFactory.getLinks(false);
+                scope.username = null;
+>>>>>>> master
             };
 
             setUser();
 
-            scope.items = SidebarFactory.getLinks();
-
-            scope.show = function(parameter) {
-                if (parameter === 'isLoggedIn') return !!(scope.username);
-                else if (parameter === 'isLoggedOut') return !(scope.username);
-                else return true;
-            }
+            scope.items = SidebarFactory.getLinks(scope.userLoggedIn);
+            console.log(scope.items);
 
             //need to clean up scope.localCtrl .... was originally used to link stuff
             scope.localCtrl = scope.control || {};
