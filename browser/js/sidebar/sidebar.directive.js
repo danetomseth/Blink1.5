@@ -9,12 +9,13 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
         link: function(scope) {
             var setUser = function() {
                 AuthService.getLoggedInUser().then(function(user) {
+                    $rootScope.user = user;
                     scope.username = user.firstName;
                 });
             };
 
             var removeUser = function() {
-                scope.username = null;
+                $rootScope.user = null;
             };
 
             setUser();
@@ -39,8 +40,6 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
                     scope.selectedLink = IterateFactory.linkValue;
                 }
             });
-            //IterateFactory.zero('nav');
-
 
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);

@@ -1,6 +1,4 @@
-core.controller('SettingsCtrl', function($scope, SettingsFactory, IterateFactory) {
-
-    let user = SettingsFactory.user();
+core.controller('SettingsCtrl', function($scope, user, SettingsFactory, IterateFactory) {
 
     $scope.name = user.firstName + " " + user.lastName;
     $scope.keyboardSpeed = user.keyboardSpeed;

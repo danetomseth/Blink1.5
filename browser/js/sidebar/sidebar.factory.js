@@ -2,7 +2,6 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
 
     let itemIndex = 0;
     let returnIndex;
-    var isLoggedIn = true;
 
     let links = [
         { label: 'Home', state: 'home', show: 'always'},
