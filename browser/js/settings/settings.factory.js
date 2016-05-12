@@ -4,11 +4,9 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService)
     let returnIndex = 0;
     let returnOption;
 
-    let links = ["settings.keyboard", "settings.features"];
+    let links = ["settings.keyboard", "settings.features", "NAV"];
     let speeds = [0, 1, 2, 3, 4, 5];
     let features = ['eyes', 'eyebrows', 'mouth'];
-    // let userSettings = {keyboardSpeed: $rootScope.user.keyboardSpeed, trackingFeature: $rootScope.user.trackingFeature}
-
 
     return {
         moveSelected: () => {
@@ -21,7 +19,12 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService)
         },
         changeState: () => {
             itemIndex = 0;
-            $state.go(links[returnIndex]);
+            // Settings tabs
+            if (returnIndex < 2) {
+                $state.go(links[returnIndex]);
+            }
+            // Nav tab
+            else { return "NAV";}
         },
         iterateOption: (tabIndex) => {
             let options;
@@ -42,7 +45,6 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService)
             } else {
                 selections = { "trackingFeature": features[returnOption] };
             }
-            console.log("USER IS", $rootScope.user)
             return $http.put('/api/users/' + $rootScope.user._id, selections)
                 .then((updatedUser) => angular.copy(updatedUser.data, $rootScope.user));
         }

@@ -33,13 +33,11 @@ core.factory('TimerFactory', function($rootScope, $interval, $timeout) {
             $interval.cancel(cursorInt);
             $interval.cancel(positionInt);
             $interval.cancel(videoInt);
-
         },
         clearTracking: () => {
             $interval.cancel(calibrateInt);
             $interval.cancel(cursorInt);
             $interval.cancel(positionInt);
-
         },
         pauseIteration: (delay) => {
             if (angular.isDefined(cursorInt)) {
