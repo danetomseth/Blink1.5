@@ -1,4 +1,4 @@
 <md-subheader class="md-no-sticky">Tracking Feature</md-subheader>
-    <md-button ng-class="{'md-whiteframe-z1': true, 'current': (feature == trackingFeature)}" ng-repeat="feature in features" ng-click="setFeatures(feature)">
+    <md-button ng-class="{'md-whiteframe-z1': true, 'current': (feature == trackingFeature), 'highlighted': ($index == highlighted)}" ng-repeat="feature in features" ng-click="setFeatures(feature)">
         {{feature}}
     </md-button>

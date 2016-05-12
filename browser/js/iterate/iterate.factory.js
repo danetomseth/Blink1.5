@@ -5,6 +5,7 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
     var count = 0;
     var debounce = true;
     var selectingLetter = false;
+    var selectingOption = false;
     iterateObj.scopeValue = [];
     iterateObj.linkValue;
     iterateObj.settingsValue;
@@ -25,7 +26,20 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
     }
 
     var settingsIterator = function() {
-        iterateObj.settingsValue = SettingsFactory.moveSelected();
+        console.log("RUNNING ITERATOR")
+            // Iterate tabs
+        if (!selectingOption) {
+            console.log("moving tabs")
+            iterateObj.scopeValue[0] = SettingsFactory.moveSelected();
+            iterateObj.scopeValue[1] = 0;
+        }
+        // Iterate options
+        else if (debounce && selectingOption) {
+            // else {
+            console.log("tab value is", iterateObj.scopeValue[0])
+            iterateObj.scopeValue[1] = SettingsFactory.iterateOption(iterateObj.scopeValue[0]);
+            console.log("iterating through options, currently at", iterateObj.scopeValue[1])
+        }
     }
 
     // Zero functions
@@ -65,22 +79,31 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
         iterateObj.scopeValue[0] = null;
         TimerFactory.clearAll();
         SidebarFactory.changeState();
-        // goToPage();
     }
 
     function settingsCallback() {
-        TimerFactory.clearTracking();
-        TimerFactory.clearAll();
-        SettingsFactory.changeState();
+        console.log("SETTINGS CALLBACK")
+        if (!selectingOption) {
+            SettingsFactory.changeState();
+            if (debounce) {
+                debounce = false;
+                selectUserOption();
+            }
+            selectingOption = true;
+        } else {
+            if (debounce) {
+                debounce = false;
+                SettingsFactory.selectOption();
+                console.log("This is where you run the ng-clicks")
+                setTimeout(function() {
+                    selectingOption = false;
+                    debounce = true;
+                }, 750)
+            }
+        }
     }
 
-    // State Change clears timers
-    // function goToPage() {
-    //     TimerFactory.clearAll();
-    //     SidebarFactory.changeState();
-    // }
-
-    // Function used in keyboardCallback
+    // Row/Column selector for keyboard callback
     function selectLetter() {
         iterateObj.selectedLetter = iterateObj.scopeValue[1];
         //check to make sure the selected letter is not undefined
@@ -93,6 +116,20 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
         }
         setTimeout(function() {
             iterateObj.selectedLetter = '';
+            debounce = true;
+        }, 750)
+    }
+
+    // Tab selector for settings callback
+    function selectUserOption() {
+        if (selectingOption) {
+            iterateObj.scopeValue[1] = SettingsFactory.iterateOption(iterateObj.scopeValue[0]);
+        }
+        // Options selector for settings callback
+        else {
+            selectingOption = true;
+        }
+        setTimeout(function() {
             debounce = true;
         }, 750)
     }
@@ -117,7 +154,7 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
             case 'settings':
                 PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(analyzePositions, 50, settingsCallback);
-                TimerFactory.moveCursor(settingsIterator, 1200);
+                TimerFactory.moveCursor(settingsIterator, 1500);
                 break;
         }
     }

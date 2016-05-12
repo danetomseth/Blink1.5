@@ -1,6 +1,9 @@
 md-toolbar.userOptions {
-    background-color: nth($primary, 7);
-    color: white;
+font-size: 40px;
+line-height: 26px;
+    background-color: white;
+    color: black;
+    font-style: bold;
 }
 
 img.md-card-image {
@@ -27,7 +30,7 @@ md-card {
 }
 
 .highlighted {
-    background-color: red;
+    background: nth($accent, 4) !important;
 }
 
 @keyframes blinker {

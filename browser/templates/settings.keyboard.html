@@ -1,2 +1,2 @@
    <md-subheader class="md-no-sticky">Keyboard Iteration Speed (slowest to fastest)</md-subheader>
-    <md-button ng-class="{'md-fab': true, 'current': (speed == keyboardSpeed), 'highlighted' : (speed === scopeValue), '{{speed.toString()}}' : true}" ng-repeat="speed in speeds" ng-click="setSpeed(speed)"> {{speed}}</md-button>
+    <md-button ng-class="{'md-fab': true, 'current': (speed == keyboardSpeed), 'highlighted' : (speed === highlighted), '{{speed.toString()}}' : true}" ng-repeat="speed in speeds" ng-click="setSpeed(speed)">{{speed}}</md-button>

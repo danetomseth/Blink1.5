@@ -103,9 +103,6 @@ app.config(function($urlRouterProvider, $locationProvider) {
     });
 });
 
-
-
-
 // This app.run is for controlling access to specific states.
 app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory, TimerFactory) {
 
@@ -117,8 +114,10 @@ app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory
     // $stateChangeStart is an event fired
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+        if ((toState.name !== "settings.features") && (toState.name !== "settings.keyboard")) {
+            TimerFactory.clearTracking();
+        }
 
-        TimerFactory.clearTracking();
         if (!destinationStateRequiresAuth(toState)) {
             // The destination state does not require authentication
             // Short circuit with return.
