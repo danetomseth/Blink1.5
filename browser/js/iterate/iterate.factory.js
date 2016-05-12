@@ -1,6 +1,6 @@
 //factory used to determine what function to iterate
 
-core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactory, TrackingFactory, SettingsFactory, PositionFactory, SidebarFactory) {
+core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, KeyboardFactory, TrackingFactory, SettingsFactory, PositionFactory, SidebarFactory) {
     var iterateObj = {};
     var count = 0;
     var debounce = true;
@@ -14,35 +14,53 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
     // Iterator functions to update scope values
     var keyboardIterator = function() {
         if (debounce && !selectingLetter) {
-            let arr = [KeyboardFactory.iterateRow(), iterateObj.scopeValue[1]]
-            angular.copy(arr, iterateObj.scopeValue);
+             let arr = KeyboardFactory.iterateRow();
+             angular.copy(arr, iterateObj.scopeValue);
+             if(iterateObj.scopeValue[0] === 0) {
+                TimerFactory.pauseIteration(500);
+             }
         } else if (debounce && selectingLetter) {
             iterateObj.scopeValue[1] = KeyboardFactory.iterateLetter();
+            if(iterateObj.scopeValue[1] === 0) {
+                TimerFactory.pauseIteration(500);
+             }
         }
     }
 
+    var popupIterator = function() {
+        if (debounce && !selectingLetter) {
+             let arr = PopupFactory.iterateRow()
+             angular.copy(arr, iterateObj.scopeValue);
+             if(iterateObj.scopeValue[0] === 0) {
+                TimerFactory.pauseIteration(500);
+             }
+        } else if (debounce && selectingLetter) {
+            iterateObj.scopeValue[1] = PopupFactory.iterateLetter();
+            if(iterateObj.scopeValue[1] === 0) {
+                TimerFactory.pauseIteration(500);
+             }
+        }
+        console.log(iterateObj.scopeValue);
+    }
+
+    // Iterate functions to update values on scope
     var linkIterator = function() {
         iterateObj.linkValue = SidebarFactory.moveSelected();
     }
 
     var settingsIterator = function() {
-        console.log("RUNNING ITERATOR")
             // Iterate tabs
         if (!selectingOption) {
-            console.log("moving tabs")
             iterateObj.scopeValue[0] = SettingsFactory.moveSelected();
             iterateObj.scopeValue[1] = 0;
         }
         // Iterate options
         else if (debounce && selectingOption) {
-            // else {
-            console.log("tab value is", iterateObj.scopeValue[0])
             iterateObj.scopeValue[1] = SettingsFactory.iterateOption(iterateObj.scopeValue[0]);
-            console.log("iterating through options, currently at", iterateObj.scopeValue[1])
         }
     }
 
-    // Zero functions
+    //Zero functions
     var browZero = function(page) {
         var converge = TrackingFactory.convergence();
         if (converge < 300) {
@@ -54,6 +72,12 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
         } else {
             count = 0;
         }
+    }
+    
+    // Position Functions 
+    function goToPage() {
+        TimerFactory.clearAll();
+        SidebarFactory.changeState();
     }
 
     // Position Functions for keyboard/sidebar use
@@ -74,15 +98,41 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
         }
     }
 
+    function popupCallback() {
+        if (debounce) {
+            debounce = false;
+            popupSelect();
+        }
+    }
+
     function navCallback() {
         TimerFactory.clearTracking();
         iterateObj.scopeValue[0] = null;
+        goToPage();
+    }
+
+    
+
+    function popupSelect() {
+       iterateObj.selectedLetter = iterateObj.scopeValue[1];
+        //check to make sure the selected letter is not undefined
+        if (selectingLetter) {
+            iterateObj.word = PopupFactory.selectLetter();
+            iterateObj.scopeValue[1] = null;
+            selectingLetter = false;
+        } else {
+            iterateObj.scopeValue[1] = PopupFactory.iterateLetter();
+            selectingLetter = true;
+        }
+        setTimeout(function() {
+            iterateObj.selectedLetter = null;
+            debounce = true;
+        }, 750)
         TimerFactory.clearAll();
         SidebarFactory.changeState();
     }
 
     function settingsCallback() {
-        console.log("SETTINGS CALLBACK")
         if (!selectingOption) {
             SettingsFactory.changeState();
             if (debounce) {
@@ -94,7 +144,6 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
             if (debounce) {
                 debounce = false;
                 SettingsFactory.selectOption();
-                console.log("This is where you run the ng-clicks")
                 setTimeout(function() {
                     selectingOption = false;
                     debounce = true;
@@ -105,17 +154,18 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
 
     // Row/Column selector for keyboard callback
     function selectLetter() {
-        iterateObj.selectedLetter = iterateObj.scopeValue[1];
-        //check to make sure the selected letter is not undefined
-        if (selectingLetter && iterateObj.selectedLetter) {
+       	//check to make sure the selected letter is not undefined
+        if (selectingLetter) {
+            iterateObj.selectedLetter = iterateObj.scopeValue[1];
             iterateObj.word = KeyboardFactory.selectLetter();
-            iterateObj.scopeValue[1] = "";
+            iterateObj.scopeValue[1] = null;
             selectingLetter = false;
         } else {
+            iterateObj.scopeValue[1] = KeyboardFactory.iterateLetter();
             selectingLetter = true;
         }
         setTimeout(function() {
-            iterateObj.selectedLetter = '';
+            iterateObj.selectedLetter = null;
             debounce = true;
         }, 750)
     }
@@ -146,11 +196,15 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
                 TimerFactory.startReading(analyzePositions, 50, navCallback);
                 TimerFactory.moveCursor(linkIterator, 1000);
                 break;
-            case 'scroll':
+            case 'type':
                 PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(analyzePositions, 50, keyboardCallback);
                 TimerFactory.moveCursor(keyboardIterator, 750);
                 break;
+            case 'popup': 
+                PositionFactory.setBrowZero(positions);
+                TimerFactory.startReading(analyzePositions, 50, popupCallback);
+                TimerFactory.moveCursor(popupIterator, 750);
             case 'settings':
                 PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(analyzePositions, 50, settingsCallback);
@@ -160,4 +214,5 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
     }
 
     return iterateObj;
+
 });

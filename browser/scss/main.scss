@@ -5,107 +5,77 @@
     clear: both;
   }
 }
-.md-primary {
-  //color: white !important;
-}
-//navy blue
+
+
+
+//blue
 $primary: (
-  #586687,
-  #4e5b78,
-  #444f68,
-  #3a4359,
-  #303849,
-  #262C3A,
-  #1c202b,
-  #12151b,
-  #08090c,
-  #000000,
-  #637296,
-  #717fa2,
-  #808dac,
-  #000000
+ rgba(119,201,212,1), 
+ rgba(220,247,250,1),
+ rgba(167,226,235,1),
+ rgba( 79,170,183,1),
+ rgba( 47,139,152,1)
+ );
+
+//yellow-ish
+$accent: (
+  rgba(255,219,141,1),
+  rgba(255,245,223,1),
+  rgba(255,231,180,1),
+  rgba(255,208,107,1),
+  rgba(248,193, 74,1)
   );
 
-//teal
-$accent: (
-  #004442,
-  #005d5b,
-  #007774,
-  #00908d,
-  #00aaa6,
-  #00c3bf,
-  #00f6f1,
-  #11fffa,
-  #2afffa,
-  #44fffb,
-  #00f6f1,
-  #00DDD8,
-  #00c3bf,
-  #5dfffb
-  );
+//red-ish
+$accentB: (
+ rgba(255,149,141,1), 
+ rgba(255,226,223,1),
+ rgba(255,186,180,1),
+ rgba(255,117,107,1),
+ rgba(248, 86, 74,1)
+ );
 
 //red
-$warn: (
-  #ffdfe2,
-  #ffc6cb,
-  #ffacb4,
-  #ff939c,
-  #ff7985,
-  #FF606E,
-  #ff4657,
-  #ff2d3f,
-  #ff1328,
-  #f90016,
-  #fff9fa,
-  #ffffff,
-  #ffffff,
-  #df0014
+$forest: (
+  #FF958D,
+  #FFE2DF,
+  #FFBAB4,
+  #FF756B,
+  #F8564A
   );
 //white
 $background: (
+  #e8e8eb,
+  #dbdbdf,
+  #cdcdd3,
+  #c0c0c7,
+  #b2b2bb,
+  #a5a5af,
+  #9797a3,
+  #8a8a97,
+  #7c7c8b,
+  #70707e,
+  #f6f6f7,
   #ffffff,
   #ffffff,
-  #ffffff,
-  #ffffff,
-  #ffffff,
-  #FFFFFF,
-  #f2f2f2,
-  #e6e6e6,
-  #d9d9d9,
-  #cccccc,
-  #ffffff,
-  #ffffff,
-  #ffffff,
-  #bfbfbf
+  #646470
   );
 
-//blue
+//0 white
+//1 black
+//2 primary - blue
+//3 accent - marine
+//4 forest
 $text: (
-  #9db3cb,
-  #8da6c2,
-  #7c99b9,
-  #6c8db0,
-  #5b80a8,
-  #486687,
-  #3f5a77,
-  #364d66,
-  #2e4155,
-  #aec0d4,
-  #bfcddd,
-  #cfdae6,
-  #253445
+  white,
+  black,
+  rgba(119,201,212,1),
+  rgba(255,219,141,1),
+  rgba(255,149,141,1),
   );
 
 
 
-//$primary: #673AB7;
-$dark: #311B92;
-$light: #B39DDB;
-$secondaryText: #FAFAFA;
-//$background: white;
-$accentP: #4CAF50;
-$accentL: #A5D6A7;
-$accentD: #1B5E20;
 
 @import 'material/main';
 @import 'home/main';
@@ -119,9 +89,9 @@ $accentD: #1B5E20;
 @import 'custom/corners';
 @import 'custom/home';
 @import 'custom/webcam';
-@import 'custom/static-nav';
 @import 'custom/newsfeed';
 @import 'custom/settings';
+@import 'custom/buttons';
 
 
 
@@ -142,4 +112,5 @@ body {
 #main {
   padding-top: 60px;
   margin: 0 auto;
+  color: nth($text, 1);
 }

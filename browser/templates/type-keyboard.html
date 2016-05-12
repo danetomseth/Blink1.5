@@ -1,0 +1,45 @@
+<!-- <div layout="column" layout-margin>
+    <div flex id="toast-box">
+        <form>
+            <md-input-container class="md-block">
+                <label>Message</label>
+                <input name="Text" ng-model="wordInput" class="inputBox" flex="80">
+                <md-button ng-click="browZero()" class="md-raised md-primary">
+                    ZERO
+                </md-button>
+                <md-button ng-click="say()" class="md-raised md-primary">Say</md-button>
+                <md-button ng-click="start()" class="md-raised md-primary">Start</md-button>
+            </md-input-container>
+        </form>
+    </div>
+    <div flex>
+            <div flex layout="row" ng-repeat="row in alphabet" class="md-primary letter-row" layout-wrap layout-margin ng-class="{'highlighted-row': $index === scopeValue[0]}">
+                <div flex ng-click="addLetter(letter)" class="keys md-whiteframe-3dp" ng-repeat="letter in row" ng-class="{'highlighted-letter' : letter === scopeValue[1], 'selected' : letter === selected}">
+                    {{letter}}
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+
+
+<div layout="column" layout-margin>
+        <div flex>
+            <form>
+                <md-input-container class="md-block">
+                    <label>Message</label>
+                    <input name="Text" ng-model="wordInput" class="inputBox" flex="80">
+                    <md-button ng-click="browZero()" class="md-raised md-primary">ZERO</md-button>
+                    <md-button ng-click="say()" class="md-raised md-primary">Say</md-button>
+                    <md-button ng-click="start()" class="md-raised md-primary">Start</md-button>
+                    <md-button ng-click="stop()" class="md-raised md-primary">Start</md-button>
+                </md-input-container>
+            </form>
+    </div>
+    <div flex>
+        <div flex layout="row" ng-repeat="(key, val) in keyboard" class="keyboard-row">
+            <div flex="20" class="row-box" ng-repeat="letter in keyboard[key]['letters']" ng-class="{'letter-hover': (letter ===   keyboard[key]['letters'][scopeValue[1]] && {{key}} === scopeValue[0]), 'hover-row': {{key}} === scopeValue[0]}">{{letter}}</div>
+        </div>
+    </div>
+</div>

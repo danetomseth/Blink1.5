@@ -2,12 +2,9 @@ md-sidenav {
     position: absolute;
     padding-top: 10px;
     padding-left: 15px;
-    background: linear-gradient(nth($primary, 9), nth($primary, 2));
+    background: linear-gradient(nth($primary, 1), nth($text, 1));
     height: 100vh !important;
-    box-shadow: 5px 3px 3px nth($background, 8);
-    logo {
-        color: nth($background, 4);
-    }
+    box-shadow: 2px 3px 3px nth($background, 1);
 }
 
 #welcomeMessage {
@@ -20,17 +17,14 @@ logo {
   padding-top: 5px;
   font-family: 'Belgrano', serif !important;
   font-size: 66px;
-  color: nth($primary, 8);
+  color: nth($text, 1);
   font-weight: 400;
   letter-spacing: 2px;
-  img {
-    width: 10%;
-  }
 }
 
 #sidebar-container {
     display: block;
-    width: 25%;
+    width: 26%;
 }
 
 #locked-sidebar {
@@ -39,13 +33,13 @@ logo {
 }
 
 #nav-btn {
-    font-size: 2em;
-    font-size: 3.5vh;
+    font-size: 1.5em;
     width: 90%;
     height: auto;
-    min-height: 6vh;
-    background-color: transparent;
-    color: nth($background, 10);
+    text-align: left;
+    padding: 5px 10px;
+    background-color: nth($accent, 1);
+    color: nth($text, 1);
 }
 
 #sidebar-webcam {
@@ -66,7 +60,7 @@ logo {
     left: 2px;
     width: 98%;
     margin: 0px;
-    border: 2px solid nth($accent, 2);
+    border: 2px solid nth($accent, 1);
     overflow: hidden;
 }
 
@@ -74,6 +68,11 @@ logo {
     padding-top: 5px;
 }
 
+.static-btn {
+    position: absolute;
+    bottom: 10px;
+}
+
 .btn-highlight {
-    background-color: nth($accent, 3) !important;
+    background-color: nth($accent, 1) !important;
 }
