@@ -1,5 +1,5 @@
-core.factory('SettingsFactory', function($state, $http, AuthService) {
-    let user;
+core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService) {
+    let user = $rootScope.user;
     let itemIndex = 0;
     let returnIndex = 0;
     let returnOption;
@@ -7,14 +7,10 @@ core.factory('SettingsFactory', function($state, $http, AuthService) {
     let links = ["settings.keyboard", "settings.features"];
     let speeds = [0, 1, 2, 3, 4, 5];
     let features = ['eyes', 'eyebrows', 'mouth'];
+    // let userSettings = {keyboardSpeed: $rootScope.user.keyboardSpeed, trackingFeature: $rootScope.user.trackingFeature}
 
-    AuthService.getLoggedInUser()
-    .then((loggedInUser) => user = loggedInUser);
 
     return {
-        user: () => {
-            return user;
-        },
         moveSelected: () => {
             returnIndex = itemIndex;
             itemIndex++;
@@ -46,8 +42,9 @@ core.factory('SettingsFactory', function($state, $http, AuthService) {
             } else {
                 selections = { "trackingFeature": features[returnOption] };
             }
-            return $http.put('/api/users/' + user._id, selections)
-                .then((updatedUser) => updatedUser);
+            console.log("USER IS", $rootScope.user)
+            return $http.put('/api/users/' + $rootScope.user._id, selections)
+                .then((updatedUser) => angular.copy(updatedUser.data, $rootScope.user));
         }
     }
 });
