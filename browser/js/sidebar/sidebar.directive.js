@@ -8,20 +8,22 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
         controller: 'SidebarCtrl',
         link: function(scope) {
             scope.userLoggedIn = false;
+
             var setUser = function() {
                 AuthService.getLoggedInUser().then(function(user) {
+                    $rootScope.user = user;
+                    scope.username = user.firstName;
                     if(user) {
                         scope.username = user.firstName;
                         scope.userLoggedIn = true;
                     }
-                    
                     scope.items = SidebarFactory.getLinks(scope.userLoggedIn);
                 });
             };
 
             var removeUser = function() {
+                $rootScope.user = null;
                 scope.items = SidebarFactory.getLinks(false);
-                scope.username = null;
             };
 
             setUser();
@@ -38,11 +40,8 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
             }, function(newVal, oldVal) {
                 if (typeof newVal !== 'undefined') {
                     scope.selectedLink = IterateFactory.linkValue;
-                    console.log('link value', scope.selectedLink);
                 }
             });
-            //IterateFactory.zero('nav');
-
 
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);

@@ -25,5 +25,4 @@ core.controller('HomeCtrl', function($scope, $mdBottomSheet) {
     });
   };
 
-
 });

@@ -1,14 +1,12 @@
 core.factory('SidebarFactory', function($state, $mdSidenav) {
 
     let itemIndex = 0;
-    let returnIndex;
+    let returnIndex = 0;
 
     let links = [
         { label: 'Home', state: 'home'},
         { label: 'Type', state: 'type'},
         { label: 'Corners', state: 'corners'},
-        
-       
     ];
 
     let loggedInLinks = [
@@ -44,11 +42,10 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
                 userLinks = links.concat(loggedOutLinks);
                 return userLinks
             }
-            
         },
         changeState: () => {
             itemIndex = 0;
-            $state.go(links[returnIndex].state)
+            $state.go(currentLinks[returnIndex].state)
         }
     }
 });
