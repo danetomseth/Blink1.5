@@ -5,14 +5,7 @@ core.factory("PopupFactory", function($state, ActionFactory, PredictFactory, Spe
     let letterIndex = 0;
     let returnRow = 0;
     let returnLetter = 0;
-    const alphabet = [
-        ["A", "B", "C", "D", "E"],
-        ["F", "G", "H", "I", "J"],
-        ["K", "L", "M", "N", "O"],
-        ["P", "Q", "R", "S", "T"],
-        ["U", "V", "W", "X", "Y"]
-    ];
-    let letterObj = [
+    let alphabet = [
         {row: 0, letters: ["A", "B", "C", "D", "E"]},
         {row: 1, letters: ["F", "G", "H", "I", "J"]},
         {row: 2, letters: ["K", "L", "M", "N", "O"]},
@@ -30,29 +23,19 @@ core.factory("PopupFactory", function($state, ActionFactory, PredictFactory, Spe
     return {
         iterateRow: () => {
             returnRow = rowIndex; // save the row we're at
-            (rowIndex > alphabet.length - 1) ? rowIndex = 0 : rowIndex++; // if we're at the last row, go to the first row, otherwise, go to the next row
-            return returnRow;
+            (rowIndex > alphabet.length - 2) ? rowIndex = 0 : rowIndex++; // if we're at the last row, go to the first row, otherwise, go to the next row
+            return [returnRow, null];
         },
         iterateLetter: () => {
             returnLetter = letterIndex; // save the letter we're at
-            (letterIndex > alphabet[returnRow].length - 1) ? letterIndex = 0 : letterIndex++; // if we're at the end of the line, go back to the start, otherwise, increment where we are
-            return alphabet[returnRow][returnLetter];
+            (letterIndex > alphabet[returnRow].letters.length - 2) ? letterIndex = 0 : letterIndex++; // if we're at the end of the line, go back to the start, otherwise, increment where we are
+            return returnLetter;
         },
         selectLetter: () => {
-            if(returnRow === alphabet.length-1) { // if we are in the last row (which is all operations)
-                let action = alphabet[returnRow][returnLetter]
-                
-            } 
-            else {
-                phrase += alphabet[returnRow][returnLetter]; // otherwise, add the letter to the word and auto-suggest
-                resetKeyboardPosition()
-                return phrase;
-            }
+            resetKeyboardPosition();
+            phrase += alphabet[returnRow].letters[returnLetter];
+            return phrase
         },
         alphabet: alphabet, // used in scroll directive
-        letterObj: letterObj,
-        getCurrentLetter: () => {
-            return alphabet[rowIndex][letterIndex];
-        }
     }
 });

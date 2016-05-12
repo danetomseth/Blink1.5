@@ -11,7 +11,7 @@
 .keys {
     text-align: center;
     font-size: 20px;
-    background-color: nth($accent, 6);
+    background-color: nth($accent, 1);
     color: nth($text, 1);
 }
 
@@ -20,11 +20,11 @@
 }
 
 .highlighted-letter {
-    background: nth($primary, 6);
+    background: nth($primary, 1);
 }
 
 .selected {
-    color: nth($primary, 8);
+    color: nth($primary, 1);
     background: nth($background, 1);
 }
 
@@ -44,16 +44,16 @@
     line-height: 50px;
     text-align: center;
     font-size: 20px;
-    background-color: nth($accent, 6);
+    background-color: nth($accent, 1);
     color: nth($text, 1);
 }
 
 .letter-hover {
-    color: nth($primary, 8);
+    color: nth($accentB, 1);
     background: nth($background, 1);
 }
 .hover-row {
-    background: nth($primary, 2) !important;
+    background: nth($primary, 1) !important;
 }
 
 

@@ -1,7 +1,7 @@
-core.directive('blLetterScroll', function(KeyboardFactory, SpeechFactory, TimerFactory, IterateFactory) {
+core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFactory, IterateFactory) {
     return {
         restrict: 'E',
-        templateUrl: 'templates/scroll-letter.html',
+        templateUrl: 'templates/type-keyboard.html',
 
         link: function(scope, elem, attr) {
             let count = 0;
@@ -10,7 +10,7 @@ core.directive('blLetterScroll', function(KeyboardFactory, SpeechFactory, TimerF
             scope.wordInput = '';
 
             //makes sure first element is highlighted on page load
-            scope.alphabet = KeyboardFactory.alphabet;
+            scope.keyboard = KeyboardFactory.alphabet;
             scope.browDebounce = true;
 
 
@@ -32,17 +32,7 @@ core.directive('blLetterScroll', function(KeyboardFactory, SpeechFactory, TimerF
 
 
             scope.scopeValue = IterateFactory.scopeValue;
-
-
-            //adds click to letters
-            // scope.addLetter = (letter) => {
-            //     console.log('letter:', letter);
-            //     if(letter === 'NAV') {
-            //         KeyboardFactory.selectLetter(true);
-            //     }
-            //     scope.currentLetter = letter;
-            //     scope.wordInput += letter;
-            // }
+            
             scope.say = () => SpeechFactory.say(scope.wordInput);
 
         }

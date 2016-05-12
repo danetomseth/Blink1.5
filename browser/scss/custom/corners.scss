@@ -16,7 +16,7 @@
 }
 
 #box {
-	background: nth($accent, 6);
+	background: nth($accent, 1);
 	color: nth($text, 1);
 }
 
@@ -27,7 +27,7 @@
 
 .active-box {
 	div {
-		background-color: nth($primary, 8) !important;
+		background-color: nth($primary, 1) !important;
 	}
 }
 

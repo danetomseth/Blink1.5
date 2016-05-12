@@ -7,7 +7,7 @@ core.factory('SidebarFactory', function($state, AuthService, TimerFactory, $mdSi
 
     let links = [
         { label: 'Home', state: 'home', show: 'always'},
-        { label: 'Type', state: 'scroll', show: 'always'},
+        { label: 'Type', state: 'type', show: 'always'},
         { label: 'Corners', state: 'corners', show: 'always'},
         { label: 'Social', state: 'newsfeed', show: 'isLoggedIn'},
         { label: 'Settings', state: 'settings', show: 'isLoggedIn'},

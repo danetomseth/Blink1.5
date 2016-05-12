@@ -1,8 +1,8 @@
 core.config(function ($stateProvider) {
-    $stateProvider.state('scroll', {
-        url: '/scroll',
-        controller: 'ScrollCtrl',
-        templateUrl: 'templates/scroll.html',
+    $stateProvider.state('type', {
+        url: '/type',
+        controller: 'TypeCtrl',
+        templateUrl: 'templates/type.html',
         resolve: {
             user: function(AuthService) {
                 return AuthService.getLoggedInUser();
@@ -10,14 +10,21 @@ core.config(function ($stateProvider) {
         },
         onEnter: function(IterateFactory) {
         	//this starts nav iteration on home page
-        	IterateFactory.zero('scroll');
+        	//IterateFactory.zero('type');
         }
     });
 });
 
-core.controller('ScrollCtrl', function($state, $scope, user) {
+core.controller('TypeCtrl', function($state, $scope, user, IterateFactory, TimerFactory) {
     $scope.delay; // keyboard iteration speed
     // Key-value pairs for keyboard speed based on user's settings
+    $scope.start = function() {
+        IterateFactory.zero('type');
+    }
+
+    $scope.stop = function() {
+        TimerFactory.clearTracking();
+    }
     const translateDelay = {
         5: 500,
         4: 750,

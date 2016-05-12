@@ -1,8 +1,8 @@
 <md-bottom-sheet id="bottom-keyboard" layout="column" id="bottom-sheet" class="md-grid" ng-cloak>
 	<input class="form-control" ng-model='wordInput'/>
-	<div layout="row" ng-repeat="(key, val) in keyboard" class="keyboard-row">
-		<div flex="20" class="row-box" ng-repeat="letter in keyboard[key]['letters']" ng-class="{'letter-hover': letter === scopeValue[1], 'hover-row': {{key}} === scopeValue[0]}">{{letter}}</div>
-	</div>
+	<div flex layout="row" ng-repeat="(key, val) in keyboard" class="keyboard-row">
+        <div flex="20" class="row-box" ng-repeat="letter in keyboard[key]['letters']" ng-class="{'letter-hover': (letter ===   keyboard[key]['letters'][scopeValue[1]] && {{key}} === scopeValue[0]), 'hover-row': {{key}} === scopeValue[0]}">{{letter}}</div>
+        </div>
 	
 </md-bottom-sheet>
 <!-- ng-repeat="letter in keyboard[row].letters" -->

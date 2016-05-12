@@ -1,44 +1,63 @@
 //this sets all of timer dependent functions to the same intervals to clear on state change
 
-core.factory('TimerFactory', function($rootScope, $interval) {
-	var calibrateInt;
-	var cursorInt;
-	var positionInt;
-	var videoInt;
+core.factory('TimerFactory', function($rootScope, $interval, $timeout) {
+    var calibrateInt;
+    var cursorInt;
+    var positionInt;
+    var videoInt;
 
-	return {
-		startReading: (iterator, delay, callback) => {
-			positionInt = $interval(iterator, delay, 0, true, callback);
-		},
-		moveCursor: (iterator, delay) => {
-			cursorInt = $interval(iterator, delay);
-		},
-		calibrate: (iterator, delay, page) => {
-			calibrateInt = $interval(iterator, delay, 0, true, page);
-		},
-		videoStatus: (iterator, delay) => {
-			videoInt = $interval(iterator, delay);
-		},
-		clearAll: () => {
-			$interval.cancel(calibrateInt);
-			$interval.cancel(cursorInt);
-			$interval.cancel(positionInt);
-			$interval.cancel(videoInt);
+    var readFunc;
+    var cursorFunc;
 
-		},
-		clearTracking: () => {
-			$interval.cancel(calibrateInt);
-			$interval.cancel(cursorInt);
-			$interval.cancel(positionInt);
-	
-		},
-		//we know that the webcam is loaded and can start tracking
-		videoReady: () => {
-			$interval.cancel(videoInt);
-			//clearInterval($rootScope.videoInterval);
-		},
-		calibrationFinished: () => {
-			$interval.cancel(calibrateInt);
-		}
-	}
+    return {
+        startReading: (iterator, delay, callback) => {
+        	readFunc = function() {
+            	positionInt = $interval(iterator, delay, 0, true, callback);
+        	}
+        	readFunc();
+        },
+        moveCursor: (iterator, delay) => {
+        	cursorFunc = function() {
+            	cursorInt = $interval(iterator, delay);
+        	}
+        	cursorFunc();
+        },
+        calibrate: (iterator, delay, page) => {
+            calibrateInt = $interval(iterator, delay, 0, true, page);
+        },
+        videoStatus: (iterator, delay) => {
+            videoInt = $interval(iterator, delay);
+        },
+        clearAll: () => {
+            $interval.cancel(calibrateInt);
+            $interval.cancel(cursorInt);
+            $interval.cancel(positionInt);
+            $interval.cancel(videoInt);
+
+        },
+        clearTracking: () => {
+            $interval.cancel(calibrateInt);
+            $interval.cancel(cursorInt);
+            $interval.cancel(positionInt);
+
+        },
+        pauseIteration: (delay) => {
+            if (angular.isDefined(cursorInt)) {
+            	$interval.cancel(positionInt);
+                $interval.cancel(cursorInt);
+            }
+            $timeout(function() {
+            	cursorFunc();
+            	readFunc();
+            }, delay);
+        },
+        //we know that the webcam is loaded and can start tracking
+        videoReady: () => {
+            $interval.cancel(videoInt);
+            //clearInterval($rootScope.videoInterval);
+        },
+        calibrationFinished: () => {
+            $interval.cancel(calibrateInt);
+        }
+    }
 });

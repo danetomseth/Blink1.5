@@ -5,8 +5,8 @@ core.controller('MainCtrl', function($scope, $state, $rootScope, IterateFactory,
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
         //TimerFactory.clearTracking();
-        // if(toState.name === 'scroll') {
-        //     IterateFactory.zero('scroll')
+        // if(toState.name === 'type') {
+        //     IterateFactory.zero('type')
         // }
         // if(toState.name === 'home') {
         //     IterateFactory.zero('nav')

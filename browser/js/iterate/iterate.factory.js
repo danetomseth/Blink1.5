@@ -12,19 +12,33 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
 
     var keyboardIterator = function() {
         if (debounce && !selectingLetter) {
-             let arr = [KeyboardFactory.iterateRow(), iterateObj.scopeValue[1]]
+             let arr = KeyboardFactory.iterateRow();
              angular.copy(arr, iterateObj.scopeValue);
+             if(iterateObj.scopeValue[0] === 0) {
+                TimerFactory.pauseIteration(500);
+             }
         } else if (debounce && selectingLetter) {
             iterateObj.scopeValue[1] = KeyboardFactory.iterateLetter();
+            if(iterateObj.scopeValue[1] === 0) {
+                TimerFactory.pauseIteration(500);
+             }
         }
     }
+
     var popupIterator = function() {
         if (debounce && !selectingLetter) {
-             let arr = [PopupFactory.iterateRow(), iterateObj.scopeValue[1]]
+             let arr = PopupFactory.iterateRow()
              angular.copy(arr, iterateObj.scopeValue);
+             if(iterateObj.scopeValue[0] === 0) {
+                TimerFactory.pauseIteration(500);
+             }
         } else if (debounce && selectingLetter) {
             iterateObj.scopeValue[1] = PopupFactory.iterateLetter();
+            if(iterateObj.scopeValue[1] === 0) {
+                TimerFactory.pauseIteration(500);
+             }
         }
+        console.log(iterateObj.scopeValue);
     }
 
     // Iterate functions to update values on scope
@@ -34,7 +48,7 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
 
 
 
-    // Zero functions
+    //Zero functions
     var browZero = function(page) {
             var converge = TrackingFactory.convergence();
             if (converge < 300) {
@@ -47,6 +61,7 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
                 count = 0;
             }
         }
+    
     // Position Functions 
     function goToPage() {
         TimerFactory.clearAll();
@@ -87,31 +102,33 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
     function popupSelect() {
        iterateObj.selectedLetter = iterateObj.scopeValue[1];
         //check to make sure the selected letter is not undefined
-        if (selectingLetter && iterateObj.selectedLetter) {
+        if (selectingLetter) {
             iterateObj.word = PopupFactory.selectLetter();
-            iterateObj.scopeValue[1] = "";
+            iterateObj.scopeValue[1] = null;
             selectingLetter = false;
         } else {
+            iterateObj.scopeValue[1] = PopupFactory.iterateLetter();
             selectingLetter = true;
         }
         setTimeout(function() {
-            iterateObj.selectedLetter = '';
+            iterateObj.selectedLetter = null;
             debounce = true;
         }, 750)
     }
 
     function selectLetter() {
-       iterateObj.selectedLetter = iterateObj.scopeValue[1];
        	//check to make sure the selected letter is not undefined
-        if (selectingLetter && iterateObj.selectedLetter) {
+        if (selectingLetter) {
+            iterateObj.selectedLetter = iterateObj.scopeValue[1];
             iterateObj.word = KeyboardFactory.selectLetter();
-            iterateObj.scopeValue[1] = "";
+            iterateObj.scopeValue[1] = null;
             selectingLetter = false;
         } else {
+            iterateObj.scopeValue[1] = KeyboardFactory.iterateLetter();
             selectingLetter = true;
         }
         setTimeout(function() {
-            iterateObj.selectedLetter = '';
+            iterateObj.selectedLetter = null;
             debounce = true;
         }, 750)
     }
@@ -134,7 +151,7 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
                 TimerFactory.startReading(analyzePositions, 50, navCallback);
                 TimerFactory.moveCursor(linkIterator, 1000);
                 break;
-            case 'scroll':
+            case 'type':
                 PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(analyzePositions, 50, keyboardCallback);
                 TimerFactory.moveCursor(keyboardIterator, 750);

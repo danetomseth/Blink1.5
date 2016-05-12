@@ -8,75 +8,75 @@
 // .md-primary {
 //   color: white !important;
 // }
-//navy blue
-$primary: (
-  #d8eff3,
-  #c4e8ec,
-  #b1e0e6,
-  #9ed8e0,
-  #8ad1da,
-  #77c9d4,
-  #64c1ce,
-  #50bac8,
-  #3db2c1,
-  #37a0ae,
-  #ebf7f9,
-  #ffffff,
-  #ffffff,
-  #318e9b
-  );
+
+// $primary: (
+//   #77C9D4,
+//   #DCF7FA,
+//   #A7E2EB,
+//   #4FAAB7,
+//   #2F8B98
+//   );
 
 //teal
+// $accent: (
+//  #FFDB8D,
+//  #FFF5DF,
+//  #FFE7B4,
+//  #FFD06B,
+//  #F8C14A
+//  );
+
+//blue
+$primary: (
+ rgba(119,201,212,1), 
+ rgba(220,247,250,1),
+ rgba(167,226,235,1),
+ rgba( 79,170,183,1),
+ rgba( 47,139,152,1)
+ );
+
+//yellow-ish
 $accent: (
- #235941,
-#2a6b4f,
-#327d5c,
-#39906a,
-#40a277,
-#58bd91,
-#6ac49d,
-#7dcba9,
-#8fd3b5,
-#a1dac1,
-#6ac49d,
-#58bd91,
-#47b485,
-#b3e1cd
+  rgba(255,219,141,1),
+  rgba(255,245,223,1),
+  rgba(255,231,180,1),
+  rgba(255,208,107,1),
+  rgba(248,193, 74,1)
   );
+
+//red-ish
+$accentB: (
+ rgba(255,149,141,1), 
+ rgba(255,226,223,1),
+ rgba(255,186,180,1),
+ rgba(255,117,107,1),
+ rgba(248, 86, 74,1)
+ );
 
 //red
 $forest: (
-  #05cdbe,
-#04b5a7,
-#049c90,
-#038379,
-#036a62,
-#02514b,
-#013834,
-#011f1d,
-#000606,
-#000000,
-#06e6d5,
-#0cf9e7,
-#25faea,
-#000000
+  #FF958D,
+  #FFE2DF,
+  #FFBAB4,
+  #FF756B,
+  #F8564A
   );
 //white
 $background: (
   #e8e8eb,
-#dbdbdf,
-#cdcdd3,
-#c0c0c7,
-#b2b2bb,
-#a5a5af,
-#9797a3,
-#8a8a97,
-#7c7c8b,
-#70707e,
-#f6f6f7,
-#ffffff,
-#ffffff,
-#646470
+  #dbdbdf,
+  #cdcdd3,
+  #c0c0c7,
+  #b2b2bb,
+  #a5a5af,
+  #9797a3,
+  #8a8a97,
+  #7c7c8b,
+  #70707e,
+  #f6f6f7,
+  #ffffff,
+  #ffffff,
+  #646470
   );
 
 //0 white
@@ -87,10 +87,94 @@ $background: (
 $text: (
   white,
   black,
-  #77c9d4,
-  #57bc90,
-  #a5a5af
+  rgba(119,201,212,1),
+  rgba(255,219,141,1),
+  rgba(255,149,141,1),
   );
+
+//navy blue
+// $primary: (
+//   #d8eff3,
+//   #c4e8ec,
+//   #b1e0e6,
+//   #9ed8e0,
+//   #8ad1da,
+//   #77c9d4,
+//   #64c1ce,
+//   #50bac8,
+//   #3db2c1,
+//   #37a0ae,
+//   #ebf7f9,
+//   #ffffff,
+//   #ffffff,
+//   #318e9b
+//   );
+
+// //teal
+// $accent: (
+//  #235941,
+// #2a6b4f,
+// #327d5c,
+// #39906a,
+// #40a277,
+// #58bd91,
+// #6ac49d,
+// #7dcba9,
+// #8fd3b5,
+// #a1dac1,
+// #6ac49d,
+// #58bd91,
+// #47b485,
+// #b3e1cd
+//   );
+
+// //red
+// $forest: (
+//   #05cdbe,
+// #04b5a7,
+// #049c90,
+// #038379,
+// #036a62,
+// #02514b,
+// #013834,
+// #011f1d,
+// #000606,
+// #000000,
+// #06e6d5,
+// #0cf9e7,
+// #25faea,
+// #000000
+//   );
+// //white
+// $background: (
+//   #e8e8eb,
+// #dbdbdf,
+// #cdcdd3,
+// #c0c0c7,
+// #b2b2bb,
+// #a5a5af,
+// #9797a3,
+// #8a8a97,
+// #7c7c8b,
+// #70707e,
+// #f6f6f7,
+// #ffffff,
+// #ffffff,
+// #646470
+//   );
+
+// //0 white
+// //1 black
+// //2 primary - blue
+// //3 accent - marine
+// //4 forest
+// $text: (
+//   white,
+//   black,
+//   #77c9d4,
+//   #57bc90,
+//   #a5a5af
+//   );
 
 
 
@@ -115,7 +199,6 @@ $accentD: #1B5E20;
 @import 'custom/corners';
 @import 'custom/home';
 @import 'custom/webcam';
-@import 'custom/static-nav';
 @import 'custom/newsfeed';
 @import 'custom/settings';
 @import 'custom/buttons';
