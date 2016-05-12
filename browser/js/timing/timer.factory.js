@@ -30,7 +30,7 @@ core.factory('TimerFactory', function($rootScope, $interval) {
 			$interval.cancel(calibrateInt);
 			$interval.cancel(cursorInt);
 			$interval.cancel(positionInt);
-	
+
 		},
 		//we know that the webcam is loaded and can start tracking
 		videoReady: () => {

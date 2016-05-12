@@ -60,7 +60,7 @@ core.config(function($mdThemingProvider) {
         'A200': '#ffffff',
         'A400': '#ffffff',
         'A700': '#df0014'
-    }; 
+    };
     $mdThemingProvider
         .definePalette('customWarn',
             customWarn);
@@ -68,19 +68,19 @@ core.config(function($mdThemingProvider) {
      var customBackground = {
         '50': '#ffffff',
         '100': '#ffffff',
-        '200': '#ffffff',
-        '300': '#ffffff',
-        '400': '#ffffff',
-        '500': '#FFFFFF',
-        '600': '#f2f2f2',
-        '700': '#e6e6e6',
-        '800': '#d9d9d9',
-        '900': '#cccccc',
+        '200': '#f9f9f9',
+        '300': '#ececec',
+        '400': '#e0e0e0',
+        '500': '#D3D3D3',
+        '600': '#c6c6c6',
+        '700': '#b9b9b9',
+        '800': '#adadad',
+        '900': '#a0a0a0',
         'A100': '#ffffff',
         'A200': '#ffffff',
         'A400': '#ffffff',
-        'A700': '#bfbfbf'
-    }; 
+        'A700': '#939393'
+    };
     $mdThemingProvider
         .definePalette('customBackground',
             customBackground);
@@ -103,9 +103,6 @@ app.config(function($urlRouterProvider, $locationProvider) {
     });
 });
 
-
-
-
 // This app.run is for controlling access to specific states.
 app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory, TimerFactory) {
 
@@ -117,8 +114,10 @@ app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory
     // $stateChangeStart is an event fired
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+        if ((toState.name !== "settings.features") && (toState.name !== "settings.keyboard")) {
+            TimerFactory.clearTracking();
+        }
 
-        TimerFactory.clearTracking();
         if (!destinationStateRequiresAuth(toState)) {
             // The destination state does not require authentication
             // Short circuit with return.

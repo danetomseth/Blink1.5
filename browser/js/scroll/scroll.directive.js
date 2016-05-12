@@ -13,7 +13,6 @@ core.directive('blLetterScroll', function(KeyboardFactory, SpeechFactory, TimerF
             scope.alphabet = KeyboardFactory.alphabet;
             scope.browDebounce = true;
 
-
             scope.$watch(function() {
                 return IterateFactory.selectedLetter
             }, function(newVal, oldVal) {
@@ -30,9 +29,7 @@ core.directive('blLetterScroll', function(KeyboardFactory, SpeechFactory, TimerF
                 }
             });
 
-
             scope.scopeValue = IterateFactory.scopeValue;
-
 
             //adds click to letters
             // scope.addLetter = (letter) => {
