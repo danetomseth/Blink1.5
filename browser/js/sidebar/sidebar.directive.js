@@ -8,27 +8,29 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
         controller: 'SidebarCtrl',
         link: function(scope) {
             scope.userLoggedIn = false;
+
             var setUser = function() {
                 AuthService.getLoggedInUser().then(function(user) {
+                    $rootScope.user = user;
+                    scope.username = user.firstName;
                     if(user) {
                         scope.username = user.firstName;
                         scope.userLoggedIn = true;
                         console.log('user', user);
+                        console.log("rootscopeuser", $rootScope.user)
                     }
-                    
                     scope.items = SidebarFactory.getLinks(scope.userLoggedIn);
                 });
             };
 
             var removeUser = function() {
+                $rootScope.user = null;
                 scope.items = SidebarFactory.getLinks(false);
-                scope.username = null;
             };
 
             setUser();
 
             scope.items = SidebarFactory.getLinks(scope.userLoggedIn);
-            console.log(scope.items);
 
             //need to clean up scope.localCtrl .... was originally used to link stuff
             scope.localCtrl = scope.control || {};
@@ -42,8 +44,6 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
                     scope.selectedLink = IterateFactory.linkValue;
                 }
             });
-            //IterateFactory.zero('nav');
-
 
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);

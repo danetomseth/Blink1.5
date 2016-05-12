@@ -6,7 +6,7 @@ core.config(function($stateProvider) {
         onEnter: function(IterateFactory) {
         	//this starts nav iteration on home page
         	console.log('Entering home!');
-        	//IterateFactory.zero('nav');
+        	IterateFactory.zero('nav');
         }
     });
 
@@ -24,6 +24,5 @@ core.controller('HomeCtrl', function($scope, $mdBottomSheet) {
       parent: angular.element(document.getElementById('content'))
     });
   };
-
 
 });

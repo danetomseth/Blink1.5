@@ -1,14 +1,12 @@
 core.factory('SidebarFactory', function($state, $mdSidenav) {
 
     let itemIndex = 0;
-    let returnIndex;
+    let returnIndex = 0;
 
     let links = [
         { label: 'Home', state: 'home'},
         { label: 'Type', state: 'type'},
         { label: 'Corners', state: 'corners'},
-        
-       
     ];
 
     let loggedInLinks = [
@@ -22,11 +20,13 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
         { label: 'Signup', state: 'signup', auth: false}
     ];
 
+    let currentLinks;
+
     return {
         moveSelected: () => {
             returnIndex = itemIndex;
             itemIndex++;
-            if(itemIndex >= links.length) {
+            if(itemIndex >= currentLinks.length) {
                 itemIndex = 0;
             }
             return returnIndex;
@@ -34,14 +34,17 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
         getLinks: (loggedIn) => {
             var returnLinks = []
             if(loggedIn) {
-                return links.concat(loggedInLinks);
+                currentLinks = links.concat(loggedInLinks)
+                return currentLinks;
             }
-            else return links.concat(loggedOutLinks);
-            
+            else {
+                currentLinks = links.concat(loggedOutLinks);
+                return currentLinks;
+            }
         },
         changeState: () => {
             itemIndex = 0;
-            $state.go(links[returnIndex].state)
+            $state.go(currentLinks[returnIndex].state)
         }
     }
 });

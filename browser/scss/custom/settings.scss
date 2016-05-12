@@ -17,7 +17,7 @@ img.md-card-image {
 }
 
 .md-button.current {
-    background-color: nth($background, 8);
+    background-color: nth($primary, 3);
     font-weight: bold;
 }
 
@@ -30,7 +30,7 @@ md-card {
 }
 
 .highlighted {
-    background: nth($accent, 4) !important;
+    background: nth($accentB, 4) !important;
 }
 
 @keyframes blinker {
