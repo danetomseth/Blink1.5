@@ -1,18 +1,10 @@
-
-<!-- Locked Open  -->
-<!-- <md-sidenav id="locked-sidebar" md-is-locked-open="true" class="md-primary md-sidenav-left" md-component-id="left">
-<md-button style="text-align:left" class="md-raised" id="nav-btn" ng-repeat="item in items" ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}" data-hover="{{item.label}}">{{item.label}}</md-button>
-<md-button style="text-align:left" class="md-raised" id="nav-btn" ng-click="stopTacking()" ng-hide="trackingStopped">Stop</md-button>
-<bl-sidebar-webcam local="control"></bl-sidebar-webcam> -->
-
 <!-- Locked Open  -->
 <md-sidenav id="locked-sidebar" md-is-locked-open="true" class="md-primary md-sidenav-left" md-component-id="left">
     <logo class="pull-right">Blink</logo>
     <h4 id="welcomeMessage" ng-show="show('isLoggedIn')">Welcome, {{username}}</h3>
     <div class="dynamicBox">
-            <md-button class="md-raised" id="nav-btn" ng-repeat="item in items" ng-show="show(item.show)" ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}">{{item.label}}</md-button>
+            <md-button class="md-raised" id="nav-btn" ng-repeat="item in items"  ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}">{{item.label}}</md-button>
 
-            <md-button class="md-raised" id="nav-btn" ng-show="show('isLoggedIn')" ng-click="logOut()" ng-class="{'btn-highlight' : $index === selectedLink}">Log Out</md-button>
     </div>
     <bl-sidebar-webcam></bl-sidebar-webcam>
     <md-button style="text-align:left" class="md-raised static-btn" id="nav-btn" ng-click="stopTracking()">Stop</md-button>

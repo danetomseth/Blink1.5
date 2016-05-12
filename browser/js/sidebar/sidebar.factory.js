@@ -2,16 +2,24 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
 
     let itemIndex = 0;
     let returnIndex;
-    var isLoggedIn = true;
 
     let links = [
-        { label: 'Home', state: 'home', show: 'always'},
-        { label: 'Type', state: 'type', show: 'always'},
-        { label: 'Corners', state: 'corners', show: 'always'},
-        { label: 'Social', state: 'newsfeed', show: 'isLoggedIn'},
-        { label: 'Settings', state: 'settings', show: 'isLoggedIn'},
-        { label: 'Login', state: 'login', show: "isLoggedOut"},
-        { label: 'Signup', state: 'signup', show: 'isLoggedOut'}
+        { label: 'Home', state: 'home'},
+        { label: 'Type', state: 'type'},
+        { label: 'Corners', state: 'corners'},
+        
+       
+    ];
+
+    let loggedInLinks = [
+        { label: 'Social', state: 'newsfeed', auth: true},
+        { label: 'Settings', state: 'settings', auth: true},
+        { label: 'Logout', state: 'logout', auth: true}
+    ];
+
+    let loggedOutLinks = [
+        { label: 'Login', state: 'login', auth: false},
+        { label: 'Signup', state: 'signup', auth: false}
     ];
 
     return {
@@ -23,8 +31,13 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
             }
             return returnIndex;
         },
-        getLinks: () => {
-            return links;
+        getLinks: (loggedIn) => {
+            var returnLinks = []
+            if(loggedIn) {
+                return links.concat(loggedInLinks);
+            }
+            else return links.concat(loggedOutLinks);
+            
         },
         changeState: () => {
             itemIndex = 0;

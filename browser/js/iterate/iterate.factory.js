@@ -72,6 +72,7 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
         } else {
             count = 0;
         }
+    }
     
     // Position Functions 
     function goToPage() {
@@ -213,4 +214,5 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
     }
 
     return iterateObj;
+
 });

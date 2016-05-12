@@ -2,7 +2,6 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
     return {
         restrict: 'E',
         templateUrl: 'templates/type-keyboard.html',
-
         link: function(scope, elem, attr) {
             let count = 0;
             let selectingLetter = false;
