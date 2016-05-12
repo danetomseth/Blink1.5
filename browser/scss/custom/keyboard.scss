@@ -10,54 +10,53 @@
 
 .keys {
     text-align: center;
-    font-size: 40px;
-    background-color: nth($background, 8);
-    color: black;
-    opacity: 0.6;
+    font-size: 20px;
+    background-color: nth($accent, 6);
+    color: nth($text, 1);
 }
 
 .highlighted-row {
-    background: nth($accent, 4);
+    background: nth($primary, 2);
 }
 
 .highlighted-letter {
-    background: nth($accent, 8);
+    background: nth($primary, 6);
 }
 
 .selected {
-    color: red;
-    text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;
+    color: nth($primary, 8);
+    background: nth($background, 1);
 }
 
 #bottom-keyboard {
-    background: nth($background, 8);
+    background: white;
 }
 
 .keyboard-row {
     height: 50px;
     margin: 2px 5px;
+    padding: 5px 0px;
    // margin: 
 }
 
 .row-box {
     margin: 0px 5px;
     line-height: 50px;
-    background: nth($accent, 3);
     text-align: center;
     font-size: 20px;
-    color: nth($background, 5);
+    background-color: nth($accent, 6);
+    color: nth($text, 1);
 }
 
 .letter-hover {
-    border: 1px solid nth($accent, 3) !important;
-    line-height: 42px;
+    // border: 1px solid nth($accent, 3) !important;
+    // background: nth($primary, 6);
+    color: nth($primary, 8);
+    background: nth($background, 1);
     /* offset-x | offset-y | blur-radius | spread-radius | color */
-    box-shadow: 2px 2px 2px 1px nth($text, 8);
 }
 .hover-row {
-    div {
-        background: nth($primary, 1) !important;
-    }
+    background: nth($primary, 2) !important;
 }
 
 

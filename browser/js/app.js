@@ -8,92 +8,91 @@ core.config(function($mdThemingProvider) {
     //angular material icons
     
      
+ var customPrimary = {
+        '50': '#d8eff3',
+        '100': '#c4e8ec',
+        '200': '#b1e0e6',
+        '300': '#9ed8e0',
+        '400': '#8ad1da',
+        '500': '#77c9d4',
+        '600': '#64c1ce',
+        '700': '#50bac8',
+        '800': '#3db2c1',
+        '900': '#37a0ae',
+        'A100': '#ebf7f9',
+        'A200': '#ffffff',
+        'A400': '#ffffff',
+        'A700': '#318e9b'
+    };
+    $mdThemingProvider
+        .definePalette('customPrimary', 
+                        customPrimary);
 
-    var customPrimary = {
-        '50': '#586687',
-        '100': '#4e5b78',
-        '200': '#444f68',
-        '300': '#3a4359',
-        '400': '#303849',
-        '500': '#262c3a',
-        '600': '#1c202b',
-        '700': '#12151b',
-        '800': '#08090c',
+    var customAccent = {
+        '50': '#235941',
+        '100': '#2a6b4f',
+        '200': '#327d5c',
+        '300': '#39906a',
+        '400': '#40a277',
+        '500': '#47b485',
+        '600': '#6ac49d',
+        '700': '#7dcba9',
+        '800': '#8fd3b5',
+        '900': '#a1dac1',
+        'A100': '#6ac49d',
+        'A200': '#58bd91',
+        'A400': '#47b485',
+        'A700': '#b3e1cd'
+    };
+    $mdThemingProvider
+        .definePalette('customAccent', 
+                        customAccent);
+
+    var customWarn = {
+        '50': '#05cdbe',
+        '100': '#04b5a7',
+        '200': '#049c90',
+        '300': '#038379',
+        '400': '#036a62',
+        '500': '#02514b',
+        '600': '#013834',
+        '700': '#011f1d',
+        '800': '#000606',
         '900': '#000000',
-        'A100': '#637296',
-        'A200': '#717fa2',
-        'A400': '#808dac',
+        'A100': '#06e6d5',
+        'A200': '#0cf9e7',
+        'A400': '#25faea',
         'A700': '#000000'
     };
     $mdThemingProvider
-        .definePalette('customPrimary',
-            customPrimary);
+        .definePalette('customWarn', 
+                        customWarn);
 
-    var customAccent = {
-        '50': '#004442',
-        '100': '#005d5b',
-        '200': '#007774',
-        '300': '#00908d',
-        '400': '#00aaa6',
-        '500': '#00c3bf',
-        '600': '#00f6f1',
-        '700': '#11fffa',
-        '800': '#2afffa',
-        '900': '#44fffb',
-        'A100': '#00f6f1',
-        'A200': '#00DDD8',
-        'A400': '#00c3bf',
-        'A700': '#5dfffb'
+    var customBackground = {
+        '50': '#e8e8eb',
+        '100': '#dbdbdf',
+        '200': '#cdcdd3',
+        '300': '#c0c0c7',
+        '400': '#b2b2bb',
+        '500': '#a5a5af',
+        '600': '#9797a3',
+        '700': '#8a8a97',
+        '800': '#7c7c8b',
+        '900': '#70707e',
+        'A100': '#f6f6f7',
+        'A200': '#ffffff',
+        'A400': '#ffffff',
+        'A700': '#646470'
     };
     $mdThemingProvider
-        .definePalette('customAccent',
-            customAccent);
-        //redish color
-    var customWarn = {
-        '50': '#ffdfe2',
-        '100': '#ffc6cb',
-        '200': '#ffacb4',
-        '300': '#ff939c',
-        '400': '#ff7985',
-        '500': '#FF606E',
-        '600': '#ff4657',
-        '700': '#ff2d3f',
-        '800': '#ff1328',
-        '900': '#f90016',
-        'A100': '#fff9fa',
-        'A200': '#ffffff',
-        'A400': '#ffffff',
-        'A700': '#df0014'
-    }; 
-    $mdThemingProvider
-        .definePalette('customWarn',
-            customWarn);
+        .definePalette('customBackground', 
+                        customBackground);
 
-     var customBackground = {
-        '50': '#ffffff',
-        '100': '#ffffff',
-        '200': '#ffffff',
-        '300': '#ffffff',
-        '400': '#ffffff',
-        '500': '#FFFFFF',
-        '600': '#f2f2f2',
-        '700': '#e6e6e6',
-        '800': '#d9d9d9',
-        '900': '#cccccc',
-        'A100': '#ffffff',
-        'A200': '#ffffff',
-        'A400': '#ffffff',
-        'A700': '#bfbfbf'
-    }; 
-    $mdThemingProvider
-        .definePalette('customBackground',
-            customBackground);
-
-    $mdThemingProvider.theme('default')
-        .primaryPalette('customPrimary')
-        .accentPalette('customAccent')
-        .warnPalette('customWarn')
-        .backgroundPalette('customBackground')
+   $mdThemingProvider.theme('default')
+       .primaryPalette('customPrimary')
+       .accentPalette('customAccent')
+       .warnPalette('customWarn')
+       .backgroundPalette('customBackground')
 });
 
 app.config(function($urlRouterProvider, $locationProvider) {

@@ -10,90 +10,86 @@
 // }
 //navy blue
 $primary: (
-  #586687,
-  #4e5b78,
-  #444f68,
-  #3a4359,
-  #303849,
-  #262C3A,
-  #1c202b,
-  #12151b,
-  #08090c,
-  #000000,
-  #637296,
-  #717fa2,
-  #808dac,
-  #000000
+  #d8eff3,
+  #c4e8ec,
+  #b1e0e6,
+  #9ed8e0,
+  #8ad1da,
+  #77c9d4,
+  #64c1ce,
+  #50bac8,
+  #3db2c1,
+  #37a0ae,
+  #ebf7f9,
+  #ffffff,
+  #ffffff,
+  #318e9b
   );
 
 //teal
 $accent: (
-  #004442,
-  #005d5b,
-  #007774,
-  #00908d,
-  #00aaa6,
-  #00c3bf,
-  #00f6f1,
-  #11fffa,
-  #2afffa,
-  #44fffb,
-  #00f6f1,
-  #00DDD8,
-  #00c3bf,
-  #5dfffb
+ #235941,
+#2a6b4f,
+#327d5c,
+#39906a,
+#40a277,
+#58bd91,
+#6ac49d,
+#7dcba9,
+#8fd3b5,
+#a1dac1,
+#6ac49d,
+#58bd91,
+#47b485,
+#b3e1cd
   );
 
 //red
-$warn: (
-  #ffdfe2,
-  #ffc6cb,
-  #ffacb4,
-  #ff939c,
-  #ff7985,
-  #FF606E,
-  #ff4657,
-  #ff2d3f,
-  #ff1328,
-  #f90016,
-  #fff9fa,
-  #ffffff,
-  #ffffff,
-  #df0014
+$forest: (
+  #05cdbe,
+#04b5a7,
+#049c90,
+#038379,
+#036a62,
+#02514b,
+#013834,
+#011f1d,
+#000606,
+#000000,
+#06e6d5,
+#0cf9e7,
+#25faea,
+#000000
   );
 //white
 $background: (
-  #ffffff,
-  #ffffff,
-  #ffffff,
-  #ffffff,
-  #ffffff,
-  #FFFFFF,
-  #f2f2f2,
-  #e6e6e6,
-  #d9d9d9,
-  #cccccc,
-  #ffffff,
-  #ffffff,
-  #ffffff,
-  #bfbfbf
+  #e8e8eb,
+#dbdbdf,
+#cdcdd3,
+#c0c0c7,
+#b2b2bb,
+#a5a5af,
+#9797a3,
+#8a8a97,
+#7c7c8b,
+#70707e,
+#f6f6f7,
+#ffffff,
+#ffffff,
+#646470
   );
 
-//blue
+//0 white
+//1 black
+//2 primary - blue
+//3 accent - marine
+//4 forest
 $text: (
-  #9db3cb,
-  #8da6c2,
-  #7c99b9,
-  #6c8db0,
-  #5b80a8,
-  #486687,
-  #3f5a77,
-  #364d66,
-  #2e4155,
-  #aec0d4,
-  #bfcddd,
-  #cfdae6,
-  #253445
+  white,
+  black,
+  #77c9d4,
+  #57bc90,
+  #a5a5af
   );
 
 
@@ -143,5 +139,5 @@ body {
 #main {
   padding-top: 60px;
   margin: 0 auto;
-  color: nth($text, 5);
+  color: nth($text, 1);
 }

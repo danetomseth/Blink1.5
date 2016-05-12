@@ -9,7 +9,7 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
         link: function(scope) {
             var setUser = function() {
                 AuthService.getLoggedInUser().then(function(user) {
-                    scope.username = user.firstName;
+                    //scope.username = user.firstName;
                 });
             };
 

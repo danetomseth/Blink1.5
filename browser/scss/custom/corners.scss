@@ -3,21 +3,21 @@
 	text-align: center;
 	line-height: 200px;
 	margin: 10px;
-	background: nth($primary, 7);
 	div {
 		width: 30%;
 		margin: 5px;
 		font-size: 2em;
 		font-weight: 2em;
-		color: $secondaryText;
+		color: nth($text, 1);
 	}
 	div.colored {
-		background-color: $accentL;
+		//background-color: $accentL;
 	}
 }
 
 #box {
-	background: nth($accent, 7);
+	background: nth($accent, 6);
+	color: nth($text, 1);
 }
 
 .center-box {
@@ -27,7 +27,7 @@
 
 .active-box {
 	div {
-		background-color: nth($primary, 2) !important;
+		background-color: nth($primary, 8) !important;
 	}
 }
 
@@ -41,6 +41,4 @@
 	line-height: 100%;
 }
 
-.contrast {
-  filter: grayscale(50%) !important;
-}
+
