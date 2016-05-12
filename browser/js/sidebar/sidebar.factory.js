@@ -1,5 +1,4 @@
-
-core.factory('SidebarFactory', function($state, AuthService, TimerFactory, $mdSidenav) {
+core.factory('SidebarFactory', function($state, $mdSidenav) {
 
     let itemIndex = 0;
     let returnIndex;

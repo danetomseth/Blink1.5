@@ -5,26 +5,8 @@
     clear: both;
   }
 }
-// .md-primary {
-//   color: white !important;
-// }
 
-// $primary: (
-//   #77C9D4,
-//   #DCF7FA,
-//   #A7E2EB,
-//   #4FAAB7,
-//   #2F8B98
-//   );
 
-//teal
-// $accent: (
-//  #FFDB8D,
-//  #FFF5DF,
-//  #FFE7B4,
-//  #FFD06B,
-//  #F8C14A
-//  );
 
 //blue
 $primary: (
@@ -92,100 +74,8 @@ $text: (
   rgba(255,149,141,1),
   );
 
-//navy blue
-// $primary: (
-//   #d8eff3,
-//   #c4e8ec,
-//   #b1e0e6,
-//   #9ed8e0,
-//   #8ad1da,
-//   #77c9d4,
-//   #64c1ce,
-//   #50bac8,
-//   #3db2c1,
-//   #37a0ae,
-//   #ebf7f9,
-//   #ffffff,
-//   #ffffff,
-//   #318e9b
-//   );
-
-// //teal
-// $accent: (
-//  #235941,
-// #2a6b4f,
-// #327d5c,
-// #39906a,
-// #40a277,
-// #58bd91,
-// #6ac49d,
-// #7dcba9,
-// #8fd3b5,
-// #a1dac1,
-// #6ac49d,
-// #58bd91,
-// #47b485,
-// #b3e1cd
-//   );
-
-// //red
-// $forest: (
-//   #05cdbe,
-// #04b5a7,
-// #049c90,
-// #038379,
-// #036a62,
-// #02514b,
-// #013834,
-// #011f1d,
-// #000606,
-// #000000,
-// #06e6d5,
-// #0cf9e7,
-// #25faea,
-// #000000
-//   );
-// //white
-// $background: (
-//   #e8e8eb,
-// #dbdbdf,
-// #cdcdd3,
-// #c0c0c7,
-// #b2b2bb,
-// #a5a5af,
-// #9797a3,
-// #8a8a97,
-// #7c7c8b,
-// #70707e,
-// #f6f6f7,
-// #ffffff,
-// #ffffff,
-// #646470
-//   );
-
-// //0 white
-// //1 black
-// //2 primary - blue
-// //3 accent - marine
-// //4 forest
-// $text: (
-//   white,
-//   black,
-//   #77c9d4,
-//   #57bc90,
-//   #a5a5af
-//   );
 
 
-
-//$primary: #673AB7;
-$dark: #311B92;
-$light: #B39DDB;
-$secondaryText: #FAFAFA;
-//$background: white;
-$accentP: #4CAF50;
-$accentL: #A5D6A7;
-$accentD: #1B5E20;
 
 @import 'material/main';
 @import 'home/main';

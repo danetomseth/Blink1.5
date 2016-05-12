@@ -19,10 +19,6 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
 
             setUser();
 
-            $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
-            $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
-            $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
-
             scope.items = SidebarFactory.getLinks();
 
             scope.show = function(parameter) {
@@ -39,12 +35,16 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
             scope.$watch(function() {
                 return IterateFactory.linkValue;
             }, function(newVal, oldVal) {
-                console.log('change!!', newVal);
                 if (typeof newVal !== 'undefined') {
                     scope.selectedLink = IterateFactory.linkValue;
                 }
             });
             //IterateFactory.zero('nav');
+
+
+            $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
+            $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
+            $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
         }
     }
 });

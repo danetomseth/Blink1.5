@@ -13,7 +13,6 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
             scope.keyboard = KeyboardFactory.alphabet;
             scope.browDebounce = true;
 
-
             scope.$watch(function() {
                 return IterateFactory.selectedLetter
             }, function(newVal, oldVal) {
@@ -30,9 +29,9 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
                 }
             });
 
-
             scope.scopeValue = IterateFactory.scopeValue;
-            
+
+
             scope.say = () => SpeechFactory.say(scope.wordInput);
 
         }

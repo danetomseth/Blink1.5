@@ -49,20 +49,8 @@ var schema = new mongoose.Schema({
     },
     trackingFeature: {
         type: String,
-        default: 'brow'
+        default: 'eyebrows'
     }
-    // twitter: {
-    //     id: String,
-    //     username: String,
-    //     token: String,
-    //     tokenSecret: String
-    // },
-    // facebook: {
-    //     id: String
-    // },
-    // google: {
-    //     id: String
-    // }
 });
 
 schema.virtual('username').get(function() {
