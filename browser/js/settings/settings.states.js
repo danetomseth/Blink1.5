@@ -7,6 +7,11 @@ core.config(function($stateProvider) {
             user: function(AuthService) {
                 return AuthService.getLoggedInUser();
             }
+        },
+        onEnter: function(IterateFactory) {
+            //this starts nav iteration on home page
+            console.log('Entering settings!');
+            IterateFactory.zero('settings');
         }
     });
 

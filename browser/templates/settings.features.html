@@ -1,6 +1,4 @@
-<md-list ng-cloak>
-    <md-subheader class="md-no-sticky">Tracking Feature</md-subheader>
-    <md-list-item class="secondary-button-padding" ng-repeat="feature in features">
-        <p ng-click="setFeatures(feature)" ng-class="{selectedOption: feature===selected}">{{feature}}</p>
-    </md-list-item>
-</md-list>
+<md-subheader class="md-no-sticky">Tracking Feature</md-subheader>
+    <md-button ng-class="{'md-whiteframe-z1': true, 'current': (feature == trackingFeature)}" ng-repeat="feature in features" ng-click="setFeatures(feature)">
+        {{feature}}
+    </md-button>
