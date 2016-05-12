@@ -1,6 +1,6 @@
 core.controller('PopupCtrl', function($scope, PopupFactory, IterateFactory, $mdBottomSheet) {
 
-    $scope.keyboard = PopupFactory.alphabet;
+    $scope.keyboard = PopupFactory.letterObj;
     $scope.rowCount = 0;
     $scope.wordInput = "hello";
     // $scope.scopeValue = [];
@@ -30,9 +30,11 @@ core.controller('PopupCtrl', function($scope, PopupFactory, IterateFactory, $mdB
         }
     });
     console.log('in pop ctrl');
-    IterateFactory.zero('popup');
+    //IterateFactory.zero('popup');
+    $scope.scopeValue = [0,'A'];
 
-    $scope.scopeValue = IterateFactory.scopeValue;
+
+    //$scope.scopeValue = IterateFactory.scopeValue;
 
 
 });

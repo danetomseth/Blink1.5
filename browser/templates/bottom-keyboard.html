@@ -1,9 +1,19 @@
 <md-bottom-sheet id="bottom-keyboard" layout="column" id="bottom-sheet" class="md-grid" ng-cloak>
 	<input class="form-control" ng-model='wordInput'/>
-	<div layout="row" ng-repeat="row in keyboard" class="keyboard-row" ng-class="{'hover-row': $index === scopeValue[0]}">
-		<div flex="20" class="row-box" ng-class="{'letter-hover': letter === scopeValue[1]}" ng-repeat="letter in row">{{letter}}</div>
+	<div layout="row" ng-repeat="(key, val) in keyboard" class="keyboard-row">
+		<div flex="20" class="row-box" ng-repeat="letter in keyboard[key]['letters']" ng-class="{'letter-hover': letter === scopeValue[1], 'hover-row': {{key}} === scopeValue[0]}">{{letter}}</div>
 	</div>
 	
 </md-bottom-sheet>
+<!-- ng-repeat="letter in keyboard[row].letters" -->
+
+
+<!-- <md-bottom-sheet id="bottom-keyboard" layout="column" id="bottom-sheet" class="md-grid" ng-cloak>
+	<input class="form-control" ng-model='wordInput'/>
+	<div layout="row" ng-repeat="(key, val) in keyboard" class="keyboard-row" ng-class="{'hover-row': $index === scopeValue[0]}">
+		<div flex="20" class="row-box">{{keyboard[key]}}</div>
+	</div>
+	
+</md-bottom-sheet> -->
 
 

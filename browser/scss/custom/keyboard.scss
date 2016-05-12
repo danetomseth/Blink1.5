@@ -49,15 +49,14 @@
 }
 
 .letter-hover {
-    border: 1px solid nth($accent, 3) !important;
-    line-height: 42px;
+    background: nth($accent, 8) !important; 
+    // border: 1px solid nth($accent, 3) !important;
+    // line-height: 42px;
     /* offset-x | offset-y | blur-radius | spread-radius | color */
     box-shadow: 2px 2px 2px 1px nth($text, 8);
 }
 .hover-row {
-    div {
-        background: nth($primary, 1) !important;
-    }
+    background: nth($primary, 1);
 }
 
 

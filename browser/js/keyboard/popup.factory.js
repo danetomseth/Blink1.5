@@ -12,6 +12,13 @@ core.factory("PopupFactory", function($state, ActionFactory, PredictFactory, Spe
         ["P", "Q", "R", "S", "T"],
         ["U", "V", "W", "X", "Y"]
     ];
+    let letterObj = [
+        {row: 0, letters: ["A", "B", "C", "D", "E"]},
+        {row: 1, letters: ["F", "G", "H", "I", "J"]},
+        {row: 2, letters: ["K", "L", "M", "N", "O"]},
+        {row: 3, letters: ["P", "Q", "R", "S", "T"]},
+        {row: 4, letters: ["U", "V", "W", "X", "Y"]}
+    ]
     let rowLength = alphabet[0].length;
     let phrase = "";
 
@@ -43,6 +50,7 @@ core.factory("PopupFactory", function($state, ActionFactory, PredictFactory, Spe
             }
         },
         alphabet: alphabet, // used in scroll directive
+        letterObj: letterObj,
         getCurrentLetter: () => {
             return alphabet[rowIndex][letterIndex];
         }
