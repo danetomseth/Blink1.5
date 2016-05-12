@@ -7,6 +7,7 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
             let selectingLetter = false;
             let delay = scope.delay; // reference from ScrollCtrl
             scope.wordInput = '';
+            scope.selected = [null, null];
 
             //makes sure first element is highlighted on page load
             scope.keyboard = KeyboardFactory.alphabet;
@@ -16,7 +17,13 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
                 return IterateFactory.selectedLetter
             }, function(newVal, oldVal) {
                 if (typeof newVal !== 'undefined') {
-                    scope.selected = IterateFactory.selectedLetter;
+                    console.log('selected letter changed!!', IterateFactory.selectedLetter);
+                    if(IterateFactory.selectedLetter) {
+                        scope.selected = IterateFactory.selectedLetter;
+                        count++
+                    }
+                    else scope.selected = [null, null];
+
                 }
             });
 

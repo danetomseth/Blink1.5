@@ -9,7 +9,7 @@ core.config(function ($stateProvider) {
             }
         },
         onEnter: function(IterateFactory) {
-        	//this starts nav iteration on home page
+        	//this starts nav iteration on type page
         	//IterateFactory.zero('type');
         }
     });

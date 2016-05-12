@@ -13,7 +13,6 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
                     if(user) {
                         scope.username = user.firstName;
                         scope.userLoggedIn = true;
-                        console.log('user', user);
                     }
                     
                     scope.items = SidebarFactory.getLinks(scope.userLoggedIn);
@@ -28,7 +27,6 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
             setUser();
 
             scope.items = SidebarFactory.getLinks(scope.userLoggedIn);
-            console.log(scope.items);
 
             //need to clean up scope.localCtrl .... was originally used to link stuff
             scope.localCtrl = scope.control || {};
@@ -40,6 +38,7 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
             }, function(newVal, oldVal) {
                 if (typeof newVal !== 'undefined') {
                     scope.selectedLink = IterateFactory.linkValue;
+                    console.log('link value', scope.selectedLink);
                 }
             });
             //IterateFactory.zero('nav');

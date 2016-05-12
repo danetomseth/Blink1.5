@@ -13,7 +13,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         {row: 3, letters: ["K", "L", "M", "N", "O"]},
         {row: 4, letters: ["P", "Q", "R", "S", "T"]},
         {row: 5, letters: ["U", "V", "W", "X", "Y"]},
-        {row: 6, letters: ['SPACE', 'SAY', '<<', 'NO', 'NAV']}
+        {row: 6, letters: ['SPACE', 'SAY', '<<', 'STOP', 'NAV']}
         ];
     const smallKeyboard = [
         ["A", "B", "C", "D", "E"],
@@ -36,7 +36,6 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
                 if (words.length > 1) {angular.copy(words, alphabet[0])} // if there are suggestions, push them onto the alphabet array
             });
             phrase += " "; // add a space that the user asked for
-            resetKeyboardPosition(); // go back to the start of
             return phrase // send the current word back to the user
     }
     return {
@@ -51,23 +50,26 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
             return returnLetter;
         },
         selectLetter: () => {
+            resetKeyboardPosition();
             if(returnRow === alphabet.length-1) { // if we are in the last row (which is all operations)
                 let action = alphabet[returnRow].letters[returnLetter]
                 switch (action){
                     case 'SPACE':
-                        console.log("space")
                         return predictWords();
-                        // break;
                     case 'SAY':
                         console.log("say")
                         SpeechFactory.say(phrase); // try to pause the scrolling while we speak stuff
                         phrase = ""
                         return phrase
-                        break;
                     case '<<':
                         console.log("delete")
-                        return phrase.slice(0, phrase.length-1)
-                        // break;
+                        return phrase.slice(0, phrase.length-1);
+                    case 'NAV': 
+                        TimerFactory.clearTracking();
+                        $state.go('home');
+                        break;
+                    case 'STOP':
+                        TimerFactory.clearTracking();
                     default:
                         console.log("Error: Action "+action+" not found");
                 }
@@ -81,7 +83,6 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
             }
             else {
                 phrase += alphabet[returnRow].letters[returnLetter]; // otherwise, add the letter to the word and auto-suggest
-                resetKeyboardPosition()
                 let suggest = PredictFactory.completeWord(phrase); // get suggested autocompletes
                 if (suggest.length) {angular.copy(suggest, alphabet[0].letters)}; // every time a letter is typed, if we have suggestions, copy them into the object
                 return phrase;
@@ -94,7 +95,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         alphabet: alphabet, // used in scroll directive
         smallKeyboard: smallKeyboard,
         getCurrentLetter: () => {
-            return alphabet[returnRow].letters[returnLetter];
+            return [returnRow,returnLetter];
         }
     }
 });

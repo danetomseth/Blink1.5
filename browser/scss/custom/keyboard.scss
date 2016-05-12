@@ -23,10 +23,7 @@
     background: nth($primary, 1);
 }
 
-.selected {
-    color: nth($primary, 1);
-    background: nth($background, 1);
-}
+
 
 #bottom-keyboard {
     background: white;
@@ -54,6 +51,11 @@
 }
 .hover-row {
     background: nth($primary, 1) !important;
+}
+.selected {
+    color: nth($text, 2) !important;
+    background: nth($accentB, 1) !important;
+    box-shadow: 2px 2px 2px nth($primary, 1);
 }
 
 

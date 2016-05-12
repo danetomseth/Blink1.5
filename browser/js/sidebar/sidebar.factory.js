@@ -22,11 +22,13 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
         { label: 'Signup', state: 'signup', auth: false}
     ];
 
+    let userLinks = []
+
     return {
         moveSelected: () => {
             returnIndex = itemIndex;
             itemIndex++;
-            if(itemIndex >= links.length) {
+            if(itemIndex >= userLinks.length) {
                 itemIndex = 0;
             }
             return returnIndex;
@@ -34,9 +36,14 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
         getLinks: (loggedIn) => {
             var returnLinks = []
             if(loggedIn) {
-                return links.concat(loggedInLinks);
+                userLinks = links.concat(loggedInLinks);
+                return userLinks
+
             }
-            else return links.concat(loggedOutLinks);
+            else {
+                userLinks = links.concat(loggedOutLinks);
+                return userLinks
+            }
             
         },
         changeState: () => {

@@ -6,7 +6,7 @@ core.config(function($stateProvider) {
         onEnter: function(IterateFactory) {
         	//this starts nav iteration on home page
         	console.log('Entering home!');
-        	//IterateFactory.zero('nav');
+        	IterateFactory.zero('nav');
         }
     });
 

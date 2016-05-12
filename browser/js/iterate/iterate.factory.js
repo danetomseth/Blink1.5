@@ -17,12 +17,12 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
              let arr = KeyboardFactory.iterateRow();
              angular.copy(arr, iterateObj.scopeValue);
              if(iterateObj.scopeValue[0] === 0) {
-                TimerFactory.pauseIteration(500);
+                //TimerFactory.pauseIteration(500);
              }
         } else if (debounce && selectingLetter) {
             iterateObj.scopeValue[1] = KeyboardFactory.iterateLetter();
             if(iterateObj.scopeValue[1] === 0) {
-                TimerFactory.pauseIteration(500);
+                //TimerFactory.pauseIteration(500);
              }
         }
     }
@@ -90,6 +90,15 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
         }
     }
 
+    function analyzeEyePositions(cb) {
+        var positions = TrackingFactory.getPositions();
+        if (positions) {
+            if (PositionFactory.blinkCompare(positions)) {
+                cb();
+            }
+        }
+    }
+
     // Callback functions for analyzePositions
     function keyboardCallback() {
         if (debounce) {
@@ -107,7 +116,7 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
 
     function navCallback() {
         TimerFactory.clearTracking();
-        iterateObj.scopeValue[0] = null;
+        iterateObj.linkValue = null;
         goToPage();
     }
 
@@ -156,16 +165,15 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
     function selectLetter() {
        	//check to make sure the selected letter is not undefined
         if (selectingLetter) {
-            iterateObj.selectedLetter = iterateObj.scopeValue[1];
+            iterateObj.selectedLetter = KeyboardFactory.getCurrentLetter();
             iterateObj.word = KeyboardFactory.selectLetter();
-            iterateObj.scopeValue[1] = null;
             selectingLetter = false;
         } else {
             iterateObj.scopeValue[1] = KeyboardFactory.iterateLetter();
             selectingLetter = true;
         }
         setTimeout(function() {
-            iterateObj.selectedLetter = null;
+            iterateObj.selectedLetter = false;
             debounce = true;
         }, 750)
     }
@@ -197,8 +205,10 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
                 TimerFactory.moveCursor(linkIterator, 1000);
                 break;
             case 'type':
-                PositionFactory.setBrowZero(positions);
-                TimerFactory.startReading(analyzePositions, 50, keyboardCallback);
+                //PositionFactory.setBrowZero(positions);
+                PositionFactory.setBlinkZero(positions);
+                TimerFactory.startReading(analyzeEyePositions, 50, keyboardCallback);
+                //TimerFactory.startReading(analyzePositions, 50, keyboardCallback);
                 TimerFactory.moveCursor(keyboardIterator, 750);
                 break;
             case 'popup': 
