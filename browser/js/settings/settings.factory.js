@@ -3,7 +3,6 @@ core.factory('SettingsFactory', function($state, $http, AuthService) {
     let itemIndex = 0;
     let returnIndex = 0;
     let returnOption;
-    let mode;
 
     let links = ["settings.keyboard", "settings.features"];
     let speeds = [0, 1, 2, 3, 4, 5];
@@ -47,7 +46,6 @@ core.factory('SettingsFactory', function($state, $http, AuthService) {
             } else {
                 selections = { "trackingFeature": features[returnOption] };
             }
-
             return $http.put('/api/users/' + user._id, selections)
                 .then((updatedUser) => updatedUser);
         }

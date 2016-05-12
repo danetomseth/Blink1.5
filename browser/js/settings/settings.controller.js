@@ -6,8 +6,6 @@ core.controller('SettingsCtrl', function($scope, SettingsFactory, IterateFactory
     $scope.keyboardSpeed = user.keyboardSpeed;
     $scope.trackingFeature = user.trackingFeature;
     $scope.selectedTab; // Defaults to 0
-
-    // $scope.selected;
     $scope.highlighted;
 
     $scope.speeds = [0, 1, 2, 3, 4, 5];

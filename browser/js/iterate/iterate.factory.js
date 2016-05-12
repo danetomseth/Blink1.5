@@ -26,19 +26,14 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
     }
 
     var settingsIterator = function() {
-        console.log("RUNNING ITERATOR")
-            // Iterate tabs
+        // Iterate tabs
         if (!selectingOption) {
-            console.log("moving tabs")
             iterateObj.scopeValue[0] = SettingsFactory.moveSelected();
             iterateObj.scopeValue[1] = 0;
         }
         // Iterate options
         else if (debounce && selectingOption) {
-            // else {
-            console.log("tab value is", iterateObj.scopeValue[0])
             iterateObj.scopeValue[1] = SettingsFactory.iterateOption(iterateObj.scopeValue[0]);
-            console.log("iterating through options, currently at", iterateObj.scopeValue[1])
         }
     }
 
@@ -82,7 +77,6 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
     }
 
     function settingsCallback() {
-        console.log("SETTINGS CALLBACK")
         if (!selectingOption) {
             SettingsFactory.changeState();
             if (debounce) {
@@ -94,7 +88,6 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, KeyboardFactor
             if (debounce) {
                 debounce = false;
                 SettingsFactory.selectOption();
-                console.log("This is where you run the ng-clicks")
                 setTimeout(function() {
                     selectingOption = false;
                     debounce = true;
