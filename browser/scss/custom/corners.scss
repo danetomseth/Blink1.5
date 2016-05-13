@@ -48,14 +48,14 @@ $blue: #9CD3CD;*/
 
 .grid-item {
     height: 250px;
-    border: 1px solid $dark;
+    border: 1px solid red;
 }
 
 
 
 .active-box {
     background-color: red;
-    box-shadow: 0 15px 15px $dark;
+    box-shadow: 0 15px 15px black;
     z-index: 10;
 }
 

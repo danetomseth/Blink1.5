@@ -1,5 +1,5 @@
 
-core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, KeyboardFactory, TrackingFactory, SettingsFactory, PositionFactory, SidebarFactory) {
+core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory, PopupFactory, KeyboardFactory, TrackingFactory, SettingsFactory, PositionFactory, SidebarFactory) {
     var iterateObj = {};
     var count = 0;
     var debounce = true;
@@ -280,10 +280,12 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
                 PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(analyzeBrowPositions, 50, cornersCallback)
                 TimerFactory.startReading(readPositions, 50)
+                break;
             case 'popup':
                 PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(analyzeBrowPositions, 50, popupCallback);
                 TimerFactory.moveCursor(popupIterator, delay);
+                break;
             case 'settings':
                 PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(analyzeBrowPositions, 50, settingsCallback);
