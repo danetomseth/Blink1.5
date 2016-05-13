@@ -1,4 +1,4 @@
-<div flex-xs flex-gt-xs="50" layout="column" ng-cloak>
+<div flex-xs flex-gt-xs="25" layout="column" class="pull-right" ng-cloak>
         <md-card>
             <md-card-title>
                 <md-card-title-text>
@@ -10,9 +10,16 @@
                 </md-card-title-media>
             </md-card-title>
         </md-card>
-        <h1 class="md-flex"><a ui-sref="settings.keyboard">Keyboard Speed</a></h2>
-        <h1 class="md-flex"><a ui-sref="settings.features">Feature Selection</h2>
 </div>
-<div flex-xs flex-gt-xs="50" layout="column" class="userOptions">
-<ui-view></ui-view>
-</div>
+
+<md-toolbar flex-gt-xs="75" layout="column" class="userOptions">
+    <h1 class="md-toolbar-tools">
+      <span>EDIT USER SETTINGS</span>
+    </h1>
+  </md-toolbar>
+  <md-tabs md-stretch-tabs md-selected="selectedTab">
+     <md-tab label="Keyboard Speed" ui-sref="settings.keyboard" ng-class="{'highlighted' : selectedTab=== 0}"></md-tab>
+     <md-tab label="Feature Selection" ui-sref="settings.features" ng-class="{'highlighted' : selectedTab === 1}"></md-tab>
+     <md-tab label="NAV" ng-class="{'highlighted' : selectedTab === 2}"></md-tab>
+  </md-tabs>
+  <div id="content" ui-view flex> </div>

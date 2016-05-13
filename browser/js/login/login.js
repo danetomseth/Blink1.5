@@ -1,4 +1,4 @@
-app.config(function ($stateProvider) {
+app.config(function($stateProvider) {
 
     $stateProvider.state('login', {
         url: '/login',
@@ -8,18 +8,32 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('LoginCtrl', function ($scope, AuthService, $state, SidebarFactory) {
+
+app.config(function($stateProvider) {
+
+    $stateProvider.state('logout', {
+        url: '/logout',
+        controller: function(AuthService, $state) {
+            AuthService.logout().then(function() {
+                $state.go('home');
+            });
+        }
+    });
+
+});
+
+app.controller('LoginCtrl', function($scope, AuthService, $state, SidebarFactory) {
 
     $scope.login = {};
     $scope.error = null;
 
-    $scope.sendLogin = function (loginInfo) {
+    $scope.sendLogin = function(loginInfo) {
 
         $scope.error = null;
 
-        AuthService.login(loginInfo).then(function () {
+        AuthService.login(loginInfo).then(function() {
             $state.go('home');
-        }).catch(function () {
+        }).catch(function() {
             $scope.error = 'Invalid login credentials.';
         });
 

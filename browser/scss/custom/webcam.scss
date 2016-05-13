@@ -10,8 +10,8 @@
 #corner-webcam {
     position: absolute;
     display: block;
-	border: 2px solid $light;
-	box-shadow: 2px 2px 3px 2px $accentD;
+	border: 2px solid nth($accent, 1);
+	box-shadow: 2px 2px 3px 2px nth($accentB, 1);
 
 }
 

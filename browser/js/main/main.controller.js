@@ -1,12 +1,12 @@
 core.controller('MainCtrl', function($scope, $state, $rootScope, IterateFactory, TimerFactory, TrackingFactory) {
     $scope.$on('$viewContentLoaded', function() {
-   
+
     });
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
         //TimerFactory.clearTracking();
-        // if(toState.name === 'scroll') {
-        //     IterateFactory.zero('scroll')
+        // if(toState.name === 'type') {
+        //     IterateFactory.zero('type')
         // }
         // if(toState.name === 'home') {
         //     IterateFactory.zero('nav')
@@ -37,4 +37,5 @@ core.controller('MainCtrl', function($scope, $state, $rootScope, IterateFactory,
         }
     }
     TimerFactory.videoStatus(videoStatus, 100);
+
 });

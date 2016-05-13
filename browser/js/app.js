@@ -5,73 +5,74 @@ window.app = angular.module('BlinkApp', ['blinkAuth', 'core']);
 
 
 core.config(function($mdThemingProvider) {
-    var customPrimary = {
-        '50': '#586687',
-        '100': '#4e5b78',
-        '200': '#444f68',
-        '300': '#3a4359',
-        '400': '#303849',
-        '500': '#262c3a',
-        '600': '#1c202b',
-        '700': '#12151b',
-        '800': '#08090c',
-        '900': '#000000',
-        'A100': '#637296',
-        'A200': '#717fa2',
-        'A400': '#808dac',
-        'A700': '#000000'
-    };
-    $mdThemingProvider
-        .definePalette('customPrimary',
-            customPrimary);
-
-    var customAccent = {
-        '50': '#004442',
-        '100': '#005d5b',
-        '200': '#007774',
-        '300': '#00908d',
-        '400': '#00aaa6',
-        '500': '#00c3bf',
-        '600': '#00f6f1',
-        '700': '#11fffa',
-        '800': '#2afffa',
-        '900': '#44fffb',
-        'A100': '#00f6f1',
-        'A200': '#00DDD8',
-        'A400': '#00c3bf',
-        'A700': '#5dfffb'
-    };
-    $mdThemingProvider
-        .definePalette('customAccent',
-            customAccent);
-        //redish color
-    var customWarn = {
-        '50': '#ffdfe2',
-        '100': '#ffc6cb',
-        '200': '#ffacb4',
-        '300': '#ff939c',
-        '400': '#ff7985',
-        '500': '#FF606E',
-        '600': '#ff4657',
-        '700': '#ff2d3f',
-        '800': '#ff1328',
-        '900': '#f90016',
-        'A100': '#fff9fa',
+    //angular material icons
+var customPrimary = {
+        '50': '#d8eff3',
+        '100': '#c4e8ec',
+        '200': '#b1e0e6',
+        '300': '#9ed8e0',
+        '400': '#8ad1da',
+        '500': '#77C9D4',
+        '600': '#64c1ce',
+        '700': '#50bac8',
+        '800': '#3db2c1',
+        '900': '#37a0ae',
+        'A100': '#ebf7f9',
         'A200': '#ffffff',
         'A400': '#ffffff',
-        'A700': '#df0014'
-    }; 
+        'A700': '#318e9b'
+    };
     $mdThemingProvider
-        .definePalette('customWarn',
-            customWarn);
+        .definePalette('customPrimary', 
+                        customPrimary);
 
-     var customBackground = {
+    var customAccent = {
+        '50': '#f31100',
+        '100': '#ff1e0d',
+        '200': '#ff3627',
+        '300': '#ff4e40',
+        '400': '#ff665a',
+        '500': '#ff7d73',
+        '600': '#ffada6',
+        '700': '#ffc4c0',
+        '800': '#ffdcd9',
+        '900': '#fff4f3',
+        'A100': '#ffada6',
+        'A200': '#FF958D',
+        'A400': '#ff7d73',
+        'A700': '#ffffff'
+    };
+    $mdThemingProvider
+        .definePalette('customAccent', 
+                        customAccent);
+
+    var customWarn = {
+        '50': '#ffffff',
+        '100': '#fffbf3',
+        '200': '#fff3d9',
+        '300': '#ffebc0',
+        '400': '#ffe3a6',
+        '500': '#FFDB8D',
+        '600': '#ffd373',
+        '700': '#ffcb5a',
+        '800': '#ffc340',
+        '900': '#ffbb27',
+        'A100': '#ffffff',
+        'A200': '#ffffff',
+        'A400': '#ffffff',
+        'A700': '#ffb30d'
+    };
+    $mdThemingProvider
+        .definePalette('customWarn', 
+                        customWarn);
+
+    var customBackground = {
         '50': '#ffffff',
         '100': '#ffffff',
         '200': '#ffffff',
         '300': '#ffffff',
         '400': '#ffffff',
-        '500': '#FFFFFF',
+        '500': '#FFF',
         '600': '#f2f2f2',
         '700': '#e6e6e6',
         '800': '#d9d9d9',
@@ -80,16 +81,16 @@ core.config(function($mdThemingProvider) {
         'A200': '#ffffff',
         'A400': '#ffffff',
         'A700': '#bfbfbf'
-    }; 
+    };    
     $mdThemingProvider
-        .definePalette('customBackground',
-            customBackground);
+        .definePalette('customBackground', 
+                        customBackground);
 
-    $mdThemingProvider.theme('default')
-        .primaryPalette('customPrimary')
-        .accentPalette('customAccent')
-        .warnPalette('customWarn')
-        .backgroundPalette('customBackground')
+   $mdThemingProvider.theme('default')
+       .primaryPalette('customPrimary')
+       .accentPalette('customAccent')
+       .warnPalette('customWarn')
+       .backgroundPalette('customBackground')
 });
 
 app.config(function($urlRouterProvider, $locationProvider) {
@@ -103,9 +104,6 @@ app.config(function($urlRouterProvider, $locationProvider) {
     });
 });
 
-
-
-
 // This app.run is for controlling access to specific states.
 app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory, TimerFactory) {
 
@@ -117,8 +115,10 @@ app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory
     // $stateChangeStart is an event fired
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+        if ((toState.name !== "settings.features") && (toState.name !== "settings.keyboard")) {
+            TimerFactory.clearTracking();
+        }
 
-        TimerFactory.clearTracking();
         if (!destinationStateRequiresAuth(toState)) {
             // The destination state does not require authentication
             // Short circuit with return.

@@ -1,8 +1,64 @@
+md-toolbar.userOptions {
+font-size: 40px;
+line-height: 26px;
+    background-color: white;
+    color: black;
+    font-style: bold;
+}
+
 img.md-card-image {
-    //height: 100px;
     width: auto;
 }
 
-.selectedOption {
-    background: nth($background, 13);
+.md-button{
+    font-size: 18px;
+    font-color: nth($primary, 1);
+    background-color: nth($accent, 3);
+}
+
+.md-button.current {
+    background-color: nth($primary, 3);
+    font-weight: bold;
+}
+
+md-card {
+    color: black;
+}
+
+.md-toolbar-tools {
+    height: 1em;
+}
+
+.highlighted {
+    background: nth($accentB, 4) !important;
+}
+
+@keyframes blinker {
+   50% { background-color: transparent; }
+}
+
+
+// THESE DON'T WORK WITH THE NUMBERS IN FRONT
+.0.highlighted {
+    animation: blinker 1.75s linear infinite;
+}
+
+.1.highlighted {
+    animation: blinker 1.5s linear infinite;
+}
+
+.2.highlighted {
+    animation: blinker 1.25s linear infinite;
+}
+
+3.highlighted {
+    animation: blinker 1s linear infinite;
+}
+
+.4.highlighted {
+    animation: blinker 0.75s linear infinite;
+}
+
+.5.highlighted {
+    animation: blinker 0.5s linear infinite;
 }
