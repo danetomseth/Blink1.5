@@ -2307,7 +2307,7 @@ var webglFilter = function() {
     var dist = max-min;
 
     if (dist == 0) {
-      console.log("a patchresponse was monotone, causing normalization to fail. Leaving it unchanged.")
+      // console.log("a patchresponse was monotone, causing normalization to fail. Leaving it unchanged.")
       response = response.map(function() {return 1});
     } else {
       for (var i = 0;i < msize;i++) {
@@ -7749,7 +7749,7 @@ var jsfeat_face = function(image) {
     work_ctx = image.getContext('2d');
   }
 
-  img_u8 = new jsfeat.matrix_t(w, h, jsfeat.U8_t | jsfeat.C1_t);
+  img_u8 = new jsfeat.matrix_t(w, h, jsfeat.U8_t | jsfeat.C1_t); // single channel unsigned char
   ii_sum = new Int32Array((w+1)*(h+1));
   ii_sqsum = new Int32Array((w+1)*(h+1));
   ii_tilted = new Int32Array((w+1)*(h+1));
@@ -7762,9 +7762,9 @@ var jsfeat_face = function(image) {
     }
     var imageData = work_ctx.getImageData(0, 0, w, h);
 
-    jsfeat.imgproc.grayscale(imageData.data, img_u8.data);
+    jsfeat.imgproc.grayscale(imageData.data, img_u8.data); // convert to grayscale
 
-    jsfeat.imgproc.equalize_histogram(img_u8, img_u8);
+    jsfeat.imgproc.equalize_histogram(img_u8, img_u8); // normalize brightness/increase contrast
 
     jsfeat.imgproc.compute_integral_image(img_u8, ii_sum, ii_sqsum, null);
 

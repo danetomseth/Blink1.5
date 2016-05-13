@@ -40,8 +40,7 @@ const schema = new mongoose.Schema({
     flags: {
         type: String,
         enum: ['violation', 'promoted'] // maybe add 'pinned' for "local" promotion vs "global" promotion
-    },
-    // Had to add this in or no threadId is passed in the pre-save hook
+     },
     threadId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Thread'
@@ -62,7 +61,6 @@ const schema = new mongoose.Schema({
 //         return thread.save() // save it
 //     })
 //     .then(next)
-
 // });
 
 // Virtuals

@@ -24,7 +24,10 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService)
                 $state.go(links[returnIndex]);
             }
             // Nav tab
-            else { return "NAV";}
+            else {
+                console.log("Returning to nav");
+                return "NAV";
+            }
         },
         iterateOption: (tabIndex) => {
             let options;

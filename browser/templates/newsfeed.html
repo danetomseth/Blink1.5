@@ -1,9 +1,9 @@
-<div ng-cloak class="md-whiteframe-10dp">
-    <md-content class="md-padding">
+<div class="md-whiteframe-10dp">
+    <md-content class="md-padding" style="height:95vh">
         <md-tabs class="md-accent" md-selected="data.selectedIndex" md-align-tabs="top">
             <md-tab id="tab1">
-                <md-tab label="All Feeds">
-                <md-content class="md-padding">
+                <md-tab-label>All Feeds</md-tab-label>>
+                <md-tab-body>
                     <md-list>
                         <md-list-item class="md-3-line md-long-text" ng-repeat="post in allPosts">
                             <div>
@@ -16,11 +16,11 @@
                             </div>
                         </md-list-item>
                     </md-list>
-                </md-content>
+                </md-tab-body>
             </md-tab>
             <md-tab id="tab2">
-               <md-tab label="My Feeds">
-                 <md-content class="md-padding">
+                <md-tab-label>My Feeds</md-tab-label>
+                <md-tab-body>
                     <md-list>
                         <md-list-item class="md-3-line md-long-text" ng-repeat="post in myFeed">
                             <div>
@@ -33,19 +33,19 @@
                             </div>
                         </md-list-item>
                     </md-list>
-               </md-content>
+                </md-tab-body>
             </md-tab>
             <md-tab id="tab3">
-                <md-tab label="Private Threads">
-                 <md-content class="md-padding">
-                    View for Item #2
-                </md-content>
+                <<md-tab-label>Private Threads</md-tab-label>
+                    <md-tab-body>
+                        View for Item #2
+                    </md-tab-body>
             </md-tab>
             <md-tab id="tab4">
-                <md-tab label="New Thread">
-                 <md-content class="md-padding">
-                    <bl-add-post>hi</bl-add-post>
-                </md-content>
+                <md-tab-label>New Private Message</md-tab-label>
+                <md-tab-body>
+                    <bl-private-message></bl-private-message>
+                </md-tab-body>
             </md-tab>
         </md-tabs>
     </md-content>

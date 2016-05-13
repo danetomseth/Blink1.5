@@ -37,7 +37,6 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
 
             scope.scopeValue = IterateFactory.scopeValue;
 
-
             scope.say = () => SpeechFactory.say(scope.wordInput);
 
         }

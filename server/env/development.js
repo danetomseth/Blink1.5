@@ -15,5 +15,9 @@ module.exports = {
     "clientID": "INSERT_GOOGLE_CLIENTID_HERE",
     "clientSecret": "INSERT_GOOGLE_CLIENT_SECRET_HERE",
     "callbackURL": "INSERT_GOOGLE_CALLBACK_HERE"
+  },
+  "TWILIO": {
+    "accountSID": "AC502d82c2cde7aab7ac15cccf3b726e53",
+    "authToken": "4a3c3fe7a12c288eea4c8ed274e65f10"
   }
 };

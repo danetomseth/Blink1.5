@@ -11,6 +11,8 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
 
     let loggedInLinks = [
         { label: 'Social', state: 'newsfeed', auth: true},
+        { label: 'Private Messages', state: 'messages', auth: true},
+        { label: 'Text', state: 'sms', auth: true},
         { label: 'Settings', state: 'settings', auth: true},
         { label: 'Logout', state: 'logout', auth: true}
     ];
@@ -35,17 +37,17 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
             var returnLinks = []
             if(loggedIn) {
                 userLinks = links.concat(loggedInLinks);
-                return userLinks
+                return userLinks;
 
             }
             else {
                 userLinks = links.concat(loggedOutLinks);
-                return userLinks
+                return userLinks;
             }
         },
         changeState: () => {
             itemIndex = 0;
-            $state.go(currentLinks[returnIndex].state)
+            $state.go(userLinks[returnIndex].state)
         }
     }
 });

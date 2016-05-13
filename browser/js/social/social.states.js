@@ -13,5 +13,16 @@ core.config(function ($stateProvider) {
             }
         }
     });
+
+    // $stateProvider.state('messages', {
+    //     url: '/messages',
+    //     controller: 'MessageCtrl',
+    //     templateUrl: 'templates/messages.html',
+    //     resolve: {
+    //         user: function(AuthService) {
+    //             return AuthService.getLoggedInUser();
+    //         }
+    //     }
+    // });
 });
 

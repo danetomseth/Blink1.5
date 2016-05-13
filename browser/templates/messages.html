@@ -1,0 +1,37 @@
+<div layout="column">
+  <md-content class="md-padding autocomplete" layout="column">
+    <md-contact-chips
+        ng-model="contacts"
+        md-contacts="querySearch($query)"
+        md-contact-name="firstName"
+        md-contact-image="profilePicture"
+        md-contact-email="email"
+        md-require-match="true"
+        md-highlight-flags="i"
+        filter-selected="filterSelected"
+        placeholder="To">
+    </md-contact-chips>
+    <h1>Subject:</h1><input ng-model="subject" />
+    <h1>Message:</h1><input ng-model="message" />
+<button ng-click="submitThread()">Send</button>
+    <md-list class="fixedRows">
+      <md-subheader class="md-no-sticky">Contacts</md-subheader>
+      <md-list-item class="md-2-line contact-item" ng-click="addContact(contact)" ng-repeat="(index, contact) in allContacts"
+          ng-if="contacts.indexOf(contact) < 0">
+        <img ng-click="addContact(contact)" ng-src="{{contact.profilePicture}}" class="md-avatar" alt="{{contact.firstName}}" />
+        <div class="md-list-item-text compact">
+          <h3>{{contact.firstName}}</h3>
+          <p>{{contact.email}}</p>
+        </div>
+      </md-list-item>
+      <md-list-item class="md-2-line contact-item selected" ng-repeat="(index, contact) in contacts" ng-click="removeContact(contact)">
+        <img ng-src="{{contact.profilePicture}}" class="md-avatar" alt="{{contact.firstName}}" />
+        <div class="md-list-item-text compact">
+          <h3>{{contact.firstName}}</h3>
+          <p>{{contact.email}} X</p>
+        </div>
+      </md-list-item>
+    </md-list>
+    <br>
+  </md-content>
+</div>

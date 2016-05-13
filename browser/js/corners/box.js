@@ -10,8 +10,6 @@ core.directive('blBox', function($rootScope, TrackingFactory, WebcamFactory) {
             scope.boxHeight = box[0].clientWidth * 0.6 + 'px';
             scope.boxItem = elem;
             console.log('element', scope.box);
-            //scope.contents = "hello";
-            //elem.text('Hello');
         }
     }
 });

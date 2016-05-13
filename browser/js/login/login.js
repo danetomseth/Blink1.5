@@ -8,7 +8,6 @@ app.config(function($stateProvider) {
 
 });
 
-
 app.config(function($stateProvider) {
 
     $stateProvider.state('logout', {

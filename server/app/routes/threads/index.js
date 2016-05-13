@@ -2,6 +2,7 @@
 const router = require('express').Router();
 module.exports = router;
 const mongoose = require('mongoose');
+const Post = mongoose.model('Post');
 const Thread = mongoose.model('Thread');
 const ensure = require('../../configure/authentication/ensure');
 
@@ -22,7 +23,9 @@ router.get('/:id', ensure.authenticated, (req, res, next) => { // get one
     Thread.findById(req.params.id)
     .then(thread => {
         if (ensure.participant(thread.participants)){ // may need to pass user ID as well. check for errors
-            res.send(thread)
+    Post.find({threadId: req.params.id})
+    .then((posts) => res.send(posts))
+
         } else {
             res.status(401).end()
         }

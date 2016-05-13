@@ -3,12 +3,6 @@ core.controller('PopupCtrl', function($scope, PopupFactory, IterateFactory, $mdB
     $scope.keyboard = PopupFactory.alphabet;
     $scope.rowCount = 0;
     $scope.wordInput = "hello";
-    // $scope.scopeValue = [];
-    // $scope.scopeValue[0] = 0;
-    // $scope.scopeValue[1] = 'A';
-
-    //let delay = scope.delay; // reference from ScrollCtrl
-
 
     $scope.$watch(function() {
         return IterateFactory.selectedLetter

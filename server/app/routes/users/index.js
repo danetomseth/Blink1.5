@@ -6,7 +6,8 @@ const User = mongoose.model('User');
 const ensure = require('../../configure/authentication/ensure');
 
 router.param('id', function(req, res, next, id) {
-    User.findById(id).exec()
+    User.findById(id)
+        .populate('friends')
         .then(function(user) {
             if (!user) throw new Error(404);
             req.requestedUser = user;
@@ -40,6 +41,14 @@ router.put('/:id/friends', (req, res) => { // edit one
         })
         .then(savedUser => res.send(savedUser))
 });
+
+// must be user or admin
+// router.get('/:id/friends', (req, res) => { // edit one
+//     req.requestedUser
+//         .then((user) => {
+//            res.send(user.friends);
+//         })
+// });
 
 // must be user or admin
 router.put('/:id', ensure.selfOrAdmin, (req, res) => { // edit one

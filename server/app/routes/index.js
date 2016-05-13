@@ -6,6 +6,8 @@ router.use('/posts', require('./posts'));
 router.use('/users', require('./users'));
 router.use('/threads', require('./threads'));
 router.use('/words', require('./predictions'));
+router.use('/sms', require('./sms'));
+
 
 // Make sure this is after all of
 // the registered routes!
