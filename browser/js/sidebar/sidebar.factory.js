@@ -45,7 +45,7 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
         },
         changeState: () => {
             itemIndex = 0;
-            $state.go(currentLinks[returnIndex].state)
+            $state.go(userLinks[returnIndex].state)
         }
     }
 });

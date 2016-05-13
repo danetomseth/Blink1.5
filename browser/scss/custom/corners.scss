@@ -1,4 +1,28 @@
-#grid-row{
+/*$success: rgba(155, 222, 172, 0.6);
+$dark: #000411;
+$light: #FCF4EF;
+$grey: #454851;
+$border: #6D938F;
+$blue: #9CD3CD;*/
+
+#grid-row {
+    div{
+        color: blue;
+        line-height: 250px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.8em;
+    }
+}
+#box-row {
+    div{
+        line-height: 83.33px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1em;
+    }
+}
+/*#grid-row{
 	height: 200px;
 	text-align: center;
 	line-height: 200px;
@@ -18,15 +42,24 @@
 #box {
 	background: nth($accent, 1);
 	color: nth($text, 1);
+}*/
+
+
+
+.grid-item {
+    height: 250px;
+    border: 1px solid red;
 }
 
-.center-box {
-	font-size: 3em;
-	font-weight: 3em;
-}
+
 
 .active-box {
-	div {
+    background-color: red;
+    box-shadow: 0 15px 15px black;
+    z-index: 10;
+}
+
+/*	div {
 		background-color: nth($primary, 1) !important;
 	}
 }
@@ -34,11 +67,10 @@
 .corner-container {
 	border: 4px solid black;
 	padding: 20px;
-}
+}*/
 
-.box-container {
-	text-align: center;
-	line-height: 100%;
+.selected-letter {
+    background-color: #5bc0de;
+    color: black;
 }
-
 
