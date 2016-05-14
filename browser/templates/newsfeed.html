@@ -24,11 +24,10 @@
                     <md-list>
                         <md-list-item class="md-3-line md-long-text" ng-repeat="post in myFeed">
                             <div>
-                                <img ng-src="{{post.author.profilePicture}}" class="md-avatar" /> '
-                                <span class="glyphicon glyphicon-user" ng-click="addFriend(post.author._id)">+</span>',
+                                <img ng-src="{{post.author.profilePicture}}" class="md-avatar" />
                             </div>
                             <div class="md-list-item-text">
-                                <h3>{{ post.author.firstName }} {{post.author.lastName[0]}}.</h3>
+                                <h3>{{ post.author.firstName }} {{post.author.lastName[0]}}</h3>
                                 <p>{{post.content}}</p>
                             </div>
                         </md-list-item>
@@ -36,9 +35,19 @@
                 </md-tab-body>
             </md-tab>
             <md-tab id="tab3">
-                <<md-tab-label>Private Threads</md-tab-label>
+                <md-tab-label>My Messages</md-tab-label>
                     <md-tab-body>
-                        View for Item #2
+                        <md-list>
+                        <md-list-item class="md-3-line md-long-text" ng-repeat="message in allMessages">
+                            <div>
+                                <img ng-src="{{message.author.profilePicture}}" class="md-avatar" />
+                            </div>
+                            <div class="md-list-item-text">
+                                <h3>{{ message.author.firstName }} {{message.author.lastName[0]}}</h3>
+                                <p>{{message.content}}</p>
+                            </div>
+                        </md-list-item>
+                    </md-list>
                     </md-tab-body>
             </md-tab>
             <md-tab id="tab4">

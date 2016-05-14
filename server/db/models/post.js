@@ -1,6 +1,6 @@
 //'use strict';
 const mongoose = require('mongoose');
-const Thread = mongoose.model('Thread');
+// const Thread = mongoose.model('Thread');
 
 const schema = new mongoose.Schema({
     author: {
@@ -40,11 +40,11 @@ const schema = new mongoose.Schema({
     flags: {
         type: String,
         enum: ['violation', 'promoted'] // maybe add 'pinned' for "local" promotion vs "global" promotion
-     },
-    threadId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Thread'
     }
+    // threadId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Thread'
+    // }
 })
 
 // Hooks
@@ -74,5 +74,7 @@ schema.methods.getReplies = () => {
     return this.model('Post').find({inReplyTo: this.id})
     .populate('author likes')
 }
+
+// schema.methods.getParticipants
 
 mongoose.model('Post', schema);

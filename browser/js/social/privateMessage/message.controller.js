@@ -13,20 +13,15 @@ core.controller('MessageCtrl', function($scope, $q, $timeout, SocialFactory) {
      * Search for contacts; use a random delay to simulate a remote call
      */
     $scope.querySearch = (criteria) => {
-        console.log("Criteria")
-        console.log(criteria)
-      cachedQuery = cachedQuery || criteria;
-      console.log("Cached", cachedQuery)
-      return cachedQuery ? $scope.allContacts.filter(createFilterFor(cachedQuery)) : [];
+        cachedQuery = cachedQuery || criteria;
+        return cachedQuery ? $scope.allContacts.filter(createFilterFor(cachedQuery)) : [];
     }
 
     $scope.addContact = (contact) => {
-        console.log("HI")
         $scope.contacts.push(contact);
     }
 
     $scope.removeContact = (contact) => {
-        console.log("removing", contact.firstName)
         $scope.contacts.splice($scope.contacts.indexOf(contact), 1);
     }
 
@@ -34,23 +29,32 @@ core.controller('MessageCtrl', function($scope, $q, $timeout, SocialFactory) {
      * Create filter function for a query string
      */
     function createFilterFor(query) {
-        console.log("Query", query)
-      var lowercaseQuery = angular.lowercase(query);
-      console.log(lowercaseQuery)
-      return function filterFn(contact) {
-        console.log("contact is", contact)
-        return (contact._lowername.indexOf(lowercaseQuery) != -1);
-      };
+        var lowercaseQuery = angular.lowercase(query);
+        console.log(lowercaseQuery)
+        return function filterFn(contact) {
+            console.log("contact is", contact)
+            return (contact._lowername.indexOf(lowercaseQuery) != -1);
+        };
     }
 
     $scope.submitThread = () => {
         let ids = $scope.contacts.map((elem) => elem._id);
-        console.log("IDS ARE")
-        console.log(ids)
-        SocialFactory.addThread({
-            subject: $scope.subject,
-            participants: ids
-        })
+        ids.push($scope.user._id);
+        return SocialFactory.addPost({
+                author: $scope.user._id,
+                content: $scope.message,
+                type: 'message'
+            })
+            .then((post) => {
+                return SocialFactory.addThread({
+                    subject: $scope.subject,
+                    participants: ids,
+                    messages: post
+                })
+                .then(() => {
+                    console.log("Added Thread/Post")
+                })
+            })
     }
 
     $scope.replyToThread = () => {

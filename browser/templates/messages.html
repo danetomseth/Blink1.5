@@ -9,26 +9,32 @@
         md-require-match="true"
         md-highlight-flags="i"
         filter-selected="filterSelected"
-        placeholder="To">
+        placeholder="Recipients">
     </md-contact-chips>
-    <h1>Subject:</h1><input ng-model="subject" />
-    <h1>Message:</h1><input ng-model="message" />
-<button ng-click="submitThread()">Send</button>
+    <md-input-container>
+        <label>Subject</label>
+        <input ng-model="subject">
+      </md-input-container>
+<md-input-container class="md-block">
+          <label>Message</label>
+          <textarea ng-model="message" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+    <md-button md-no-ink ng-click="submitThread()" class="md-primary">Send</md-button>
+    </section>
     <md-list class="fixedRows">
-      <md-subheader class="md-no-sticky">Contacts</md-subheader>
+      <md-subheader class="md-no-sticky">Contact List</md-subheader>
       <md-list-item class="md-2-line contact-item" ng-click="addContact(contact)" ng-repeat="(index, contact) in allContacts"
           ng-if="contacts.indexOf(contact) < 0">
         <img ng-click="addContact(contact)" ng-src="{{contact.profilePicture}}" class="md-avatar" alt="{{contact.firstName}}" />
         <div class="md-list-item-text compact">
-          <h3>{{contact.firstName}}</h3>
-          <p>{{contact.email}}</p>
+          <p>{{contact.firstName}} {{contact.lastName}}</p>
         </div>
       </md-list-item>
       <md-list-item class="md-2-line contact-item selected" ng-repeat="(index, contact) in contacts" ng-click="removeContact(contact)">
         <img ng-src="{{contact.profilePicture}}" class="md-avatar" alt="{{contact.firstName}}" />
         <div class="md-list-item-text compact">
-          <h3>{{contact.firstName}}</h3>
-          <p>{{contact.email}} X</p>
+          <p>{{contact.firstName}} {{contact.lastName}}</p>
         </div>
       </md-list-item>
     </md-list>

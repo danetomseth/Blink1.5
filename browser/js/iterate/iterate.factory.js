@@ -1,6 +1,6 @@
 //factory used to determine what function to iterate
 
-core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, KeyboardFactory, TrackingFactory, SettingsFactory, PositionFactory, SidebarFactory) {
+core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, KeyboardFactory, TrackingFactory, SettingsFactory, SocialFactory, PositionFactory, SidebarFactory) {
     var iterateObj = {};
     var count = 0;
     var debounce = true;
@@ -73,6 +73,18 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
         else if (debounce && selectingOption) {
             iterateObj.scopeValue[1] = SettingsFactory.iterateOption(iterateObj.scopeValue[0]);
         }
+    }
+
+    var newsfeedIterator = function() {
+        // Iterate tabs
+        // if (!selectingOption) {
+            iterateObj.scopeValue[0] = SocialFactory.moveSelected();
+            iterateObj.scopeValue[1] = 0;
+        // }
+        // // Iterate options
+        // else if (debounce && selectingOption) {
+        //     iterateObj.scopeValue[1] = SocialFactory.iterateOption(iterateObj.scopeValue[0]);
+        // }
     }
 
     //Zero functions
@@ -163,6 +175,12 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
         }
     }
 
+    function newsfeedCallback() {
+        TimerFactory.clearTracking();
+        TimerFactory.clearAll();
+        SocialFactory.changeState();
+    }
+
     function popupSelect() {
         iterateObj.selectedLetter = iterateObj.scopeValue[1];
         //check to make sure the selected letter is not undefined
@@ -240,6 +258,11 @@ core.factory('IterateFactory', function($rootScope, TimerFactory, PopupFactory, 
                 PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(analyzePositions, 50, settingsCallback);
                 TimerFactory.moveCursor(settingsIterator, 1500);
+                break;
+            case 'newsfeed':
+                PositionFactory.setBrowZero(positions);
+                TimerFactory.startReading(analyzePositions, 50, newsfeedCallback);
+                TimerFactory.moveCursor(newsfeedIterator, 1500);
                 break;
         }
     }

@@ -10,6 +10,9 @@ core.config(function ($stateProvider) {
             },
             user: function(AuthService) {
                 return AuthService.getLoggedInUser();
+            },
+            messages: function(SocialFactory) {
+                return SocialFactory.getAllMessages();
             }
         }
     });

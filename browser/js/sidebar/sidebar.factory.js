@@ -11,7 +11,6 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
 
     let loggedInLinks = [
         { label: 'Social', state: 'newsfeed', auth: true},
-        { label: 'Private Messages', state: 'messages', auth: true},
         { label: 'Text', state: 'sms', auth: true},
         { label: 'Settings', state: 'settings', auth: true},
         { label: 'Logout', state: 'logout', auth: true}

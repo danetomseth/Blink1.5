@@ -8,7 +8,7 @@ core.factory('PositionFactory', function() {
     const browArray = [20, 21, 17, 16];
     const rightEyeArray = [63, 24, 64, 20, 21];
     const leftEyeArray = [67, 29, 68, 17, 16];
-    let maxArray = [];
+    // let maxArray = [];
 
     return {
         // Indicate if movement is above threshold
@@ -44,10 +44,10 @@ core.factory('PositionFactory', function() {
                 eyeTotal += change;
             });
 
-            if(eyeTotal > 40) {
-                maxArray.push(eyeTotal);
-                console.log('eye change', maxArray)
-            }
+            // if(eyeTotal > 40) {
+            //     maxArray.push(eyeTotal);
+            //     console.log('eye change', maxArray)
+            // }
 
 
             console.log('eye change', eyeTotal)
@@ -61,7 +61,7 @@ core.factory('PositionFactory', function() {
             rightZeroArray = rightEyeArray.map(function(index) {
                 return positions[index][1]
             });
-            
+
 
         }
     }

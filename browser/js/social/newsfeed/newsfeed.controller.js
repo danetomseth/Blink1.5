@@ -1,4 +1,4 @@
-core.controller('NewsfeedCtrl', function($scope, posts, user, SocialFactory) {
+core.controller('NewsfeedCtrl', function($scope, posts, user, messages, SocialFactory) {
     $scope.user = user;
 
     SocialFactory.getFriends($scope.user)
@@ -7,6 +7,7 @@ core.controller('NewsfeedCtrl', function($scope, posts, user, SocialFactory) {
         })
 
     $scope.allPosts = posts;
+    $scope.allMessages = messages.map((thread) => thread.messages[0]);
 
     $scope.data = {
         selectedIndex: 0
@@ -31,24 +32,4 @@ core.controller('NewsfeedCtrl', function($scope, posts, user, SocialFactory) {
     $scope.myFeed = posts.filter((elem) => {
         return $scope.user.friends.indexOf(elem.author._id) > -1;
     });
-
-    // // POST FUNCITONALITY
-    //     $scope.newPost = new Post();
-
-    //     $scope.removePost = function(Post) {
-    //         Post.destroy()
-    //             .then(function() {
-    //                 var idx = $scope.stories.indexOf(Post);
-    //                 $scope.stories.splice(idx, 1);
-    //             });
-    //     };
-
-    //     $scope.addPost = function() {
-    //         $scope.newPost.save()
-    //             .then(function(created) {
-    //                 created.author = $scope.newPost.author;
-    //                 $scope.newPost = new Post();
-    //                 $scope.stories.unshift(created);
-    //             });
-    //     };
 });

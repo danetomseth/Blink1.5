@@ -13,8 +13,6 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
                 AuthService.getLoggedInUser().then(function(user) {
 
                     $rootScope.user = user;
-                    console.log("Rootscope user is")
-                    console.log($rootScope.user)
                     scope.username = user.firstName;
                     if(user) {
                         scope.username = user.firstName;
