@@ -12,6 +12,5 @@ core.config(function ($stateProvider) {
 });
 
 core.controller('CornersCtrl', function($scope, CornersFactory, IterateFactory) {
-	$scope.tiles = [{color: '#455A64'}, {color: '#607D8B'},{color: '#727272'},{color: '#727272'},{color: '#03A9F4'},{color: '#455A64'}, {color: '#455A64'}, {color: '#607D8B'},{color: '#727272'}]
     // IterateFactory.zero('corners');
 });

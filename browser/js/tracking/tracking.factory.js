@@ -34,7 +34,9 @@ core.factory('TrackingFactory', function($rootScope) {
     };
 
     trackObj.endTracking = () => {
-        tracker.stop();
+        if(tracker) tracker.stop();
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        $rootScope.videoActive = false
     };
 
     trackObj.setZero = () => {

@@ -10,6 +10,63 @@ core.directive('blCorners', function($rootScope, TrackingFactory, CornersFactory
             scope.boxes = CornersFactory.getBoxes()
             scope.phrase = CornersFactory.getPhrase();
             scope.wordInput = scope.phrase[0]
+            //scope.boxes[box] = "";
+
+            // function config(fn, box) {
+            //     let count = 6;
+            //     let countInterval;
+            //     countInterval = setInterval(function(){
+            //         // CornersFactory.selectBox(null);
+            //         count--;
+            //         scope.boxes[box] = count;
+            //         scope.$evalAsync();
+            //     }, 1000)
+            //     setTimeout(function() {
+            //         fn();
+            //         scope.boxes[box] = "";
+            //         clearInterval(countInterval);
+            //         //CornersFactory.goToBox();
+            //         // let nextFn = configFn[configCount++]
+            //         // if (nextFn) {config(nextFn[0], nextFn[1])};
+            //     }, 5000);
+            // }
+
+
+            // scope.$watch(function() {
+            //     return IterateFactory.selectedBox
+            // }, function(newVal, oldVal) {
+            //     if (typeof newVal !== 'undefined') {
+            //         console.log('selected Box changed!!', IterateFactory.selectedBox);
+            //             scope.selectedBox = IterateFactory.selectedBox;
+            //     }
+            // },true);
+
+
+
+          
+
+            //  let zeroEyes = function() {
+            //     let positions = TrackingFactory.getPositions()
+            //     if (positions){
+            //         CornersFactory.setZero([positions[27][0], positions[27][1]]) // only tracks one eye
+            //     } else {
+            //         setTimeout(function(){
+            //             zeroEyes() // if we didn't get it first time, try again
+            //         }, 50)
+            //     }
+            //     //baseDistanceX = scope.eyeSocketX - scope.eyeX;
+            //     //baseDistanceY = scope.eyeSocketY - scope.eyeY;
+            //     //points.push({x: scope.eyeX, y: scope.eyeY, box: 4})
+            //     // console.log("zero eyes ran")
+
+            // }
+
+            
+
+            // config(zeroEyes, 4)
+
+
+            /////
 
 
             // // threshold variables
@@ -155,43 +212,7 @@ core.directive('blCorners', function($rootScope, TrackingFactory, CornersFactory
             //     [BREyes, 8]
             // ];
 
-            let zeroEyes = function() {
-                let positions = TrackingFactory.getPositions()
-                if (positions){
-                    CornersFactory.setZero([positions[27][0], positions[27][1]]) // only tracks one eye
-                } else {
-                    setTimeout(function(){
-                        zeroEyes() // if we didn't get it first time, try again
-                    }, 50)
-                }
-                //baseDistanceX = scope.eyeSocketX - scope.eyeX;
-                //baseDistanceY = scope.eyeSocketY - scope.eyeY;
-                //points.push({x: scope.eyeX, y: scope.eyeY, box: 4})
-                // console.log("zero eyes ran")
-
-            }
-
-            function config(fn, box) {
-                let count = 6;
-                let countInterval;
-                countInterval = setInterval(function(){
-                    // CornersFactory.selectBox(null);
-                    count--;
-                    scope.boxes[box] = count;
-                    scope.$evalAsync();
-                }, 1000)
-                setTimeout(function() {
-                    fn();
-                    scope.boxes[box] = "";
-                    clearInterval(countInterval);
-                    CornersFactory.goToBox();
-                    // let nextFn = configFn[configCount++]
-                    // if (nextFn) {config(nextFn[0], nextFn[1])};
-                }, 5000);
-            }
-
-            // TimerFactory.startReading(readPositions, 50);
-            config(zeroEyes, 4)
+           
 
 
         }
