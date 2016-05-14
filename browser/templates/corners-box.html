@@ -1,15 +1,16 @@
+<!-- Single Box -->
 <div class="row row-centered" id="box-row">
-    <div class="col-xs-4" ng-class="{'active-box': selectedBox[0] == 0}">{{elem[0]}}</div>
-    <div class="col-xs-4" ng-class="{'active-box': selectedBox[0] == 1}"></div>
-    <div class="col-xs-4" ng-class="{'active-box': selectedBox[0] == 2}">{{elem[2]}}</div>
+    <div class="col-xs-4" ng-class="{'active-box': selectedBox == 0}">{{elem[0]}}</div>
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4" ng-class="{'active-box': selectedBox == 1}">{{elem[1]}}</div>
 </div>
 <div class="row row-centered" id="box-row">
-    <div class="col-xs-4" ng-class="{'active-box': selectedBox[0] == 3}"></div>
-    <div class="col-xs-4" ng-class="{'active-box': selectedBox[0] == 4}">{{elem[4]}}</div>
-    <div class="col-xs-4" ng-class="{'active-box': selectedBox[0] == 5}"></div>
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4" ng-class="{'active-box': selectedBox == 2}">{{elem[2]}}</div>
+    <div class="col-xs-4"></div>
 </div>
 <div class="row row-centered" id="box-row">
-    <div class="col-xs-4" ng-class="{'active-box': selectedBox[0] == 6}">{{elem[6]}}</div>
-    <div class="col-xs-4" ng-class="{'active-box': selectedBox[0] == 7}"></div>
-    <div class="col-xs-4" ng-class="{'active-box': selectedBox[0] == 8}">{{elem[8]}}</div>
+    <div class="col-xs-4" ng-class="{'active-box': selectedBox == 3}">{{elem[3]}}</div>
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4" ng-class="{'active-box': selectedBox == 4}">{{elem[4]}}</div>
 </div>

@@ -1,18 +1,25 @@
+<!-- Box Grid -->
 <div flex>
+    <!-- Top Row -->
     <div class="row row-centered" id="grid-row">
-        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox[0] == 0}"><bl-box contents="boxes[0]"></bl-box></div>
+        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox == 0}">
+            <!-- Box Directive -->
+            <bl-box contents="boxes[0]"></bl-box>
+        </div>
         <!-- <div class="col-xs-4 grid-item grid-word">{{phrase[0]}}</div> -->
         <div class="col-xs-4 grid-item grid-word">Word...</div>
-        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox[0] == 2}"><bl-box contents=boxes[2]></bl-box></div>
+        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox == 1}"><bl-box contents=boxes[1]></bl-box></div>
     </div>
+    <!-- Middle -->
     <div class="row row-centered" id="grid-row">
         <div class="col-xs-4 grid-item grid-empty"></div>
-        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox[0] == 4}"><bl-box contents=boxes[4]></bl-box></div>
+        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox == 2}"><bl-box contents=boxes[2]></bl-box></div>
         <div class="col-xs-4 grid-item grid-empty"></div>
     </div>
+    <!-- Bottom -->
     <div class="row row-centered" id="grid-row">
-        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox[0] == 6}"><bl-box contents=boxes[6]></bl-box></div>
+        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox == 3}"><bl-box contents=boxes[3]></bl-box></div>
         <div class="col-xs-4 grid-item grid-empty"></div>
-        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox[0] == 8}"><bl-box contents=boxes[8]></bl-box></div>
+        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox == 4}"><bl-box contents=boxes[4]></bl-box></div>
     </div>
 </div>

@@ -10,7 +10,10 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
     iterateObj.linkValue;
     iterateObj.settingsValue;
     iterateObj.selectedLetter;
-    iterateObj.selectedBox = [4];
+
+    //sets initial box to middle
+    iterateObj.selectedBox = 2;
+    iterateObj.word = "";
 
     let debounceFn = (time, fn) => {
         let t = time || 750
@@ -254,15 +257,14 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         if (converge < 300) {
             count++;
             if (count > 10) {
-                PositionFactory.getPupilAverage(positions);
+                //PositionFactory.getPupilAverage(positions);
                 PositionFactory.getBlinkAverage(positions);
             }
             if (count > 30) {
-                PositionFactory.setPupilZero();
+                PositionFactory.setPupilZero(positions);
                 PositionFactory.setBlinkZero(positions);
                 //PositionFactory.setBrowZero(positions);
                 TimerFactory.calibrationFinished();
-                console.log('here');
                 iterateObj.iterate('corners');
                 count = 0;
             }
@@ -278,8 +280,8 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             if (PositionFactory.blinkCompare(positions)) {
                 cb(currentBox);
             }
-            if(debounce && currentBox === lastBox){
-                CornersFactory.highlightBox(currentBox);
+            else {
+                iterateObj.selectedBox = currentBox;
             }
             lastBox = currentBox;
         }

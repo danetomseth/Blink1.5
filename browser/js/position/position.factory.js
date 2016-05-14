@@ -7,21 +7,23 @@ core.factory('PositionFactory', function() {
     let rightZeroArray = [];
     let leftZeroArray = [];
     let eyeZeroArray = [];
-    let pupilZeroArray = [];
+    let pupilZeroArray = [0,0];
+    let xDiffAvg = [0,0,0];
+    let yDiffAvg = [0,0,0];
     let eyeZero = 500;
     let eyeX = 0;
     let eyeY = 0;
-    const pupilThreshold = 1;
+    const pupilThreshold = 0;
     const browArray = [20, 21, 17, 16];
     const eyeArray = [63, 24, 64, 20, 21, 67, 29, 68, 17, 16];
     const rightEyeArray = [63, 24, 64, 20, 21];
     const leftEyeArray = [67, 29, 68, 17, 16];
-    const pupilArray = [27, 32]; 
+    const pupilArray = [27, 32];
     let maxArray = [];
-    let averageReading = [0,0,0,0,0,0,0,0,0,0];
+    let averageReading = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let readingCount = 0;
     let pupilCount = 0;
-    let pupilAverage = [0,0];
+    let pupilAverage = [0, 0];
 
     return {
         // Indicate if movement is above threshold
@@ -60,11 +62,11 @@ core.factory('PositionFactory', function() {
 
         },
         setBlinkZero: () => {
-           averageReading.forEach(function(elem, index) {
-                eyeZeroArray[index] = (elem / readingCount); 
+            averageReading.forEach(function(elem, index) {
+                eyeZeroArray[index] = (elem / readingCount);
             });
-           averageReading = [];
-           readingCount = 0;
+            averageReading = [];
+            readingCount = 0;
         },
         getBlinkAverage: (positions) => {
             readingCount++;
@@ -83,7 +85,7 @@ core.factory('PositionFactory', function() {
         eyeCompare: (positions) => {
             let eyeTotal = 0;
             let change = 0
-            //This compares individual eyes
+                //This compares individual eyes
             leftEyeArray.forEach(function(point, i) {
                 change = Math.abs(((positions[point][1] - leftZeroArray[i]) / leftZeroArray[i]) * 100)
                 eyeTotal += change;
@@ -93,43 +95,64 @@ core.factory('PositionFactory', function() {
                 eyeTotal += change;
             });
         },
-        setPupilZero: () => {
-            pupilAverage.forEach(function(elem, index) {
-                pupilZeroArray[index] = (elem / pupilCount); 
+        setPupilZero: (positions) => {
+            //------For setting zero using average
+            //  pupilAverage.forEach(function(elem, index) {
+            //      pupilZeroArray[index] = (elem / pupilCount); 
+            //  });
+            // pupilAverage = [];
+            pupilCount = 0;
+            pupilArray.forEach(function(elem, index) {
+                pupilZeroArray[0] += positions[elem][0] //adds the x position
+                pupilZeroArray[1] += positions[elem][1] //adds the y position
             });
-           pupilAverage = [];
-           pupilCount = 0;
+            console.log('Zero:', pupilZeroArray);
         },
         getPupilAverage: (positions) => {
             pupilCount++;
             pupilArray.forEach(function(elem, index) {
                 pupilAverage[0] += positions[elem][0] //adds the x position
-                pupilAverage[1] += positions[elem][1] //adds the x position
+                pupilAverage[1] += positions[elem][1] //adds the y position
             });
         },
         pupilPosition: (positions) => {
             eyeX = 0;
             eyeY = 0;
-            let returnBox = 4;
+            let returnBox = 2;; //defaults to center
             pupilArray.forEach(function(elem, index) {
                 eyeX += positions[elem][0] //adds the x position
-                eyeY += positions[elem][1] //adds the x position
+                eyeY += positions[elem][1] //adds the y position
             });
             let xDiff = pupilZeroArray[0] - eyeX;
             let yDiff = pupilZeroArray[1] - eyeY;
+            xDiffAvg.push(xDiff);
+            xDiffAvg.shift();
+            xDiff = xDiffAvg[0] + xDiffAvg[1] + xDiffAvg[2];
+
+            yDiffAvg.push(yDiff);
+            yDiffAvg.shift();
+            yDiff = yDiffAvg[0] + yDiffAvg[1] + yDiffAvg[2];
+            pupilCount++;
+            if(pupilCount > 5) {
+                console.log('diff', [xDiff, yDiff]);
+                pupilCount = 0;
+            }
+
+
             if (xDiff < -pupilThreshold && yDiff > pupilThreshold) { // LEFT TOP
                 returnBox = 0;
             } else if (xDiff > pupilThreshold && yDiff > pupilThreshold) { // RIGHT TOP
-                returnBox = 2;
-            } else if (xDiff > pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM RIGHT
-                returnBox = 8;
-            } else if (xDiff < -pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM LEFT
-                returnBox = 6;
+                returnBox = 1;
+            } else if (xDiff < -pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM RIGHT
+                returnBox = 3;
+            } else if (xDiff > pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM LEFT
+                returnBox = 4;
             }
             return returnBox;
         }
     }
 });
+
 
 
 

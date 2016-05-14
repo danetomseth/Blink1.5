@@ -6,7 +6,6 @@ core.factory("ActionFactory", function(){
             switch (action){
                 case 'space':
                     return predictWords();
-                    break;
                 case 'Speak':
                     SpeechFactory.say(word);
                     break;
