@@ -43,7 +43,7 @@ core.factory('TrackingFactory', function($rootScope) {
             count++;
             if (count > 20) {
                 TimerFactory.calibrationFinished();
-                
+
             }
         } else {
             count = 0;
