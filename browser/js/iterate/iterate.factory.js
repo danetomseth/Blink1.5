@@ -1,4 +1,3 @@
-
 core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory, PopupFactory, KeyboardFactory, TrackingFactory, SettingsFactory, PositionFactory, SidebarFactory) {
     var iterateObj = {};
     var count = 0;
@@ -14,19 +13,19 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         let t = time || 750
         setTimeout(() => {
             debounce = true
-            if(fn) {fn()};
+            if (fn) { fn() };
         }, t)
     }
 
     const translateDelay = {
-        0: 1400,
-        1: 1200,
-        2: 950,
-        3: 750,
-        4: 600,
-        5: 500
-    }
-    // Set default delay
+            0: 1400,
+            1: 1200,
+            2: 950,
+            3: 750,
+            4: 600,
+            5: 500
+        }
+        // Set default delay
     let delay = translateDelay[3];
 
     // If a user is logged in, use their delay preferences
@@ -34,23 +33,25 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         delay = translateDelay[$rootScope.user.keyboardSpeed]
     }
 
-////////////////////////////////////////////////////////////
-//////////// Iterator Functions sent to Timer
-////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+    //////////// Iterator Functions sent to Timer
+    ////////////////////////////////////////////////////////////
 
     // Iterator functions to update scope values
     var keyboardIterator = function() {
         if (debounce && !selectingLetter) {
-             let arr = KeyboardFactory.iterateRow();
-             angular.copy(arr, iterateObj.scopeValue);
-             if(iterateObj.scopeValue[0] === 0) {
+            // Iterate Rows
+            let arr = KeyboardFactory.iterateRow();
+            angular.copy(arr, iterateObj.scopeValue);
+            if (iterateObj.scopeValue[0] === 0) {
                 //TimerFactory.pauseIteration(500);
-             }
+            }
         } else if (debounce && selectingLetter) {
+            // Iterate Letters
             iterateObj.scopeValue[1] = KeyboardFactory.iterateLetter();
-            if(iterateObj.scopeValue[1] === 0) {
+            if (iterateObj.scopeValue[1] === 0) {
                 //TimerFactory.pauseIteration(500);
-             }
+            }
         }
     }
 
@@ -87,16 +88,29 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
     }
 
 
-////////////////////////////////////////////////////////////
-//////////// Analyze functions that accept callbacks
-////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+    //////////// Analyze functions that accept callbacks
+    ////////////////////////////////////////////////////////////
+
+    let lastBlinkTime;
+    let blinkDt;
 
     function analyzeEyePositions(cb) {
         var positions = TrackingFactory.getPositions();
-        if (positions) {
-            if (PositionFactory.blinkCompare(positions)) {
+        if (positions && PositionFactory.blinkCompare(positions)) {
+            blinkDt = Date.now() - lastBlinkTime;
+            console.log("Caught a blink. BlinkDT is", blinkDt)
+            // On double blink
+            if ((blinkDt < 800) && (blinkDt > 100)) {
+                console.log("Undo!")
+            }
+            // Two blinks
+            else {
+                console.log("Single blink")
                 cb();
             }
+            console.log("resetting last blink time")
+            lastBlinkTime = Date.now();
         }
     }
 
@@ -118,9 +132,9 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         }
     }
 
-////////////////////////////////////////////////////////////
-//////////// Callback functions to send to analyzers
-////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+    //////////// Callback functions to send to analyzers
+    ////////////////////////////////////////////////////////////
 
     // Callback functions for analyzePositions
     function keyboardCallback() {
@@ -151,9 +165,9 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         }
     }
 
-////////////////////////////////////////////////////////////
-/////////// Candidates for an Action Factory?
-////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+    /////////// Candidates for an Action Factory?
+    ////////////////////////////////////////////////////////////
 
     // Position Functions
     function goToPage() {
@@ -189,7 +203,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         }
     }
 
-        // Tab selector for settings callback
+    // Tab selector for settings callback
     function selectUserOption() {
         if (selectingOption) {
             iterateObj.scopeValue[1] = SettingsFactory.iterateOption(iterateObj.scopeValue[0]);
@@ -202,6 +216,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             debounce = true;
         }, 750)
     }
+
     function popupSelect() {
         iterateObj.selectedLetter = iterateObj.scopeValue[1];
         //check to make sure the selected letter is not undefined
@@ -213,7 +228,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             iterateObj.scopeValue[1] = PopupFactory.iterateLetter();
             selectingLetter = true;
         }
-        debounceFn(null, function(){
+        debounceFn(null, function() {
             iterateObj.selectedLetter = null;
         })
     }
@@ -228,18 +243,14 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             iterateObj.scopeValue[1] = KeyboardFactory.iterateLetter();
             selectingLetter = true;
         }
-        debounceFn(null, function(){
+        debounceFn(null, function() {
             iterateObj.selectedLetter = null;
         })
     }
 
-
-
-
-
-////////////////////////////////////////////////////////////
-/////////// Zeroing functions
-////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+    /////////// Zeroing functions
+    ////////////////////////////////////////////////////////////
 
     var browZero = function(page) {
         var converge = TrackingFactory.convergence();
@@ -254,12 +265,9 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         }
     }
 
-
-
     iterateObj.zero = function(page) {
         TimerFactory.calibrate(browZero, 50, page);
     }
-
 
     iterateObj.iterate = function(page) { // fires once we have calibration (from browZero())
         var positions = TrackingFactory.getPositions();
@@ -270,10 +278,11 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
                 TimerFactory.moveCursor(linkIterator, 1000);
                 break;
             case 'type':
-                //PositionFactory.setBrowZero(positions);
+                // PositionFactory.setBrowZero(positions);
+                lastBlinkTime = Date.now();
                 PositionFactory.setBlinkZero(positions);
                 TimerFactory.startReading(analyzeEyePositions, 50, keyboardCallback);
-                //TimerFactory.startReading(analyzeBrowPositions, 50, keyboardCallback);
+                // TimerFactory.startReading(analyzeBrowPositions, 50, keyboardCallback);
                 TimerFactory.moveCursor(keyboardIterator, 750);
                 break;
             case 'corners':

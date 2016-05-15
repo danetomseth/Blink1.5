@@ -17,13 +17,11 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
                 return IterateFactory.selectedLetter
             }, function(newVal, oldVal) {
                 if (typeof newVal !== 'undefined') {
-                    console.log('selected letter changed!!', IterateFactory.selectedLetter);
                     if(IterateFactory.selectedLetter) {
                         scope.selected = IterateFactory.selectedLetter;
                         count++
                     }
                     else scope.selected = [null, null];
-
                 }
             });
 
@@ -39,6 +37,12 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
 
 
             scope.say = () => SpeechFactory.say(scope.wordInput);
+
+          //   elem.on('$destroy', function() {
+          //       if (angular.isDefined(countInterval)) {
+          //           $interval.cancel(countInterval);
+          //       }
+          // });
 
         }
 

@@ -1,4 +1,4 @@
-core.directive('blCorners', function($rootScope, TrackingFactory, CornersFactory, WebcamFactory, TimerFactory, PositionFactory) {
+core.directive('blCorners', function($interval, $rootScope, TrackingFactory, CornersFactory, WebcamFactory, TimerFactory, PositionFactory) {
 
     return {
         restrict: 'E',
@@ -10,7 +10,6 @@ core.directive('blCorners', function($rootScope, TrackingFactory, CornersFactory
             scope.boxes = CornersFactory.getBoxes()
             scope.phrase = CornersFactory.getPhrase();
             scope.wordInput = scope.phrase[0]
-
 
             // // threshold variables
             // let threshold = 1;
@@ -174,16 +173,18 @@ core.directive('blCorners', function($rootScope, TrackingFactory, CornersFactory
             function config(fn, box) {
                 let count = 6;
                 let countInterval;
-                countInterval = setInterval(function(){
+                countInterval = $interval(function(){
                     // CornersFactory.selectBox(null);
                     count--;
                     scope.boxes[box] = count;
                     scope.$evalAsync();
-                }, 1000)
+                }, 1000);
+
                 setTimeout(function() {
                     fn();
                     scope.boxes[box] = "";
-                    clearInterval(countInterval);
+                    $interval.cancel(countInterval);
+                    countInterval = undefined;
                     CornersFactory.goToBox();
                     // let nextFn = configFn[configCount++]
                     // if (nextFn) {config(nextFn[0], nextFn[1])};
@@ -191,8 +192,14 @@ core.directive('blCorners', function($rootScope, TrackingFactory, CornersFactory
             }
 
             // TimerFactory.startReading(readPositions, 50);
-            config(zeroEyes, 4)
+            config(zeroEyes, 4);
 
+            // Listen on DOM destroy (removal) event, to make sure interval is canceled after the DOM element was removed
+            elem.on('$destroy', function() {
+                if (angular.isDefined(countInterval)) {
+                    $interval.cancel(countInterval);
+                }
+          });
 
         }
     };

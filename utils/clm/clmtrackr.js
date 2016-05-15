@@ -332,7 +332,6 @@ var clm = {
                 first = false;
             } else {
                 facecheck_count += 1;
-
                 if (params.constantVelocity) {
                     // calculate where to get patches via constant velocity prediction
                     if (previousParameters.length >= 2) {
@@ -342,7 +341,6 @@ var clm = {
                         }
                     }
                 }
-
                 // change translation, rotation and scale parameters
                 rotation = halfPI - Math.atan((currentParameters[0]+1)/currentParameters[1]);
                 if (rotation > halfPI) {
