@@ -5,7 +5,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
     let letterIndex = 0;
     let returnRow = 0;
     let returnLetter = 0;
-    
+
     let alphabet = [
         {row: 0, letters: ["I", "I'M", "CAN", "WE", "HELLO"]},
         {row: 1, letters: ["A", "B", "C", "D", "E"]},
@@ -26,8 +26,8 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
     let phrase = "";
 
     const resetKeyboardPosition = () => {
-            letterIndex = 0;
-            rowIndex = 0;
+        letterIndex = 0;
+        rowIndex = 0;
     }
 
     const predictWords = () => {
@@ -46,7 +46,13 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         },
         iterateLetter: () => {
             returnLetter = letterIndex; // save the letter we're at
-            (letterIndex > alphabet[returnRow].letters.length - 2) ? letterIndex = 0 : letterIndex++; // if we're at the end of the line, go back to the start, otherwise, increment where we are
+            // if we're at the end of the line, go to the next row
+            if (letterIndex > alphabet[returnRow].letters.length - 2) {
+                console.log("end of row")
+                letterIndex = 0;
+            }
+            // Otherwise, increment where we are
+            else { letterIndex++; }
             return returnLetter;
         },
         selectLetter: () => {
@@ -64,7 +70,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
                     case '<<':
                         console.log("delete")
                         return phrase.slice(0, phrase.length-1);
-                    case 'NAV': 
+                    case 'NAV':
                         TimerFactory.clearTracking();
                         $state.go('home');
                         break;

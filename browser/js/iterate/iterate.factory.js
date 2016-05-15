@@ -49,8 +49,11 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         } else if (debounce && selectingLetter) {
             // Iterate Letters
             iterateObj.scopeValue[1] = KeyboardFactory.iterateLetter();
+            // At the end of the row, go on to the next one
             if (iterateObj.scopeValue[1] === 0) {
                 //TimerFactory.pauseIteration(500);
+                 iterateObj.scopeValue[0] = KeyboardFactory.iterateRow()[0];
+                 selectingLetter = false;
             }
         }
     }
@@ -99,10 +102,11 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         var positions = TrackingFactory.getPositions();
         if (positions && PositionFactory.blinkCompare(positions)) {
             blinkDt = Date.now() - lastBlinkTime;
-            console.log("Caught a blink. BlinkDT is", blinkDt)
             // On double blink
             if ((blinkDt < 800) && (blinkDt > 100)) {
                 console.log("Undo!")
+                let arr = KeyboardFactory.resetKeyboard();
+                angular.copy(arr, iterateObj.scopeValue);
             }
             // Two blinks
             else {
