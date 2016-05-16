@@ -213,6 +213,24 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             console.log("resetting last blink time")
             lastBlinkTime = Date.now();
         }
+
+
+        // if (positions && PositionFactory.blinkCompare(positions)) {
+        //     blinkDt = Date.now() - lastBlinkTime;
+        //     // On double blink
+        //     if ((blinkDt < 800) && (blinkDt > 100)) {
+        //         console.log("Undo!")
+        //         let arr = KeyboardFactory.resetKeyboard();
+        //         angular.copy(arr, iterateObj.scopeValue);
+        //     }
+        //     // Two blinks
+        //     else {
+        //         console.log("Single blink")
+        //         cb();
+        //     }
+        //     console.log("resetting last blink time")
+        //     lastBlinkTime = Date.now();
+        // }
     }
 
     function analyzeBrowPositions(cb) {
@@ -356,6 +374,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
                 TimerFactory.calibrate(pupilCheck, 50, page);
             } else TimerFactory.calibrate(convergeCheck, 50, page);
         } else {
+            console.log('Caregiver, everything stopped');
             TimerFactory.clearAll();
         }
     }
@@ -366,7 +385,6 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         var positions = TrackingFactory.getPositions();
         switch (page) {
             case 'nav':
-                //PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(analyzeEyePositions, 50, navCallback);
                 TimerFactory.moveCursor(linkIterator, 1000);
                 break;
@@ -377,7 +395,6 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
                 break;
             case 'corners':
                 TimerFactory.startReading(analyzePupilPositions, 50, cornersCallback);
-                //PositionFactory.setBrowZero(positions);
                 break;
             case 'popup':
                 PositionFactory.setBrowZero(positions);

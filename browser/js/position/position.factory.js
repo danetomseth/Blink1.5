@@ -61,7 +61,13 @@ core.factory('PositionFactory', function() {
                 return 'delete';
             }
 
-            return ((diffZero - diff) > 2.2); //compares current distance of eyelid to zero distance
+            readingCount++;
+            if(readingCount > 5) {
+                console.log('diff:', (diffZero - diff));
+                readingCount = 0;
+            }
+
+            return ((diffZero - diff) > 2); //compares current distance of eyelid to zero distance
         },
         setBlinkZero: () => {
             diffZero = diffZero / readingCount; //sets the average distance between top eyelid and bottom
@@ -102,9 +108,7 @@ core.factory('PositionFactory', function() {
             });
 
             eyeXZero = positions[33][0] - positions[32][0];
-
             eyeYZero = positions[33][1] - positions[32][1];
-            console.log('Zero:', [eyeXZero, eyeYZero]);
         },
         getPupilAverage: (positions) => {
             pupilCount++;
@@ -139,6 +143,7 @@ core.factory('PositionFactory', function() {
                     return false;
                 }
             }
+
             if (xDiff < -pupilThreshold && yDiff > pupilThreshold) { // LEFT TOP
                 returnBox = 0;
             } else if (xDiff > pupilThreshold && yDiff > pupilThreshold) { // RIGHT TOP
@@ -179,7 +184,6 @@ core.factory('PositionFactory', function() {
             // }
 
 
-            // return returnBox;
             return returnBox;
         }
     }

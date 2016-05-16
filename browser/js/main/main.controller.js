@@ -33,7 +33,7 @@ core.controller('MainCtrl', function($scope, $state, $rootScope, IterateFactory,
     let videoStatus = () => {
         if ($rootScope.videoActive) {
             TimerFactory.videoReady();
-            TrackingFactory.drawLoop();
+            TrackingFactory.startDrawing();
         }
     }
     TimerFactory.videoStatus(videoStatus, 100);
