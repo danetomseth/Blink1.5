@@ -31,7 +31,6 @@ core.factory('TrackingFactory', function($rootScope, $state) {
 
     trackObj.startDrawing = () => {
         if(!drawing) {
-            console.log('drawing started');
             trackObj.drawLoop();
             drawing = true;
         }

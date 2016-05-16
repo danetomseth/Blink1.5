@@ -5,6 +5,8 @@ core.factory('PositionFactory', function() {
     let blinkThreshold = 3;
     let mouthThreshold = 12;
     let diffZero = 0;
+    let diffZeroL = 0;
+    let diffZeroR = 0;
     let browZero = [];
     let rightZeroArray = [];
     let leftZeroArray = [];
@@ -55,22 +57,31 @@ core.factory('PositionFactory', function() {
         blinkCompare: (positions) => {
             let eyeTotal = 0;
             let change = 0
-            var diff = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]); 
+            var diffL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]); 
+            var diffR = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             
             if(positions[57][1] - positions[60][1] > 8) { //checks mouth positions
                 return 'delete';
             }
+            change = ((diffL + diffR) / diffZero);
 
-            return ((diffZero - diff) > 2); //compares current distance of eyelid to zero distance
+            return (change < 0.9)
+            //return ((diffZero - diff) > 2); //compares current distance of eyelid to zero distance
         },
         setBlinkZero: () => {
-            diffZero = diffZero / readingCount; //sets the average distance between top eyelid and bottom
+            diffZero = (diffZeroL / readingCount) + (diffZeroR / readingCount); //sets the average distance between top eyelid and bottom
             readingCount = 0;
+            diffZeroL = 0;
+            diffZeroR = 0;
+            //return diffZero.toFixed(2);
         },
         getBlinkAverage: (positions) => {
             readingCount++;
             mouthZero = positions[57][1] - positions[60][1];
-            diffZero += (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]); 
+            diffZeroL += (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
+            diffZeroR += (positions[66][1] + positions[26][1] + positions[65][1]) - (positions[63][1] + positions[24][1] + positions[64][1]);
+
+            //return [(diffZeroL / readingCount).toFixed(1), (diffZeroR / readingCount).toFixed(1)];
         },
         setEyeZero: (positions) => {
             leftZeroArray = leftEyeArray.map(function(index) {

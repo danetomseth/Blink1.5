@@ -4,7 +4,7 @@ core.config(function($stateProvider) {
         templateUrl: 'templates/home.html',
         controller: 'HomeCtrl',
         onEnter: function(IterateFactory) {
-        	IterateFactory.zero('nav');
+        	//IterateFactory.zero('nav');
         }
     });
 

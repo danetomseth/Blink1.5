@@ -1,1 +1,16 @@
-<h1>Helllloooo</h1>
+<div flex layout="row" layout-align="center" class="vertical-center">
+	<div flex="50" class="md-whiteframe-5dp center-box">
+		<div class="center-btn">
+			<md-button class="md-raised md-accent" ng-click="takeReading()">Read</md-button>
+			<h2>Diff: {{diff}}</h2>
+			<md-button class="md-raised md-accent" ng-click="takeZero()">Zero</md-button>
+			<h3>Zero: {{zero}}</h3>
+			<md-button class="md-raised md-accent" ng-click="takeDiff()">Compare</md-button>
+			<h3>Chg: {{change}}</h3>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- <md-button class="md-raised md-accent" ng-click="openBottomSheet()">Open</md-button> -->
