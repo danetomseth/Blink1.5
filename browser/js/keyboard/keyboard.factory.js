@@ -15,6 +15,8 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         {row: 5, letters: ["U", "V", "W", "X", "Y"]},
         {row: 6, letters: ['SPACE', 'SAY', '<<', 'STOP', 'NAV']}
         ];
+
+
     const smallKeyboard = [
         ["A", "B", "C", "D", "E"],
         ["F", "G", "H", "I", "J"],
@@ -22,6 +24,8 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         ["P", "Q", "R", "S", "T"],
         ["U", "V", "W", "X", "Y"]
     ];
+
+            
     let rowLength = alphabet[0].length;
     let phrase = "";
 

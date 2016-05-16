@@ -31,10 +31,9 @@ core.factory('CornersFactory', function() {
     let currentBox = 4;
     let highlightedBox = [4];
     let boxNumber = 0;
-    let displayedBoxes = [boxes[0].contents, "1", boxes[2].contents, "3", boxes[4].contents, "5", boxes[6].contents, "7", boxes[8].contents];
+//    let displayedBoxes = [boxes[0].contents, "1", boxes[2].contents, "3", boxes[4].contents, "5", boxes[6].contents, "7", boxes[8].contents];
 
     let displayedBoxes = ["1", "2", "3", "4", "...", "5", "6", "7", "8"]
-    //let displayedBoxes = ["1", "2", "3", "4", "...", "5", "6", "7", "8"]
     let topLevel = true; // are we at the top level of the grids?
 
 
