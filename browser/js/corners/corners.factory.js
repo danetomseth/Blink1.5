@@ -20,17 +20,40 @@ core.factory('CornersFactory', function() {
         }
     ];
 
+    let emojiBox = [
+        {
+            contents: ["😀", "😬", "😁", "😂", "😃"]
+        },
+        {
+            contents: ["1", "2", "3", "4", "5"]
+        },
+        {
+            contents: ["K", "L", "M", "N", "O"]
+        },
+        {
+            contents: ["P", "Q", "R", "S", "T"]
+        },
+        {
+            contents: ["U", "V", "W", "X", "Y"]
+        }
+    ];
+
     /////////////////////////////////////////////////
     //////// 0: TL, 1: TR, 2: M, 3: BL, 4: BR //////
     /////////////////////////////////////////////////
 
 
     let gridBoxes = [
-        letterBox[0].contents, 
-        letterBox[1].contents, 
-        letterBox[2].contents, 
-        letterBox[3].contents, 
-        letterBox[4].contents
+        letterBox[0].contents,
+        letterBox[1].contents,
+        letterBox[2].contents,
+        letterBox[3].contents,
+        letterBox[4].contents,
+        emojiBox[0].contents,
+        emojiBox[1].contents,
+        emojiBox[2].contents,
+        emojiBox[3].contents,
+        emojiBox[4].contents
     ]
 
 
@@ -45,6 +68,10 @@ core.factory('CornersFactory', function() {
     let functions = {
         getBoxes: () => {
             angular.copy(gridBoxes, displayedBoxes);
+            return displayedBoxes;
+        },
+        getPlusBoxes: () => {
+            angular.copy(plusBoxes, displayedBoxes);
             return displayedBoxes;
         },
         initialize: () => {
@@ -63,6 +90,7 @@ core.factory('CornersFactory', function() {
         goToBox: (box) => {
             topLevel = !topLevel // switch the state
             if(topLevel){
+                console.log("switching to",box)
                 angular.copy(gridBoxes[box], displayedBoxes)
             } else {
                 word += gridBoxes[currentBox][box]

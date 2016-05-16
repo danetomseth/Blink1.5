@@ -5,7 +5,7 @@ app.directive('blLoading', function($interval){
         templateUrl: 'templates/loading.html',
         link: function(scope) {
 
-        	let text = ["Calibrating", "Look Here", "Stay Still"];
+        	let text = ["Calibrating", "Look Here", "Stay Still", "Calibrating"];
         	let textInt;
 
         	// let textIterator = function() {

@@ -276,6 +276,12 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         goToPage();
     }
 
+    function switchCornersPattern(){
+        debounceFn(null, function() {
+            PositionFactory.changePattern()
+        })
+    }
+
 
 
     ////////////////////////////////////////////////////////////
@@ -301,14 +307,14 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
 
     var pupilCheck = function(page) {
         var converge = TrackingFactory.convergence();
-        var positions = TrackingFactory.getPositions();
-        if (converge < 300) {
+        var positions = TrackingFactory.getPositions(); // do we need to run this every time, or can we run it only when we get convergence
+        if (converge < 300) { // if we have ok convergence in CLM
             count++;
-            if (count > 10) {
-                //PositionFactory.getPupilAverage(positions);
-                PositionFactory.getBlinkAverage(positions);
+            if (count > 10) { // and we've been converged for a while
+                PositionFactory.getPupilAverage(positions);
+                PositionFactory.getBlinkAverage(positions); // start finding an average position
             }
-            if (count > 30) {
+            if (count > 30) { // once we have been finding averages for a while, lock them in.
                 PositionFactory.setPupilZero(positions);
                 PositionFactory.setBlinkZero(positions);
                 //PositionFactory.setBrowZero(positions);
@@ -395,7 +401,9 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
                 TimerFactory.moveCursor(keyboardIterator, 750);
                 break;
             case 'corners':
+                PositionFactory.setBrowZero(positions);
                 TimerFactory.startReading(analyzePupilPositions, 50, cornersCallback);
+                TimerFactory.startReading(analyzeBrowPositions, 50, switchCornersPattern);
                 break;
             case 'popup':
                 PositionFactory.setBrowZero(positions);
