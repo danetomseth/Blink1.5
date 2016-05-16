@@ -5,7 +5,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
     let letterIndex = 0;
     let returnRow = 0;
     let returnLetter = 0;
-    
+
     let alphabet = [
         {row: 0, letters: ["I", "I'M", "CAN", "WE", "HELLO"]},
         {row: 1, letters: ["A", "B", "C", "D", "E"]},
@@ -25,7 +25,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         ["U", "V", "W", "X", "Y"]
     ];
 
-            
+
     let rowLength = alphabet[0].length;
     let phrase = "";
 
@@ -35,12 +35,15 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
     }
 
     const predictWords = () => {
+        if (phrase != ""){
             PredictFactory.nextWords(phrase) // sends whole sentence to the predictor where it is spliced
             .then(words => {
                 if (words.length > 1) {angular.copy(words, alphabet[0])} // if there are suggestions, push them onto the alphabet array
+                    console.log("alphabet[0] in keyboard factory", alphabet[0])
             });
             phrase += " "; // add a space that the user asked for
             return phrase // send the current word back to the user
+        }
     }
     return {
         iterateRow: () => {
@@ -69,7 +72,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
                         return phrase
                     case '<<':
                         return phrase.slice(0, phrase.length-1);
-                    case 'NAV': 
+                    case 'NAV':
                         TimerFactory.clearTracking();
                         $state.go('home');
                         break;
