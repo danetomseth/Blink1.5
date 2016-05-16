@@ -55,16 +55,12 @@ core.factory('PositionFactory', function() {
         blinkCompare: (positions) => {
             let eyeTotal = 0;
             let change = 0
-            var diff = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]); 
-            
+            var diff = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
+
             if(positions[57][1] - positions[60][1] > 8) { //checks mouth positions
                 return 'delete';
             }
 
-            if((diffZero - diff) > 2) {
-                console.log(diffZero - diff);
-            }
-            
             return ((diffZero - diff) > 2.2); //compares current distance of eyelid to zero distance
         },
         setBlinkZero: () => {
@@ -74,7 +70,7 @@ core.factory('PositionFactory', function() {
         getBlinkAverage: (positions) => {
             readingCount++;
             mouthZero = positions[57][1] - positions[60][1];
-            diffZero += (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]); 
+            diffZero += (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
         },
         setEyeZero: (positions) => {
             leftZeroArray = leftEyeArray.map(function(index) {
@@ -98,7 +94,7 @@ core.factory('PositionFactory', function() {
             });
         },
         setPupilZero: (positions) => {
-           
+
             pupilCount = 0;
             pupilArray.forEach(function(elem, index) {
                 pupilZeroArray[0] += positions[elem][0] //adds the x position
@@ -135,7 +131,7 @@ core.factory('PositionFactory', function() {
             yDiffAvg.shift();
             yDiff = yDiffAvg[0] + yDiffAvg[1] + yDiffAvg[2];
 
-            if(Math.abs(xDiff) + Math.abs(yDiff) > 100) {                
+            if(Math.abs(xDiff) + Math.abs(yDiff) > 100) {
                 pupilCount++;
                 console.log('not stable');
                 if(pupilCount > 5) {
@@ -179,7 +175,7 @@ core.factory('PositionFactory', function() {
             // if(pupilCount > 10) {
             //     console.log("Diff", [xDiff.toFixed(1), yDiff.toFixed(1)]);
             //     pupilCount = 0;
-                
+
             // }
 
 
