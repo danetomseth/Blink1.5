@@ -1,6 +1,6 @@
 'use strict';
 
-core.factory('TrackingFactory', function($rootScope) {
+core.factory('TrackingFactory', function($rootScope, $state) {
     let canvas;
     let context;
     let tracker;
@@ -48,6 +48,7 @@ core.factory('TrackingFactory', function($rootScope) {
     };
 
     trackObj.endTracking = () => {
+        console.log('end tracking',$state.$current);
         if(tracker) tracker.stop();
         context.clearRect(0, 0, canvas.width, canvas.height);
         $rootScope.drawing = false;

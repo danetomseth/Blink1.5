@@ -1,4 +1,6 @@
 core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory, PopupFactory, KeyboardFactory, TrackingFactory, SettingsFactory, PositionFactory, SidebarFactory) {
+    var trackingActive = false;
+
     var iterateObj = {};
     var count = 0;
     var debounce = true;
@@ -109,7 +111,6 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
 
     // Position Functions
     function goToPage() {
-        TimerFactory.clearAll();
         SidebarFactory.changeState();
     }
 
@@ -364,8 +365,12 @@ let blinkDt;
 
 
     iterateObj.zero = function(page) {
+        // if(trackingActive) {
+        //     TimerFactory.clearTracking();
+        // }
 
         if (!$rootScope.caregiver) {
+            trackingActive = true;
             $rootScope.zeroActive = true;
             if (page === 'corners') {
                 TimerFactory.calibrate(pupilCheck, 50, page);

@@ -61,13 +61,6 @@ core.factory('PositionFactory', function() {
                 return 'delete';
             }
 
-
-            readingCount++;
-            if(readingCount > 5) {
-                console.log('diff:', (diffZero - diff));
-                readingCount = 0;
-            }
-
             return ((diffZero - diff) > 2); //compares current distance of eyelid to zero distance
         },
         setBlinkZero: () => {
