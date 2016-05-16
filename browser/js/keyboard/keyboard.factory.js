@@ -49,6 +49,9 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
             (letterIndex > alphabet[returnRow].letters.length - 2) ? letterIndex = 0 : letterIndex++; // if we're at the end of the line, go back to the start, otherwise, increment where we are
             return returnLetter;
         },
+        delete: () => { //resets the keyobard position on mouth open
+            resetKeyboardPosition();
+        },
         selectLetter: () => {
             resetKeyboardPosition();
             if(returnRow === alphabet.length-1) { // if we are in the last row (which is all operations)
@@ -57,12 +60,10 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
                     case 'SPACE':
                         return predictWords();
                     case 'SAY':
-                        console.log("say")
                         SpeechFactory.say(phrase); // try to pause the scrolling while we speak stuff
                         phrase = ""
                         return phrase
                     case '<<':
-                        console.log("delete")
                         return phrase.slice(0, phrase.length-1);
                     case 'NAV': 
                         TimerFactory.clearTracking();

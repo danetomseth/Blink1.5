@@ -1,34 +1,5 @@
 core.factory('CornersFactory', function() {
 
-    // let boxes = {
-    //     0: {
-    //         type: "letters",
-    //         contents: ["A", 1, "B", 3, "C", 5, "D", 7, "E"]
-    //     },
-    //     2: {
-    //         type: "letters",
-    //         contents: ["F", 1, "G", 3, "H", 5, "I", 7, "J"]
-    //     },
-    //     4: {
-    //         type: "letters",
-    //         contents: ["K", 1, "L", 3, "M", 5, "N", 7, "O"]
-    //     },
-    //     6: {
-    //         type: "letters",
-    //         contents: ["P", 1, "Q", 3, "R", 5, "S", 7, "T"]
-    //     },
-    //     8: {
-    //         type: "letters",
-    //         contents: ["U", 1, "V", 3, "W", 5, "X", 7, "Y"]
-    //     }
-    // }
-    // let topBoxes = {
-    //     type: "boxes",
-    //     contents: [boxes[0].contents, "1", boxes[2].contents, "3", boxes[4].contents, "5", boxes[6].contents, "7", boxes[8].contents]
-    // }
-
-    
-
     //Not using ng-repeat so only need 5 boxes
 
     let letterBox = [
@@ -68,24 +39,30 @@ core.factory('CornersFactory', function() {
     let word = '';
 
 
-    let currentBox = 4;
+    let currentBox;
 
-    //sets initial box highlight
-    let boxNumber = 0;
 
-    let displayedBoxes = ['', '', "X", '', ''];
-    let topLevel = true; // are we at the top level of the grids?
+    let displayedBoxes = [];
+    let topLevel = false; // are we at the top level of the grids?
 
 
     let functions = {
         getBoxes: () => {
-            return displayedBoxes
+            angular.copy(gridBoxes, displayedBoxes);
+            return displayedBoxes;
+        },
+        initialize: () => {
+            return gridBoxes;
         },
         getPhrase: () => {
             return phrase;
         },
         getWord: () => {
             return word;
+        },
+        delete: () => {
+            let newPhrase = phrase[0].slice(0, -2);
+            angular.copy([newPhrase], phrase)
         },
         goToBox: (box) => {
             topLevel = !topLevel // switch the state
@@ -94,13 +71,11 @@ core.factory('CornersFactory', function() {
             } else {
                 word += gridBoxes[currentBox][box]
                 let newPhrase = phrase[0]+= gridBoxes[currentBox][box]
-                console.log('word:', word);
-                console.log(gridBoxes[currentBox]);
+                console.log('letter',gridBoxes[currentBox][box]);
                 angular.copy([newPhrase], phrase)
                 angular.copy(gridBoxes, displayedBoxes)
             }
             currentBox = box;
-            return word;
         }
     };
     return functions;

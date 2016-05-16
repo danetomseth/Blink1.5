@@ -5,14 +5,6 @@ core.directive('blCorners', function($rootScope, TrackingFactory, IterateFactory
         scope: {},
         templateUrl: 'templates/corners-grid.html',
         link: function(scope, elem, attr) {
-            // let zero = [];
-            // scope.selectedBox = CornersFactory.getSelected();
-            // scope.boxes = CornersFactory.getBoxes()
-            // scope.phrase = CornersFactory.getPhrase();
-            // scope.wordInput = scope.phrase[0]
-
-
-
 
             //scope.boxes[box] = "";
 
@@ -35,6 +27,13 @@ core.directive('blCorners', function($rootScope, TrackingFactory, IterateFactory
             //     }, 5000);
             // }
 
+            
+            // scope.selectBox = function(box) {
+            //     scope.selectedBox = box;
+            //     CornersFactory.goToBox(box);
+            //     console.log("going to box", box);
+            // }
+
             scope.selectedBox = IterateFactory.selectedBox; //controls highlighting
             scope.boxes = CornersFactory.getBoxes() //controls contents
             scope.phrase = CornersFactory.getPhrase();
@@ -48,6 +47,8 @@ core.directive('blCorners', function($rootScope, TrackingFactory, IterateFactory
                         scope.selectedBox = IterateFactory.selectedBox;
                 }
             },true);
+
+           
 
 
 
