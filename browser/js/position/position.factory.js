@@ -61,13 +61,14 @@ core.factory('PositionFactory', function() {
                 return 'delete';
             }
 
-            readingCount++;
-            if(readingCount > 5) {
-                console.log('diff:', (diffZero - diff));
-                readingCount = 0;
-            }
+            // readingCount++;
+            // if(readingCount > 5) {
+            //     console.log('diff:', (diffZero - diff));
+            //     readingCount = 0;
+            // }
+            console.log((diffZero - diff), (diffZero - diff)/2)
 
-            return ((diffZero - diff) > 2); //compares current distance of eyelid to zero distance
+            return ((diff - diffZero) > 2); //compares current distance of eyelid to zero distance
         },
         setBlinkZero: () => {
             diffZero = diffZero / readingCount; //sets the average distance between top eyelid and bottom

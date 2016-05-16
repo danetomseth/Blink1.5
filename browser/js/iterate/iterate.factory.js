@@ -385,6 +385,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         var positions = TrackingFactory.getPositions();
         switch (page) {
             case 'nav':
+                lastBlinkTime = Date.now();
                 TimerFactory.startReading(analyzeEyePositions, 50, navCallback);
                 TimerFactory.moveCursor(linkIterator, 1000);
                 break;
