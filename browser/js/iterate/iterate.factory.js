@@ -394,7 +394,7 @@ let blinkDt;
             case 'type':
                 //lastBlinkTime = Date.now();
                 TimerFactory.startReading(analyzeEyePositions, 50, keyboardCallback);
-                TimerFactory.moveCursor(keyboardIterator, 750);
+                TimerFactory.moveCursor(keyboardIterator, 500);
                 break;
             case 'corners':
                 TimerFactory.startReading(analyzePupilPositions, 50, cornersCallback);

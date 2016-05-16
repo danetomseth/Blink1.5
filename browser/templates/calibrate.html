@@ -1,13 +1,46 @@
 <div flex layout="row" layout-align="center" class="vertical-center">
-	<div flex="50" class="md-whiteframe-5dp center-box">
-		<div class="center-btn">
-			<md-button class="md-raised md-accent" ng-click="takeReading()">Read</md-button>
-			<h2>Diff: {{diff}}</h2>
-			<md-button class="md-raised md-accent" ng-click="takeZero()">Zero</md-button>
-			<h3>Zero: {{zero}}</h3>
-			<md-button class="md-raised md-accent" ng-click="takeDiff()">Compare</md-button>
-			<h3>Chg: {{change}}</h3>
+	<div flex="75" class="md-whiteframe-5dp center-box">
+		<div layout="row" layout-wrap class="cal-display">
+			<div flex="25">
+			</div>
+			<div flex="50">
+				<p class="status-display">Do This: {{display}}</p>
+			</div>
+			<div flex="25">
+				
+			</div>
+			<div flex="25">
+			</div>
+			<div flex="50">
+				<p class="status-display">Count: {{count}}</p>
+			</div>
+			<div flex="25">
+			</div>
+			<div flex="30">
+				<p>Open Zero: {{openZero.toFixed(1)}}</p>
+			</div>
+			<div flex="40">
+				<p>Calibration Factor: {{calFactor}}</p>
+			</div>
+			<div flex="30">
+				<p>Closed Zero: {{closedZero.toFixed(1)}}</p>
+			</div>
+			<div flex="25">
+			</div>
+			<div flex>
+				<md-button class="md-raised md-accent" ng-click="takeReading()">Calibrate</md-button>
+			</div>
+			<div flex="25">
+			</div>
 		</div>
+		<!-- <div class="center-btn">
+			
+			
+			
+			<p>Open Zero: {{openZero.toFixed(1)}}</p>
+			<p>Closed Zero: {{closedZero.toFixed(1)}}</p>
+			
+		</div> -->
 	</div>
 </div>
 

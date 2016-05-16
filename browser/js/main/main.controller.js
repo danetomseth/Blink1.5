@@ -1,9 +1,6 @@
 core.controller('MainCtrl', function($scope, $state, $rootScope, IterateFactory, TimerFactory, TrackingFactory) {
-    $scope.$on('$viewContentLoaded', function() {
-
-    });
-
    
+
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
         //TimerFactory.clearTracking();
@@ -18,7 +15,7 @@ core.controller('MainCtrl', function($scope, $state, $rootScope, IterateFactory,
     $scope.sidebar = {};
 
 
-    
+
 
     $scope.stopTacking = () => {
         TimerFactory.clearTracking();

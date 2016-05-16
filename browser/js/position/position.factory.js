@@ -18,7 +18,7 @@ core.factory('PositionFactory', function() {
     let eyeZero = 500;
     let eyeX = 0;
     let eyeY = 0;
-    const pupilThreshold = 0;
+    const pupilThreshold = 2;
     const browArray = [20, 21, 17, 16];
     const eyeArray = [63, 24, 64, 20, 21, 67, 29, 68, 17, 16];
     const rightEyeArray = [63, 24, 64, 20, 21];
@@ -73,7 +73,7 @@ core.factory('PositionFactory', function() {
             readingCount = 0;
             diffZeroL = 0;
             diffZeroR = 0;
-            //return diffZero.toFixed(2);
+            return diffZero;
         },
         getBlinkAverage: (positions) => {
             readingCount++;

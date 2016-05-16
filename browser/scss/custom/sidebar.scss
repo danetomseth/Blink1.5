@@ -55,6 +55,14 @@ logo {
     z-index: 10;
 }
 
+#canvas-overlay {
+    position: absolute;
+    left: -40%;
+    top: -75px;
+    border: 2px solid red;
+    z-index: 900;
+}
+
 #sidebar-webcam-container {
     position: absolute;
     left: 2px;
