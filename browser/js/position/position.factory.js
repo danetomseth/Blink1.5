@@ -61,7 +61,14 @@ core.factory('PositionFactory', function() {
                 return 'delete';
             }
 
-            return ((diffZero - diff) > 2.2); //compares current distance of eyelid to zero distance
+
+            readingCount++;
+            if(readingCount > 5) {
+                console.log('diff:', (diffZero - diff));
+                readingCount = 0;
+            }
+
+            return ((diffZero - diff) > 2); //compares current distance of eyelid to zero distance
         },
         setBlinkZero: () => {
             diffZero = diffZero / readingCount; //sets the average distance between top eyelid and bottom

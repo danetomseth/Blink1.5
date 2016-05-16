@@ -191,7 +191,8 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
     ////////////////////////////////////////////////////////////
     //////////// Analyze functions that accept callbacks
     ////////////////////////////////////////////////////////////
-
+let lastBlinkTime;
+let blinkDt;
     function analyzeEyePositions(cb) {
         var positions = TrackingFactory.getPositions();
         if (positions) {
@@ -209,6 +210,24 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
                 cb();
             }
         }
+
+
+        // if (positions && PositionFactory.blinkCompare(positions)) {
+        //     blinkDt = Date.now() - lastBlinkTime;
+        //     // On double blink
+        //     if ((blinkDt < 800) && (blinkDt > 100)) {
+        //         console.log("Undo!")
+        //         let arr = KeyboardFactory.resetKeyboard();
+        //         angular.copy(arr, iterateObj.scopeValue);
+        //     }
+        //     // Two blinks
+        //     else {
+        //         console.log("Single blink")
+        //         cb();
+        //     }
+        //     console.log("resetting last blink time")
+        //     lastBlinkTime = Date.now();
+        // }
     }
 
     function analyzeBrowPositions(cb) {
@@ -367,6 +386,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
                 TimerFactory.moveCursor(linkIterator, 1000);
                 break;
             case 'type':
+                //lastBlinkTime = Date.now();
                 TimerFactory.startReading(analyzeEyePositions, 50, keyboardCallback);
                 TimerFactory.moveCursor(keyboardIterator, 750);
                 break;

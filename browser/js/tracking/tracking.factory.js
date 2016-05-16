@@ -4,6 +4,7 @@ core.factory('TrackingFactory', function($rootScope) {
     let canvas;
     let context;
     let tracker;
+    let drawing = false;
 
     let trackObj = {};
     trackObj.startTracking = (canvasElem, video) => {
@@ -12,6 +13,7 @@ core.factory('TrackingFactory', function($rootScope) {
         tracker.init(pModel);
         tracker.setResponseMode("blend", ["raw"]);
         tracker.start(video);
+
 
         //set canvas
         canvas = canvasElem;
@@ -26,6 +28,17 @@ core.factory('TrackingFactory', function($rootScope) {
         }
     };
 
+
+    trackObj.startDrawing = () => {
+        if(!drawing) {
+            console.log('drawing started');
+            trackObj.drawLoop();
+            drawing = true;
+        }
+    }
+
+
+
     trackObj.convergence = () => {
         return tracker.getConvergence();
     }
@@ -37,6 +50,7 @@ core.factory('TrackingFactory', function($rootScope) {
     trackObj.endTracking = () => {
         if(tracker) tracker.stop();
         context.clearRect(0, 0, canvas.width, canvas.height);
+        $rootScope.drawing = false;
         $rootScope.videoActive = false
     };
 
