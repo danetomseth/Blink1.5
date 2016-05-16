@@ -10,6 +10,7 @@ core.factory('TrackingFactory', function($rootScope) {
         //new tracker
         tracker = new clm.tracker();
         tracker.init(pModel);
+        tracker.setResponseMode("blend", ["raw"]);
         tracker.start(video);
 
         //set canvas

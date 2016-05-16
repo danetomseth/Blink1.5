@@ -1,52 +1,54 @@
 core.factory('CornersFactory', function() {
 
-    let boxes = {
-        0: {
-            type: "letters",
-            contents: ["A", 1, "B", 3, "C", 5, "D", 7, "E"]
+    //Not using ng-repeat so only need 5 boxes
+
+    let letterBox = [
+        {
+            contents: ["A", "B", "C", "D", "E"]
         },
-        2: {
-            type: "letters",
-            contents: ["F", 1, "G", 3, "H", 5, "I", 7, "J"]
+        {
+            contents: ["F", "G", "H", "I", "J"]
         },
-        4: {
-            type: "letters",
-            contents: ["K", 1, "L", 3, "M", 5, "N", 7, "O"]
+        {
+            contents: ["K", "L", "M", "N", "O"]
         },
-        6: {
-            type: "letters",
-            contents: ["P", 1, "Q", 3, "R", 5, "S", 7, "T"]
+        {
+            contents: ["P", "Q", "R", "S", "T"]
         },
-        8: {
-            type: "letters",
-            contents: ["U", 1, "V", 3, "W", 5, "X", 7, "Y"]
+        {
+            contents: ["U", "V", "W", "X", "Y"]
         }
-    }
-    let topBoxes = {
-        type: "boxes",
-        contents: [boxes[0].contents, "1", boxes[2].contents, "3", boxes[4].contents, "5", boxes[6].contents, "7", boxes[8].contents]
-    }
+    ];
+
+    /////////////////////////////////////////////////
+    //////// 0: TL, 1: TR, 2: M, 3: BL, 4: BR //////
+    /////////////////////////////////////////////////
+
+
+    let gridBoxes = [
+        letterBox[0].contents, 
+        letterBox[1].contents, 
+        letterBox[2].contents, 
+        letterBox[3].contents, 
+        letterBox[4].contents
+    ]
+
+
+
     let phrase = [""]
-    let word = ''
-    let currentBox = 4;
-    let highlightedBox = [4];
-    let boxNumber = 0;
-//    let displayedBoxes = [boxes[0].contents, "1", boxes[2].contents, "3", boxes[4].contents, "5", boxes[6].contents, "7", boxes[8].contents];
-
-    let displayedBoxes = ["1", "2", "3", "4", "...", "5", "6", "7", "8"]
-    let topLevel = true; // are we at the top level of the grids?
-
+    let word = '';
+    let currentBox;
+    let displayedBoxes = [];
+    let topLevel = false; // are we at the top level of the grids?
 
 
     let functions = {
-        highlightBox: (num) => {
-            angular.copy([num], highlightedBox);
-        },
-        getSelected: () => {
-            return highlightedBox;
-        },
         getBoxes: () => {
-            return displayedBoxes
+            angular.copy(gridBoxes, displayedBoxes);
+            return displayedBoxes;
+        },
+        initialize: () => {
+            return gridBoxes;
         },
         getPhrase: () => {
             return phrase;
@@ -54,21 +56,21 @@ core.factory('CornersFactory', function() {
         getWord: () => {
             return word;
         },
+        delete: () => {
+            let newPhrase = phrase[0].slice(0, -2);
+            angular.copy([newPhrase], phrase)
+        },
         goToBox: (box) => {
             topLevel = !topLevel // switch the state
-            //boxNumber = box[0];
             if(topLevel){
-                angular.copy(boxes[box].contents, displayedBoxes)
+                angular.copy(gridBoxes[box], displayedBoxes)
             } else {
-                word += boxes[currentBox].contents[box]
-                let newPhrase = phrase[0]+= boxes[currentBox].contents[box]
-                console.log('word:', word);
-                console.log(boxes[currentBox]);
+                word += gridBoxes[currentBox][box]
+                let newPhrase = phrase[0]+= gridBoxes[currentBox][box]
                 angular.copy([newPhrase], phrase)
-                angular.copy(topBoxes.contents, displayedBoxes)
+                angular.copy(gridBoxes, displayedBoxes)
             }
-            // angular.copy(((topLevel) ? boxes[highlightedBox] : boxes.topLevel), displayedBoxes) // ternary, for funsies
-            currentBox = highlightedBox[0];
+            currentBox = box;
         }
     };
     return functions;

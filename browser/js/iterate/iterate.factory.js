@@ -2,15 +2,21 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
     var iterateObj = {};
     var count = 0;
     var debounce = true;
+    var boxDebounce = true;
+    var mouthDebounce = true;
     var selectingLetter = false;
     var selectingOption = false;
     var currentBox = 0;
     var lastBox = 0;
+    var blinkHold = 0;
     iterateObj.scopeValue = [];
     iterateObj.linkValue;
     iterateObj.settingsValue;
     iterateObj.selectedLetter;
-    iterateObj.selectedBox = [4];
+
+    //sets initial box to middle
+    iterateObj.selectedBox = 2;
+    iterateObj.word = "";
 
     let debounceFn = (time, fn) => {
         let t = time || 750
@@ -20,6 +26,12 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
                 fn()
             };
         }, t)
+    }
+
+    let boxDelay = () => {
+        setTimeout(() => {
+            boxDebounce = true
+        }, 1000)
     }
 
     const translateDelay = {
@@ -56,6 +68,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
                 //TimerFactory.pauseIteration(500);
             }
         }
+
     }
 
     var popupIterator = function() {
@@ -182,7 +195,17 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
     function analyzeEyePositions(cb) {
         var positions = TrackingFactory.getPositions();
         if (positions) {
-            if (PositionFactory.blinkCompare(positions)) {
+            var blink = PositionFactory.blinkCompare(positions);
+            if (blink === 'delete') {
+                if (mouthDebounce) {
+                    mouthDebounce = false;
+                    KeyboardFactory.delete();
+                    selectingLetter = false;
+                    setTimeout(function() {
+                        mouthDebounce = true;
+                    })
+                }
+            } else if (blink) {
                 cb();
             }
         }
@@ -244,7 +267,13 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         if (debounce) {
             debounce = false;
             CornersFactory.goToBox(box)
-            debounceFn()
+            debounceFn();
+            boxDelay();
+        } else if (blinkHold > 3) { //this checkes to see if the eyes are still closed
+            blinkHold = 0;
+            CornersFactory.delete();
+        } else {
+            blinkHold++
         }
     }
 
@@ -254,15 +283,14 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         if (converge < 300) {
             count++;
             if (count > 10) {
-                PositionFactory.getPupilAverage(positions);
+                //PositionFactory.getPupilAverage(positions);
                 PositionFactory.getBlinkAverage(positions);
             }
             if (count > 30) {
-                PositionFactory.setPupilZero();
+                PositionFactory.setPupilZero(positions);
                 PositionFactory.setBlinkZero(positions);
                 //PositionFactory.setBrowZero(positions);
                 TimerFactory.calibrationFinished();
-                console.log('here');
                 iterateObj.iterate('corners');
                 count = 0;
             }
@@ -275,11 +303,16 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         var positions = TrackingFactory.getPositions();
         if (positions) {
             currentBox = PositionFactory.pupilPosition(positions);
-            if (PositionFactory.blinkCompare(positions)) {
-                cb(currentBox);
-            }
-            if(debounce && currentBox === lastBox){
-                CornersFactory.highlightBox(currentBox);
+            let blinkStatus = PositionFactory.blinkCompare(positions);
+
+            //position factory returns false if changes are too large
+            //eventually want to call zero again
+            if (blinkStatus) {
+                boxDebounce = false;
+                cb(lastBox); // this way, box doesn't jump down when selecting
+            } else {
+                blinkHold = 0;
+                if (boxDebounce) iterateObj.selectedBox = currentBox; //want some delay with box movement after one is selected
             }
             lastBox = currentBox;
         }
@@ -319,14 +352,12 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
                 TimerFactory.calibrate(pupilCheck, 50, page);
             } else TimerFactory.calibrate(convergeCheck, 50, page);
         } else {
-            console.log('Caregiver set');
             TimerFactory.clearAll();
         }
     }
 
 
     iterateObj.iterate = function(page) { // fires once we have calibration (from browZero())
-        console.log('no spin');
         $rootScope.zeroActive = false;
         var positions = TrackingFactory.getPositions();
         switch (page) {
