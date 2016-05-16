@@ -269,7 +269,7 @@ let blinkDt;
     }
 
     function navCallback() {
-        TimerFactory.clearTracking();
+        //TimerFactory.clearTracking();
         iterateObj.linkValue = null;
         goToPage();
     }
@@ -365,9 +365,10 @@ let blinkDt;
 
 
     iterateObj.zero = function(page) {
-        // if(trackingActive) {
-        //     TimerFactory.clearTracking();
-        // }
+        if(trackingActive) {
+            TimerFactory.clearTracking();
+            console.log('Tracking already active!');
+        }
 
         if (!$rootScope.caregiver) {
             trackingActive = true;

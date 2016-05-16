@@ -29,7 +29,6 @@ core.factory('TimerFactory', function($rootScope,$state, $interval, $timeout, Tr
             videoInt = $interval(iterator, delay);
         },
         clearAll: () => {
-            console.log('clear all',$state.$current);
             $interval.cancel(calibrateInt);
             $interval.cancel(cursorInt);
             $interval.cancel(positionInt);
@@ -37,7 +36,6 @@ core.factory('TimerFactory', function($rootScope,$state, $interval, $timeout, Tr
             TrackingFactory.endTracking();
         },
         clearTracking: () => {
-            console.log('clear tracking',$state.$current);
             $interval.cancel(calibrateInt);
             $interval.cancel(cursorInt);
             $interval.cancel(positionInt);

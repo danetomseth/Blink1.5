@@ -110,7 +110,7 @@ app.config(function($urlRouterProvider, $locationProvider) {
 // This app.run is for controlling access to specific states.
 app.run(function($rootScope, AuthService, $state, TrackingFactory, WebcamFactory, TimerFactory) {
      //initially sets caregiver to false
-    $rootScope.caregiver = true;
+    $rootScope.caregiver = false;
     // The given state requires an authenticated user.
     var destinationStateRequiresAuth = function(state) {
         return state.data && state.data.authenticate;
