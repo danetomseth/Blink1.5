@@ -17,7 +17,6 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
                 return IterateFactory.selectedLetter
             }, function(newVal, oldVal) {
                 if (typeof newVal !== 'undefined') {
-                    console.log('selected letter changed!!', IterateFactory.selectedLetter);
                     if(IterateFactory.selectedLetter) {
                         scope.selected = IterateFactory.selectedLetter;
                         count++

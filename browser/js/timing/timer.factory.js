@@ -1,6 +1,6 @@
 //this sets all of timer dependent functions to the same intervals to clear on state change
 
-core.factory('TimerFactory', function($rootScope, $interval, $timeout) {
+core.factory('TimerFactory', function($rootScope, $interval, $timeout, TrackingFactory) {
     var calibrateInt;
     var cursorInt;
     var positionInt;
@@ -33,6 +33,7 @@ core.factory('TimerFactory', function($rootScope, $interval, $timeout) {
             $interval.cancel(cursorInt);
             $interval.cancel(positionInt);
             $interval.cancel(videoInt);
+            TrackingFactory.endTracking();
         },
         clearTracking: () => {
             $interval.cancel(calibrateInt);
