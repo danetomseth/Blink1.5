@@ -30,21 +30,35 @@
 }
 
 .keyboard-row {
-    height: 50px;
+    height: 9vh;
     margin: 2px 5px;
     padding: 5px 0px;
-   // margin: 
+   // margin:
 }
 
+
 .row-box {
+    padding: 8px;
     margin: 0px 5px;
     line-height: 50px;
     text-align: center;
-    font-size: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
     background-color: nth($accent, 1);
     color: nth($text, 1);
 }
 
+.keyboard-row:last-of-type  {
+    .row-box{
+        background: nth($accent, 5);
+    }
+}
+
+.keyboard-row:first-of-type  {
+    .row-box{
+        background: nth($accent, 5);
+    }
+}
 .letter-hover {
     color: nth($accentB, 1);
     background: nth($background, 1);

@@ -5,6 +5,7 @@
                 <md-input-container class="md-block">
                     <label>Message</label>
                     <input name="Text" ng-model="wordInput" class="inputBox" flex="80">
+                    <span ng-show="speaking" class="glyphicon glyphicon-volume-up"></span>
                 </md-input-container>
                 <md-intput-container class="md-block">
                     <md-button ng-click="say()" class="md-raised primary-btn">Say</md-button>
@@ -13,9 +14,9 @@
                 </md-intput-container>
             </form>
     </div>
-    <div flex>
+    <div flex id="keyboard">
         <div flex layout="row" ng-repeat="(key, val) in keyboard" class="keyboard-row">
-            <div flex="20" class="row-box" ng-repeat="letter in keyboard[key]['letters']" ng-class="{'letter-hover': (letter ===   keyboard[key]['letters'][scopeValue[1]] && {{key}} === scopeValue[0]), 'hover-row': {{key}} === scopeValue[0], 'selected': ($index === selected[1] && {{key}} === selected[0])}">{{letter}}</div>
+            <div flex="20" class="md-whiteframe-3dp row-box" ng-repeat="letter in keyboard[key]['letters']" ng-class=" {'letter-hover': (letter ===   keyboard[key]['letters'][scopeValue[1]] && {{key}} === scopeValue[0]), 'hover-row': {{key}} === scopeValue[0], 'selected': ($index === selected[1] && {{key}} === selected[0])}">{{letter}}</div>
         </div>
     </div>
 </div>
