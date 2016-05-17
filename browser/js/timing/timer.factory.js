@@ -14,7 +14,6 @@ core.factory('TimerFactory', function($rootScope, $interval, $timeout, TrackingF
             readFunc = function() {
                     positionInt = $interval(iterator, delay, 0, true, callback);
                 }
-            }
             readFunc();
         },
         moveCursor: (iterator, delay) => {

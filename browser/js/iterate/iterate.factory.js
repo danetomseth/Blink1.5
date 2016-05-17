@@ -115,20 +115,18 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
 
     function analyzeEyePositions(cb) {
         var positions = TrackingFactory.getPositions();
+
         if (positions && PositionFactory.blinkCompare(positions)) {
             blinkDt = Date.now() - lastBlinkTime;
             // On double blink
             if ((blinkDt < 800) && (blinkDt > 100)) {
-                console.log("Undo!")
                 let arr = KeyboardFactory.resetKeyboard();
                 angular.copy(arr, iterateObj.scopeValue);
             }
             // Two blinks
             else {
-                console.log("Single blink")
                 cb();
             }
-            console.log("resetting last blink time")
             lastBlinkTime = Date.now();
         }
     }
@@ -150,6 +148,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             CornersFactory.eyePosition(eyeX, eyeY); // if the eyes go more than the "threshold" away from center then go to the corner
         }
     }
+
 
     ////////////////////////////////////////////////////////////
     /////////// Candidates for an Action Factory?
@@ -234,46 +233,6 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         })
     }
 
-    ////////////////////////////////////////////////////////////
-    //////////// Analyze functions that accept callbacks
-    ////////////////////////////////////////////////////////////
-
-    function analyzeEyePositions(cb) {
-        var positions = TrackingFactory.getPositions();
-        if (positions) {
-            var blink = PositionFactory.blinkCompare(positions);
-            if (blink === 'delete') {
-                if (mouthDebounce) {
-                    mouthDebounce = false;
-                    KeyboardFactory.delete();
-                    selectingLetter = false;
-                    setTimeout(function() {
-                        mouthDebounce = true;
-                    })
-                }
-            } else if (blink) {
-                cb();
-            }
-        }
-    }
-
-    function analyzeBrowPositions(cb) {
-        var positions = TrackingFactory.getPositions();
-        if (positions) {
-            if (PositionFactory.browCompare(positions)) {
-                cb();
-            }
-        }
-    }
-
-    function readPositions() {
-        let positions = TrackingFactory.getPositions();
-        if (positions) {
-            let eyeX = positions[27][0] + positions[32][0]
-            let eyeY = positions[27][1] + positions[32][1]
-            CornersFactory.eyePosition(eyeX, eyeY); // if the eyes go more than the "threshold" away from center then go to the corner
-        }
-    }
 
     ////////////////////////////////////////////////////////////
     //////////// Callback functions to send to analyzers
@@ -371,6 +330,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         if (converge < 300) {
             count++;
             if (count > 10) {
+                console.log("Getting blink")
                 var positions = TrackingFactory.getPositions();
                 PositionFactory.getBlinkAverage(positions);
             }
@@ -409,7 +369,6 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             case 'type':
                 // PositionFactory.setBrowZero(positions);
                 lastBlinkTime = Date.now();
-                PositionFactory.setBlinkZero(positions);
                 TimerFactory.startReading(analyzeEyePositions, 50, keyboardCallback);
                 // TimerFactory.startReading(analyzeBrowPositions, 50, keyboardCallback);
                 TimerFactory.moveCursor(keyboardIterator, 750);
