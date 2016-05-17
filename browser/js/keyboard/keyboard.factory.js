@@ -25,7 +25,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         ["U", "V", "W", "X", "Y"]
     ];
 
-            
+
     let rowLength = alphabet[0].length;
     let phrase = "";
 
@@ -35,9 +35,9 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
     }
 
     const predictWords = () => {
-            PredictFactory.nextWords(phrase) // sends whole sentence to the predictor where it is spliced
-            .then(words => {
-                if (words.length > 1) {angular.copy(words, alphabet[0])} // if there are suggestions, push them onto the alphabet array
+        PredictFactory.nextWords(phrase) // sends whole sentence to the predictor where it is spliced
+        .then(words => {
+                if (words.length > 1) {angular.copy(words, alphabet[0].letters)} // if there are suggestions, push them onto the alphabet array
             });
             phrase += " "; // add a space that the user asked for
             return phrase // send the current word back to the user
@@ -85,7 +85,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
                         console.log("Error: Action "+action+" not found");
                 }
             } else if( returnRow === 0 ){ // if we are on the suggested word row
-                if (phrase[phrase.length-1] !== " ") {// if the last character isn't a space, replace the whole word
+                if (phrase.length && phrase[phrase.length-1] !== " ") {// if the last character isn't a space, replace the whole word
                     phrase = phrase.replace(/[\w!.,'"/\(\)\-]+$/g, alphabet[returnRow].letters[returnLetter]) // repace the last word with the full word
                 } else {
                     phrase += alphabet[returnRow].letters[returnLetter]; // adds the word to the sentence
