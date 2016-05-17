@@ -11,16 +11,16 @@ core.factory('TimerFactory', function($rootScope,$state, $interval, $timeout, Tr
 
     return {
         startReading: (iterator, delay, callback) => {
-        	readFunc = function() {
-            	positionInt = $interval(iterator, delay, 0, true, callback);
-        	}
-        	readFunc();
+            readFunc = function() {
+                    positionInt = $interval(iterator, delay, 0, true, callback);
+                }
+            readFunc();
         },
         moveCursor: (iterator, delay) => {
-        	cursorFunc = function() {
-            	cursorInt = $interval(iterator, delay);
-        	}
-        	cursorFunc();
+            cursorFunc = function() {
+                cursorInt = $interval(iterator, delay);
+            }
+            cursorFunc();
         },
         calibrate: (iterator, delay, page) => {
             calibrateInt = $interval(iterator, delay, 0, true, page);
@@ -29,25 +29,45 @@ core.factory('TimerFactory', function($rootScope,$state, $interval, $timeout, Tr
             videoInt = $interval(iterator, delay);
         },
         clearAll: () => {
-            $interval.cancel(calibrateInt);
-            $interval.cancel(cursorInt);
-            $interval.cancel(positionInt);
-            $interval.cancel(videoInt);
-            TrackingFactory.endTracking();
+            if (angular.isDefined(calibrateInt)) {
+                $interval.cancel(calibrateInt);
+                calibrateInt = null;
+            }
+            if (angular.isDefined(cursorInt)) {
+                $interval.cancel(cursorInt);
+                cursorInt = null;
+            }
+            if (angular.isDefined(positionInt)) {
+                $interval.cancel(positionInt);
+                positionInt = null;
+            }
+            if (angular.isDefined(videoInt)) {
+                $interval.cancel(videoInt);
+                videoInt = null;
+            }
         },
         clearTracking: () => {
-            $interval.cancel(calibrateInt);
-            $interval.cancel(cursorInt);
-            $interval.cancel(positionInt);
+            if (angular.isDefined(calibrateInt)) {
+                $interval.cancel(calibrateInt);
+                calibrateInt = null;
+            }
+            if (angular.isDefined(cursorInt)) {
+                $interval.cancel(cursorInt);
+                cursorInt = null;
+            }
+            if (angular.isDefined(positionInt)) {
+                $interval.cancel(positionInt);
+                positionInt = null;
+            }
         },
         pauseIteration: (delay) => {
             if (angular.isDefined(cursorInt)) {
-            	$interval.cancel(positionInt);
+                $interval.cancel(positionInt);
                 $interval.cancel(cursorInt);
             }
             $timeout(function() {
-            	cursorFunc();
-            	readFunc();
+                cursorFunc();
+                readFunc();
             }, delay);
         },
         //we know that the webcam is loaded and can start tracking

@@ -5,12 +5,13 @@ const words = 'the and have that for you with say this they but his from not she
 core.factory("PredictFactory", function($http){
     return {
         nextWords: (sentence) => {
-            var word = sentence.split(" ").splice(-1)[0].toLowerCase()
-            return $http.get("/api/words/"+word)
-            .then(res => {
-                let upperWords = res.data.splice(0, 5).join(",").toUpperCase().split(",") // take the first 5, convert them to upper case
-                return upperWords
-            })
+            var word = sentence.trim().split(" ").splice(-1)[0].toLowerCase()
+            console.log("predict factory word is", word)
+                return $http.get("/api/words/"+word)
+                .then(res => {
+                    let upperWords = res.data.splice(0, 5).join(",").toUpperCase().split(",") // take the first 5, convert them to upper case
+                    return upperWords
+                })
         },
         ingest: () => {
             return $http.put("/api/words/", {file: ""})

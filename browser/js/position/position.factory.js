@@ -60,9 +60,9 @@ core.factory('PositionFactory', function() {
             var diffL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]); 
             var diffR = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             
-            if(positions[57][1] - positions[60][1] > 8) { //checks mouth positions
-                return 'delete';
-            }
+            // if(positions[57][1] - positions[60][1] > 8) { //checks mouth positions
+            //     return 'delete';
+            // }
             change = ((diffL + diffR) / diffZero);
 
             return (change < 0.9)
@@ -81,7 +81,6 @@ core.factory('PositionFactory', function() {
             diffZeroL += (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             diffZeroR += (positions[66][1] + positions[26][1] + positions[65][1]) - (positions[63][1] + positions[24][1] + positions[64][1]);
 
-            //return [(diffZeroL / readingCount).toFixed(1), (diffZeroR / readingCount).toFixed(1)];
         },
         setEyeZero: (positions) => {
             leftZeroArray = leftEyeArray.map(function(index) {
@@ -103,9 +102,10 @@ core.factory('PositionFactory', function() {
                 change = Math.abs(((positions[point][1] - rightZeroArray[i]) / rightZeroArray[i]) * 100)
                 eyeTotal += change;
             });
+            return (eyeTotal > eyeThreshold);
         },
         setPupilZero: (positions) => {
-           
+
             pupilCount = 0;
             pupilArray.forEach(function(elem, index) {
                 pupilZeroArray[0] += positions[elem][0] //adds the x position
@@ -130,6 +130,7 @@ core.factory('PositionFactory', function() {
                 eyeX += positions[elem][0] //adds the x position
                 eyeY += positions[elem][1] //adds the y position
             });
+
             let xDiff = pupilZeroArray[0] - eyeX;
             let yDiff = pupilZeroArray[1] - eyeY;
             xDiffAvg.push(xDiff);
@@ -184,22 +185,3 @@ core.factory('PositionFactory', function() {
         }
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
