@@ -8,9 +8,7 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
             let delay = scope.delay; // reference from ScrollCtrl
             scope.wordInput = '';
             scope.selected = [null, null];
-            scope.speaking = false
-
-
+            scope.speaking = false;
 
             //makes sure first element is highlighted on page load
             scope.keyboard = KeyboardFactory.alphabet;
@@ -37,7 +35,6 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
             });
 
             scope.scopeValue = IterateFactory.scopeValue;
-
 
             scope.say = () => SpeechFactory.say(scope.wordInput, "UK English Male", {onstart: togglePlay, onend: togglePlay});
 
