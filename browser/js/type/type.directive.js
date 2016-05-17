@@ -22,7 +22,6 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
                         count++
                     }
                     else scope.selected = [null, null];
-
                 }
             });
 
@@ -38,6 +37,12 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
 
 
             scope.say = () => SpeechFactory.say(scope.wordInput);
+
+          //   elem.on('$destroy', function() {
+          //       if (angular.isDefined(countInterval)) {
+          //           $interval.cancel(countInterval);
+          //       }
+          // });
 
         }
 

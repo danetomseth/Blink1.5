@@ -30,8 +30,8 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
     let phrase = "";
 
     const resetKeyboardPosition = () => {
-            letterIndex = 0;
-            rowIndex = 0;
+        letterIndex = 0;
+        rowIndex = 0;
     }
 
     const predictWords = () => {
@@ -50,7 +50,13 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         },
         iterateLetter: () => {
             returnLetter = letterIndex; // save the letter we're at
-            (letterIndex > alphabet[returnRow].letters.length - 2) ? letterIndex = 0 : letterIndex++; // if we're at the end of the line, go back to the start, otherwise, increment where we are
+            // if we're at the end of the line, go to the next row
+            if (letterIndex > alphabet[returnRow].letters.length - 2) {
+                console.log("end of row")
+                letterIndex = 0;
+            }
+            // Otherwise, increment where we are
+            else { letterIndex++; }
             return returnLetter;
         },
         delete: () => { //resets the keyobard position on mouth open
