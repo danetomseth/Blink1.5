@@ -6,24 +6,43 @@
             <bl-box ng-show="xPattern" contents="boxes[0]"></bl-box> <!-- Box Directive -->
         </div>
 
-            <div class="col-xs-4 grid-item grid-word"><bl-box ng-show="!xPattern" contents=boxes[5]></bl-box></div>
+        <div class="col-xs-4 grid-item grid-empty" ng-class="{'active-box': selectedBox == 5}">
+            <bl-box ng-show="!xPattern" contents=boxes[5]></bl-box>
+        </div>
 
-        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox == 1}"><bl-box ng-show="xPattern" contents=boxes[1]></bl-box></div>
+        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox == 1}">
+            <bl-box ng-show="xPattern" contents=boxes[1]></bl-box>
+        </div>
     </div>
     <!-- Middle -->
     <div class="row row-centered grid-row">
-        <div class="col-xs-4 grid-item grid-empty"><bl-box ng-show="!xPattern" contents=boxes[6]></bl-box></div>
+        <div class="col-xs-4 grid-item grid-empty" ng-class="{'active-box': selectedBox == 6}">
+            <bl-box ng-show="!xPattern" contents=boxes[6]></bl-box>
+        </div>
 
-            <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox == 2}"><bl-box ng-show="xPattern" contents=boxes[2]></bl-box></div>
+        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox == 2}">
+            Phrase: {{phrase[0]}}<!-- <bl-box ng-show="xPattern" contents=boxes[2]> --></bl-box>
+        </div>
 
-        <div class="col-xs-4 grid-item grid-empty"><bl-box ng-show="!xPattern" contents=boxes[7]></bl-box></div>
+        <div class="col-xs-4 grid-item grid-empty" ng-class="{'active-box': selectedBox == 7}">
+            <bl-box ng-show="!xPattern" contents=boxes[7]></bl-box>
+        </div>
     </div>
     <!-- Bottom -->
     <div class="row row-centered grid-row">
-        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox == 3}"><bl-box ng-show="xPattern" contents=boxes[3]></bl-box></div>
+        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox == 3}">
+            <bl-box ng-show="xPattern" contents=boxes[3]></bl-box>
+        </div>
 
-            <div class="col-xs-4 grid-item grid-empty"><bl-box ng-show="!xPattern" contents=boxes[8]></bl-box></div>
+        <div class="col-xs-4 grid-item grid-empty" ng-class="{'active-box': selectedBox == 8}">
+            <bl-box ng-show="!xPattern" contents=boxes[8]></bl-box>
+        </div>
 
-        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox == 4}"><bl-box ng-show="xPattern" contents=boxes[4]></bl-box></div>
+        <div class="col-xs-4 grid-item" ng-class="{'active-box': selectedBox == 4}">
+            <bl-box ng-show="xPattern" contents=boxes[4]></bl-box>
+        </div>
     </div>
 </div>
+
+
+fix the bl-box directive so that it shows characters in the right boxes, then get select working

@@ -277,9 +277,11 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
     }
 
     function switchCornersPattern(){
-        debounceFn(null, function() {
+        if (debounce){
+            debounce = false
             PositionFactory.changePattern()
-        })
+            debounceFn()
+        }
     }
 
 

@@ -138,8 +138,7 @@ core.factory('PositionFactory', function() {
         pupilPosition: (positions) => {
             eyeX = positions[27][0]+positions[32][0];
             eyeY = positions[27][1]+positions[32][1];
-            let xPattern = 2; //defaults the selected box to
-            let plusPattern = 2;
+            let box = 2; //defaults the selected box to
             // pupilArray.forEach(function(elem, index) { // pushes left and right eye to the tracking array
             //     eyeX += positions[elem][0] //adds the x position
             //     eyeY += positions[elem][1] //adds the y position
@@ -154,7 +153,10 @@ core.factory('PositionFactory', function() {
             // let yDiff = eyeYZero - findAverage(yDiffAvg)
             let xDiff = ((eyeXZero - findAverage(xDiffAvg))/eyeXZero)*100
             let yDiff = ((eyeYZero - findAverage(yDiffAvg))/eyeYZero)*100
-            // console.log("diff percent,", xDiff, yDiff)
+            let xDiffAbs = Math.abs(xDiff);
+            let yDiffAbs = Math.abs(yDiff);
+
+            console.log("diff percent,", xDiffAbs, yDiffAbs)
             // let xDiff = eyeXZero - eyeX;
             // let yDiff = eyeYZero - eyeY;
 
@@ -166,25 +168,32 @@ core.factory('PositionFactory', function() {
             //         return false;
             //     }
             // }
-            if (xDiff < -pupilThreshold && yDiff > pupilThreshold) { // LEFT TOP
-                xPattern = 0;
-            } else if (xDiff > pupilThreshold && yDiff > pupilThreshold) { // RIGHT TOP
-                xPattern = 1;
-            } else if (xDiff < -pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM RIGHT
-                xPattern = 3;
-            } else if (xDiff > pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM LEFT
-                xPattern = 4;
+            if (useXPattern){
+                if (xDiff < -pupilThreshold && yDiff > pupilThreshold) { // LEFT TOP
+                    box = 0;
+                } else if (xDiff > pupilThreshold && yDiff > pupilThreshold) { // RIGHT TOP
+                    box = 1;
+                } else if (xDiff < -pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM RIGHT
+                    box = 3;
+                } else if (xDiff > pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM LEFT
+                    box = 4;
+                }
+            } else {
+                if (xDiff > yDiff && xDiff < pupilThreshold) { // LEFT
+                    // console.log("left", xDiff, yDiff)
+                    box = 5;
+                } else if (xDiff > yDiff && xDiff > pupilThreshold) { // RIGHT
+                    // console.log("Right", xDiff, yDiff)
+                    box = 6;
+                } else if (xDiff < yDiff && yDiff > pupilThreshold) { // TOP
+                    // console.log("Top", xDiff, yDiff)
+                    box = 8;
+                } else if (xDiff < yDiff && yDiff < pupilThreshold) { // BOTTOM
+                    // console.log("bottom", xDiff, yDiff)
+                    box = 9;
+                }
             }
 
-            if (xDiff < pupilThreshold && yDiff < 10) { // LEFT
-                plusPattern = 5;
-            } else if (xDiff > pupilThreshold && yDiff < 10) { // RIGHT
-                plusPattern = 6;
-            } else if (xDiff < 10 && yDiff > pupilThreshold) { // TOP
-                plusPattern = 8;
-            } else if (xDiff < 10 && yDiff < pupilThreshold) { // BOTTOM
-                plusPattern = 9;
-            }
 
             // let xDiff = (positions[33][0] - positions[32][0]) - eyeXZero;
 
@@ -215,8 +224,8 @@ core.factory('PositionFactory', function() {
 
             // }
 
-
-            return (useXPattern) ? xPattern : plusPattern;
+            console.log(box)
+            return box //(useXPattern) ? xPattern : plusPattern;
         }
     }
 });
