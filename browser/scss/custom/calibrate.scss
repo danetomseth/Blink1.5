@@ -29,3 +29,12 @@
 		color: nth($text, 1);
 	}
 }
+
+
+.tracker-box {
+	background: nth($background, 1);
+	height: 100%;
+	canvas {
+		height: 500px;
+	}
+}

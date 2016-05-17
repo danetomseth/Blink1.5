@@ -7,6 +7,23 @@ core.directive("blCalibrate", function(PositionFactory, TrackingFactory, $interv
 			let blinkCalibrate;
 
 
+				var boundingBox = document.getElementById("eye-box");
+                var ctx = boundingBox.getContext("2d");
+
+
+                ctx.strokeStyle = "red";
+                
+            $interval(function() {
+            	let positions = TrackingFactory.getPositions();
+            	console.log('hello');
+            	if(positions) {
+            		ctx.strokeRect(positions[27][0], positions[27][1], 160, 160);
+            		
+            	}
+
+            }, 100);
+
+
 			let calBlink = () => {
 				let i = 1;
 				scope.display = "Keep Eyes Open";
