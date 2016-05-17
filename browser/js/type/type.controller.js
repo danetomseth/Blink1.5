@@ -27,18 +27,6 @@ core.controller('TypeCtrl', function($state, $scope, user, IterateFactory, Timer
         TimerFactory.clearTracking();
     }
 
-
-    const translateDelay = {
-        0: 1750,
-        1: 1500,
-        2: 1250,
-        3: 1000,
-        4: 750,
-        5: 500
-    }
-
-    if (user) { $scope.delay = translateDelay[user.keyboardSpeed] } else { $scope.delay = translateDelay[3] };
-
 });
 
 
