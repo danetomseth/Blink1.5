@@ -5,6 +5,8 @@ core.factory('PositionFactory', function() {
     let blinkThreshold = 3;
     let mouthThreshold = 12;
     let diffZero = 0;
+    let diffZeroL = 0;
+    let diffZeroR = 0;
     let browZero = [];
     let rightZeroArray = [];
     let leftZeroArray = [];
@@ -16,13 +18,13 @@ core.factory('PositionFactory', function() {
     let eyeZero = 500;
     let eyeX = 0;
     let eyeY = 0;
-    const pupilThreshold = 0;
+    const pupilThreshold = 2;
     const browArray = [20, 21, 17, 16];
     const eyeArray = [63, 24, 64, 20, 21, 67, 29, 68, 17, 16];
     const rightEyeArray = [63, 24, 64, 20, 21];
     const leftEyeArray = [67, 29, 68, 17, 16];
     const pupilArray = [27, 32];
-    let maxArray = [];
+    let maxArray = [0.9];
     let averageReading = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let readingCount = 0;
     let pupilCount = 0;
@@ -55,24 +57,24 @@ core.factory('PositionFactory', function() {
         blinkCompare: (positions) => {
             let eyeTotal = 0;
             let change = 0
-            var diff = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
-
-            // if(positions[57][1] - positions[60][1] > 8) { //checks mouth positions
-            //     return 'delete';
-            // }
-
-            return ((diffZero - diff) > 2.2); //compares current distance of eyelid to zero distance
+            var diffL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]); 
+            var diffR = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
+            change = ((diffL + diffR) / diffZero);
+            return (change < 0.8)
         },
         setBlinkZero: () => {
-            console.log("SetBlinkZero", diffZero, readingCount)
-            diffZero = diffZero / readingCount; //sets the average distance between top eyelid and bottom
+            diffZero = (diffZeroL / readingCount) + (diffZeroR / readingCount); //sets the average distance between top eyelid and bottom
             readingCount = 0;
+            diffZeroL = 0;
+            diffZeroR = 0;
+            return diffZero;
         },
         getBlinkAverage: (positions) => {
             readingCount++;
-            console.log("ReadingCount", readingCount)
             mouthZero = positions[57][1] - positions[60][1];
-            diffZero += (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
+            diffZeroL += (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
+            diffZeroR += (positions[66][1] + positions[26][1] + positions[65][1]) - (positions[63][1] + positions[24][1] + positions[64][1]);
+
         },
         setEyeZero: (positions) => {
             leftZeroArray = leftEyeArray.map(function(index) {
@@ -105,9 +107,7 @@ core.factory('PositionFactory', function() {
             });
 
             eyeXZero = positions[33][0] - positions[32][0];
-
             eyeYZero = positions[33][1] - positions[32][1];
-            console.log('Zero:', [eyeXZero, eyeYZero]);
         },
         getPupilAverage: (positions) => {
             pupilCount++;
@@ -135,14 +135,6 @@ core.factory('PositionFactory', function() {
             yDiffAvg.shift();
             yDiff = yDiffAvg[0] + yDiffAvg[1] + yDiffAvg[2];
 
-            if(Math.abs(xDiff) + Math.abs(yDiff) > 100) {
-                pupilCount++;
-                console.log('not stable');
-                if(pupilCount > 5) {
-                    pupilCount = 0;
-                    return false;
-                }
-            }
             if (xDiff < -pupilThreshold && yDiff > pupilThreshold) { // LEFT TOP
                 returnBox = 0;
             } else if (xDiff > pupilThreshold && yDiff > pupilThreshold) { // RIGHT TOP
@@ -152,7 +144,37 @@ core.factory('PositionFactory', function() {
             } else if (xDiff > pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM LEFT
                 returnBox = 4;
             }
-            // return returnBox;
+
+            // let xDiff = (positions[33][0] - positions[32][0]) - eyeXZero;
+
+            // let yDiff = (positions[33][1] - positions[32][1]) - eyeYZero;
+
+            // xDiff = -xDiff;
+
+            // if (xDiff < -pupilThreshold && yDiff > pupilThreshold) { // LEFT TOP
+            //     console.log('eye diff LT', [xDiff, yDiff]);
+            //     returnBox = 0;
+            // } else if (xDiff > pupilThreshold && yDiff > pupilThreshold) { // RIGHT TOP
+            //     console.log('eye diff RT', [xDiff, yDiff]);
+            //     returnBox = 1;
+            // } else if (xDiff < -pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM RIGHT
+            //     console.log('eye diff BR', [xDiff, yDiff]);
+            //     returnBox = 3;
+            // } else if (xDiff > pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM LEFT
+            //     console.log('eye diff Bl', [xDiff, yDiff]);
+            //     returnBox = 4;
+            // }
+
+            // let xDiff = pupilArry[0] - eyeX;
+            // let yDiff = pupilZeroArray[1] - eyeY;
+            // pupilCount++;
+            // if(pupilCount > 10) {
+            //     console.log("Diff", [xDiff.toFixed(1), yDiff.toFixed(1)]);
+            //     pupilCount = 0;
+                
+            // }
+
+
             return returnBox;
         }
     }

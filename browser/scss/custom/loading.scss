@@ -12,12 +12,14 @@ $delayCoeff: 0.1s;
 .loading-svg {
   display: inline-block;
   position: absolute;
+  background: nth($primary, 1);
   top: 40%;
-  left: 50%;
+  left: 55%;
   height: 20%;
   width: 10%;
   line-height: 20%;
   text-align: center;
+  line-height: 100%;
   border-radius: 50%;
   z-index: 100;
 }
@@ -27,6 +29,7 @@ $delayCoeff: 0.1s;
   height: 100%;
   width: 100%;
   vertical-align: middle;
+
   fill: $firstColor;
   
   @for $i from 1 through 18 {
@@ -56,4 +59,13 @@ $delayCoeff: 0.1s;
 
 .blur-page {
   opacity: 0.5;
+}
+
+
+.loading-text {
+  position: relative;
+  font-size: 1.5em;
+  font-weight: 1.5em;
+  top: -55%;
+  z-index: 200;
 }

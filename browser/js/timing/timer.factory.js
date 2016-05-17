@@ -1,6 +1,6 @@
 //this sets all of timer dependent functions to the same intervals to clear on state change
 
-core.factory('TimerFactory', function($rootScope, $interval, $timeout, TrackingFactory) {
+core.factory('TimerFactory', function($rootScope,$state, $interval, $timeout, TrackingFactory) {
     var calibrateInt;
     var cursorInt;
     var positionInt;
@@ -73,7 +73,6 @@ core.factory('TimerFactory', function($rootScope, $interval, $timeout, TrackingF
         //we know that the webcam is loaded and can start tracking
         videoReady: () => {
             $interval.cancel(videoInt);
-            //clearInterval($rootScope.videoInterval);
         },
         calibrationFinished: () => {
             $interval.cancel(calibrateInt);
