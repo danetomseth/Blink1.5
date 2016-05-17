@@ -543,7 +543,6 @@ var clm = {
                     document.dispatchEvent(evt)
                 }
             }
-
             // return new points
             return currentPositions;
         }

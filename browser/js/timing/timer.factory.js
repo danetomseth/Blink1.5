@@ -12,13 +12,6 @@ core.factory('TimerFactory', function($rootScope, $interval, $timeout) {
     return {
         startReading: (iterator, delay, callback) => {
             readFunc = function() {
-                if (angular.isDefined(positionInt)) {
-                    // When this console log
-                    console.log("positionInt already defined, cancel the previous one before making a new one");
-                    // $interval.cancel(positionInt);
-                    // positionInt = $interval(iterator, delay, 0, true, callback);
-                    return;
-                } else {
                     positionInt = $interval(iterator, delay, 0, true, callback);
                 }
             }
