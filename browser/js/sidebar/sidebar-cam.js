@@ -37,14 +37,14 @@ core.directive('blSidebarWebcam', function(SidebarFactory, PositionFactory, $roo
                 var boundingBox = document.getElementById("canvas-overlay");
                 var ctx = boundingBox.getContext("2d");
 
-                var middleX = containerWidth - (containerWidth / 3);
+                var middleX = containerWidth - (containerWidth / 3.5);
                 var middleY = (containerWidth * .75) - ((containerWidth / 3.1));
-                var canvasWidth = (containerWidth / 3) * 2;
+                var canvasWidth = (containerWidth / 3.5) * 2;
                 var canvasHeight = ((containerWidth / 3) * .75) * 2.4;
 
                 ctx.strokeStyle = "#82ff32";
                 ctx.strokeRect(middleX, middleY, canvasWidth, canvasHeight);
-                
+
                 TrackingFactory.startTracking(canvas, video, [middleX, middleY, canvasWidth, canvasHeight]);
 
 

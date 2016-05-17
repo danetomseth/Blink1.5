@@ -1,5 +1,35 @@
-<div flex layout="row" layout-align="center" class="vertical-center">
-	<div flex="75" class="md-whiteframe-5dp center-box">
+
+
+<div flex layout="column" layout-align="center" class="vertical-center">
+	<div class="center-align">
+		<div ng-style="blinkReady" class="blink-box  md-whiteframe-10dp">
+			Blink
+		</div>
+	</div>
+	<div flex layout="row" layout-align="center">
+
+		<div ng-style="blinkReady" class="eye-reading md-whiteframe-10dp">
+			{{leftEye}}
+		</div>
+
+		<div ng-style="blinkReady" class="eye-reading md-whiteframe-10dp">
+			{{rightEye}}
+		</div>
+
+	</div>
+
+	<div flex layout="row" layout-align="center">
+		<div>
+		<md-button class="md-raised md-accent" ng-click="startCalibration()">Start</md-button>
+		</div>
+		<div>
+		<md-button class="md-raised md-accent" ng-click="takeReading()">Calibrate</md-button>
+		</div>
+	</div>
+
+
+
+	<!-- <div flex="75" class="md-whiteframe-5dp center-box">
 		<div layout="row" layout-wrap class="cal-display">
 			<div flex="25">
 			</div>
@@ -33,15 +63,15 @@
 			<div flex="25">
 			</div>
 		</div>
-		<!-- <div class="center-btn">
+		 <div class="center-btn">
 			
 			
 			
 			<p>Open Zero: {{openZero.toFixed(1)}}</p>
 			<p>Closed Zero: {{closedZero.toFixed(1)}}</p>
 			
-		</div> -->
-	</div>
+		</div> 
+	</div> -->
 </div>
 
 
