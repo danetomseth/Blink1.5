@@ -3,6 +3,8 @@ core.controller('MainCtrl', function($scope, $state, $rootScope, IterateFactory,
 
     });
 
+   
+
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
         //TimerFactory.clearTracking();
         // if(toState.name === 'type') {
@@ -16,9 +18,7 @@ core.controller('MainCtrl', function($scope, $state, $rootScope, IterateFactory,
     $scope.sidebar = {};
 
 
-    $scope.stopWebcam = () => {
-        TimerFactory.clearAll();
-    }
+    
 
     $scope.stopTacking = () => {
         TimerFactory.clearTracking();

@@ -10,6 +10,7 @@ core.factory('TrackingFactory', function($rootScope) {
         //new tracker
         tracker = new clm.tracker();
         tracker.init(pModel);
+        tracker.setResponseMode("blend", ["raw"]);
         tracker.start(video);
 
         //set canvas
@@ -34,7 +35,9 @@ core.factory('TrackingFactory', function($rootScope) {
     };
 
     trackObj.endTracking = () => {
-        tracker.stop();
+        if(tracker) tracker.stop();
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        $rootScope.videoActive = false
     };
 
     trackObj.setZero = () => {

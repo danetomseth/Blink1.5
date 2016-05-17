@@ -5,16 +5,16 @@ $grey: #454851;
 $border: #6D938F;
 $blue: #9CD3CD;*/
 
-#grid-row {
+.grid-row {
     div{
-        color: blue;
+        //color: nth($text, 2);
         line-height: 250px;
         text-align: center;
         font-weight: bold;
         font-size: 1.8em;
     }
 }
-#box-row {
+.letter-grid {
     div{
         line-height: 83.33px;
         text-align: center;
@@ -22,55 +22,55 @@ $blue: #9CD3CD;*/
         font-size: 1em;
     }
 }
-/*#grid-row{
-	height: 200px;
-	text-align: center;
-	line-height: 200px;
-	margin: 10px;
-	div {
-		width: 30%;
-		margin: 5px;
-		font-size: 2em;
-		font-weight: 2em;
-		color: nth($text, 1);
-	}
-	div.colored {
-		//background-color: $accentL;
-	}
-}
 
-#box {
-	background: nth($accent, 1);
-	color: nth($text, 1);
-}*/
+.single-letter {
+    //color: nth($accent, 1) !important;
+    text-align: center;
+    width: 100%;
+
+};
+
 
 
 
 .grid-item {
     height: 250px;
-    border: 1px solid red;
+    border: 2px solid nth($primary, 1);
+    background: nth($accent, 1);
+}
+
+
+
+.grid-empty {
+	background: none;
+	border: none;
+}
+
+.grid-word {
+	border: none;
+	background: none;
+	//color: nth($primary, 1);
 }
 
 
 
 .active-box {
-    background-color: red;
-    box-shadow: 0 15px 15px black;
+    background-color: nth($primary, 1);
+    box-shadow: 3px 3px 3px nth($accentB, 1);
+    border: 2px solid nth($accent, 1);
+    //color: nth($text, 1);
     z-index: 10;
 }
 
-/*	div {
-		background-color: nth($primary, 1) !important;
-	}
-}
-
-.corner-container {
-	border: 4px solid black;
-	padding: 20px;
-}*/
 
 .selected-letter {
     background-color: #5bc0de;
-    color: black;
+    //color: black;
+}
+
+
+
+#single-letter {
+    color: red;
 }
 
