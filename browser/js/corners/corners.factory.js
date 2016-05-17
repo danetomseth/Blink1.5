@@ -56,9 +56,7 @@ core.factory('CornersFactory', function() {
         emojiBox[4].contents
     ]
 
-
-
-    let phrase = [""]
+    let phrase = [""];
     let word = '';
     let currentBox;
     let displayedBoxes = [];
@@ -93,10 +91,10 @@ core.factory('CornersFactory', function() {
                 console.log("switching to",box)
                 angular.copy(gridBoxes[box], displayedBoxes)
             } else {
-                word += gridBoxes[currentBox][box]
-                let newPhrase = phrase[0]+= gridBoxes[currentBox][box]
-                angular.copy([newPhrase], phrase)
-                angular.copy(gridBoxes, displayedBoxes)
+                word += gridBoxes[currentBox][box];
+                let newPhrase = phrase[0]+= gridBoxes[currentBox][box];
+                angular.copy([newPhrase], phrase);
+                angular.copy(gridBoxes, displayedBoxes);
             }
             currentBox = box;
         }

@@ -186,8 +186,6 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         })
     }
 
-
-
     ////////////////////////////////////////////////////////////
     //////////// Analyze functions that accept callbacks
     ////////////////////////////////////////////////////////////
@@ -207,30 +205,10 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             }
             // Two blinks
             else {
-                console.log("Single blink")
                 cb();
             }
-            console.log("resetting last blink time")
             lastBlinkTime = Date.now();
         }
-
-
-        // if (positions && PositionFactory.blinkCompare(positions)) {
-        //     blinkDt = Date.now() - lastBlinkTime;
-        //     // On double blink
-        //     if ((blinkDt < 800) && (blinkDt > 100)) {
-        //         console.log("Undo!")
-        //         let arr = KeyboardFactory.resetKeyboard();
-        //         angular.copy(arr, iterateObj.scopeValue);
-        //     }
-        //     // Two blinks
-        //     else {
-        //         console.log("Single blink")
-        //         cb();
-        //     }
-        //     console.log("resetting last blink time")
-        //     lastBlinkTime = Date.now();
-        // }
     }
 
     function analyzeBrowPositions(cb) {
@@ -284,14 +262,9 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         }
     }
 
-
-
     ////////////////////////////////////////////////////////////
     /////////// Corners functions
     ////////////////////////////////////////////////////////////
-
-
-
 
     let cornersCallback = (box) => {
         if (debounce) {
@@ -316,7 +289,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
                 PositionFactory.getPupilAverage(positions);
                 PositionFactory.getBlinkAverage(positions); // start finding an average position
             }
-            if (count > 30) { // once we have been finding averages for a while, lock them in.
+            else if (count > 30) { // once we have been finding averages for a while, lock them in.
                 PositionFactory.setPupilZero(positions);
                 PositionFactory.setBlinkZero(positions);
                 //PositionFactory.setBrowZero(positions);
@@ -354,7 +327,6 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
 
     var convergeCheck = function(page) {
         var converge = TrackingFactory.convergence();
-
         if (converge < 300) {
             count++;
             if (count > 10) {
@@ -372,21 +344,16 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         }
     }
 
-
-
     iterateObj.zero = function(page) {
-
         if (!$rootScope.caregiver) {
             $rootScope.zeroActive = true;
             if (page === 'corners') {
                 TimerFactory.calibrate(pupilCheck, 50, page);
             } else TimerFactory.calibrate(convergeCheck, 50, page);
         } else {
-            console.log('Caregiver, everything stopped');
             TimerFactory.clearAll();
         }
     }
-
 
     iterateObj.iterate = function(page) { // fires once we have calibration (from browZero())
         $rootScope.zeroActive = false;

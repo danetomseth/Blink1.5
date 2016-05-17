@@ -14,7 +14,6 @@ core.directive('blBox', function(){
                     box.addClass("letter-grid");
                     letterBox.removeClass("single-letter");
                     scope.letters = scope.contents
-                    
                 } else {
                     box.removeClass("letter-grid");
                     letterBox.addClass("single-letter");
