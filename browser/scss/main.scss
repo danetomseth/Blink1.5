@@ -8,30 +8,32 @@
 
 //blue
 $primary: (
- rgba(119,201,212,1),
- rgba(220,247,250,1),
- rgba(167,226,235,1),
- rgba( 79,170,183,1),
- rgba( 47,139,152,1)
+        #4484ce,
+        #3477c5,
+        #2e6bb1,
+        #295f9c,
+        #245288,
+
  );
 
-//yellow-ish
+//grey-ish
 $accent: (
-  rgba(255,219,141,1),
-  rgba(255,245,223,1),
-  rgba(255,231,180,1),
-  rgba(255,208,107,1),
-  rgba(248,193, 74,1)
+        #d9d9d9,
+        #cccccc,
+        #bfbfbf,
+        #b3b3b3,
+        #a6a6a6,
   );
 
-//red-ish
+//orange-ish
 $accentB: (
- rgba(255,149,141,1),
- rgba(255,226,223,1),
- rgba(255,186,180,1),
- rgba(255,117,107,1),
- rgba(248, 86, 74,1)
+        #f19f4d,
+        #ef9235,
+        #ed851e,
+        #e07912,
+        #c86c10,
  );
+
 
 //red
 $forest: (
@@ -41,22 +43,13 @@ $forest: (
   #FF756B,
   #F8564A
   );
-//white
+//yellowish
 $background: (
-  #e8e8eb,
-  #dbdbdf,
-  #cdcdd3,
-  #c0c0c7,
-  #b2b2bb,
-  #a5a5af,
-  #9797a3,
-  #8a8a97,
-  #7c7c8b,
-  #70707e,
-  #f6f6f7,
-  #ffffff,
-  #ffffff,
-  #646470
+        #dfba00,
+        #ffd713,
+        #ffdc2d,
+        #ffe046,
+        #ffe460,
   );
 
 //0 white

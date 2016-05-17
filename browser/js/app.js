@@ -7,83 +7,83 @@ window.app = angular.module('BlinkApp', ['blinkAuth', 'core']);
 core.config(function($mdThemingProvider) {
     //angular material icons
 var customPrimary = {
-        '50': '#d8eff3',
-        '100': '#c4e8ec',
-        '200': '#b1e0e6',
-        '300': '#9ed8e0',
-        '400': '#8ad1da',
-        '500': '#77C9D4',
-        '600': '#64c1ce',
-        '700': '#50bac8',
-        '800': '#3db2c1',
-        '900': '#37a0ae',
-        'A100': '#ebf7f9',
-        'A200': '#ffffff',
-        'A400': '#ffffff',
-        'A700': '#318e9b'
+        '50': '#a9c6e8',
+        '100': '#95b9e3',
+        '200': '#81acde',
+        '300': '#6c9fd9',
+        '400': '#5891d3',
+        '500': '#4484ce',
+        '600': '#3477c5',
+        '700': '#2e6bb1',
+        '800': '#295f9c',
+        '900': '#245288',
+        'A100': '#bdd4ee',
+        'A200': '#d1e1f3',
+        'A400': '#e6eef8',
+        'A700': '#1e4674'
     };
     $mdThemingProvider
-        .definePalette('customPrimary', 
+        .definePalette('customPrimary',
                         customPrimary);
 
     var customAccent = {
-        '50': '#f31100',
-        '100': '#ff1e0d',
-        '200': '#ff3627',
-        '300': '#ff4e40',
-        '400': '#ff665a',
-        '500': '#ff7d73',
-        '600': '#ffada6',
-        '700': '#ffc4c0',
-        '800': '#ffdcd9',
-        '900': '#fff4f3',
-        'A100': '#ffada6',
-        'A200': '#FF958D',
-        'A400': '#ff7d73',
-        'A700': '#ffffff'
+        '50': '#605000',
+        '100': '#796500',
+        '200': '#937a00',
+        '300': '#ac8f00',
+        '400': '#c6a500',
+        '500': '#dfba00',
+        '600': '#ffd713',
+        '700': '#ffdc2d',
+        '800': '#ffe046',
+        '900': '#ffe460',
+        'A100': '#ffd713',
+        'A200': '#f9cf00',
+        'A400': '#dfba00',
+        'A700': '#ffe879'
     };
     $mdThemingProvider
-        .definePalette('customAccent', 
+        .definePalette('customAccent',
                         customAccent);
 
     var customWarn = {
-        '50': '#ffffff',
-        '100': '#fffbf3',
-        '200': '#fff3d9',
-        '300': '#ffebc0',
-        '400': '#ffe3a6',
-        '500': '#FFDB8D',
-        '600': '#ffd373',
-        '700': '#ffcb5a',
-        '800': '#ffc340',
-        '900': '#ffbb27',
-        'A100': '#ffffff',
-        'A200': '#ffffff',
+        '50': '#fadfc3',
+        '100': '#f8d2ac',
+        '200': '#f7c594',
+        '300': '#f5b87c',
+        '400': '#f3ac65',
+        '500': '#f19f4d',
+        '600': '#ef9235',
+        '700': '#ed851e',
+        '800': '#e07912',
+        '900': '#c86c10',
+        'A100': '#fcebdb',
+        'A200': '#fef8f2',
         'A400': '#ffffff',
-        'A700': '#ffb30d'
+        'A700': '#b15f0e'
     };
     $mdThemingProvider
-        .definePalette('customWarn', 
+        .definePalette('customWarn',
                         customWarn);
 
     var customBackground = {
         '50': '#ffffff',
         '100': '#ffffff',
         '200': '#ffffff',
-        '300': '#ffffff',
-        '400': '#ffffff',
-        '500': '#FFF',
-        '600': '#f2f2f2',
-        '700': '#e6e6e6',
-        '800': '#d9d9d9',
-        '900': '#cccccc',
+        '300': '#f2f2f2',
+        '400': '#e6e6e6',
+        '500': '#d9d9d9',
+        '600': '#cccccc',
+        '700': '#bfbfbf',
+        '800': '#b3b3b3',
+        '900': '#a6a6a6',
         'A100': '#ffffff',
         'A200': '#ffffff',
         'A400': '#ffffff',
-        'A700': '#bfbfbf'
-    };    
+        'A700': '#999999'
+    };
     $mdThemingProvider
-        .definePalette('customBackground', 
+        .definePalette('customBackground',
                         customBackground);
 
    $mdThemingProvider.theme('default')
