@@ -5,6 +5,11 @@ core.config(function($stateProvider) {
         templateUrl: 'templates/settings.html',
         onEnter: function(IterateFactory) {
             IterateFactory.zero('settings');
+        },
+        resolve: {
+            user: function(AuthService) {
+                return AuthService.getLoggedInUser();
+            }
         }
     });
 

@@ -1,6 +1,7 @@
-core.controller('SettingsCtrl', function($scope, $rootScope, SettingsFactory, IterateFactory) {
+core.controller('SettingsCtrl', function($scope, $rootScope, user, SettingsFactory, IterateFactory) {
 
-    let user = $rootScope.user;
+    // let user = $rootScope.user;
+    $scope.user = user
     $scope.name = user.firstName + " " + user.lastName;
     $scope.selectedTab; // Defaults to 0
     $scope.highlighted;
