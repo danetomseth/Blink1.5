@@ -121,6 +121,7 @@ core.directive('blCorners', function($interval, $rootScope, TrackingFactory, Cor
             elem.on('$destroy', function() {
                 if (angular.isDefined(countInterval)) {
                     $interval.cancel(countInterval);
+                    countInterval = null;
                 }
           });
 
