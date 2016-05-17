@@ -44,25 +44,12 @@ core.directive('blSidebarWebcam', function(SidebarFactory, PositionFactory, $roo
                 var canvasHeight = ((containerWidth / 3) * .75) * 2.2;
                 let boundArray = [middleX, middleY, canvasWidth, canvasHeight];
 
-                ctx.strokeStyle = "blue";
+                ctx.strokeStyle = "green";
                 ctx.strokeRect(middleX, middleY, canvasWidth, canvasHeight);
 
                 TrackingFactory.startTracking(canvas, video, boundArray);
                 WebcamFactory.startWebcam(video);
             });
-
-
-            // ctx.strokeStyle = "green";
-            // ctx.strokeRect(160, 110, 140, 140);
-
-
-
-
-
-
-            // TrackingFactory.startTracking(canvas, video);
-            // WebcamFactory.startWebcam(video);
-
 
         }
     }
