@@ -42,26 +42,7 @@ logo {
     color: nth($text, 1);
 }
 
-#sidebar-webcam {
-    position: absolute;
-    top: -75px;
-    left: -40%;
-}
 
-#sidebar-canvas {
-    position: absolute;
-    left: -40%;
-    top: -75px;
-    z-index: 10;
-}
-
-#canvas-overlay {
-    position: absolute;
-    left: -40%;
-    top: -75px;
-    border: 2px solid red;
-    z-index: 900;
-}
 
 #sidebar-webcam-container {
     position: absolute;
@@ -70,6 +51,26 @@ logo {
     margin: 0px;
     border: 2px solid nth($accent, 1);
     overflow: hidden;
+}
+
+#sidebar-webcam {
+    position: absolute;
+    //top: -75px;
+    //left: -40%;
+}
+
+#sidebar-canvas {
+    position: absolute;
+    // left: -40%;
+    // top: -75px;
+    z-index: 10;
+}
+
+#canvas-overlay {
+    position: absolute;
+    // left: -40%;
+    // top: -75px;
+    z-index: 900;
 }
 
 .nav-bottom {

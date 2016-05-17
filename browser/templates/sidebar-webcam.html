@@ -1,8 +1,10 @@
 <div layout="column" layout-margin class="nav-bottom">
-		<div id="sidebar-webcam-container" style="height: {{containerHeight}}">
-			<video id="sidebar-webcam" autoplay width="{{videoWidth}}" height="{{videoHeight}}"></video>
-			<canvas id="sidebar-canvas" width="{{videoWidth}}" height="{{videoHeight}}"></canvas>
-			<canvas id="canvas-overlay" width="{{videoWidth}}" height="{{videoWidth}}"></canvas>
+		<div id="sidebar-webcam-container" ng-style="containerCss" style="height: {{containerHeight}}">
+			<video ng-style="webcamCss"  id="sidebar-webcam" autoplay width="{{videoWidth}}" height="{{videoHeight}}"></video>
+			<canvas ng-style="canvasCss" id="sidebar-canvas" width="{{videoWidth}}" height="{{videoHeight}}"></canvas>
+			<canvas ng-style="canvasCss" id="canvas-overlay" width="{{videoWidth}}" height="{{videoWidth}}"></canvas>
 		</div>
+		
 </div>
+<h1>Style</h1>
 

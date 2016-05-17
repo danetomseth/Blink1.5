@@ -60,6 +60,7 @@ core.factory('TrackingFactory', function($rootScope, $state) {
         if (tracker) tracker.stop();
         context.clearRect(0, 0, canvas.width, canvas.height);
         $rootScope.drawing = false;
+        drawing = false;
         $rootScope.videoActive = false
     };
 

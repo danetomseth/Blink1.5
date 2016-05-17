@@ -5,45 +5,47 @@ core.directive('blSidebarWebcam', function(SidebarFactory, PositionFactory, $roo
         templateUrl: 'templates/sidebar-webcam.html',
         link: function(scope) {
 
-            var webcamWidth = angular.element(document.getElementById('sidebar-webcam-container'));
-            scope.containerHeight = webcamWidth[0].clientWidth * .75 + 'px';
-            scope.videoWidth = (webcamWidth[0].clientWidth * 2) + 'px';
-            scope.videoHeight = (webcamWidth[0].clientWidth * 2) * 0.75 + 'px';
+            var containerWidth = angular.element(document.getElementById('sidebar-webcam-container'))[0].clientWidth 
 
+            scope.containerHeight = containerWidth * .75 + 'px';
+            scope.videoWidth = (containerWidth * 2) + 'px';
+            scope.videoHeight = (containerWidth * 2) * 0.75 + 'px';
+
+            //position we
+            var positionSetWidth = (containerWidth / -2) + 'px';
+            var positionSetHeight = (containerWidth / -2) * .75 + 'px';
+
+            
             var video = document.getElementById('sidebar-webcam');
             var canvas = document.getElementById("sidebar-canvas");
 
-            console.log('first');
+           
 
-            // scope.$on('$viewContentLoaded', function() {
-            //     console.log('loaded');
-            //     var can = angular.element(document.getElementById('canvas-overlay'));
-            //     console.log(can[0].clientHeight);
-            //     var canvasX = (can[0].clientWidth / 3.1);
-            //     var canvasY = (can[0].clientHeight / 5);
+            scope.webcamCss = {
+                'top': positionSetHeight,
+                'left': positionSetWidth
+            }
+
+            scope.canvasCss = {
+                'top': positionSetHeight,
+                'left': positionSetWidth
+            }
 
 
-            //     ctx.strokeStyle = "green";
-            //     ctx.strokeRect(canvasX, canvasY, 150, 160);
 
-
-            //     ctx.strokeStyle = "red";
-            //     ctx.strokeRect(150, 110, 150, 140);
-            // });
 
             scope.$watch('$viewContentLoaded', function() {
                 var boundingBox = document.getElementById("canvas-overlay");
                 var ctx = boundingBox.getContext("2d");
-                console.log('loaded');
                 var can = angular.element(document.getElementById('canvas-overlay'));
-                console.log(can[0].clientHeight);
-                var canvasX = (can[0].clientWidth / 3.2);
-                var canvasY = (can[0].clientHeight / 5);
-                let boundArray = [canvasX, canvasY, 160, 160];
-
+                var middleX = containerWidth - (containerWidth / 3);
+                var middleY = (containerWidth * .75) - ((containerWidth / 3) * .75);
+                var canvasWidth = (containerWidth / 3) * 2;
+                var canvasHeight = ((containerWidth / 3) * .75) * 2.2;
+                let boundArray = [middleX, middleY, canvasWidth, canvasHeight];
 
                 ctx.strokeStyle = "blue";
-                ctx.strokeRect(canvasX, canvasY, 160, 160);
+                ctx.strokeRect(middleX, middleY, canvasWidth, canvasHeight);
 
                 TrackingFactory.startTracking(canvas, video, boundArray);
                 WebcamFactory.startWebcam(video);
