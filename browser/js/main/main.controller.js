@@ -1,16 +1,8 @@
-core.controller('MainCtrl', function($scope, $state, $rootScope, IterateFactory, TimerFactory, TrackingFactory) {
-   
+core.controller('MainCtrl', function($scope, $q, $state, $rootScope, IterateFactory, TimerFactory, TrackingFactory) {
 
 
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
-        //TimerFactory.clearTracking();
-        // if(toState.name === 'type') {
-        //     IterateFactory.zero('type')
-        // }
-        // if(toState.name === 'home') {
-        //     IterateFactory.zero('nav')
-        // }
-    });
+
+
 
     $scope.sidebar = {};
 
@@ -27,12 +19,15 @@ core.controller('MainCtrl', function($scope, $state, $rootScope, IterateFactory,
         $scope.sidebar.selectLinks();
     }
 
-    let videoStatus = () => {
-        if ($rootScope.videoActive) {
-            TimerFactory.videoReady();
-            TrackingFactory.startDrawing();
-        }
-    }
-    TimerFactory.videoStatus(videoStatus, 100);
+    //dont really need any of this at the moment
+    // let videoStatus = () => {
+    //     if ($rootScope.videoActive) {
+    //         console.log('video ready');
+    //         TimerFactory.videoReady();
+    //         TrackingFactory.startDrawing();
+    //     }
+    // }
+
+   // TimerFactory.videoStatus(videoStatus, 100);
 
 });

@@ -61,16 +61,19 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         if (debounce && !selectingLetter) {
             let arr = KeyboardFactory.iterateRow();
             angular.copy(arr, iterateObj.scopeValue);
-            // if (iterateObj.scopeValue[0] === 0) {
-            //     //TimerFactory.pauseIteration(500);
-            // }
+            if (iterateObj.scopeValue[0] === 0) {
+                TimerFactory.pauseIteration(250);
+            }
         } else if (debounce && selectingLetter) {
-            // Iterate Letters
+            if (iterateObj.scopeValue[1] === null) {
+                TimerFactory.pauseIteration(250);
+            }
             iterateObj.scopeValue[1] = KeyboardFactory.iterateLetter();
 
             // At the end of the row, go on to the next one
             if (iterateObj.scopeValue[1] === 0) {
-                 iterateObj.scopeValue[0] = KeyboardFactory.iterateRow()[0];
+                 KeyboardFactory.endOfRow();
+                 iterateObj.scopeValue[1] = null;
                  selectingLetter = false;
             }
         }
@@ -121,9 +124,9 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         if (positions && PositionFactory.blinkCompare(positions)) {
             blinkDt = Date.now() - lastBlinkTime;
             // On double blink
-            if ((blinkDt < 800) && (blinkDt > 100)) {
-                let arr = KeyboardFactory.resetKeyboard();
-                angular.copy(arr, iterateObj.scopeValue);
+            if ((blinkDt < 750) && (blinkDt > 200)) {
+                console.log('double blink!!');
+                iterateObj.word = KeyboardFactory.doubleBlink();
             }
             // Two blinks
             else {
@@ -298,7 +301,6 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
     }
 
     function navCallback() {
-        //TimerFactory.clearTracking();
         iterateObj.linkValue = null;
         goToPage();
     }
@@ -367,12 +369,16 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
     ////////////////////////////////////////////////////////////
 
     var convergeCheck = function(page) {
-        var converge = TrackingFactory.convergence();
-
+        var converge;
+        if($rootScope.trackerInitialized) {
+            converge = TrackingFactory.convergence();
+        }
+        else {
+            converge = 500;
+        }
         if (converge < 300) {
             count++;
             if (count > 10) {
-                console.log("Getting blink")
                 var positions = TrackingFactory.getPositions();
                 PositionFactory.getBlinkAverage(positions);
             }
@@ -392,7 +398,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             TimerFactory.clearTracking();
             console.log('Tracking already active!');
         }
-
+        
         if (!$rootScope.caregiver) {
             trackingActive = true;
             $rootScope.zeroActive = true;
@@ -403,6 +409,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             console.log('Caregiver, everything stopped');
             TimerFactory.clearAll();
         }
+
     }
 
     iterateObj.iterate = function(page) { // fires once we have calibration (from browZero())
@@ -416,7 +423,6 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             case 'type':
                 lastBlinkTime = Date.now();
                 TimerFactory.startReading(analyzeEyePositions, 50, keyboardCallback);
-                // TimerFactory.startReading(analyzeBrowPositions, 50, keyboardCallback);
                 TimerFactory.moveCursor(keyboardIterator, 750);
                 break;
             case 'corners':

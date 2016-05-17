@@ -5,6 +5,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
     let letterIndex = 0;
     let returnRow = 0;
     let returnLetter = 0;
+    let lastAction = false;
 
     let alphabet = [
         {row: 0, letters: ["I", "I'M", "CAN", "WE", "HELLO"]},
@@ -49,10 +50,10 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
             return [returnRow, null];
         },
         iterateLetter: () => {
+            lastAction = 'row'
             returnLetter = letterIndex; // save the letter we're at
             // if we're at the end of the line, go to the next row
             if (letterIndex > alphabet[returnRow].letters.length - 2) {
-                console.log("end of row")
                 letterIndex = 0;
             }
             // Otherwise, increment where we are
@@ -63,6 +64,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
             resetKeyboardPosition();
         },
         selectLetter: () => {
+            lastAction = 'letter';
             resetKeyboardPosition();
             if(returnRow === alphabet.length-1) { // if we are in the last row (which is all operations)
                 let action = alphabet[returnRow].letters[returnLetter]
@@ -99,9 +101,13 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
                 return phrase;
             }
         },
-        resetKeyboard: () => {
+        doubleBlink: () => {
+            phrase = phrase.slice(0, -1);
             resetKeyboardPosition();
-            return [rowIndex, letterIndex];
+            return phrase
+        },
+        endOfRow: () => {
+            letterIndex = 0;
         },
         alphabet: alphabet, // used in scroll directive
         smallKeyboard: smallKeyboard,

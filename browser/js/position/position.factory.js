@@ -24,7 +24,7 @@ core.factory('PositionFactory', function() {
     const rightEyeArray = [63, 24, 64, 20, 21];
     const leftEyeArray = [67, 29, 68, 17, 16];
     const pupilArray = [27, 32];
-    let maxArray = [];
+    let maxArray = [0.9];
     let averageReading = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let readingCount = 0;
     let pupilCount = 0;
@@ -59,14 +59,8 @@ core.factory('PositionFactory', function() {
             let change = 0
             var diffL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]); 
             var diffR = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
-            
-            // if(positions[57][1] - positions[60][1] > 8) { //checks mouth positions
-            //     return 'delete';
-            // }
             change = ((diffL + diffR) / diffZero);
-
-            return (change < 0.9)
-            //return ((diffZero - diff) > 2); //compares current distance of eyelid to zero distance
+            return (change < 0.8)
         },
         setBlinkZero: () => {
             diffZero = (diffZeroL / readingCount) + (diffZeroR / readingCount); //sets the average distance between top eyelid and bottom
