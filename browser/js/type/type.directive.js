@@ -8,6 +8,9 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
             let delay = scope.delay; // reference from ScrollCtrl
             scope.wordInput = '';
             scope.selected = [null, null];
+            scope.speaking = false
+
+
 
             //makes sure first element is highlighted on page load
             scope.keyboard = KeyboardFactory.alphabet;
@@ -36,8 +39,12 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
             scope.scopeValue = IterateFactory.scopeValue;
 
 
-            scope.say = () => SpeechFactory.say(scope.wordInput);
+            scope.say = () => SpeechFactory.say(scope.wordInput, "UK English Male", {onstart: togglePlay, onend: togglePlay});
 
+            function togglePlay(){
+                scope.speaking = !scope.speaking;
+                console.log("playing", scope.speaking)
+            }
           //   elem.on('$destroy', function() {
           //       if (angular.isDefined(countInterval)) {
           //           $interval.cancel(countInterval);
