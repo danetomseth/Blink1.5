@@ -1,9 +1,9 @@
-core.directive("blCalibrate", function(PositionFactory, TrackingFactory, $interval) {
+core.directive("blCalibrate", function(PositionFactory, TrackingFactory, SettingsFactory, $interval) {
 	return {
 		restrict: "E",
 		templateUrl: 'templates/calibrate.html',
 		link: function(scope, elem, attr) {
-			
+
 			let blinkCalibrate;
 
 
@@ -26,21 +26,22 @@ core.directive("blCalibrate", function(PositionFactory, TrackingFactory, $interv
 					}
 					if(i === 22) {
 						scope.closedZero = PositionFactory.setBlinkZero();
-						
+
 					}
 					if(i > 22) {
 						scope.display = "finished"
 						scope.calFactor = (scope.closedZero / scope.openZero);
-						$interval.clear(blinkCalibrate)
+                        SettingsFactory.setThreshold(scope.calFactor)
+                        $interval.cancel(blinkCalibrate)
 						i = 0;
 					}
 					i++
 				}, 500);
 			}
-            
+
 
             // Fill with gradient
-            
+
 			scope.takeReading = function() {
 				calBlink();
 
