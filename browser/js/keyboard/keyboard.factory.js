@@ -35,7 +35,6 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
     }
 
     const predictWords = () => {
-        console.log("pre-predict", phrase)
         PredictFactory.nextWords(phrase) // sends whole sentence to the predictor where it is spliced
         .then(words => {
                 if (words.length > 1) {angular.copy(words, alphabet[0].letters)} // if there are suggestions, push them onto the alphabet array
