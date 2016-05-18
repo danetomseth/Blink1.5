@@ -4,7 +4,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
         templateUrl: 'templates/calibrate.html',
         link: function(scope, elem, attr) {
 
-            let blinkCalibrate;
+
             let calibrationComplete = false;
             let frameId = 0;
             let currentBlink;
@@ -16,17 +16,16 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
             let minSum = 0;
             let debounce = true;
             let converge = 50000;
-            let confirmDebounce = true;
             let zeroFinished = false;
+            let testFinished = false;
+            let calibrationFinished = false;
 
             let count = 0;
-            let init = 0;
             let total = 0;
-            let start = 0;
 
-            scope.confirmBlink = 5;
-            scope.maxCount = 50;
-            scope.minCount = 50;
+            scope.confirmBlink = "---";
+            scope.maxCount = 0;
+            scope.minCount = 0;
 
             scope.showMessage = false;
 
@@ -35,38 +34,15 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
 
 
 
-            function blinkDelay() {
-                
-                setTimeout(function() {
-                    debounce = true;
-                    scope.blinkReady = {
-                        'color': 'black'
-                    }
-                }, 500)
-            }
-
-            function confirmDelay() {
-            	if (scope.confirmBlink > 0) {
-                    scope.confirmBlink--;
-                }
-                else if(scope.confirmBlink === 0) {
-                    scope.end()
-                }
-                setTimeout(function() {
-                    confirmDebounce = true;
-                    scope.confirmBox = {
-                        'border': 'none'
-                    }
-                }, 500)
-            }
+        
 
 
             function testDelay() {
                 setTimeout(function() {
-                    scope.confirmBlink = 5;
                     scope.showMessage = true;
+                    testFinished = true;
                     scope.message = "Keep Settings?"
-                }, 7500)
+                }, 5000)
             }
 
 
@@ -90,7 +66,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
                     minVals.push(sum);
                 }
             }
-           
+
 
             function compareValues(vals) {
                 total = vals[0] + vals[1];
@@ -99,16 +75,16 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
                     'opacity': '0.5'
                 }
                 if (maxVals.length > 50 && minVals.length > 50) {
-                    scope.calibrationFinished();
+                    setValues();
                     scope.blinkReady = {
-                    'opacity': '1'
-                	}
+                        'opacity': '1'
+                    }
                 }
 
                 // not that important
 
                 if (maxVals.length <= 50) {
-                    scope.maxCount = (50 - maxVals.length);
+                    scope.maxCount = (maxVals.length / 50) * 100;
                 } else {
                     scope.maxReady = {
                         'opacity': '0.5'
@@ -116,7 +92,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
                 }
 
                 if (minVals.length <= 50) {
-                    scope.minCount = (50 - minVals.length);
+                    scope.minCount = (minVals.length / 50) * 100;
                 } else {
                     scope.minReady = {
                         'opacity': '0.5'
@@ -128,8 +104,6 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
                 if (count > 40 && count < 50) {
                     maxVals.push(total + 1);
                     minVals.push(total - 2);
-                    // maxVals.push(total);
-                    // minVals.push(total);
                 }
                 if (count > 50) {
                     if (total) {
@@ -140,9 +114,11 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
             };
 
 
+
+
             function readEyes(timestamp) {
                 scope.$digest()
-               
+
                 let positions = TrackingFactory.getPositions()
                 if (positions) {
                     currentBlink = PositionFactory.getBlinkValue(positions)
@@ -151,7 +127,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
                 if (converge > 0.5 && !zeroFinished) {
                     $rootScope.zeroActive = true;
                     converge = TrackingFactory.convergence();
-                    if(converge <= 0.5) {
+                    if (converge <= 0.5) {
                         zeroFinished = true;
                         $rootScope.zeroActive = false;
                         $rootScope.$digest();
@@ -165,42 +141,16 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
                         testBlinks(currentBlink)
                     }
                 }
-                frameId = window.requestAnimationFrame(readEyes);
-            }
-
-            let takeReadings = () => {
-                frameId = window.requestAnimationFrame(readEyes);
-                scope.display = "Keep Eyes Open";
-            }
-
-
-
-            let testBlinks = (vals) => {
-                total = vals[0] + vals[1];
-                if ((total / blinkZero) < blinkRatio) {
-                    if (debounce && !scope.showMessage) {
-                        scope.blinkReady = {
-                            'color': 'red'
-                        }
-                        debounce = false;
-                        blinkDelay()
-                    }
-                    else if(confirmDebounce) {
-                    	confirmDebounce = false;
-                        scope.confirmBox = {
-                        	'border': '3px solid black'
-                    	}
-                    	confirmDelay();
-                    }
+                if(!calibrationFinished) {
+                    frameId = requestAnimationFrame(readEyes);
                 }
             }
 
+            
 
-
-            // Fill with gradient
-
-            scope.calibrationFinished = function() {
-                testDelay();
+            let setValues = function() {
+                //testDelay();
+                scope.confirmBlink = 5;
                 maxVals.forEach(function(val) {
                     maxSum += val;
                 })
@@ -214,15 +164,89 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
                 blinkZero = maxSum;
 
                 blinkRatio = (minSum / maxSum);
-                console.log('ratio', blinkRatio, maxSum, minSum);
                 calibrationComplete = true;
 
             }
 
-            scope.end = () => {
+
+
+            let testBlinks = (vals) => {
+                total = vals[0] + vals[1];
+                if ((total / blinkZero) < blinkRatio) {
+                    if (debounce) {
+                        if (scope.showMessage) {
+                            scope.confirmBox = {
+                                'border': '3px solid black'
+                            }
+                        } else {
+                            scope.blinkReady = {
+                                'color': 'red'
+                            }
+                        }
+                        debounce = false;
+                        blinkDelay()
+                    }
+                }
+            }
+
+             function blinkDelay() {
+                if (scope.confirmBlink > 0) {
+                    scope.confirmBlink--;
+                }
+                if (scope.confirmBlink === 0) {
+                    scope.showMessage = true;
+                    navDelay()
+                    scope.confirmBlink = "--"
+                    return;
+                }
+                setTimeout(function() {
+                    debounce = true;
+                    scope.blinkReady = {
+                        'color': 'black'
+                    }
+                    scope.confirmBox = {
+                        'border': 'none'
+                    }
+                }, 500)
+            }
+
+            function navDelay() {
+                scope.countDown = 5;
+                let countDownInt = $interval(function() {
+                    if(scope.countDown === 0) {
+                        $interval.cancel(countDownInt);
+                        moveToNav();
+                    }
+                    else {
+                        scope.countDown--
+                    }
+                }, 750);
+
+            }
+
+
+
+            function moveToNav() {
+                calibrationFinished = true;
                 ConstantsFactory.setBlink(blinkRatio, blinkZero);
-                cancelAnimationFrame(frameId);
                 IterateFactory.iterate('nav');
+                return;
+            }
+
+
+
+
+            
+
+            scope.end = () => {
+                calibrationFinished = true;
+                ConstantsFactory.setBlink(blinkRatio, blinkZero);
+            }
+
+
+            let takeReadings = () => {
+                frameId = requestAnimationFrame(readEyes);
+                scope.display = "Keep Eyes Open";
             }
 
 
@@ -234,4 +258,3 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
         }
     }
 });
-

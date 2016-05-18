@@ -1,4 +1,4 @@
-core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFactory, TimerFactory, PopupFactory, KeyboardFactory, TrackingFactory, SettingsFactory, PositionFactory, SidebarFactory) {
+core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFactory, TimerFactory, PopupFactory, KeyboardFactory, TrackingFactory, SettingsFactory, PositionFactory, SidebarFactory) {
     var trackingActive = false;
 
     var iterateObj = {};
@@ -13,6 +13,8 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
     var blinkHold = 0;
     let frameId;
     let callback;
+    let stopFrame = false;
+    let startDebounce = false;
     iterateObj.scopeValue = [];
     iterateObj.linkValue;
     iterateObj.settingsValue;
@@ -21,6 +23,13 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
     //sets initial box to middle
     iterateObj.selectedBox = 2;
     iterateObj.word = "";
+
+    let startDelay = () => {
+        startDebounce = false;
+        setTimeout(() => {
+            startDebounce = true
+        }, 1000)
+    }
 
     let debounceFn = (time, fn) => {
         let t = time || 750
@@ -74,9 +83,9 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
 
             // At the end of the row, go on to the next one
             if (iterateObj.scopeValue[1] === 0) {
-                 KeyboardFactory.endOfRow();
-                 iterateObj.scopeValue[1] = null;
-                 selectingLetter = false;
+                KeyboardFactory.endOfRow();
+                iterateObj.scopeValue[1] = null;
+                selectingLetter = false;
             }
         }
     }
@@ -121,9 +130,10 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
     let blinkDt;
 
     function analyzeEyePositions(cb) {
+        $rootScope.$digest();
         var positions = TrackingFactory.getPositions();
 
-        if (positions && PositionFactory.blinkCompare(positions)) {
+        if (positions && PositionFactory.blinkCompare(positions) && startDebounce) {
             blinkDt = Date.now() - lastBlinkTime;
             // On double blink
             if ((blinkDt < 750) && (blinkDt > 200)) {
@@ -136,7 +146,21 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
             }
             lastBlinkTime = Date.now();
         }
-        frameId = window.requestAnimationFrame(analyzeEyePositions);
+        if (!stopFrame) {
+            frameId = window.requestAnimationFrame(analyzeEyePositions);
+        }
+    }
+
+    function navAction(cb) {
+        var positions = TrackingFactory.getPositions();
+
+        if (positions && PositionFactory.blinkCompare(positions)) {
+            console.log('triggered');
+            if(startDebounce) callback();
+        }
+        if (!stopFrame) {
+            frameId = window.requestAnimationFrame(analyzeEyePositions);
+        }
     }
 
     function analyzeBrowPositions(cb) {
@@ -245,26 +269,26 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
     ////////////////////////////////////////////////////////////
     //////////// Analyze functions that accept callbacks
     ////////////////////////////////////////////////////////////
-// let lastBlinkTime;
-// let blinkDt;
-//     function analyzeEyePositions(cb) {
-//         var positions = TrackingFactory.getPositions();
-//         if (positions) {
-//             var blink = PositionFactory.blinkCompare(positions);
-//             if (blink === 'delete') {
-//                 if (mouthDebounce) {
-//                     mouthDebounce = false;
-//                     KeyboardFactory.delete();
-//                     selectingLetter = false;
-//                     setTimeout(function() {
-//                         mouthDebounce = true;
-//                     })
-//                 }
-//             } else if (blink) {
-//                 cb();
-//             }
-//         }
-//     }
+    // let lastBlinkTime;
+    // let blinkDt;
+    //     function analyzeEyePositions(cb) {
+    //         var positions = TrackingFactory.getPositions();
+    //         if (positions) {
+    //             var blink = PositionFactory.blinkCompare(positions);
+    //             if (blink === 'delete') {
+    //                 if (mouthDebounce) {
+    //                     mouthDebounce = false;
+    //                     KeyboardFactory.delete();
+    //                     selectingLetter = false;
+    //                     setTimeout(function() {
+    //                         mouthDebounce = true;
+    //                     })
+    //                 }
+    //             } else if (blink) {
+    //                 cb();
+    //             }
+    //         }
+    //     }
 
     // function analyzeBrowPositions(cb) {
     //     var positions = TrackingFactory.getPositions();
@@ -305,7 +329,8 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
 
     function navCallback() {
         iterateObj.linkValue = null;
-        cancelAnimationFrame(frameId);
+        stopFrame = true;
+        TimerFactory.clearAll();
         goToPage();
     }
 
@@ -374,10 +399,9 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
 
     var convergeCheck = function(page) {
         var converge;
-        if($rootScope.trackerInitialized) {
+        if ($rootScope.trackerInitialized) {
             converge = TrackingFactory.convergence();
-        }
-        else {
+        } else {
             converge = 500;
         }
         if (converge < 300) {
@@ -398,11 +422,11 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
     }
 
     iterateObj.zero = function(page) {
-        if(trackingActive) {
+        if (trackingActive) {
             TimerFactory.clearTracking();
             console.log('Tracking already active!');
         }
-        
+
         if (!$rootScope.caregiver) {
             trackingActive = true;
             //$rootScope.zeroActive = true;
@@ -417,14 +441,16 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
     }
 
     iterateObj.iterate = function(page) { // fires once we have calibration (from browZero())
+        startDelay();
+        stopFrame = false;
         $rootScope.zeroActive = false;
         var positions = TrackingFactory.getPositions();
         switch (page) {
             case 'nav':
                 callback = navCallback;
-                frameId = window.requestAnimationFrame(analyzeEyePositions);
-                //TimerFactory.startReading(analyzeEyePositions, 50, navCallback);
                 TimerFactory.moveCursor(linkIterator, 1000);
+                frameId = window.requestAnimationFrame(navAction);
+                //TimerFactory.startReading(analyzeEyePositions, 50, navCallback);
                 break;
             case 'type':
                 lastBlinkTime = Date.now();

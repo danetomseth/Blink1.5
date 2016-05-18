@@ -67,7 +67,6 @@ core.factory('TimerFactory', function($rootScope,$state, $interval, $timeout, Tr
             }
             $timeout(function() {
                 cursorFunc();
-                readFunc();
             }, delay);
         },
         //we know that the webcam is loaded and can start tracking

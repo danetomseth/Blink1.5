@@ -1,8 +1,8 @@
 core.factory('ConstantsFactory', function() {
 	let calibrateVal = {};
 
-	calibrateVal.blinkRatio = 0.85; //default value
-	calibrateVal.blinkZero = 40;
+	calibrateVal.blinkRatio = 0.75; //default value
+	calibrateVal.blinkZero = 41;
 
 
 	calibrateVal.setBlink = (ratio, zero) => {

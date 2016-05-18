@@ -3,21 +3,19 @@
 <div flex layout="column" layout-align="center" class="vertical-center">
 	<div class="message md-whiteframe-5dp" ng-show="showMessage" flex layout="row" layout-align="center">
 		<div ng-style="confirmBox" class="message md-whiteframe-10dp">
-		<h2>{{message}}</h2>
-		<h2>(blink <span style="color:red"><strong>{{confirmBlink}}</strong></span> times to confirm)</h2>
-		<md-button class="md-raised md-primary" ng-click="confirmCalibration()">Finished</md-button>
-		</div>
+			<h2>Prepare To Select Page</h2>
+			<h2><span style="color:red"><strong>{{countDown}}</strong></span></h2>
 		</div>
 	</div>
 	<div ng-hide="showMessage" flex layout="row" layout-align="center">
 		<div ng-style="maxReady" class="blink-box detail-info md-whiteframe-10dp">
-			Open Count: {{maxCount}}
+			Max: {{maxCount.toFixed(0)}}%
 		</div>
 		<div ng-style="blinkReady" class="blink-box primary-info md-whiteframe-10dp">
-			Blink
+			<p>Blink: {{confirmBlink}}</p>
 		</div>
 		<div ng-style="minReady"  class="blink-box detail-info md-whiteframe-10dp">
-			Closed Count: {{minCount}}
+			Min: {{minCount.toFixed(0)}}%
 		</div>
 	</div>
 	<div flex layout="row" layout-align="center">
