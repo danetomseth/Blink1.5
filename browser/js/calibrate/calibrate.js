@@ -104,7 +104,7 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                 //starting the array - with a little buffer
                 if (count > 40 && count < 50) {
                     maxVals.push(total + 1);
-                    minVals.push(total - 2);
+                    minVals.push(total - 1);
                 }
                 if (count > 50) {
                     if (total) {
@@ -164,7 +164,7 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
 
                 blinkZero = maxSum;
 
-                blinkRatio = (minSum / maxSum) - 0.04;
+                blinkRatio = (minSum / maxSum);
                 calibrationComplete = true;
 
             }

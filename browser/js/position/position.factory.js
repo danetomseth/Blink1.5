@@ -60,7 +60,6 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             var diffL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             var diffR = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             change = ((diffL + diffR) / ConstantsFactory.blinkZero);
-            console.log('ratio', ConstantsFactory.blinkRatio);
             return (change < ConstantsFactory.blinkRatio)
         },
         setBlinkZero: () => {
