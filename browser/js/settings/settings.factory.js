@@ -47,6 +47,7 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService)
             }
             return $http.put('/api/users/' + $rootScope.user._id, selections)
                 .then((updatedUser) => angular.copy(updatedUser.data, $rootScope.user));
-        }
+        },
+
     }
 });

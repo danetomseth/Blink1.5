@@ -1,4 +1,6 @@
 core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory, PopupFactory, KeyboardFactory, TrackingFactory, SettingsFactory, PositionFactory, SidebarFactory) {
+    var trackingActive = false;
+
     var iterateObj = {};
     var count = 0;
     var debounce = true;
@@ -42,6 +44,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             4: 600,
             5: 500
         }
+
         // Set default delay
     let delay = translateDelay[3];
 
@@ -60,15 +63,21 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             let arr = KeyboardFactory.iterateRow();
             angular.copy(arr, iterateObj.scopeValue);
             if (iterateObj.scopeValue[0] === 0) {
-                //TimerFactory.pauseIteration(500);
+                TimerFactory.pauseIteration(250);
             }
         } else if (debounce && selectingLetter) {
+            if (iterateObj.scopeValue[1] === null) {
+                TimerFactory.pauseIteration(250);
+            }
             iterateObj.scopeValue[1] = KeyboardFactory.iterateLetter();
+
+            // At the end of the row, go on to the next one
             if (iterateObj.scopeValue[1] === 0) {
-                //TimerFactory.pauseIteration(500);
+                 KeyboardFactory.endOfRow();
+                 iterateObj.scopeValue[1] = null;
+                 selectingLetter = false;
             }
         }
-
     }
 
     var popupIterator = function() {
@@ -104,12 +113,54 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
     }
 
     ////////////////////////////////////////////////////////////
+    //////////// Analyze functions that accept callbacks
+    ////////////////////////////////////////////////////////////
+
+    let lastBlinkTime;
+    let blinkDt;
+
+    function analyzeEyePositions(cb) {
+        var positions = TrackingFactory.getPositions();
+
+        if (positions && PositionFactory.blinkCompare(positions)) {
+            blinkDt = Date.now() - lastBlinkTime;
+            // On double blink
+            if ((blinkDt < 750) && (blinkDt > 200)) {
+                console.log('double blink!!');
+                iterateObj.word = KeyboardFactory.doubleBlink();
+            }
+            // Two blinks
+            else {
+                cb();
+            }
+            lastBlinkTime = Date.now();
+        }
+    }
+
+    function analyzeBrowPositions(cb) {
+        var positions = TrackingFactory.getPositions();
+        if (positions) {
+            if (PositionFactory.browCompare(positions)) {
+                cb();
+            }
+        }
+    }
+
+    function readPositions() {
+        let positions = TrackingFactory.getPositions();
+        if (positions) {
+            let eyeX = positions[27][0] + positions[32][0]
+            let eyeY = positions[27][1] + positions[32][1]
+            CornersFactory.eyePosition(eyeX, eyeY); // if the eyes go more than the "threshold" away from center then go to the corner
+        }
+    }
+
+    ////////////////////////////////////////////////////////////
     /////////// Candidates for an Action Factory?
     ////////////////////////////////////////////////////////////
 
     // Position Functions
     function goToPage() {
-        TimerFactory.clearAll();
         SidebarFactory.changeState();
     }
 
@@ -187,49 +238,6 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
     }
 
     ////////////////////////////////////////////////////////////
-    //////////// Analyze functions that accept callbacks
-    ////////////////////////////////////////////////////////////
-
-    let lastBlinkTime;
-    let blinkDt;
-
-    function analyzeEyePositions(cb) {
-        var positions = TrackingFactory.getPositions();
-        if (positions && PositionFactory.blinkCompare(positions)) {
-            blinkDt = Date.now() - lastBlinkTime;
-            // On double blink
-            if ((blinkDt < 800) && (blinkDt > 100)) {
-                console.log("Undo!")
-                let arr = KeyboardFactory.resetKeyboard();
-                angular.copy(arr, iterateObj.scopeValue);
-            }
-            // Two blinks
-            else {
-                cb();
-            }
-            lastBlinkTime = Date.now();
-        }
-    }
-
-    function analyzeBrowPositions(cb) {
-        var positions = TrackingFactory.getPositions();
-        if (positions) {
-            if (PositionFactory.browCompare(positions)) {
-                cb();
-            }
-        }
-    }
-
-    function readPositions() {
-        let positions = TrackingFactory.getPositions();
-        if (positions) {
-            let eyeX = positions[27][0] + positions[32][0]
-            let eyeY = positions[27][1] + positions[32][1]
-            CornersFactory.eyePosition(eyeX, eyeY); // if the eyes go more than the "threshold" away from center then go to the corner
-        }
-    }
-
-    ////////////////////////////////////////////////////////////
     //////////// Callback functions to send to analyzers
     ////////////////////////////////////////////////////////////
 
@@ -249,7 +257,6 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
     }
 
     function navCallback() {
-        TimerFactory.clearTracking();
         iterateObj.linkValue = null;
         goToPage();
     }
@@ -292,7 +299,6 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             else if (count > 30) { // once we have been finding averages for a while, lock them in.
                 PositionFactory.setPupilZero(positions);
                 PositionFactory.setBlinkZero(positions);
-                //PositionFactory.setBrowZero(positions);
                 TimerFactory.calibrationFinished();
                 iterateObj.iterate('corners');
                 count = 0;
@@ -326,7 +332,13 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
     ////////////////////////////////////////////////////////////
 
     var convergeCheck = function(page) {
-        var converge = TrackingFactory.convergence();
+        var converge;
+        if($rootScope.trackerInitialized) {
+            converge = TrackingFactory.convergence();
+        }
+        else {
+            converge = 500;
+        }
         if (converge < 300) {
             count++;
             if (count > 10) {
@@ -345,7 +357,13 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
     }
 
     iterateObj.zero = function(page) {
+        if(trackingActive) {
+            TimerFactory.clearTracking();
+            console.log('Tracking already active!');
+        }
+
         if (!$rootScope.caregiver) {
+            trackingActive = true;
             $rootScope.zeroActive = true;
             if (page === 'corners') {
                 TimerFactory.calibrate(pupilCheck, 50, page);
@@ -353,6 +371,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         } else {
             TimerFactory.clearAll();
         }
+
     }
 
     iterateObj.iterate = function(page) { // fires once we have calibration (from browZero())

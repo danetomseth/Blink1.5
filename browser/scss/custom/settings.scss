@@ -25,6 +25,10 @@ md-card {
     color: black;
 }
 
+.uppercase::first-letter {
+  text-transform: uppercase;
+}
+
 .md-toolbar-tools {
     height: 1em;
 }
@@ -36,7 +40,6 @@ md-card {
 @keyframes blinker {
    50% { background-color: transparent; }
 }
-
 
 // THESE DON'T WORK WITH THE NUMBERS IN FRONT
 .0.highlighted {

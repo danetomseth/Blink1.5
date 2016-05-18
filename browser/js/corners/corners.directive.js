@@ -1,4 +1,4 @@
-core.directive('blCorners', function($rootScope, TrackingFactory, IterateFactory, CornersFactory, WebcamFactory, TimerFactory, PositionFactory) {
+core.directive('blCorners', function($interval, $rootScope, TrackingFactory, CornersFactory, WebcamFactory, IterateFactory, TimerFactory, PositionFactory) {
 
     return {
         restrict: 'E',
@@ -20,6 +20,13 @@ core.directive('blCorners', function($rootScope, TrackingFactory, IterateFactory
                 }
             },true);
 
+            // Listen on DOM destroy (removal) event, to make sure interval is canceled after the DOM element was removed
+            elem.on('$destroy', function() {
+                if (angular.isDefined(countInterval)) {
+                    $interval.cancel(countInterval);
+                    countInterval = null;
+                }
+          });
 
             scope.$watch(function() {
                 return IterateFactory.selectedBox

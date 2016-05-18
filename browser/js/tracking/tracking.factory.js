@@ -1,40 +1,46 @@
 'use strict';
 
-core.factory('TrackingFactory', function($rootScope) {
+core.factory('TrackingFactory', function($rootScope, $state) {
     let canvas;
     let context;
     let tracker;
+    $rootScope.trackerInitialized = false;
     let drawing = false;
 
     let trackObj = {};
-    trackObj.startTracking = (canvasElem, video) => {
+    trackObj.startTracking = (canvasElem, video, boundingBox) => {
         //new tracker
-        tracker = new clm.tracker();
+        tracker = new clm.tracker({searchWindow: 5});
         tracker.init(pModel);
-        tracker.setResponseMode("blend", ["raw"]);
-        tracker.start(video);
-
-
-        //set canvas
         canvas = canvasElem;
         context = canvas.getContext("2d");
+        //helps remove the error when tracker first loads
+        setTimeout(function() {
+            tracker.setResponseMode("blend", ["raw", "sobel"]);
+            tracker.start(video, boundingBox);
+            trackObj.startDrawing();
+            $rootScope.trackerInitialized = true;
+        }, 2000);
+
     };
 
     trackObj.drawLoop = () => {
-        if ($rootScope.videoActive) {
-            requestAnimationFrame(trackObj.drawLoop);
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            tracker.draw(canvas);
-        }
+        requestAnimationFrame(trackObj.drawLoop);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        tracker.draw(canvas);
     };
 
 
     trackObj.startDrawing = () => {
-        if(!drawing) {
-            console.log('drawing started');
+        if (!drawing) {
             trackObj.drawLoop();
             drawing = true;
         }
+    }
+
+
+    trackObj.getParams = () => {
+        return tracker.getCurrentParameters();
     }
 
 
@@ -48,9 +54,10 @@ core.factory('TrackingFactory', function($rootScope) {
     };
 
     trackObj.endTracking = () => {
-        if(tracker) tracker.stop();
+        if (tracker) tracker.stop();
         context.clearRect(0, 0, canvas.width, canvas.height);
         $rootScope.drawing = false;
+        drawing = false;
         $rootScope.videoActive = false
     };
 
@@ -60,7 +67,7 @@ core.factory('TrackingFactory', function($rootScope) {
             count++;
             if (count > 20) {
                 TimerFactory.calibrationFinished();
-                
+
             }
         } else {
             count = 0;

@@ -1,0 +1,31 @@
+.vertical-center {
+	padding-top: 10%;
+
+}
+
+.center-box {
+	//min-height: 300px;
+	border: 3px solid nth($accent, 1);
+}
+
+.center-btn {
+	margin: 0 auto;
+	//padding-top: 125px;
+	//width: 20%;
+}
+
+.status-display {
+	font-weight: bold;
+	
+}
+
+.cal-display {
+	div {
+
+		background: nth($primary, 4); 
+		border: 1px solid nth($accent, 1);
+	}
+	p {
+		color: nth($text, 1);
+	}
+}

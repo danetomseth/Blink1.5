@@ -5,6 +5,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
     let letterIndex = 0;
     let returnRow = 0;
     let returnLetter = 0;
+    let lastAction = false;
 
     let alphabet = [
         {row: 0, letters: ["I", "I'M", "CAN", "WE", "HELLO"]},
@@ -30,20 +31,17 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
     let phrase = "";
 
     const resetKeyboardPosition = () => {
-            letterIndex = 0;
-            rowIndex = 0;
+        letterIndex = 0;
+        rowIndex = 0;
     }
 
     const predictWords = () => {
-        if (phrase != ""){
-            PredictFactory.nextWords(phrase) // sends whole sentence to the predictor where it is spliced
-            .then(words => {
-                if (words.length > 1) {angular.copy(words, alphabet[0])} // if there are suggestions, push them onto the alphabet array
-                    console.log("alphabet[0] in keyboard factory", alphabet[0])
+        PredictFactory.nextWords(phrase) // sends whole sentence to the predictor where it is spliced
+        .then(words => {
+                if (words.length > 1) {angular.copy(words, alphabet[0].letters)} // if there are suggestions, push them onto the alphabet array
             });
             phrase += " "; // add a space that the user asked for
             return phrase // send the current word back to the user
-        }
     }
     return {
         iterateRow: () => {
@@ -52,14 +50,21 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
             return [returnRow, null];
         },
         iterateLetter: () => {
+            lastAction = 'row'
             returnLetter = letterIndex; // save the letter we're at
-            (letterIndex > alphabet[returnRow].letters.length - 2) ? letterIndex = 0 : letterIndex++; // if we're at the end of the line, go back to the start, otherwise, increment where we are
+            // if we're at the end of the line, go to the next row
+            if (letterIndex > alphabet[returnRow].letters.length - 2) {
+                letterIndex = 0;
+            }
+            // Otherwise, increment where we are
+            else { letterIndex++; }
             return returnLetter;
         },
         delete: () => { //resets the keyobard position on mouth open
             resetKeyboardPosition();
         },
         selectLetter: () => {
+            lastAction = 'letter';
             resetKeyboardPosition();
             if(returnRow === alphabet.length-1) { // if we are in the last row (which is all operations)
                 let action = alphabet[returnRow].letters[returnLetter]
@@ -82,7 +87,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
                         console.log("Error: Action "+action+" not found");
                 }
             } else if( returnRow === 0 ){ // if we are on the suggested word row
-                if (phrase[phrase.length-1] !== " ") {// if the last character isn't a space, replace the whole word
+                if (phrase.length && phrase[phrase.length-1] !== " ") {// if the last character isn't a space, replace the whole word
                     phrase = phrase.replace(/[\w!.,'"/\(\)\-]+$/g, alphabet[returnRow].letters[returnLetter]) // repace the last word with the full word
                 } else {
                     phrase += alphabet[returnRow].letters[returnLetter]; // adds the word to the sentence
@@ -96,9 +101,13 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
                 return phrase;
             }
         },
-        resetKeyboard: () => {
+        doubleBlink: () => {
+            phrase = phrase.slice(0, -1);
             resetKeyboardPosition();
-            return [rowIndex, letterIndex];
+            return phrase
+        },
+        endOfRow: () => {
+            letterIndex = 0;
         },
         alphabet: alphabet, // used in scroll directive
         smallKeyboard: smallKeyboard,

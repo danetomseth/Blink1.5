@@ -1,0 +1,4 @@
+core.factory('ConstantsFactory', function() {
+
+
+});
