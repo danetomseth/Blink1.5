@@ -19,6 +19,7 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
             let zeroFinished = false;
             let testFinished = false;
             let calibrationFinished = false;
+            scope.calStart = false;
 
             let count = 0;
             let total = 0;
@@ -251,8 +252,15 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                 scope.display = "Keep Eyes Open";
             }
 
-
-            takeReadings();
+            scope.start = () => {
+                scope.calStart = true;
+                scope.$evalAsync();
+                //scope.$digest();
+                setTimeout(function(){
+                    takeReadings();
+                }, 500)
+                
+            }
 
 
 

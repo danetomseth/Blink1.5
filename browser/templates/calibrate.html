@@ -1,21 +1,26 @@
 
 
 <div flex layout="column" layout-align="center" class="vertical-center">
-	<div class="message md-whiteframe-5dp" ng-show="showMessage" flex layout="row" layout-align="center">
-		<div ng-style="confirmBox" class="message md-whiteframe-10dp">
-			<h2>Prepare To Select Page</h2>
-			<h2><span style="color:red"><strong>{{countDown}}</strong></span></h2>
+	<div class="message" ng-show="showMessage" flex layout="row" layout-align="center">
+		<div ng-style="confirmBox" class="message md-whiteframe-20dp">
+			<h2>Calibration Done</h2>
+
+			<h2>Ready in: <span class="orange"><strong>{{countDown}}</strong></span></h2>
 		</div>
 	</div>
 	<div ng-hide="showMessage" flex layout="row" layout-align="center">
-		<div ng-style="maxReady" class="blink-box detail-info md-whiteframe-10dp">
-			Max: {{maxCount.toFixed(0)}}%
+		<div class="box-wrap">
+			<div ng-style="maxReady" class="detail-info md-whiteframe-10dp">
+				Max: {{maxCount.toFixed(0)}}%
+			</div>
 		</div>
 		<div ng-style="blinkReady" class="blink-box primary-info md-whiteframe-10dp">
 			<p>Blink: {{confirmBlink}}</p>
 		</div>
-		<div ng-style="minReady"  class="blink-box detail-info md-whiteframe-10dp">
-			Min: {{minCount.toFixed(0)}}%
+		<div class="box-wrap">
+			<div ng-style="minReady"  class="detail-info md-whiteframe-10dp">
+				Min: {{minCount.toFixed(0)}}%
+			</div>
 		</div>
 	</div>
 	<div flex layout="row" layout-align="center">
@@ -30,18 +35,25 @@
 
 	</div>
 
-	<div flex layout="row" layout-align="center">
+	<!-- <div flex layout="row" layout-align="center">
 		<div>
-		<md-button class="md-raised md-accent" ng-click="startCalibration()">Start</md-button>
+			<md-button class="md-raised std-btn" ng-click="restart()">Restart</md-button>
 		</div>
-		<div>
-		<md-button class="md-raised md-accent" ng-click="calibrationFinished()">Finished</md-button>
-		</div>
-		<div>
-		<md-button class="md-raised md-accent" ng-click="end()">End</md-button>
-		</div>
-	</div>
+	</div> -->
 
 </div>
+
+<div id="demo-overlay" flex layout="column" layout-align="center" ng-hide="calStart">
+
+		<div>
+			<h1 class="main-title">Welcome To Blink</h1>
+		</div>
+		<div>
+			<md-button id="demo-btn" class="md-raised" ng-click="start()">Ready?</md-button>
+		</div>
+</div>
+
+
+<!-- <img id="homepage" src="http://i.imgur.com/MpGkPa1.jpg?1" alt="homepage"> -->
 
 
