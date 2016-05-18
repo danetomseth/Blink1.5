@@ -15,18 +15,14 @@ core.factory('TrackingFactory', function($rootScope, $state) {
         canvas = canvasElem;
         context = canvas.getContext("2d");
         //helps remove the error when tracker first loads
-        tracker.setResponseMode("blend", ["raw", "sobel"]);
-            // tracker.start(video, boundingBox);
-            tracker.start(video);
+        
+        setTimeout(function() {
+            tracker.setResponseMode("blend", ["raw", "sobel"]);
+            tracker.start(video, boundingBox);
+            // tracker.start(video);
             trackObj.startDrawing();
             $rootScope.trackerInitialized = true;
-        // setTimeout(function() {
-        //     tracker.setResponseMode("blend", ["raw", "sobel"]);
-        //     // tracker.start(video, boundingBox);
-        //     tracker.start(video);
-        //     trackObj.startDrawing();
-        //     $rootScope.trackerInitialized = true;
-        // }, 2000);
+        }, 2000);
 
     };
 
