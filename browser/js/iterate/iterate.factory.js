@@ -124,9 +124,9 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
         if (positions && PositionFactory.blinkCompare(positions)) {
             blinkDt = Date.now() - lastBlinkTime;
             // On double blink
-            if ((blinkDt < 750) && (blinkDt > 200)) {
+            if ((blinkDt < 500) && (blinkDt > 200)) {
                 console.log('double blink!!');
-                iterateObj.word = KeyboardFactory.doubleBlink();
+                iterateObj.word = KeyboardFactory.doubleBlink(selectingLetter);
             }
             // Two blinks
             else {
@@ -398,7 +398,7 @@ core.factory('IterateFactory', function($rootScope, CornersFactory, TimerFactory
             TimerFactory.clearTracking();
             console.log('Tracking already active!');
         }
-        
+
         if (!$rootScope.caregiver) {
             trackingActive = true;
             $rootScope.zeroActive = true;

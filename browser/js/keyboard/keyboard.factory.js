@@ -29,6 +29,12 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
 
     let rowLength = alphabet[0].length;
     let phrase = "";
+    let lastState = []
+
+    const setUndoState = () => {
+        if(lastState.length > 5) {lastState.shift()}
+        lastState.push(phrase)
+    }
 
     const resetKeyboardPosition = () => {
         letterIndex = 0;
@@ -40,6 +46,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         .then(words => {
                 if (words.length > 1) {angular.copy(words, alphabet[0].letters)} // if there are suggestions, push them onto the alphabet array
             });
+            setUndoState();
             phrase += " "; // add a space that the user asked for
             return phrase // send the current word back to the user
     }
@@ -73,9 +80,11 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
                         return predictWords();
                     case 'SAY':
                         SpeechFactory.say(phrase); // try to pause the scrolling while we speak stuff
-                        phrase = ""
-                        return phrase
+                        setUndoState();
+                        phrase = "";
+                        return phrase;
                     case '<<':
+                        setUndoState();
                         return phrase.slice(0, phrase.length-1);
                     case 'NAV':
                         TimerFactory.clearTracking();
@@ -83,27 +92,38 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
                         break;
                     case 'STOP':
                         TimerFactory.clearTracking();
+                        break;
                     default:
                         console.log("Error: Action "+action+" not found");
                 }
             } else if( returnRow === 0 ){ // if we are on the suggested word row
                 if (phrase.length && phrase[phrase.length-1] !== " ") {// if the last character isn't a space, replace the whole word
+                    setUndoState();
                     phrase = phrase.replace(/[\w!.,'"/\(\)\-]+$/g, alphabet[returnRow].letters[returnLetter]) // repace the last word with the full word
                 } else {
+                    setUndoState();
                     phrase += alphabet[returnRow].letters[returnLetter]; // adds the word to the sentence
                 }
                 return predictWords() // adds a space and updates the predicted words.
             }
             else {
+                setUndoState();
                 phrase += alphabet[returnRow].letters[returnLetter]; // otherwise, add the letter to the word and auto-suggest
                 let suggest = PredictFactory.completeWord(phrase); // get suggested autocompletes
                 if (suggest.length) {angular.copy(suggest, alphabet[0].letters)}; // every time a letter is typed, if we have suggestions, copy them into the object
                 return phrase;
             }
         },
-        doubleBlink: () => {
-            phrase = phrase.slice(0, -1);
-            resetKeyboardPosition();
+        doubleBlink: (selectingLetter) => {
+            // phrase = phrase.slice(0, -1);
+            if(selectingLetter){
+                console.log("deselecting the current row");
+                resetKeyboardPosition();
+            } else {
+                console.log("undoing the last thing, reverting from", phrase, "to", lastState);
+                phrase = lastState.pop()
+                resetKeyboardPosition();
+            }
             return phrase
         },
         endOfRow: () => {

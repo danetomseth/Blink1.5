@@ -60,7 +60,7 @@ core.factory('PositionFactory', function(SettingsFactory) {
             var diffL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             var diffR = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             change = ((diffL + diffR) / diffZero);
-            return (change < SettingsFactory.getThreshold())
+            return (change < 0.9)
         },
         setBlinkZero: () => {
             diffZero = (diffZeroL / readingCount) + (diffZeroR / readingCount); //sets the average distance between top eyelid and bottom
