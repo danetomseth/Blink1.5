@@ -10,7 +10,9 @@ core.config(function ($stateProvider) {
         },
         onEnter: function(IterateFactory) {
         	//this starts nav iteration on type page
-        	IterateFactory.iterate('type');
+            setTimeout(function() {
+                IterateFactory.iterate('type');
+            }, 750);
         }
     });
 });

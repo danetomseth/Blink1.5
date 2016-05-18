@@ -27,7 +27,8 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     let startDelay = () => {
         startDebounce = false;
         setTimeout(() => {
-            startDebounce = true
+            startDebounce = true;
+            stopFrame = false;
         }, 1000)
     }
 
@@ -441,8 +442,8 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     }
 
     iterateObj.iterate = function(page) { // fires once we have calibration (from browZero())
+        stopFrame = true;
         startDelay();
-        stopFrame = false;
         $rootScope.zeroActive = false;
         var positions = TrackingFactory.getPositions();
         switch (page) {
@@ -450,14 +451,12 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
                 callback = navCallback;
                 TimerFactory.moveCursor(linkIterator, 1000);
                 frameId = window.requestAnimationFrame(navAction);
-                //TimerFactory.startReading(analyzeEyePositions, 50, navCallback);
                 break;
             case 'type':
                 lastBlinkTime = Date.now();
                 callback = keyboardCallback
-                frameId = window.requestAnimationFrame(analyzeEyePositions);
-                //TimerFactory.startReading(analyzeEyePositions, 50, keyboardCallback);
                 TimerFactory.moveCursor(keyboardIterator, 750);
+                frameId = window.requestAnimationFrame(analyzeEyePositions);
                 break;
             case 'corners':
                 TimerFactory.startReading(analyzePupilPositions, 50, cornersCallback);

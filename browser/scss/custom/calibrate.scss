@@ -1,6 +1,30 @@
+#demo-overlay {
+	position: absolute;
+	top: 0;
+	width: 79%;
+	height: 100%;
+	color: nth($primary, 1);
+	font-weight: bold;
+	line-height: 100%;
+	text-align: center;
+	background: rgba(255,255,255, 0.8);
+	z-index: 500;
+}
+
+#demo-btn {
+	background: nth($primary, 1);
+	color: white;
+}
+
 .vertical-center {
 	//padding-top: 5%;
+	margin-top: 20%;
 
+}
+
+.main-title {
+	font-size: 4em;
+	font-weight: bold;
 }
 
 .center-align {
@@ -11,12 +35,26 @@
 	}
 }
 
+.center-div {
+	margin: 0 auto;
+	div {
+		width: 20%;
+	}
+}
+.orange {
+	color: nth($background, 2);
+}
+
 .message {
-	background: nth($primary, 1);
+	//background: nth($primary, 1);
+	h2 {
+		font-size: 4em !important;
+		font-weight: bold !important;
+	}
 	padding: 10px;
 	div {
-		background: nth($primary, 3);
-		color: white;
+		background: white;
+		color: nth($primary, 1);
 		width: 75%;
 		height: 250px;
 		text-align: center;
@@ -30,14 +68,30 @@
 	background: nth($primary, 1); 
 	line-height: 250px;
 	padding: 0 10px;
-	margin: 0 10px;
+	margin: 0 20px;
 	text-align: center;
+	color: white;
+}
+
+.box-wrap {
+	height:250px;
+	width: 200px;
+	position: relative;
 }
 
 .detail-info {
 	//text-align: left;
+	height: 50px;
+	width: 100%;
+	position: absolute;
+  	top: 50%;
+  	transform: translateY(-50%);
+	background: nth($primary, 1); 
+	line-height: 50px;
+	text-align: center;
+	padding: 0 10px;
+	color: white;
 	font-size: 1em;
-	font-weight: bold;
 }
 
 .primary-info {

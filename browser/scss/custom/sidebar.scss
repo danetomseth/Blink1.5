@@ -4,7 +4,8 @@ md-sidenav {
     //padding-left: 15px;
     background: linear-gradient(nth($primary, 1), nth($text, 1));
     height: 100vh !important;
-    box-shadow: 2px 3px 3px nth($background, 1);
+    border-right: 2px solid nth($background, 1);
+    //box-shadow: 2px 3px 3px $tempA;
 }
 
 #welcomeMessage {
@@ -30,7 +31,7 @@ logo {
 
 #sidebar-container {
     display: block;
-    width: 25%;
+    width: 23%;
 }
 
 #locked-sidebar {
@@ -44,8 +45,14 @@ logo {
     height: auto;
     text-align: left;
     padding: 5px 10px;
-    background-color: nth($accent, 1);
-    color: nth($text, 1);
+    //background-color: nth($accent, 1);
+    //color: nth($text, 1);
+}
+
+.std-btn {
+    font-size: 2em;
+    background-color: white !important;
+    color: nth($primary, 1) !important;
 }
 
 
@@ -90,4 +97,5 @@ logo {
 
 .btn-highlight {
     background-color: nth($primary, 1) !important;
+    color: white !important;
 }
