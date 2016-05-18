@@ -17,7 +17,8 @@ core.factory('TrackingFactory', function($rootScope, $state) {
         //helps remove the error when tracker first loads
         setTimeout(function() {
             tracker.setResponseMode("blend", ["raw", "sobel"]);
-            tracker.start(video, boundingBox);
+            tracker.start(video);
+            // tracker.start(video, boundingBox);
             trackObj.startDrawing();
             $rootScope.trackerInitialized = true;
         }, 2000);

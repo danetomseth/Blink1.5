@@ -18,7 +18,8 @@ core.factory('PositionFactory', function(ConstantsFactory) {
     let eyeZero = 500;
     let eyeX = 0;
     let eyeY = 0;
-    const pupilThreshold = 2;
+    const pupilXThreshold = 2;
+    const pupilYThreshold = 1;
     const browArray = [20, 21, 17, 16];
     const eyeArray = [63, 24, 64, 20, 21, 67, 29, 68, 17, 16];
     const rightEyeArray = [63, 24, 64, 20, 21];
@@ -140,14 +141,14 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             yDiffAvg.shift();
             yDiff = yDiffAvg[0] + yDiffAvg[1] + yDiffAvg[2];
 
-            if (xDiff < -pupilThreshold && yDiff > pupilThreshold) { // LEFT TOP
-                returnBox = 0;
-            } else if (xDiff > pupilThreshold && yDiff > pupilThreshold) { // RIGHT TOP
-                returnBox = 1;
-            } else if (xDiff < -pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM RIGHT
-                returnBox = 3;
-            } else if (xDiff > pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM LEFT
-                returnBox = 4;
+            if (xDiff < -pupilXThreshold && yDiff > pupilYThreshold) { // LEFT TOP
+                return 0;
+            } else if (xDiff > pupilXThreshold && yDiff > pupilYThreshold) { // RIGHT TOP
+                return 1;
+            } else if (xDiff < -pupilXThreshold && yDiff < -pupilYThreshold) { // BOTTOM RIGHT
+                return 3;
+            } else if (xDiff > pupilXThreshold && yDiff < -pupilYThreshold) { // BOTTOM LEFT
+                return 4;
             }
 
             // let xDiff = (positions[33][0] - positions[32][0]) - eyeXZero;

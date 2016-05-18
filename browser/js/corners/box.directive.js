@@ -13,16 +13,14 @@ core.directive('blBox', function(){
                 if (scope.contents.length > 1){
                     box.addClass("letter-grid");
                     letterBox.removeClass("single-letter");
-                    scope.letters = scope.contents
-                    
+                    scope.letters = scope.contents;
+
                 } else {
                     box.removeClass("letter-grid");
                     letterBox.addClass("single-letter");
-                    scope.letters = scope.contents[0] //["-", "-", scope.contents, "-", "-"]
-
+                    scope.letters = scope.contents[0]; //["-", "-", scope.contents, "-", "-"]
                 }
             })
         }
     }
-
 })
