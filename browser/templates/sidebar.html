@@ -5,8 +5,8 @@
             <md-button class="md-raised" id="nav-btn" ng-repeat="item in items"  ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}">{{item.label}}</md-button>
 
     </div>
-    <bl-sidebar-webcam></bl-sidebar-webcam>
     <div class="dynamicBox">
-    <md-button style="text-align:left" class="md-raised static-btn" id="nav-btn" ng-click="toggleCaregiver()"><span ng-hide="$root.caregiver">Caregiver</span><span ng-show="$root.caregiver">Patient</span></md-button>
+    <!-- <md-button style="text-align:left" class="md-raised static-btn" id="nav-btn" ng-click="toggleCaregiver()"><span ng-hide="$root.caregiver">Caregiver</span><span ng-show="$root.caregiver">Patient</span></md-button> -->
     </div>
+    <bl-sidebar-webcam ng-style="webcamDir" id="webcam-directive"></bl-sidebar-webcam>
 </md-sidenav>

@@ -1,5 +1,5 @@
 // Analysis of tracker positions
-core.factory('PositionFactory', function(SettingsFactory) {
+core.factory('PositionFactory', function(ConstantsFactory) {
     let browThreshold = 15;
     let eyeThreshold = 40;
     let blinkThreshold = 3;
@@ -59,8 +59,8 @@ core.factory('PositionFactory', function(SettingsFactory) {
             let change = 0
             var diffL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             var diffR = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
-            change = ((diffL + diffR) / diffZero);
-            return (change < SettingsFactory.getThreshold())
+            change = ((diffL + diffR) / ConstantsFactory.blinkZero);
+            return (change < ConstantsFactory.blinkRatio)
         },
         setBlinkZero: () => {
             diffZero = (diffZeroL / readingCount) + (diffZeroR / readingCount); //sets the average distance between top eyelid and bottom
@@ -83,6 +83,11 @@ core.factory('PositionFactory', function(SettingsFactory) {
             rightZeroArray = rightEyeArray.map(function(index) {
                 return positions[index][1]
             });
+        },
+        getBlinkValue: (positions) => {
+            diffZeroL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
+            diffZeroR = (positions[66][1] + positions[26][1] + positions[65][1]) - (positions[63][1] + positions[24][1] + positions[64][1]);
+            return [diffZeroL, diffZeroR];
         },
         eyeCompare: (positions) => {
             let eyeTotal = 0;
