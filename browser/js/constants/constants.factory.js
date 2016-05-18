@@ -1,12 +1,16 @@
-core.factory('ConstantsFactory', function() {
+core.factory('ConstantsFactory', function($rootScope, Session, SettingsFactory) {
 	let calibrateVal = {};
 
 	calibrateVal.blinkRatio = 0.75; //default value
 	calibrateVal.blinkZero = 41;
 
+    $rootScope.$on('auth-login-success', function(){
+        calibrateVal.blinkRatio = Session.user.blinkRatio
+        calibrateVal.blinkZero = Session.user.blinkZero
+    })
+
 
 	calibrateVal.setBlink = (ratio, zero) => {
-		console.log('blink val set', ratio);
 		calibrateVal.blinkRatio = ratio;
 		calibrateVal.blinkZero = zero;
 	}
