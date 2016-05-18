@@ -52,9 +52,6 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService)
             console.log("persisting blink", blinkZero, blinkRatio)
             $http.put("/api/users", {blinkZero: blinkZero, blinkRatio: blinkRatio})
             .then( user => {
-                console.log("post persist user", user)
-                user.blinkRatio = blinkRatio;
-                user.blinkZero = blinkZero;
                 return user.data;
             })
         },
