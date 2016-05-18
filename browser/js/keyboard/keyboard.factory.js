@@ -115,13 +115,16 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
             }
         },
         doubleBlink: (selectingLetter) => {
-            // phrase = phrase.slice(0, -1);
-            if(selectingLetter){
+            if (lastState.length){ // undo the select that just happened from the first blink
+                console.log("popping off last thing", lastState)
+                phrase = lastState.pop();
+            }
+            if(selectingLetter){  // if we are in a row, deselect it
                 console.log("deselecting the current row");
                 resetKeyboardPosition();
             } else {
                 console.log("undoing the last thing, reverting from", phrase, "to", lastState);
-                phrase = lastState.pop()
+                phrase = lastState.pop();
                 resetKeyboardPosition();
             }
             return phrase

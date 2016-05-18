@@ -136,7 +136,7 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
         if (positions && PositionFactory.blinkCompare(positions) && startDebounce) {
             blinkDt = Date.now() - lastBlinkTime;
             // On double blink
-            if ((blinkDt < 500) && (blinkDt > 200)) {
+            if ((blinkDt < 500) && (blinkDt > 150)) {
                 console.log('double blink!!');
                 iterateObj.word = KeyboardFactory.doubleBlink(selectingLetter);
             }
