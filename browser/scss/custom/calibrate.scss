@@ -15,7 +15,8 @@
 	background: nth($primary, 1);
 	padding: 10px;
 	div {
-		background: nth($background, 2);
+		background: nth($primary, 3);
+		color: white;
 		width: 75%;
 		height: 250px;
 		text-align: center;

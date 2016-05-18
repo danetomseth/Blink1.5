@@ -1,5 +1,5 @@
 // Analysis of tracker positions
-core.factory('PositionFactory', function() {
+core.factory('PositionFactory', function(ConstantsFactory) {
     let browThreshold = 15;
     let eyeThreshold = 40;
     let blinkThreshold = 3;
@@ -59,8 +59,8 @@ core.factory('PositionFactory', function() {
             let change = 0
             var diffL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]); 
             var diffR = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
-            change = ((diffL + diffR) / diffZero);
-            return (change < 0.8)
+            change = ((diffL + diffR) / ConstantsFactory.blinkZero);
+            return (change < ConstantsFactory.blinkRatio)
         },
         setBlinkZero: () => {
             diffZero = (diffZeroL / readingCount) + (diffZeroR / readingCount); //sets the average distance between top eyelid and bottom
