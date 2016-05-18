@@ -50,6 +50,10 @@ var schema = new mongoose.Schema({
     trackingFeature: {
         type: String,
         default: 'eyebrows'
+    },
+    eyeThreshold: {
+        type: Number,
+        default: 0.85
     }
 });
 

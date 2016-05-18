@@ -11,6 +11,8 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
     var currentBox = 0;
     var lastBox = 0;
     var blinkHold = 0;
+    let frameId;
+    let callback;
     iterateObj.scopeValue = [];
     iterateObj.linkValue;
     iterateObj.settingsValue;
@@ -130,10 +132,11 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
             }
             // Two blinks
             else {
-                cb();
+                callback();
             }
             lastBlinkTime = Date.now();
         }
+        frameId = window.requestAnimationFrame(analyzeEyePositions);
     }
 
     function analyzeBrowPositions(cb) {
@@ -302,6 +305,7 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
 
     function navCallback() {
         iterateObj.linkValue = null;
+        cancelAnimationFrame(frameId);
         goToPage();
     }
 
@@ -417,12 +421,16 @@ core.factory('IterateFactory', function($rootScope,ConstantsFactory, CornersFact
         var positions = TrackingFactory.getPositions();
         switch (page) {
             case 'nav':
-                TimerFactory.startReading(analyzeEyePositions, 50, navCallback);
+                callback = navCallback;
+                frameId = window.requestAnimationFrame(analyzeEyePositions);
+                //TimerFactory.startReading(analyzeEyePositions, 50, navCallback);
                 TimerFactory.moveCursor(linkIterator, 1000);
                 break;
             case 'type':
                 lastBlinkTime = Date.now();
-                TimerFactory.startReading(analyzeEyePositions, 50, keyboardCallback);
+                callback = keyboardCallback
+                frameId = window.requestAnimationFrame(analyzeEyePositions);
+                //TimerFactory.startReading(analyzeEyePositions, 50, keyboardCallback);
                 TimerFactory.moveCursor(keyboardIterator, 750);
                 break;
             case 'corners':

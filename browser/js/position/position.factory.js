@@ -57,9 +57,11 @@ core.factory('PositionFactory', function(ConstantsFactory) {
         blinkCompare: (positions) => {
             let eyeTotal = 0;
             let change = 0
-            var diffL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]); 
+            var diffL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             var diffR = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             change = ((diffL + diffR) / ConstantsFactory.blinkZero);
+            console.log('ratio',ConstantsFactory.blinkRatio);
+            console.log('zero',ConstantsFactory.blinkZero);
             return (change < ConstantsFactory.blinkRatio)
         },
         setBlinkZero: () => {
@@ -176,7 +178,7 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             // if(pupilCount > 10) {
             //     console.log("Diff", [xDiff.toFixed(1), yDiff.toFixed(1)]);
             //     pupilCount = 0;
-                
+
             // }
 
 

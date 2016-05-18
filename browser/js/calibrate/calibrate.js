@@ -196,6 +196,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
             }
 
 
+
             // Fill with gradient
 
             scope.calibrationFinished = function() {
@@ -221,7 +222,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
             scope.end = () => {
                 ConstantsFactory.setBlink(blinkRatio, blinkZero);
                 cancelAnimationFrame(frameId);
-                IterateFactory.zero('nav');
+                IterateFactory.iterate('nav');
             }
 
 
@@ -233,3 +234,4 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
         }
     }
 });
+
