@@ -48,6 +48,17 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService)
             return $http.put('/api/users/' + $rootScope.user._id, selections)
                 .then((updatedUser) => angular.copy(updatedUser.data, $rootScope.user));
         },
-
+        setThreshold: (threshold) => {
+            console.log("setting threshold at", threshold)
+            $http.put("/api/users", {eyeThreshold: threshold})
+            .then( user => {
+                user.eyeThreshold = threshold;
+                console.log("user", user, user.eyeThreshold)
+                return user.data;
+            })
+        },
+        getThreshold: () => {
+            return user.eyeThreshold;
+        }
     }
 });

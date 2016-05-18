@@ -1,6 +1,7 @@
 
 // check if the user is logged in
 const authenticated = (req, res, next) => {
+    console.log("checking auth")
     if (req.isAuthenticated()) {
         next();
     } else {
@@ -28,6 +29,8 @@ const participant = (participants) => {
     }
 };
 
+
+// TEMP DISABLED DURING DEV
 module.exports = {
     authenticated: (req, res, next) => next(),
     selfOrAdmin: (req, res, next) => next(),
