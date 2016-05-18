@@ -18,7 +18,7 @@ core.factory('PositionFactory', function(ConstantsFactory) {
     let eyeZero = 500;
     let eyeX = 0;
     let eyeY = 0;
-    const pupilThreshold = 2;
+    const pupilThreshold = 0;
     const browArray = [20, 21, 17, 16];
     const eyeArray = [63, 24, 64, 20, 21, 67, 29, 68, 17, 16];
     const rightEyeArray = [63, 24, 64, 20, 21];
@@ -60,6 +60,7 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             var diffL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             var diffR = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             change = ((diffL + diffR) / ConstantsFactory.blinkZero);
+            console.log('ratio', ConstantsFactory.blinkRatio);
             return (change < ConstantsFactory.blinkRatio)
         },
         setBlinkZero: () => {

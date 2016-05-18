@@ -27,8 +27,7 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     let startDelay = () => {
         startDebounce = false;
         setTimeout(() => {
-            startDebounce = true;
-            stopFrame = false;
+            startDebounce = true
         }, 1000)
     }
 
@@ -442,8 +441,8 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     }
 
     iterateObj.iterate = function(page) { // fires once we have calibration (from browZero())
-        stopFrame = true;
         startDelay();
+        stopFrame = false;
         $rootScope.zeroActive = false;
         var positions = TrackingFactory.getPositions();
         switch (page) {

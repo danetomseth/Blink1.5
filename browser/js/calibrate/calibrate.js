@@ -164,7 +164,7 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
 
                 blinkZero = maxSum;
 
-                blinkRatio = (minSum / maxSum);
+                blinkRatio = (minSum / maxSum) - 0.04;
                 calibrationComplete = true;
 
             }
@@ -212,7 +212,7 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
             }
 
             function navDelay() {
-                scope.countDown = 5;
+                scope.countDown = 3;
                 let countDownInt = $interval(function() {
                     if(scope.countDown === 0) {
                         $interval.cancel(countDownInt);

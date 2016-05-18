@@ -5,13 +5,16 @@
         <div class="col-xs-4 grid-item" ng-click="selectBox(0)" ng-class="{'active-box': selectedBox == 0}">
             <bl-box contents="boxes[0]"></bl-box> <!-- Box Directive -->
         </div>
-        <div class="col-xs-4 grid-item grid-word">Word:{{phrase[0]}}</div>
+        <div class="col-xs-4 grid-item grid-empty"></div>
+        
+        <!-- <div class="col-xs-4 grid-item grid-word">Word:{{phrase[0]}}</div> -->
         <div class="col-xs-4 grid-item" ng-click="selectBox(1)" ng-class="{'active-box': selectedBox == 1}"><bl-box contents=boxes[1]></bl-box></div>
     </div>
     <!-- Middle -->
     <div class="row row-centered grid-row">
         <div class="col-xs-4 grid-item grid-empty"></div>
-        <div class="col-xs-4 grid-item" ng-click="selectBox(2)"  ng-class="{'active-box': selectedBox == 2}"><bl-box contents=boxes[2]></bl-box></div>
+        <!-- <div class="col-xs-4 grid-item" ng-click="selectBox(2)"  ng-class="{'active-box': selectedBox == 2}"><bl-box contents=boxes[2]></bl-box></div> -->
+        <div class="col-xs-4 grid-item grid-word">Word:{{phrase[0]}}</div>
         <div class="col-xs-4 grid-item grid-empty"></div>
     </div>
     <!-- Bottom -->

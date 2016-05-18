@@ -10,7 +10,8 @@ core.factory('CornersFactory', function() {
             contents: ["🍎", "🍇", "🍕", "🌯", "🍣"]
         },
         {
-            contents: ["K", "L", "M", "N", "O"]
+            //contents: ["K", "L", "M", "N", "O"]
+            contents: ["", "", "", "", ""]
         },
         {
             contents: ["P", "Q", "R", "S", "T"]
