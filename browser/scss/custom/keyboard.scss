@@ -58,7 +58,7 @@
 
 .keyboard-row:first-of-type  {
     .row-box{
-        background: rgba(220,220,220, 0.8);
+        background: rgba(220,220,220, 0.6);
     }
 }
 .hover-row {
@@ -68,7 +68,7 @@
 }
 .letter-hover {
     color: nth($primary, 1);
-    border: 1px solid nth($primary, 1);
+    border: 2px solid nth($primary, 1);
     background: white !important;
     //box-shadow: 2px 2px 2px nth($primary, 1);
 }
