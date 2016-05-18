@@ -1,4 +1,4 @@
-core.directive("blCalibrate", function(PositionFactory, IterateFactory, TrackingFactory, ConstantsFactory, $interval, $rootScope) {
+core.directive("blCalibrate", function(PositionFactory, SettingsFactory, IterateFactory, TrackingFactory, ConstantsFactory, $interval, $rootScope) {
     return {
         restrict: "E",
         templateUrl: 'templates/calibrate.html',
@@ -35,7 +35,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
 
 
 
-        
+
 
 
             function testDelay() {
@@ -147,7 +147,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
                 }
             }
 
-            
+
 
             let setValues = function() {
                 //testDelay();
@@ -229,6 +229,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
 
             function moveToNav() {
                 calibrationFinished = true;
+                SettingsFactory.setThreshold(blinkRatio, blinkZero)
                 ConstantsFactory.setBlink(blinkRatio, blinkZero);
                 IterateFactory.iterate('nav');
                 return;
@@ -237,10 +238,11 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
 
 
 
-            
+
 
             scope.end = () => {
                 calibrationFinished = true;
+                SettingsFactory.setThreshold(blinkRatio, blinkZero)
                 ConstantsFactory.setBlink(blinkRatio, blinkZero);
             }
 

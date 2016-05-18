@@ -48,17 +48,18 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService)
             return $http.put('/api/users/' + $rootScope.user._id, selections)
                 .then((updatedUser) => angular.copy(updatedUser.data, $rootScope.user));
         },
-        setThreshold: (threshold) => {
-            console.log("setting threshold at", threshold)
-            $http.put("/api/users", {eyeThreshold: threshold})
+        setThreshold: (blinkRatio, blinkZero) => {
+            console.log("persisting blink", blinkZero, blinkRatio)
+            $http.put("/api/users", {blinkZero: blinkZero, blinkRatio: blinkRatio})
             .then( user => {
-                user.eyeThreshold = threshold;
-                console.log("user", user, user.eyeThreshold)
                 return user.data;
             })
         },
-        getThreshold: () => {
-            return user.eyeThreshold;
-        }
+        // getBlinkZero: () => { // Use Session.user.blinkZero instead.
+        //     return user.blinkZero;
+        // },
+        // getBlinkRatio: () => {
+        //     return user.blinkRatio;
+        // }
     }
 });
