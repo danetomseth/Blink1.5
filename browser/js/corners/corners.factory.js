@@ -4,10 +4,10 @@ core.factory('CornersFactory', function() {
 
     let letterBox = [
         {
-            contents: ["A", "B", "C", "D", "E"]
+            contents: ["😀", "😬", "😁", "😂", "😃"]
         },
         {
-            contents: ["F", "G", "H", "I", "J"]
+            contents: ["🍎", "🍇", "🍕", "🌯", "🍣"]
         },
         {
             contents: ["K", "L", "M", "N", "O"]
@@ -26,10 +26,10 @@ core.factory('CornersFactory', function() {
 
 
     let gridBoxes = [
-        letterBox[0].contents, 
-        letterBox[1].contents, 
-        letterBox[2].contents, 
-        letterBox[3].contents, 
+        letterBox[0].contents,
+        letterBox[1].contents,
+        letterBox[2].contents,
+        letterBox[3].contents,
         letterBox[4].contents
     ]
 
