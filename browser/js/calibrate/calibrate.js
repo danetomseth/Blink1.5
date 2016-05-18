@@ -164,7 +164,7 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
 
                 blinkZero = maxSum;
 
-                blinkRatio = (minSum / maxSum);
+                blinkRatio = (minSum / maxSum) - 0.05;
                 calibrationComplete = true;
 
             }
