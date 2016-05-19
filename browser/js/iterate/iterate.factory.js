@@ -94,8 +94,6 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     //////////// Corners
     ////////////////////////////////////////////////////////////
 
-   
-
 
       let cornersCallback = (box) => {
         if (debounce) {
