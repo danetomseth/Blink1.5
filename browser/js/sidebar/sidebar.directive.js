@@ -53,7 +53,8 @@ core.directive('blSidebar', function($state, $rootScope, ActionFactory, AuthServ
             })
             $rootScope.$on("singleBlink", () => {
                 if(ActionFactory.isActive('nav')){
-                    scope.selectedLink = null;
+                    console.log("doing this thing")
+                    // scope.selectedLink = null;
                     SidebarFactory.changeState();
                 }
             })

@@ -24,11 +24,9 @@ core.factory('ActionFactory', function($rootScope, $state) {
         }
     }
 
-    action.runEvents = () => {
+    action.runEvents = (state) => {
         action.stopEvents();
-        Array.from(arguments).forEach(state => {
-            states[state] = true;
-        });
+        setTimeout(() => {states[state] = true;}, 0)
     }
 
     $rootScope.$on('$stateChangeStart',
@@ -41,7 +39,7 @@ core.factory('ActionFactory', function($rootScope, $state) {
 
     $rootScope.$on('$stateChangeSuccess',
         function(event, toState, toParams, fromState, fromParams) {
-            console.log('state success', toState);
+            console.log('state success', toState.name);
             action.runEvents(toState.name);
         });
 

@@ -34,6 +34,7 @@ core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, Tr
             let blink = PositionFactory.blinkCompare(positions)
             if(blink){
                 // console.log("emiting", blink)
+                startTime = timestamp;
                 $rootScope.$emit(blink) // emits "doubleBlink" or "singleBlink"
             }
 

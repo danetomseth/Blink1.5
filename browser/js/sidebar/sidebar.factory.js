@@ -1,4 +1,4 @@
-core.factory('SidebarFactory', function($state, $mdSidenav) {
+core.factory('SidebarFactory', function($state, $mdSidenav, ActionFactory) {
 
     let itemIndex = 0;
     let returnIndex = 0;
@@ -46,6 +46,7 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
         },
         changeState: () => {
             itemIndex = 0;
+            console.log("GOING TO ",userLinks[returnIndex].state)
             $state.go(userLinks[returnIndex].state)
         }
     }

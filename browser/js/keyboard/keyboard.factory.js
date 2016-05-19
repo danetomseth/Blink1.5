@@ -129,6 +129,7 @@ core.factory("KeyboardFactory", function($state, $rootScope, ActionFactory, Pred
                     setUndoState();
                     return phrase.slice(0, phrase.length - 1);
                 case 'NAV':
+                    console.log("nav")
                     ActionFactory.runEvents('nav');
                     break;
                 case 'STOP':
@@ -228,20 +229,20 @@ core.factory("KeyboardFactory", function($state, $rootScope, ActionFactory, Pred
 
 
     $rootScope.$on('singleBlink', (event, data) => {
-        if (ActionFactory.isActive('keyboard')) {
+        if (ActionFactory.isActive('type')) {
             console.log('blink detected!!');
             selectAction();
         }
     });
 
     $rootScope.$on('doubleBlink', (event, data) => {
-        if (ActionFactory.isActive('keyboard')) {
+        if (ActionFactory.isActive('type')) {
             doubleBlink();
         }
     });
 
     $rootScope.$on('iterate', (event, data) => {
-        if (ActionFactory.isActive('keyboard')) {
+        if (ActionFactory.isActive('type')) {
             console.log('moving!!');
             moveKeyboard();
         }
