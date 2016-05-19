@@ -47,7 +47,7 @@ core.factory('SidebarFactory', function($state, $mdSidenav, ActionFactory) {
         changeState: () => {
             itemIndex = 0;
             console.log("GOING TO ",userLinks[returnIndex].state)
-            $state.go(userLinks[returnIndex].state)
+            $state.go(userLinks[returnIndex].state, null, {reload: true})
         }
     }
 });
