@@ -315,6 +315,16 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
         }
     }
 
+    let cornersDelete = () => {
+         if (debounce) {
+            debounce = false;
+            boxDebounce = false;
+            CornersFactory.delete();
+            debounceFn(); // wait to set debounce to true
+            boxDelay(); // wait to set boxDebounce back to true
+        }
+    }
+
     var pupilCheck = function(page) {
         var converge = TrackingFactory.convergence();
         var positions = TrackingFactory.getPositions();
@@ -355,7 +365,7 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
                     mainScreen = false;
                 } else if (mainScreen && doubleBlink) {
                     // Delete on double blink for main screen
-                    CornersFactory.delete();
+                    cornersDelete();
                 } else if (blinkDt > 750) {
                     // Single blink to select
                     cornersSelect(currentBox);
@@ -367,7 +377,7 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
                 }
                 lastBlinkTime = Date.now();
             }
-            // On selecting screen, highlight boxes based on pupil position
+            // Highlight boxes based on pupil position
             else {
                 iterateObj.selectedBox = currentBox;
             }
