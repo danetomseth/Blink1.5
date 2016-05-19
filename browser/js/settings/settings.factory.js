@@ -9,24 +9,24 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, ActionFactor
     let features = ['eyes', 'eyebrows', 'mouth'];
     let options = speeds;
 
-    let settings = ActionFactory.isActive('settings');
-    let keyboard = ActionFactory.isActive('settings.keyboard');
-    let features = ActionFactory.isActive('settings.features');
+    let settingsActive = ActionFactory.isActive('settings');
+    let keyboardActive = ActionFactory.isActive('settings.keyboard');
+    let featuresActive = ActionFactory.isActive('settings.features');
 
     $rootScope.$on("iterate", () => {
-        if(settings && !keyboard && !features ){
+        if(settingsActive && !keyboardActive && !featuresActive ){
             settingsObj.selections.selectedTab = settingsObj.moveSelected();
         }
-        else if(keyboard || features) {
+        else if(keyboardActive || featuresActive) {
             settingsObj.selections.highlighted = settingsObj.iterateOption();
         }
     })
 
     $rootScope.$on("singleBlink", () => {
-        if(settings && !keyboard && !features){
+        if(settingsActive && !keyboardActive && !featuresActive){
             settingsObj.changeState();
         }
-        else if(keyboard || features) {
+        else if(keyboardActive || featuresActive) {
             settingsObj.selectOption();
         }
     })

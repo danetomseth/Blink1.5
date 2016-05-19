@@ -1,11 +1,21 @@
 //this sets all of timer dependent functions to the same intervals to clear on state change
 
-core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, TrackingFactory, ActionFactory) {
+core.factory('TimerRAFFactory', function($rootScope, Session, $state, PositionFactory, TrackingFactory, ActionFactory) {
 
-    let rafFrame
+    const translateDelay = {
+        0: 1400,
+        1: 1200,
+        2: 950,
+        3: 750,
+        4: 600,
+        5: 500
+    }
+    let iterationTime = (Session.user) ? translateDelay(Session.user.keyboardSpeed) : 750;
+    // let rafFrame;
     let startTime = 0;
-    let iterationTime = 1000 // updated on state change
+    // let iterationTime = translateDelay(Session.user.keyboardSpeed) || 750 // updated on state change
     let lastBox;
+
 
 
     // Run a RAF Step
