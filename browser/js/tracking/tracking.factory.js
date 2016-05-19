@@ -11,6 +11,7 @@ core.factory('TrackingFactory', function($rootScope, $state) {
 
     trackObj.startTracking = (canvasElem, video, boundingBox) => {
         //new tracker
+        console.log("starting")
         tracker = new clm.tracker({searchWindow: 5});
         tracker.init(pModel);
         canvas = canvasElem;
@@ -20,25 +21,27 @@ core.factory('TrackingFactory', function($rootScope, $state) {
         setTimeout(function() {
             tracker.setResponseMode("blend", ["raw", "sobel"]);
             tracker.start(video);
-            trackObj.startDrawing();
-            $rootScope.trackerInitialized = true;
+            // trackObj.startDrawing();
+            $rootScope.$broadcast("trackerInitialized")
+            console.log("initialized")
+            // $rootScope.trackerInitialized = true;
         }, 2000);
 
     };
 
     trackObj.drawLoop = () => {
-        requestAnimationFrame(trackObj.drawLoop);
+        // requestAnimationFrame(trackObj.drawLoop);
         context.clearRect(0, 0, canvas.width, canvas.height);
         tracker.draw(canvas);
     };
 
 
-    trackObj.startDrawing = () => {
-        if (!drawing) {
-            trackObj.drawLoop();
-            drawing = true;
-        }
-    }
+    // trackObj.startDrawing = () => {
+    //     if (!drawing) {
+    //         trackObj.drawLoop();
+    //         drawing = true;
+    //     }
+    // }
 
     trackObj.getParams = () => {
         return tracker.getCurrentParameters();
