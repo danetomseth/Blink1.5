@@ -47,9 +47,11 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
             $rootScope.$on("iterate", () => {
-                console.log("iterating");
-                scope.selectedLink = SidebarFactory.moveSelected();
-                scope.$digest();
+                if($rootScope.nav){
+                    // console.log("iterating");
+                    scope.selectedLink = SidebarFactory.moveSelected();
+                    scope.$digest();
+                }
             })
         }
     }
