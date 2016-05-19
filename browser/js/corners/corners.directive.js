@@ -14,7 +14,7 @@ core.directive('blCorners', function($interval, $rootScope, TrackingFactory, Cor
                 return IterateFactory.selectedBox
             }, function(newVal, oldVal) {
                 if (typeof newVal !== 'undefined') {
-                        scope.selectedBox = IterateFactory.selectedBox;
+                    scope.selectedBox = IterateFactory.selectedBox;
                 }
             },true);
 

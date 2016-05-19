@@ -9,6 +9,7 @@ core.directive('blBox', function(){
         link: function(scope, elem, attrs){
             var box = angular.element(elem[0].children[0]);
             var letterBox = angular.element(elem[0].children[0].children[0]);
+
             scope.$watch("contents", function(){
                 if (scope.contents.length > 1){
                     box.addClass("letter-grid");

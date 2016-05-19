@@ -51,11 +51,12 @@ core.factory('CornersFactory', function() {
             angular.copy([newPhrase], phrase)
         },
         goToBox: (box) => {
-            angular.copy(gridBoxes[box], displayedBoxes)
+            angular.copy(gridBoxes[box], displayedBoxes);
             currentBox = box;
         },
         select: (box) => {
-            word += gridBoxes[currentBox][box]
+            console.log("selecting gridboxes[", currentBox, "][", box, "]")
+            word += gridBoxes[currentBox][box];
             let newPhrase = phrase[0] += gridBoxes[currentBox][box]
             angular.copy([newPhrase], phrase)
             angular.copy(gridBoxes, displayedBoxes)

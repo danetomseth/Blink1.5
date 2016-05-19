@@ -297,18 +297,21 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     let cornersCallback = (box) => {
         if (debounce) {
             debounce = false;
+            boxDebounce = false;
             CornersFactory.goToBox(box);
             debounceFn(); // wait to set debounce to true
-            // boxDelay(); // wait to set boxDebounce back to true
+            boxDelay(); // wait to set boxDebounce back to true
         }
     }
 
     let cornersSelect = (box) => {
         if (debounce) {
             debounce = false;
+            boxDebounce = false;
             CornersFactory.select(box);
             debounceFn(); // wait to set debounce to true
             boxDelay(); // wait to set boxDebounce back to true
+            cornersCallback();
         }
     }
 
@@ -332,33 +335,35 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
         }
     }
 
+    let mainScreen = true;
     function analyzePupilPositions() {
         $rootScope.$digest();
         let positions = TrackingFactory.getPositions();
-        if (positions) {
+
+        if (positions && startDebounce && boxDebounce) {
             currentBox = PositionFactory.pupilPosition(positions);
 
-            // Check for blinks
+            // On blink
             if (PositionFactory.blinkCompare(positions)) {
-                console.log("Caught a blink")
                 blinkDt = Date.now() - lastBlinkTime;
-                // On double blink
-                if ((blinkDt < 750) && (blinkDt > 200)) {
-                    cornersCallback(); //
-                }
-                // On single blink, select letter
-                else {
-                    console.log("select letter");
+                if (mainScreen) {
+                    // Select a box from the main screen
+                    cornersCallback(currentBox);
+                    mainScreen = false;
+                } else if (blinkDt > 750) {
+                    // Single blink to select
                     cornersSelect(currentBox);
+                    mainScreen = true;
+                } else if ((blinkDt <= 750) && (blinkDt > 250)) {
+                    // Double blink goes back to home page
+                    cornersCallback();
+                    mainScreen = true;
                 }
                 lastBlinkTime = Date.now();
             }
-
-            // On glance, view box
+            // On selecting screen, highlight boxes based on pupil position
             else {
-                console.log("going to new box")
-            iterateObj.selectedBox = currentBox;
-                lastBox = currentBox;
+                iterateObj.selectedBox = currentBox;
             }
         }
 
