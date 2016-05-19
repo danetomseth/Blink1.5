@@ -29,6 +29,8 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     let startDebounce = false;
     let lastBlinkTime;
     let blinkDt;
+    let mainScreen = true;
+    let doubleBlink;
 
     iterateObj.scopeValue = [];
     iterateObj.linkValue;
@@ -95,25 +97,41 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     ////////////////////////////////////////////////////////////
 
 
-      let cornersCallback = (box) => {
+     
+    let cornersCallback = (box) => {
         if (debounce) {
             debounce = false;
-            CornersFactory.goToBox(box)
-            debounceFn();
-            boxDelay();
-        } else if (blinkHold > 3) { //this checkes to see if the eyes are still closed
-            blinkHold = 0;
-            CornersFactory.delete();
-        } else {
-            blinkHold++
+            boxDebounce = false;
+            CornersFactory.goToBox(box);
+            debounceFn(); // wait to set debounce to true
+            boxDelay(); // wait to set boxDebounce back to true
         }
     }
 
-    
+    let cornersSelect = (box) => {
+        if (debounce) {
+            debounce = false;
+            boxDebounce = false;
+            CornersFactory.select(box);
+            debounceFn(); // wait to set debounce to true
+            boxDelay(); // wait to set boxDebounce back to true
+            cornersCallback();
+        }
+    }
 
-    let pupilCheck = function(page) {
-        let converge = TrackingFactory.convergence();
-        let positions = TrackingFactory.getPositions();
+    let cornersDelete = () => {
+         if (debounce) {
+            debounce = false;
+            boxDebounce = false;
+            CornersFactory.delete();
+            debounceFn(); // wait to set debounce to true
+            boxDelay(); // wait to set boxDebounce back to true
+        }
+    }
+
+    var pupilCheck = function(page) {
+        var converge = TrackingFactory.convergence();
+        var positions = TrackingFactory.getPositions();
         if (converge < 300) {
             count++;
             if (count > 10) {
@@ -131,38 +149,48 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
         }
     }
 
-
-
-    function analyzePupilPositions(cb) {
-        let positions = TrackingFactory.getPositions();
-        if (positions) {
-            currentBox = PositionFactory.pupilPosition(positions);
-            let blinkStatus = PositionFactory.blinkCompare(positions);
-            //position factory returns false if changes are too large
-            //eventually want to call zero again
-            if (blinkStatus) {
-                boxDebounce = false;
-                cb(lastBox); // this way, box doesn't jump down when selecting
-            } else {
-                blinkHold = 0;
-                if (boxDebounce) iterateObj.selectedBox = currentBox; //want some delay with box movement after one is selected
-            }
-            lastBox = currentBox;
-        }
-    }
-
     
 
-
-    function analyzeBrowPositions(cb) {
+    function analyzePupilPositions() {
+        $rootScope.$digest();
         let positions = TrackingFactory.getPositions();
-        if (positions) {
-            if (PositionFactory.browCompare(positions)) {
-                cb();
+
+        if (positions && startDebounce && boxDebounce) {
+            currentBox = PositionFactory.pupilPosition(positions);
+
+            // On blink
+            if (PositionFactory.blinkCompare(positions)) {
+                blinkDt = Date.now() - lastBlinkTime;
+                doubleBlink = ((blinkDt <= 750) && (blinkDt > 250));
+                if (mainScreen && !doubleBlink) {
+                    // Select a box from the main screen
+                    cornersCallback(currentBox);
+                    mainScreen = false;
+                } else if (mainScreen && doubleBlink) {
+                    // Delete on double blink for main screen
+                    cornersDelete();
+                } else if (blinkDt > 750) {
+                    // Single blink to select
+                    cornersSelect(currentBox);
+                    mainScreen = true;
+                } else if ((blinkDt <= 750) && (blinkDt > 250)) {
+                    // Double blink goes back to home page
+                    cornersCallback();
+                    mainScreen = true;
+                }
+                lastBlinkTime = Date.now();
+            }
+            // Highlight boxes based on pupil position
+            else {
+                iterateObj.selectedBox = currentBox;
             }
         }
-    }
 
+        // Keep running request animation frame
+        if (!stopFrame) {
+            frameId = window.requestAnimationFrame(analyzePupilPositions);
+        }
+    }
 
 
 
