@@ -1,4 +1,4 @@
-core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope) {
+core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, ActionFactory) {
     return {
         restrict: "E",
         templateUrl: 'templates/calibrate.html',
@@ -78,7 +78,7 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope) {
                 //set action factory here
                 CalibrateFactory.calibrationSet = false;
                 setTimeout(() => {
-                    $state.go('type');
+                    ActionFactory.runEvents('nav');
                 }, 500);                
 
             }
