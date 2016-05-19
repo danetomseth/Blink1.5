@@ -20,8 +20,9 @@ core.factory('TrackingFactory', function($rootScope, $state) {
 
         setTimeout(function() {
             tracker.setResponseMode("blend", ["raw", "sobel"]);
-            tracker.start(video);
-            // trackObj.startDrawing();
+            tracker.start(video, boundingBox);
+            //tracker.start(video);
+            //trackObj.startDrawing();
             $rootScope.$broadcast("trackerInitialized")
             console.log("initialized")
             // $rootScope.trackerInitialized = true;

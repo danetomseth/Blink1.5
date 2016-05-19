@@ -67,14 +67,16 @@ core.factory('TimerFactory', function($rootScope,$state, $interval, $timeout, Tr
             }
         },
         pauseIteration: (delay) => {
-            console.log("pauseIteration")
-            if (angular.isDefined(cursorInt)) {
-                $interval.cancel(positionInt);
-                $interval.cancel(cursorInt);
-            }
-            $timeout(function() {
-                cursorFunc();
-            }, delay);
+            //need to refeactor this
+
+            // if (angular.isDefined(cursorInt)) {
+            //     $interval.cancel(positionInt);
+            //     $interval.cancel(cursorInt);
+            // }
+            // $timeout(function() {
+            //     cursorFunc();
+            // }, delay);
+
         },
         //we know that the webcam is loaded and can start tracking
         videoReady: () => {

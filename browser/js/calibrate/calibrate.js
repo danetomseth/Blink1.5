@@ -3,6 +3,10 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
         restrict: "E",
         templateUrl: 'templates/calibrate.html',
         link: function(scope, elem, attr) {
+            let requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+            let cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
 
 
             let calibrationComplete = false;
@@ -19,6 +23,7 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
             let zeroFinished = false;
             let testFinished = false;
             let calibrationFinished = false;
+            scope.animationCount = 0;
             scope.calStart = false;
 
             let count = 0;
@@ -115,10 +120,11 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
             };
 
 
+            let logCancel = false;
 
-
-            function readEyes(timestamp) {
-                scope.$digest()
+            function readEyes() {
+                scope.$digest();
+                scope.animationCount++;
 
                 let positions = TrackingFactory.getPositions()
                 if (positions) {
@@ -130,6 +136,7 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                     converge = TrackingFactory.convergence();
                     if (converge <= 0.5) {
                         zeroFinished = true;
+                        //cancelDelay();
                         $rootScope.zeroActive = false;
                         $rootScope.$digest();
                     }
@@ -142,8 +149,13 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                         testBlinks(currentBlink)
                     }
                 }
-                if(!calibrationFinished) {
+                if (!calibrationFinished) {
+                    //frameId = window.requestAnimationFrame(readEyes);
+                    console.log('previous frame:', frameId);
                     frameId = requestAnimationFrame(readEyes);
+                    if(logCancel) {
+                        console.log('current frame:', frameId);
+                    }
                 }
             }
 
@@ -151,7 +163,7 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
 
             let setValues = function() {
                 //testDelay();
-                scope.confirmBlink = 5;
+                scope.confirmBlink = 10;
                 maxVals.forEach(function(val) {
                     maxSum += val;
                 })
@@ -190,9 +202,19 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                 }
             }
 
-             function blinkDelay() {
+            function blinkDelay() {
                 if (scope.confirmBlink > 0) {
                     scope.confirmBlink--;
+                    if(scope.confirmBlink === 5) {
+                        logCancel = true;
+                        window.cancelAnimationFrame(frameId);
+                        console.log('an1', frameId);
+                        console.log('cancel!!!! #1');
+                    }
+                    if(scope.confirmBlink === 3) { 
+                        console.log('cancel with delay #2');
+                        cancelDelay();
+                    }
                 }
                 if (scope.confirmBlink === 0) {
                     scope.showMessage = true;
@@ -214,11 +236,10 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
             function navDelay() {
                 scope.countDown = 3;
                 let countDownInt = $interval(function() {
-                    if(scope.countDown === 0) {
+                    if (scope.countDown === 0) {
                         $interval.cancel(countDownInt);
                         moveToNav();
-                    }
-                    else {
+                    } else {
                         scope.countDown--
                     }
                 }, 750);
@@ -239,16 +260,30 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
 
 
 
-
+            let cancelDelay = () => {
+                console.log("delay start");
+                console.log('an2', frameId);
+                cancelAnimationFrame(frameId);
+                setTimeout(() => {
+                    console.log('delay finished');
+                    console.log('an3', frameId);
+                    cancelAnimationFrame(frameId);
+                }, 1000);
+            }
 
             scope.end = () => {
-                calibrationFinished = true;
-                SettingsFactory.setThreshold(blinkRatio, blinkZero)
-                ConstantsFactory.setBlink(blinkRatio, blinkZero);
+                //calibrationFinished = true;
+                //window.cancelAnimationFrame(frameId);
+                //cancelDelay();
+
+                console.log('Stopppppppppppp');
+                // SettingsFactory.setThreshold(blinkRatio, blinkZero)
+                // ConstantsFactory.setBlink(blinkRatio, blinkZero);
             }
 
 
             let takeReadings = () => {
+                //frameId = window.requestAnimationFrame(readEyes);
                 frameId = requestAnimationFrame(readEyes);
                 scope.display = "Keep Eyes Open";
             }
@@ -257,7 +292,7 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                 scope.calStart = true;
                 scope.$evalAsync();
                 //scope.$digest();
-                setTimeout(function(){
+                setTimeout(function() {
                     takeReadings();
                 }, 500)
 

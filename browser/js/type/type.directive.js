@@ -1,11 +1,10 @@
-core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFactory, IterateFactory) {
+core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFactory) {
     return {
         restrict: 'E',
         templateUrl: 'templates/type-keyboard.html',
         link: function(scope, elem, attr) {
-            let count = 0;
-            let selectingLetter = false;
             let delay = scope.delay; // reference from ScrollCtrl
+            
             scope.wordInput = '';
             scope.selected = [null, null];
             scope.speaking = false;
@@ -15,26 +14,25 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
             scope.browDebounce = true;
 
             scope.$watch(function() {
-                return IterateFactory.selectedLetter
+                return KeyboardFactory.selectedLetter
             }, function(newVal, oldVal) {
                 if (typeof newVal !== 'undefined') {
-                    if(IterateFactory.selectedLetter) {
-                        scope.selected = IterateFactory.selectedLetter;
-                        count++
+                    if(KeyboardFactory.selectedLetter) {
+                        scope.selected = KeyboardFactory.selectedLetter;
                     }
                     else scope.selected = [null, null];
                 }
             });
 
             scope.$watch(function() {
-                return IterateFactory.word
+                return KeyboardFactory.word
             }, function(newVal, oldVal) {
                 if (typeof newVal !== 'undefined') {
-                    scope.wordInput = IterateFactory.word;
+                    scope.wordInput = KeyboardFactory.word;
                 }
             });
 
-            scope.scopeValue = IterateFactory.scopeValue;
+            scope.scopeValue = KeyboardFactory.scopeValue;
 
             scope.say = () => SpeechFactory.say(scope.wordInput, "UK English Male", {onstart: togglePlay, onend: togglePlay});
 

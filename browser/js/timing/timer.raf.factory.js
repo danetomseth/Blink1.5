@@ -28,6 +28,7 @@ core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, Tr
         let positions = TrackingFactory.getPositions();
         // Only run theses if we are tracking properly
         if (positions) {
+            $rootScope.$digest();
 
             // Check for blink
             let blink = PositionFactory.blinkCompare(positions)

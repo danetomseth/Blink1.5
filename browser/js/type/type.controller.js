@@ -8,11 +8,12 @@ core.config(function ($stateProvider) {
                 return AuthService.getLoggedInUser();
             }
         },
-        onEnter: function(IterateFactory) {
+        onEnter: function(KeyboardFactory) {
+            KeyboardFactory.active = true;
         	//this starts nav iteration on type page
-            setTimeout(function() {
-                IterateFactory.iterate('type');
-            }, 750);
+            // setTimeout(function() {
+            //     IterateFactory.iterate('type');
+            // }, 750);
         }
     });
 });
