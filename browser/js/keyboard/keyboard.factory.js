@@ -190,6 +190,7 @@ core.factory("KeyboardFactory", function($state, $rootScope, ActionFactory, Pred
 
 
     let moveKeyboard = () => {
+        //$rootScope.$digest();
         if (!selectingLetter) {
             let arr = iterateRow();
             angular.copy(arr, keyboard.scopeValue);
@@ -226,7 +227,7 @@ core.factory("KeyboardFactory", function($state, $rootScope, ActionFactory, Pred
     }
 
 
-    $rootScope.$on('blink', (event, data) => {
+    $rootScope.$on('singleBlink', (event, data) => {
         if (ActionFactory.keyboard) {
             console.log('blink detected!!');
             selectAction();

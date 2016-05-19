@@ -28,11 +28,13 @@ core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, Tr
         let positions = TrackingFactory.getPositions();
         // Only run theses if we are tracking properly
         if (positions) {
+            $rootScope.$digest();
 
             // Check for blink
             let blink = PositionFactory.blinkCompare(positions)
             if(blink){
                 // console.log("broadcasting", blink)
+                console.log('blink!!!');
                 $rootScope.$broadcast(blink) // broadcasts "doubleBlink" or "singleBlink"
             }
 
