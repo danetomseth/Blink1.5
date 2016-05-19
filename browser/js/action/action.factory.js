@@ -1,77 +1,40 @@
 core.factory('ActionFactory', function($rootScope, $state) {
     let action = {};
-    action.keyboard = false;
-    action.home = false;
-    action.corners = false;
-    action.login = false;
-    action.settings = false;
-    action.signup = false;
-    action.newsfeed = false;
-    action.logout = false;
+    let states = {};
+    states.type = false;
+    states.home = false;
+    states.corners = false;
+    states.login = false;
+    states.settings = false;
+    states.signup = false;
+    states.newsfeed = false;
+    states.logout = false;
+    states.nav = false; // Not really a state. But convenient
 
+    action.states = states;
 
 
     action.stopEvents = (state) => {
-        switch (state) {
-            case 'type':
-                action.keyboard = false;
-                break;
-            case 'home':
-                action.home = false;
-                break;
-            case 'corners':
-                action.corners = false;
-                break;
-            case 'login':
-                action.login = false;
-                break;
-            case 'settings':
-                action.settings = false;
-                break;
-            case 'signup':
-                action.signup = false;
-                break;
-            case 'newsfeed':
-                action.newsfeed = false;
-                break;
-            case 'logout':
-                action.logout = false;
-                break;
+        if(state){
+            states[state] = false;
+        } else {
+            Object.keys(states).forEach(state => {
+                states[state] = false;
+            });
         }
     }
 
-    action.startEvents = (state) => {
-        switch (state) {
-            case 'type':
-                action.keyboard = true;
-                break;
-            case 'home':
-                action.home = true;
-                break;
-            case 'corners':
-                action.corners = true;
-                break;
-            case 'login':
-                action.login = true;
-                break;
-            case 'settings':
-                action.settings = true;
-                break;
-            case 'signup':
-                action.signup = true;
-                break;
-            case 'newsfeed':
-                action.newsfeed = true;
-                break;
-            case 'logout':
-                action.logout = true;
-                break;
-        }
+    action.runEvents = () => {
+        action.stopEvents();
+        Array.from(arguments).forEach(state => {
+            states[state] = true;
+        });
     }
 
-     $rootScope.$on('$stateChangeStart',
+    $rootScope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams, options) {
             console.log('state start', toState, fromState);
+            action.stopEvents('nav');
             action.stopEvents(fromState.name);
 
         })
@@ -79,8 +42,12 @@ core.factory('ActionFactory', function($rootScope, $state) {
     $rootScope.$on('$stateChangeSuccess',
         function(event, toState, toParams, fromState, fromParams) {
             console.log('state success', toState);
-            action.startEvents(toState.name);
+            action.runEvents(toState.name);
         });
+
+    action.isActive = (state) => {
+        return states[state];
+    }
 
 
     return action;

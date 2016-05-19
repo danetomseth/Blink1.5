@@ -1,7 +1,7 @@
 // Basic iteration and letter select/get
 
 core.factory("KeyboardFactory", function($state, $rootScope, ActionFactory, PredictFactory, SpeechFactory) {
-    
+
 
 
     let keyboard = {};
@@ -129,7 +129,7 @@ core.factory("KeyboardFactory", function($state, $rootScope, ActionFactory, Pred
                     setUndoState();
                     return phrase.slice(0, phrase.length - 1);
                 case 'NAV':
-                    $state.go('home');
+                    ActionFactory.runEvents('nav');
                     break;
                 case 'STOP':
                     break;
@@ -228,20 +228,20 @@ core.factory("KeyboardFactory", function($state, $rootScope, ActionFactory, Pred
 
 
     $rootScope.$on('singleBlink', (event, data) => {
-        if (ActionFactory.keyboard) {
+        if (ActionFactory.isActive('keyboard')) {
             console.log('blink detected!!');
             selectAction();
         }
     });
 
     $rootScope.$on('doubleBlink', (event, data) => {
-        if (ActionFactory.keyboard) {
+        if (ActionFactory.isActive('keyboard')) {
             doubleBlink();
         }
     });
 
     $rootScope.$on('iterate', (event, data) => {
-        if (ActionFactory.keyboard) {
+        if (ActionFactory.isActive('keyboard')) {
             console.log('moving!!');
             moveKeyboard();
         }

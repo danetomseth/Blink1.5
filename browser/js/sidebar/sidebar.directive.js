@@ -46,13 +46,13 @@ core.directive('blSidebar', function($state, $rootScope, ActionFactory, AuthServ
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
             $rootScope.$on("iterate", () => {
-                if(ActionFactory.nav){
+                if(ActionFactory.isActive('nav')){
                     scope.selectedLink = SidebarFactory.moveSelected();
                     scope.$digest();
                 }
             })
             $rootScope.$on("singleBlink", () => {
-                if(ActionFactory.nav){
+                if(ActionFactory.isActive('nav')){
                     scope.selectedLink = null;
                     SidebarFactory.changeState();
                 }
