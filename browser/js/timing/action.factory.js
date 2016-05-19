@@ -8,6 +8,7 @@ core.factory('ActionFactory', function($rootScope, $state) {
     action.signup = false;
     action.newsfeed = false;
     action.logout = false;
+    action.nav = false;
 
    
 
@@ -37,11 +38,14 @@ core.factory('ActionFactory', function($rootScope, $state) {
             case 'logout':
                 action.logout = false;
                 break;
+            case 'nav': 
+            	action.nav = false;
         }
     }
 
     action.startEvents = (state) => {
-        switch (state) {
+    	setTimeout(function() {
+    		switch (state) {
             case 'type':
                 action.keyboard = true;
                 break;
@@ -66,7 +70,11 @@ core.factory('ActionFactory', function($rootScope, $state) {
             case 'logout':
                 action.logout = true;
                 break;
+            case 'nav': 
+            	action.nav = true;
         }
+    	}, 0)
+        
     }
 
      $rootScope.$on('$stateChangeStart',

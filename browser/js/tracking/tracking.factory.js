@@ -37,12 +37,6 @@ core.factory('TrackingFactory', function($rootScope, $state) {
     };
 
 
-    // trackObj.startDrawing = () => {
-    //     if (!drawing) {
-    //         trackObj.drawLoop();
-    //         drawing = true;
-    //     }
-    // }
 
     trackObj.getParams = () => {
         return tracker.getCurrentParameters();

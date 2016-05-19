@@ -40,11 +40,6 @@ core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFac
                 scope.speaking = !scope.speaking;
                 console.log("playing", scope.speaking)
             }
-          //   elem.on('$destroy', function() {
-          //       if (angular.isDefined(countInterval)) {
-          //           $interval.cancel(countInterval);
-          //       }
-          // });
 
         }
 

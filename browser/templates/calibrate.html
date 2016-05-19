@@ -2,7 +2,7 @@
 
 <div flex layout="column" layout-align="center" class="vertical-center">
 	<div class="message" ng-show="showMessage" flex layout="row" layout-align="center">
-		<div ng-style="confirmBox" class="message md-whiteframe-20dp">
+		<div ng-style="blinkStatus[3]" class="message md-whiteframe-20dp">
 			<h2>Calibration Done</h2>
 
 			<h2>Ready in: <span class="orange"><strong>{{countDown}}</strong></span></h2>
@@ -10,41 +10,19 @@
 	</div>
 	<div ng-hide="showMessage" flex layout="row" layout-align="center">
 		<div class="box-wrap">
-			<div ng-style="maxReady" class="detail-info md-whiteframe-10dp">
-				Max: {{maxCount.toFixed(0)}}%
+			<div ng-style="blinkStatus[0]" class="detail-info md-whiteframe-10dp">
+				Open: {{blinkCounts[0].toFixed(0)}}%
 			</div>
 		</div>
-		<div ng-style="blinkReady" class="blink-box primary-info md-whiteframe-10dp">
+		<div ng-style="blinkStatus[1]" class="blink-box primary-info md-whiteframe-10dp">
 			<p>Blink: {{confirmBlink}}</p>
 		</div>
 		<div class="box-wrap">
-			<div ng-style="minReady"  class="detail-info md-whiteframe-10dp">
-				Min: {{minCount.toFixed(0)}}%
+			<div ng-style="blinkStatus[2]"  class="detail-info md-whiteframe-10dp">
+				Closed: {{blinkCounts[1].toFixed(0)}}%
 			</div>
 		</div>
 	</div>
-	<div flex layout="row" layout-align="center">
-		<div ng-style="blinkReady" class="eye-reading md-whiteframe-10dp">
-			{{animationCount}}
-		</div>
-		<div>
-			<md-button class="md-raised std-btn" ng-click="end()">stop</md-button>
-		</div>
-		<!-- <div ng-style="blinkReady" class="eye-reading md-whiteframe-10dp">
-			{{leftEye}}
-		</div>
-
-		<div ng-style="blinkReady" class="eye-reading md-whiteframe-10dp">
-			{{rightEye}}
-		</div> -->
-
-	</div>
-
-	<!-- <div flex layout="row" layout-align="center">
-		<div>
-			<md-button class="md-raised std-btn" ng-click="restart()">Restart</md-button>
-		</div>
-	</div> -->
 
 </div>
 

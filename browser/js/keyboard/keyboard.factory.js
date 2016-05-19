@@ -216,12 +216,10 @@ core.factory("KeyboardFactory", function($state, $rootScope, ActionFactory, Pred
         if (selectingLetter) {
             keyboard.selectedLetter = getCurrentLetter();
             keyboard.word = selectLetter();
-            console.log('selected letter', keyboard.selectedLetter, keyboard.word);
             selectingLetter = false;
             resetDelay();
         } else {
             keyboard.scopeValue[1] = iterateLetter();
-            console.log('selecting row', keyboard.scopeValue[1]);
             selectingLetter = true;
         }
     }
@@ -229,7 +227,6 @@ core.factory("KeyboardFactory", function($state, $rootScope, ActionFactory, Pred
 
     $rootScope.$on('singleBlink', (event, data) => {
         if (ActionFactory.keyboard) {
-            console.log('blink detected!!');
             selectAction();
         }
     });
@@ -242,7 +239,6 @@ core.factory("KeyboardFactory", function($state, $rootScope, ActionFactory, Pred
 
     $rootScope.$on('iterate', (event, data) => {
         if (ActionFactory.keyboard) {
-            console.log('moving!!');
             moveKeyboard();
         }
     })

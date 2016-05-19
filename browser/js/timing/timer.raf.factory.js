@@ -1,6 +1,6 @@
 //this sets all of timer dependent functions to the same intervals to clear on state change
 
-core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, TrackingFactory) {
+core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, TrackingFactory, ActionFactory) {
 
     let rafFrame
     let startTime = 0;
@@ -31,7 +31,13 @@ core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, Tr
             $rootScope.$digest();
 
             // Check for blink
-            let blink = PositionFactory.blinkCompare(positions)
+            let blink = PositionFactory.blinkCompare(positions);
+
+            // if(ActionFactory.home) {
+            //     let eyeValues = PositionFactory.getBlinkValue(positions);
+            //     $rootScope.$broadcast('calibrate', eyeValues);
+            // }
+
             if(blink){
                 // console.log("broadcasting", blink)
                 console.log('blink!!!');

@@ -99,7 +99,7 @@ core.factory('PositionFactory', function(ConstantsFactory) {
         getBlinkValue: (positions) => {
             diffZeroL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             diffZeroR = (positions[66][1] + positions[26][1] + positions[65][1]) - (positions[63][1] + positions[24][1] + positions[64][1]);
-            return [diffZeroL, diffZeroR];
+            return diffZeroL + diffZeroR;
         },
         eyeCompare: (positions) => {
             let eyeTotal = 0;
