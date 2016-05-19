@@ -19,6 +19,9 @@ core.factory('PositionFactory', function(ConstantsFactory) {
     let eyeX = 0;
     let eyeY = 0;
     const pupilThreshold = 0;
+    const pupilXThreshold = 0.2;
+    const pupilYThreshold = 0.1;
+
     const browArray = [20, 21, 17, 16];
     const eyeArray = [63, 24, 64, 20, 21, 67, 29, 68, 17, 16];
     const rightEyeArray = [63, 24, 64, 20, 21];
@@ -139,6 +142,7 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             yDiffAvg.push(yDiff);
             yDiffAvg.shift();
             yDiff = yDiffAvg[0] + yDiffAvg[1] + yDiffAvg[2];
+            console.log(xDiff, yDiff)
 
             if (xDiff < -pupilXThreshold && yDiff > pupilYThreshold) { // LEFT TOP
                 return 0;
