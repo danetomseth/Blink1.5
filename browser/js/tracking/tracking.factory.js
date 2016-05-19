@@ -19,7 +19,7 @@ core.factory('TrackingFactory', function($rootScope, $state) {
         setTimeout(function() {
             tracker.setResponseMode("blend", ["raw", "sobel"]);
             tracker.start(video, boundingBox);
-            // tracker.start(video);
+            //tracker.start(video);
             trackObj.startDrawing();
             $rootScope.trackerInitialized = true;
         }, 2000);
