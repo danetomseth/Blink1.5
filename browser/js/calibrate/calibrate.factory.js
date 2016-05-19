@@ -17,16 +17,6 @@ core.factory('CalibrateFactory', function($rootScope, $state, ConstantsFactory, 
     calibrateObj.calibrationSet = false;
     calibrateObj.startCalibration = false;
 
-    // $rootScope.$on('calibrate', (event, data) => {
-    //     if(!calibrateObj.calibrationSet && calibrateObj.startCalibration) {
-    //     	calibrateObj.currentValue = data;
-    //     	compareValues(data);
-    //     }
-    // });
-
-
-
-
 
     function avgMaxMin(sum) {
         maxSum = 0;
@@ -56,7 +46,6 @@ core.factory('CalibrateFactory', function($rootScope, $state, ConstantsFactory, 
         } else {
         	calibrateObj.blinkCounts[0] = 100
         	calibrateObj.blinkStatus[0] = {'opacity': '0.5'};
-            console.log('max ready');
         }
 
         if (minVals.length < 50) {
@@ -64,7 +53,6 @@ core.factory('CalibrateFactory', function($rootScope, $state, ConstantsFactory, 
         } else {
         	calibrateObj.blinkCounts[1] = 100
         	calibrateObj.blinkStatus[2] = {'opacity': '0.5'};
-            console.log('min ready');
         }
 
         calibrateObj.blinkStatus[1] = {'opacity': '0.5'};
