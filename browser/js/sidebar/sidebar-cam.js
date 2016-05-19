@@ -1,4 +1,4 @@
-core.directive('blSidebarWebcam', function(SidebarFactory, PositionFactory, $rootScope, WebcamFactory, TrackingFactory, TimerFactory, $mdSidenav) {
+core.directive('blSidebarWebcam', function(SidebarFactory, TimerRAFFactory, PositionFactory, $rootScope, WebcamFactory, TrackingFactory, TimerFactory, $mdSidenav) {
     return {
         restrict: 'E',
         controller: 'MainCtrl',
@@ -53,6 +53,10 @@ core.directive('blSidebarWebcam', function(SidebarFactory, PositionFactory, $roo
 
 
             });
+            // start all our things
+
+            $rootScope.$on("trackerInitialized", TimerRAFFactory.start);
+
 
         }
     }

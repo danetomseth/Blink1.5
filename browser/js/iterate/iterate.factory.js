@@ -479,36 +479,40 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     }
 
     iterateObj.iterate = function(page) { // fires once we have calibration (from browZero())
-        startDelay();
-        stopFrame = false;
-        $rootScope.zeroActive = false;
-        let positions = TrackingFactory.getPositions();
-        switch (page) {
-            case 'nav':
-                callback = navCallback;
-                TimerFactory.moveCursor(linkIterator, 1000);
-                frameId = window.requestAnimationFrame(navAction);
-                break;
-            case 'type':
-                lastBlinkTime = Date.now();
-                callback = keyboardCallback
-                TimerFactory.moveCursor(keyboardIterator, 750);
-                frameId = window.requestAnimationFrame(analyzeEyePositions);
-                break;
-            case 'corners':
-                TimerFactory.startReading(analyzePupilPositions, 50, cornersCallback);
-                break;
-            case 'popup':
-                PositionFactory.setBrowZero(positions);
-                TimerFactory.startReading(analyzeBrowPositions, 50, popupCallback);
-                TimerFactory.moveCursor(popupIterator, delay);
-                break;
-            case 'settings':
-                PositionFactory.setBrowZero(positions);
-                TimerFactory.startReading(analyzeBrowPositions, 50, settingsCallback);
-                TimerFactory.moveCursor(settingsIterator, 1500);
-                break;
-        }
+        // startDelay();
+        // stopFrame = false;
+        // $rootScope.zeroActive = false;
+        // var positions = TrackingFactory.getPositions();
+        // switch (page) {
+        //     case 'nav':
+        //         // callback = navCallback;
+        //         // TimerFactory.moveCursor(linkIterator, 1000);
+        //         // frameId = window.requestAnimationFrame(navAction);
+        //         break;
+        //     case 'type':
+        //         // lastBlinkTime = Date.now();
+        //         // callback = keyboardCallback;
+        //         // //TimerFactory.startReading(analyzeEyePositions, 50, keyboardCallback);
+        //         // TimerFactory.moveCursor(keyboardIterator, 750);
+        //         // frameId = window.requestAnimationFrame(analyzeEyePositions);
+        //         break;
+        //     case 'corners':
+        //         // lastBlinkTime = Date.now();
+        //         // callback = cornersCallback;
+        //         // frameId = window.requestAnimationFrame(analyzePupilPositions);
+        //         // TimerFactory.startReading(analyzePupilPositions, 50, cornersCallback);
+        //         break;
+        //     case 'popup':
+        //         // PositionFactory.setBrowZero(positions);
+        //         // TimerFactory.startReading(analyzeBrowPositions, 50, popupCallback);
+        //         // TimerFactory.moveCursor(popupIterator, delay);
+        //         break;
+        //     case 'settings':
+        //         // PositionFactory.setBrowZero(positions);
+        //         // TimerFactory.startReading(analyzeBrowPositions, 50, settingsCallback);
+        //         // TimerFactory.moveCursor(settingsIterator, 1500);
+        //         break;
+        // }
     }
     return iterateObj;
 });

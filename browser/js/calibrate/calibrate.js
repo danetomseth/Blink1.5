@@ -252,7 +252,8 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                 calibrationFinished = true;
                 SettingsFactory.setThreshold(blinkRatio, blinkZero)
                 ConstantsFactory.setBlink(blinkRatio, blinkZero);
-                IterateFactory.iterate('nav');
+                $rootScope.nav = true;
+                // IterateFactory.iterate('nav');
                 return;
             }
 

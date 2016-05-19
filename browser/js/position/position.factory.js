@@ -34,6 +34,7 @@ core.factory('PositionFactory', function(ConstantsFactory) {
     let pupilAverage = [0, 0];
     let eyeXZero = 0;
     let eyeYZero = 0;
+    let lastBlinkTime;
 
     return {
         // Indicate if movement is above threshold
@@ -63,7 +64,13 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             var diffL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             var diffR = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             change = ((diffL + diffR) / ConstantsFactory.blinkZero);
-            return (change < ConstantsFactory.blinkRatio)
+            if (change < ConstantsFactory.blinkRatio) {
+                let blinkDt = Date.now() - lastBlinkTime;
+                lastBlinkTime = Date.now();
+                return ((blinkDt <= 750) && (blinkDt > 250)) ? "doubleBlink" : "singleBlink"
+            } else {
+                return false;
+            }
         },
         setBlinkZero: () => {
             diffZero = (diffZeroL / readingCount) + (diffZeroR / readingCount); //sets the average distance between top eyelid and bottom

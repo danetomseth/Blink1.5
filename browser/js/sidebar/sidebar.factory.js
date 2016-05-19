@@ -29,6 +29,7 @@ core.factory('SidebarFactory', function($state, $mdSidenav) {
             if(itemIndex >= userLinks.length) {
                 itemIndex = 0;
             }
+            console.log(returnIndex);
             return returnIndex;
         },
         getLinks: (loggedIn) => {
