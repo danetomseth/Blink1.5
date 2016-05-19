@@ -31,9 +31,8 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
             scope.items = SidebarFactory.getLinks(scope.userLoggedIn);
 
             //need to clean up scope.localCtrl .... was originally used to link stuff
-            scope.localCtrl = scope.control || {};
-            let count = 0;
-            // scope.selectedLink = IterateFactory.linkValue;
+            // scope.localCtrl = scope.control || {};
+            scope.selectedLink = 0;
 
             // scope.$watch(function() {
             //     return IterateFactory.linkValue;
@@ -47,15 +46,19 @@ core.directive('blSidebar', function($state, $rootScope, AuthService, AUTH_EVENT
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
             $rootScope.$on("iterate", () => {
-                if(ActionFactory.nav){
-                    console.log("iterating");
+                if(ActionFactory.isActive('nav')){
                     scope.selectedLink = SidebarFactory.moveSelected();
-                    //scope.$digest();
                 }
             })
             $rootScope.$on("singleBlink", () => {
                 if(ActionFactory.nav){
-                    console.log('changing state');
+                    SidebarFactory.changeState();
+                }
+            })
+            $rootScope.$on("singleBlink", () => {
+                if(ActionFactory.isActive('nav')){
+                    console.log("doing this thing")
+                    // scope.selectedLink = null;
                     SidebarFactory.changeState();
                 }
             })

@@ -1,4 +1,4 @@
-core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService) {
+core.factory('SettingsFactory', function($state, $rootScope, $http, ActionFactory, AuthService) {
     let user = $rootScope.user;
     let itemIndex = 0;
     let returnIndex = 0;
@@ -6,9 +6,36 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService)
 
     let links = ["settings.keyboard", "settings.features", "NAV"];
     let speeds = [0, 1, 2, 3, 4, 5];
-    let features = ['eyes', 'eyebrows', 'mouth'];
+    //let features = ['eyes', 'eyebrows', 'mouth'];
+    let options = speeds;
 
-    return {
+    let settings = ActionFactory.isActive('settings');
+    let keyboard = ActionFactory.isActive('settings.keyboard');
+    let features = ActionFactory.isActive('settings.features');
+
+    $rootScope.$on("iterate", () => {
+        if(settings && !keyboard && !features ){
+            settingsObj.selections.selectedTab = settingsObj.moveSelected();
+        }
+        else if(keyboard || features) {
+            settingsObj.selections.highlighted = settingsObj.iterateOption();
+        }
+    })
+
+    $rootScope.$on("singleBlink", () => {
+        if(settings && !keyboard && !features){
+            settingsObj.changeState();
+        }
+        else if(keyboard || features) {
+            settingsObj.selectOption();
+        }
+    })
+
+    let settingsObj = {
+        selections: {
+            selectedTab: 0,
+            highlighted: 0
+        },
         moveSelected: () => {
             returnIndex = itemIndex;
             itemIndex++;
@@ -20,19 +47,20 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService)
         changeState: () => {
             itemIndex = 0;
             // Settings tabs
-            if (returnIndex < 2) {
+            if (links[returnIndex] !== "NAV") {
+                console.log("return index", returnIndex)
+                options = (returnIndex === 0)? speeds:features;
                 $state.go(links[returnIndex]);
             }
             // Nav tab
-            else { return "NAV";}
+            else {
+                ActionFactory.runEvents('nav');
+            }
         },
-        iterateOption: (tabIndex) => {
-            let options;
-            if (tabIndex === 0) options = speeds;
-            else options = features;
-
+        iterateOption: () => {
             returnOption = itemIndex;
             itemIndex++;
+            console.log("options are", options)
             if (itemIndex >= options.length) {
                 itemIndex = 0;
             }
@@ -49,7 +77,6 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService)
                 .then((updatedUser) => angular.copy(updatedUser.data, $rootScope.user));
         },
         setThreshold: (blinkRatio, blinkZero) => {
-            console.log("persisting blink", blinkZero, blinkRatio)
             $http.put("/api/users", {blinkZero: blinkZero, blinkRatio: blinkRatio})
             .then( user => {
                 return user.data;
@@ -62,4 +89,6 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, AuthService)
         //     return user.blinkRatio;
         // }
     }
+
+    return settingsObj;
 });

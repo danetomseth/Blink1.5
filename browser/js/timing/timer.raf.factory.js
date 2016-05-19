@@ -5,7 +5,6 @@ core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, Tr
     let rafFrame
     let startTime = 0;
     let iterationTime = 1000 // updated on state change
-    let weNeedToCheckEyePosition = false;
     let lastBox;
 
 
@@ -18,8 +17,8 @@ core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, Tr
 
         // Always check if we should iterate
         if (timestamp - startTime > iterationTime){
-            // console.log("broadcasting iterate at time:", timestamp-startTime)
-            $rootScope.$broadcast("iterate")
+            // console.log("emiting iterate at time:", timestamp-startTime)
+            $rootScope.$emit("iterate")
             startTime = timestamp
         }
 
@@ -39,18 +38,18 @@ core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, Tr
             // }
 
             if(blink){
-                // console.log("broadcasting", blink)
-                console.log('blink!!!');
-                $rootScope.$broadcast(blink) // broadcasts "doubleBlink" or "singleBlink"
+                // console.log("emiting", blink)
+                startTime = timestamp;
+                $rootScope.$emit(blink) // emits "doubleBlink" or "singleBlink"
             }
 
             // Check for eye positions
-            if(weNeedToCheckEyePosition){
+            if(ActionFactory.isActive('corners')){
                 let currentBox = PositionFactory.pupilPosition(positions);
-                //broadcast only on box change
+                //emit only on box change
                 if (lastBox !== currentBox){
-                    // console.log("broadcasting box", currentBox)
-                    $rootScope.$broadcast(currentBox); // broadcasts the box the user is currently looking at
+                    console.log("emiting box", currentBox)
+                    $rootScope.$emit("changeBox", currentBox); // emits the box the user is currently looking at
                 }
                 lastBox = currentBox;
             }
@@ -66,10 +65,11 @@ core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, Tr
 
         // loop again
         requestAnimationFrame(loop);
-    }
+    };
+
 
     return {
-        start: loop
+        start: loop,
     }
 
 });

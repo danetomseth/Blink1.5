@@ -3,9 +3,6 @@ core.config(function($stateProvider) {
         url: '/settings',
         controller: 'SettingsCtrl',
         templateUrl: 'templates/settings.html',
-        onEnter: function(IterateFactory) {
-            IterateFactory.zero('settings');
-        },
         resolve: {
             user: function(AuthService) {
                 return AuthService.getLoggedInUser();

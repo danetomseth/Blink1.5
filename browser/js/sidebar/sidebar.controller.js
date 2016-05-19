@@ -1,6 +1,6 @@
 core.controller('SidebarCtrl', function($scope, $state, $rootScope, $mdSidenav, SidebarFactory, TimerFactory, AuthService, AUTH_EVENTS) {
 
-   
+
     $scope.logOut = function() {
         return AuthService.logout()
             .then(function() {
@@ -15,7 +15,7 @@ core.controller('SidebarCtrl', function($scope, $state, $rootScope, $mdSidenav, 
 
     $scope.blink =() => {
         console.log('sidebar blink');
-        $rootScope.$broadcast('blink', 'Event');
+        $rootScope.$broadcast('singleBlink', 'Event');
     }
 
     $scope.move =() => {

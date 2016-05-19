@@ -1,17 +1,53 @@
-'use strict';
+core.factory('ActionFactory', function($rootScope, $state) {
+    let action = {};
+    let states = {};
+    // states.type = false;
+    // states.home = false;
+    // states.corners = false;
+    // states.login = false;
+    // states.settings = false;
+    // states.signup = false;
+    // states.newsfeed = false;
+    // states.logout = false;
+    // states.nav = false; // Not really a state. But convenient
 
-core.factory("ActionFactory", function(){
-    return {
-        actOn: (action) => {
-            switch (action){
-                case 'space':
-                    return predictWords();
-                case 'Speak':
-                    SpeechFactory.say(word);
-                    break;
-                default:
-                    console.log("Error: Action "+action+" not found");
-            }
+    action.states = states;
+
+
+    action.stopEvents = (state) => {
+        if(state){
+            states[state] = false;
+        } else {
+            Object.keys(states).forEach(state => {
+                states[state] = false;
+            });
         }
     }
+
+    action.runEvents = (state) => {
+        action.stopEvents();
+        setTimeout(() => {states[state] = true;}, 0)
+    }
+
+    $rootScope.$on('$stateChangeStart',
+        function(event, toState, toParams, fromState, fromParams, options) {
+            console.log('state start', toState, fromState);
+            action.stopEvents('nav');
+            action.stopEvents(fromState.name);
+        })
+
+    $rootScope.$on('$stateChangeSuccess',
+        function(event, toState, toParams, fromState, fromParams) {
+            console.log('state success', toState.name);
+            action.runEvents(toState.name);
+        });
+
+    action.isActive = (state) => {
+        return states[state];
+    }
+
+
+    return action;
+
+
 });
