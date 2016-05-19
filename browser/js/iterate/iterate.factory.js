@@ -135,14 +135,15 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
         if (positions && PositionFactory.blinkCompare(positions) && startDebounce) {
             blinkDt = Date.now() - lastBlinkTime;
             // On double blink
-            if ((blinkDt < 750) && (blinkDt > 200)) {
-                console.log('double blink!!');
-                iterateObj.word = KeyboardFactory.doubleBlink();
-            }
-            // Two blinks
-            else {
-                callback();
-            }
+            // if ((blinkDt < 500) && (blinkDt > 150)) {
+            //     console.log('double blink!!');
+            //     iterateObj.word = KeyboardFactory.doubleBlink(selectingLetter);
+            // }
+            // // Two blinks
+            // else {
+            //     callback();
+            // }
+            callback();
             lastBlinkTime = Date.now();
         }
         if (!stopFrame) {
@@ -430,14 +431,13 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
                 callback = navCallback;
                 TimerFactory.moveCursor(linkIterator, 1000);
                 frameId = window.requestAnimationFrame(navAction);
-                //TimerFactory.startReading(analyzeEyePositions, 50, navCallback);
                 break;
             case 'type':
                 lastBlinkTime = Date.now();
                 callback = keyboardCallback;
-                frameId = window.requestAnimationFrame(analyzeEyePositions);
                 //TimerFactory.startReading(analyzeEyePositions, 50, keyboardCallback);
                 TimerFactory.moveCursor(keyboardIterator, 750);
+                frameId = window.requestAnimationFrame(analyzeEyePositions);
                 break;
             case 'corners':
                 lastBlinkTime = Date.now();

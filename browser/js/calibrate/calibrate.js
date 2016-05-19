@@ -1,4 +1,4 @@
-core.directive("blCalibrate", function(PositionFactory, IterateFactory, TrackingFactory, ConstantsFactory, $interval, $rootScope) {
+core.directive("blCalibrate", function(PositionFactory, SettingsFactory, IterateFactory, TrackingFactory, ConstantsFactory, $interval, $rootScope) {
     return {
         restrict: "E",
         templateUrl: 'templates/calibrate.html',
@@ -19,6 +19,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
             let zeroFinished = false;
             let testFinished = false;
             let calibrationFinished = false;
+            scope.calStart = false;
 
             let count = 0;
             let total = 0;
@@ -34,7 +35,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
 
 
 
-        
+
 
 
             function testDelay() {
@@ -103,7 +104,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
                 //starting the array - with a little buffer
                 if (count > 40 && count < 50) {
                     maxVals.push(total + 1);
-                    minVals.push(total - 2);
+                    minVals.push(total - 1);
                 }
                 if (count > 50) {
                     if (total) {
@@ -146,7 +147,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
                 }
             }
 
-            
+
 
             let setValues = function() {
                 //testDelay();
@@ -163,7 +164,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
 
                 blinkZero = maxSum;
 
-                blinkRatio = (minSum / maxSum);
+                blinkRatio = (minSum / maxSum) - 0.05;
                 calibrationComplete = true;
 
             }
@@ -211,7 +212,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
             }
 
             function navDelay() {
-                scope.countDown = 5;
+                scope.countDown = 3;
                 let countDownInt = $interval(function() {
                     if(scope.countDown === 0) {
                         $interval.cancel(countDownInt);
@@ -228,6 +229,7 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
 
             function moveToNav() {
                 calibrationFinished = true;
+                SettingsFactory.setThreshold(blinkRatio, blinkZero)
                 ConstantsFactory.setBlink(blinkRatio, blinkZero);
                 IterateFactory.iterate('nav');
                 return;
@@ -236,10 +238,11 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
 
 
 
-            
+
 
             scope.end = () => {
                 calibrationFinished = true;
+                SettingsFactory.setThreshold(blinkRatio, blinkZero)
                 ConstantsFactory.setBlink(blinkRatio, blinkZero);
             }
 
@@ -249,8 +252,15 @@ core.directive("blCalibrate", function(PositionFactory, IterateFactory, Tracking
                 scope.display = "Keep Eyes Open";
             }
 
-
-            takeReadings();
+            scope.start = () => {
+                scope.calStart = true;
+                scope.$evalAsync();
+                //scope.$digest();
+                setTimeout(function(){
+                    takeReadings();
+                }, 500)
+                
+            }
 
 
 

@@ -43,7 +43,7 @@ router.put('/:id/friends', (req, res) => { // edit one
 
 // must be user or admin
 router.put('/:id?', ensure.authenticated, ensure.selfOrAdmin, (req, res) => { // edit one
-    if (!req.isAuthenticated()) {return res.send("no user found")}
+    if (!req.user) {return res.send("no user found")}
     let userId = req.params.id || req.user._id
     User.findById(req.user._id)
         .then(user => {

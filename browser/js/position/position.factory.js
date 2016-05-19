@@ -18,8 +18,7 @@ core.factory('PositionFactory', function(ConstantsFactory) {
     let eyeZero = 500;
     let eyeX = 0;
     let eyeY = 0;
-    const pupilXThreshold = 2;
-    const pupilYThreshold = 1;
+    const pupilThreshold = 0;
     const browArray = [20, 21, 17, 16];
     const eyeArray = [63, 24, 64, 20, 21, 67, 29, 68, 17, 16];
     const rightEyeArray = [63, 24, 64, 20, 21];

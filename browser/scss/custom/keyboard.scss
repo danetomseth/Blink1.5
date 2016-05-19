@@ -11,16 +11,18 @@
 .keys {
     text-align: center;
     font-size: 20px;
-    background-color: nth($accent, 1);
-    color: nth($text, 1);
+    background-color: white;
+    color: nth($primary, 1);
 }
 
 .highlighted-row {
     background: nth($primary, 2);
+    color: white;
 }
 
 .highlighted-letter {
-    background: nth($primary, 1);
+    background: white;
+    color: nth($primary, 1);
 }
 
 
@@ -44,32 +46,35 @@
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
-    background-color: nth($accent, 1);
-    color: nth($text, 1);
+    background-color: white;
+    color: nth($primary, 1);
 }
 
 .keyboard-row:last-of-type  {
     .row-box{
-        background: nth($accent, 5);
+        background: rgba(220,220,220, 0.8);
     }
 }
 
 .keyboard-row:first-of-type  {
     .row-box{
-        background: nth($accent, 5);
+        background: rgba(220,220,220, 0.6);
     }
-}
-.letter-hover {
-    color: nth($accentB, 1);
-    background: nth($background, 1);
 }
 .hover-row {
     background: nth($primary, 1) !important;
+    color: white;
+    //background: nth($primary, 1) !important;
+}
+.letter-hover {
+    color: nth($primary, 1);
+    border: 2px solid nth($primary, 1);
+    background: white !important;
+    //box-shadow: 2px 2px 2px nth($primary, 1);
 }
 .selected {
-    color: nth($text, 2) !important;
-    background: nth($accentB, 1) !important;
-    box-shadow: 2px 2px 2px nth($primary, 1);
+    color: nth($primary, 1) !important;
+    background: nth($background, 2) !important;
 }
 
 

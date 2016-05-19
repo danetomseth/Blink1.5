@@ -51,9 +51,13 @@ var schema = new mongoose.Schema({
         type: String,
         default: 'eyebrows'
     },
-    eyeThreshold: {
+    blinkRatio: {
         type: Number,
         default: 0.85
+    },
+    blinkZero: {
+        type: Number,
+        default: 41
     }
 });
 

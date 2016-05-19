@@ -7,15 +7,28 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
     let returnLetter = 0;
     let lastAction = false;
 
-    let alphabet = [
-        {row: 0, letters: ["I", "I'M", "CAN", "WE", "HELLO"]},
-        {row: 1, letters: ["A", "B", "C", "D", "E"]},
-        {row: 2, letters: ["F", "G", "H", "I", "J"]},
-        {row: 3, letters: ["K", "L", "M", "N", "O"]},
-        {row: 4, letters: ["P", "Q", "R", "S", "T"]},
-        {row: 5, letters: ["U", "V", "W", "X", "Y"]},
-        {row: 6, letters: ['SPACE', 'SAY', '<<', 'STOP', 'NAV']}
-        ];
+    let alphabet = [{
+        row: 0,
+        letters: ["I", "I'M", "CAN", "WE", "HELLO"]
+    }, {
+        row: 1,
+        letters: ["A", "B", "C", "D", "E"]
+    }, {
+        row: 2,
+        letters: ["F", "G", "H", "I", "J"]
+    }, {
+        row: 3,
+        letters: ["K", "L", "M", "N", "O"]
+    }, {
+        row: 4,
+        letters: ["P", "Q", "R", "S", "T"]
+    }, {
+        row: 5,
+        letters: ["U", "V", "W", "X", "Y"]
+    }, {
+        row: 6,
+        letters: ['SPACE', 'SAY', '<<', 'STOP', 'NAV']
+    }];
 
 
     const smallKeyboard = [
@@ -29,6 +42,14 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
 
     let rowLength = alphabet[0].length;
     let phrase = "";
+    let lastState = []
+
+    const setUndoState = () => {
+        if (lastState.length > 5) {
+            lastState.shift()
+        }
+        lastState.push(phrase)
+    }
 
     const resetKeyboardPosition = () => {
         letterIndex = 0;
@@ -38,10 +59,13 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
     const predictWords = () => {
         PredictFactory.nextWords(phrase) // sends whole sentence to the predictor where it is spliced
         .then(words => {
-                if (words.length > 1) {angular.copy(words, alphabet[0].letters)} // if there are suggestions, push them onto the alphabet array
-            });
-            phrase += " "; // add a space that the user asked for
-            return phrase // send the current word back to the user
+            if (words.length > 1) {
+                angular.copy(words, alphabet[0].letters)
+            } // if there are suggestions, push them onto the alphabet array
+        });
+        setUndoState();
+        phrase += " "; // add a space that the user asked for
+        return phrase // send the current word back to the user
     }
     return {
         iterateRow: () => {
@@ -57,7 +81,9 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
                 letterIndex = 0;
             }
             // Otherwise, increment where we are
-            else { letterIndex++; }
+            else {
+                letterIndex++;
+            }
             return returnLetter;
         },
         delete: () => { //resets the keyobard position on mouth open
@@ -66,44 +92,64 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         selectLetter: () => {
             lastAction = 'letter';
             resetKeyboardPosition();
-            if(returnRow === alphabet.length-1) { // if we are in the last row (which is all operations)
+            if (returnRow === alphabet.length - 1) { // if we are in the last row (which is all operations)
                 let action = alphabet[returnRow].letters[returnLetter]
-                switch (action){
+                switch (action) {
                     case 'SPACE':
                         return predictWords();
                     case 'SAY':
                         SpeechFactory.say(phrase); // try to pause the scrolling while we speak stuff
-                        phrase = ""
-                        return phrase
+                        setUndoState();
+                        phrase = "";
+                        return phrase;
                     case '<<':
-                        return phrase.slice(0, phrase.length-1);
+                        setUndoState();
+                        return phrase.slice(0, phrase.length - 1);
                     case 'NAV':
                         TimerFactory.clearTracking();
                         $state.go('home');
                         break;
                     case 'STOP':
                         TimerFactory.clearTracking();
+                        break;
                     default:
-                        console.log("Error: Action "+action+" not found");
+                        console.log("Error: Action " + action + " not found");
                 }
-            } else if( returnRow === 0 ){ // if we are on the suggested word row
-                if (phrase.length && phrase[phrase.length-1] !== " ") {// if the last character isn't a space, replace the whole word
+            } else if (returnRow === 0) { // if we are on the suggested word row
+                if (phrase.length && phrase[phrase.length - 1] !== " ") { // if the last character isn't a space, replace the whole word
+                    setUndoState();
                     phrase = phrase.replace(/[\w!.,'"/\(\)\-]+$/g, alphabet[returnRow].letters[returnLetter]) // repace the last word with the full word
                 } else {
+                    setUndoState();
                     phrase += alphabet[returnRow].letters[returnLetter]; // adds the word to the sentence
                 }
                 return predictWords() // adds a space and updates the predicted words.
-            }
-            else {
+            } else {
+                setUndoState();
                 phrase += alphabet[returnRow].letters[returnLetter]; // otherwise, add the letter to the word and auto-suggest
                 let suggest = PredictFactory.completeWord(phrase); // get suggested autocompletes
-                if (suggest.length) {angular.copy(suggest, alphabet[0].letters)}; // every time a letter is typed, if we have suggestions, copy them into the object
+                if (suggest.length) {
+                    angular.copy(suggest, alphabet[0].letters)
+                }; // every time a letter is typed, if we have suggestions, copy them into the object
                 return phrase;
             }
         },
-        doubleBlink: () => {
-            phrase = phrase.slice(0, -1);
-            resetKeyboardPosition();
+        doubleBlink: (selectingLetter) => {
+            if (lastState.length > 1) { // undo the select that just happened from the first blink
+                console.log("popping off last thing", lastState)
+                phrase = lastState.pop();
+
+            }
+            if (selectingLetter) { // if we are in a row, deselect it
+                console.log("deselecting the current row");
+                resetKeyboardPosition();
+            } else {
+                console.log("undoing the last thing, reverting from", phrase, "to", lastState);
+                if (lastState.length > 1) {
+                    phrase = lastState.pop();
+                    resetKeyboardPosition();
+                }
+            }
             return phrase
         },
         endOfRow: () => {
@@ -112,7 +158,7 @@ core.factory("KeyboardFactory", function($state, ActionFactory, PredictFactory, 
         alphabet: alphabet, // used in scroll directive
         smallKeyboard: smallKeyboard,
         getCurrentLetter: () => {
-            return [returnRow,returnLetter];
+            return [returnRow, returnLetter];
         }
     }
 });

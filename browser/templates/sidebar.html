@@ -2,7 +2,7 @@
 <md-sidenav id="locked-sidebar" md-is-locked-open="true" class="md-primary md-sidenav-left" md-component-id="left">
     <logo class="pull-right">Blink</logo>
     <div class="dynamicBox">
-            <md-button class="md-raised" id="nav-btn" ng-repeat="item in items"  ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}">{{item.label}}</md-button>
+            <md-button class="md-raised std-btn" id="nav-btn" ng-repeat="item in items"  ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}">{{item.label}}</md-button>
 
     </div>
     <div class="dynamicBox">

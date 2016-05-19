@@ -10,21 +10,23 @@ core.config(function ($stateProvider) {
         },
         onEnter: function(IterateFactory) {
         	//this starts nav iteration on type page
-        	IterateFactory.iterate('type');
+            setTimeout(function() {
+                IterateFactory.iterate('type');
+            }, 750);
         }
     });
 });
 
-core.controller('TypeCtrl', function($state, $scope, user, IterateFactory, TimerFactory) {
+core.controller('TypeCtrl', function($state, $scope, user, IterateFactory, TimerFactory, ConstantsFactory) {
     $scope.delay; // keyboard iteration speed
 
     // Key-value pairs for keyboard speed based on user's settings
     $scope.start = function() {
-        IterateFactory.zero('type');
+        ConstantsFactory.increase()
     }
 
     $scope.stop = function() {
-        TimerFactory.clearTracking();
+        ConstantsFactory.decrease()
     }
 
 });
