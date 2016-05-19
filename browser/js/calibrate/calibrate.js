@@ -151,7 +151,7 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
 
             let setValues = function() {
                 //testDelay();
-                scope.confirmBlink = 5;
+                scope.confirmBlink = 10;
                 maxVals.forEach(function(val) {
                     maxSum += val;
                 })
