@@ -1,23 +1,25 @@
-core.controller('MainCtrl', function($scope, $q, $state, $rootScope, IterateFactory, TimerFactory, TrackingFactory) {
+// POSSIBLY DEPRECATED
+
+// core.controller('MainCtrl', function($scope, $q, $state, $rootScope, IterateFactory, TimerFactory) {
 
 
 
 
 
-    $scope.sidebar = {};
+    // $scope.sidebar = {};
 
 
 
 
-    $scope.stopTacking = () => {
-        TimerFactory.clearTracking();
-        $scope.trackingStopped = true;
-    }
+    // $scope.stopTacking = () => {
+    //     TimerFactory.clearTracking();
+    //     $scope.trackingStopped = true;
+    // }
 
-    $scope.runFunc = () => {
-        console.log('in func!', $scope.sidebar);
-        $scope.sidebar.selectLinks();
-    }
+    // $scope.runFunc = () => {
+    //     console.log('in func!', $scope.sidebar);
+    //     $scope.sidebar.selectLinks();
+    // }
 
     //dont really need any of this at the moment
     // let videoStatus = () => {
@@ -30,4 +32,4 @@ core.controller('MainCtrl', function($scope, $q, $state, $rootScope, IterateFact
 
    // TimerFactory.videoStatus(videoStatus, 100);
 
-});
+// });

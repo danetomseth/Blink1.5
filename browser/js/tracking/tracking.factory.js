@@ -64,18 +64,18 @@ core.factory('TrackingFactory', function($rootScope, $state) {
         $rootScope.videoActive = false
     };
 
-    trackObj.setZero = () => {
-        var converge = TrackingFactory.convergence();
-        if (converge < 300) {
-            count++;
-            if (count > 20) {
-                TimerFactory.calibrationFinished();
+    // trackObj.setZero = () => {
+    //     var converge = TrackingFactory.convergence();
+    //     if (converge < 300) {
+    //         count++;
+    //         if (count > 20) {
+    //             TimerFactory.calibrationFinished();
 
-            }
-        } else {
-            count = 0;
-        }
-    }
+    //         }
+    //     } else {
+    //         count = 0;
+    //     }
+    // }
 
     return trackObj;
 });

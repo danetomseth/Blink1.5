@@ -63,7 +63,6 @@ core.factory('TimerRAFFactory', function($rootScope, Session, $state, PositionFa
 
             // Check for mouth
 
-
         }
 
 

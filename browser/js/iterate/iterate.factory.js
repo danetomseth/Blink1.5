@@ -14,7 +14,7 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
 
     // let trackingActive = false;
 
-    // let iterateObj = {};
+    let iterateObj = {};
     // let count = 0;
     // let debounce = true;
     // let boxDebounce = true;
@@ -514,5 +514,5 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     //     //         break;
     //     // }
     // }
-    // return iterateObj;
+    return iterateObj;
 });

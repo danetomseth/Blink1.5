@@ -1,7 +1,7 @@
 app.directive('blLoading', function($interval){
 	return {
         restrict: 'E',
-        controller: 'MainCtrl',
+        // controller: 'MainCtrl',
         templateUrl: 'templates/loading.html',
         link: function(scope) {
 
