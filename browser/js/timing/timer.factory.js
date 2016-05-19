@@ -11,24 +11,29 @@ core.factory('TimerFactory', function($rootScope,$state, $interval, $timeout, Tr
 
     return {
         startReading: (iterator, delay, callback) => {
+            console.log("startReading")
             readFunc = function() {
                     positionInt = $interval(iterator, delay, 0, true, callback);
                 }
             readFunc();
         },
         moveCursor: (iterator, delay) => {
+            console.log("moveCursor")
             cursorFunc = function() {
                 cursorInt = $interval(iterator, delay);
             }
             cursorFunc();
         },
         calibrate: (iterator, delay, page) => {
+            console.log("calibrate")
             calibrateInt = $interval(iterator, delay, 0, true, page);
         },
         videoStatus: (iterator, delay) => {
+            console.log("videoStatus")
             videoInt = $interval(iterator, delay);
         },
         clearAll: () => {
+            console.log('clearAll')
             if (angular.isDefined(calibrateInt)) {
                 $interval.cancel(calibrateInt);
                 calibrateInt = null;
@@ -47,6 +52,7 @@ core.factory('TimerFactory', function($rootScope,$state, $interval, $timeout, Tr
             }
         },
         clearTracking: () => {
+            console.log("clearTracking")
             if (angular.isDefined(calibrateInt)) {
                 $interval.cancel(calibrateInt);
                 calibrateInt = null;
@@ -61,19 +67,24 @@ core.factory('TimerFactory', function($rootScope,$state, $interval, $timeout, Tr
             }
         },
         pauseIteration: (delay) => {
-            if (angular.isDefined(cursorInt)) {
-                $interval.cancel(positionInt);
-                $interval.cancel(cursorInt);
-            }
-            $timeout(function() {
-                cursorFunc();
-            }, delay);
+            //need to refeactor this
+
+            // if (angular.isDefined(cursorInt)) {
+            //     $interval.cancel(positionInt);
+            //     $interval.cancel(cursorInt);
+            // }
+            // $timeout(function() {
+            //     cursorFunc();
+            // }, delay);
+
         },
         //we know that the webcam is loaded and can start tracking
         videoReady: () => {
+            console.log("videoReady")
             $interval.cancel(videoInt);
         },
         calibrationFinished: () => {
+            console.log("calibrationFinished")
             $interval.cancel(calibrateInt);
         }
     }
