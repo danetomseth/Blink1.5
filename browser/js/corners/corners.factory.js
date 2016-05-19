@@ -30,7 +30,6 @@ core.factory('CornersFactory', function() {
     let word = '';
     let currentBox;
     let displayedBoxes = [];
-    let selectState = false; // are we at the top level of the grids?
 
     let functions = {
         getBoxes: () => {
@@ -55,7 +54,6 @@ core.factory('CornersFactory', function() {
             currentBox = box;
         },
         select: (box) => {
-            console.log("selecting gridboxes[", currentBox, "][", box, "]")
             word += gridBoxes[currentBox][box];
             let newPhrase = phrase[0] += gridBoxes[currentBox][box]
             angular.copy([newPhrase], phrase)
