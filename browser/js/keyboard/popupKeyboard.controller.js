@@ -1,4 +1,4 @@
-core.controller('PopupCtrl', function($scope, PopupFactory, IterateFactory, $mdBottomSheet) {
+core.controller('PopupCtrl', function($scope, PopupFactory, IterateFactory) {
 
     $scope.keyboard = PopupFactory.alphabet;
     $scope.rowCount = 0;

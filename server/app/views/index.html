@@ -30,13 +30,9 @@
 </head>
 
 <body ng-app="BlinkApp" layout="column">
-    <div class="md-primary" ng-controller="MainCtrl">
+    <div class="md-primary">
         <div layout="row" id="page-content" ng-model="sidebarActive">
             <bl-sidebar control="sidebar" id="sidebar-container"></bl-sidebar>
-            <!-- below used to avoid transp -->
-            <!-- <div flex="100">
-                <div flex id="content" ui-view></div>
-            </div> -->
             <div flex="100" ng-class="{'blur-page': $root.zeroActive}">
                 <div flex id="content" ui-view></div>
             </div>
