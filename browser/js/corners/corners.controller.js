@@ -10,7 +10,6 @@ core.config(function ($stateProvider) {
             console.log("ENTERING")
 
             function pupilCheck(){
-                // IterateFactory.zero('corners');
                 var converge = TrackingFactory.convergence();
                 var positions = TrackingFactory.getPositions();
                 if (converge < 300) {

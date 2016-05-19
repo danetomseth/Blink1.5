@@ -1,6 +1,6 @@
 //this sets all of timer dependent functions to the same intervals to clear on state change
 
-core.factory('TimerRAFFactory', function($rootScope, Session, $state, PositionFactory, TrackingFactory, ActionFactory) {
+core.factory('TimerFactory', function($rootScope, Session, $state, PositionFactory, TrackingFactory, ActionFactory) {
 
     const translateDelay = {
         0: 1400,
@@ -11,9 +11,7 @@ core.factory('TimerRAFFactory', function($rootScope, Session, $state, PositionFa
         5: 500
     }
     let iterationTime = (Session.user) ? translateDelay(Session.user.keyboardSpeed) : 750;
-    // let rafFrame;
     let startTime = 0;
-    // let iterationTime = translateDelay(Session.user.keyboardSpeed) || 750 // updated on state change
     let lastBox;
 
 
@@ -27,7 +25,6 @@ core.factory('TimerRAFFactory', function($rootScope, Session, $state, PositionFa
 
         // Always check if we should iterate
         if (timestamp - startTime > iterationTime){
-            // console.log("emiting iterate at time:", timestamp-startTime)
             $rootScope.$emit("iterate")
             startTime = timestamp
         }
@@ -42,7 +39,6 @@ core.factory('TimerRAFFactory', function($rootScope, Session, $state, PositionFa
             // Check for blink
             let blink = PositionFactory.blinkCompare(positions)
             if(blink){
-                // console.log("emiting", blink)
                 startTime = timestamp;
                 $rootScope.$emit(blink) // emits "doubleBlink" or "singleBlink"
             }

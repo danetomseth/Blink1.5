@@ -211,7 +211,7 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                         console.log('an1', frameId);
                         console.log('cancel!!!! #1');
                     }
-                    if(scope.confirmBlink === 3) { 
+                    if(scope.confirmBlink === 3) {
                         console.log('cancel with delay #2');
                         cancelDelay();
                     }
@@ -246,19 +246,13 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
 
             }
 
-
-
             function moveToNav() {
                 calibrationFinished = true;
                 SettingsFactory.setThreshold(blinkRatio, blinkZero)
                 ConstantsFactory.setBlink(blinkRatio, blinkZero);
                 $rootScope.nav = true;
-                // IterateFactory.iterate('nav');
                 return;
             }
-
-
-
 
             let cancelDelay = () => {
                 console.log("delay start");
@@ -271,19 +265,7 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                 }, 1000);
             }
 
-            scope.end = () => {
-                //calibrationFinished = true;
-                //window.cancelAnimationFrame(frameId);
-                //cancelDelay();
-
-                console.log('Stopppppppppppp');
-                // SettingsFactory.setThreshold(blinkRatio, blinkZero)
-                // ConstantsFactory.setBlink(blinkRatio, blinkZero);
-            }
-
-
             let takeReadings = () => {
-                //frameId = window.requestAnimationFrame(readEyes);
                 frameId = requestAnimationFrame(readEyes);
                 scope.display = "Keep Eyes Open";
             }
@@ -291,15 +273,11 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
             scope.start = () => {
                 scope.calStart = true;
                 scope.$evalAsync();
-                //scope.$digest();
                 setTimeout(function() {
                     takeReadings();
                 }, 500)
 
             }
-
-
-
 
         }
     }

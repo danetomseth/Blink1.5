@@ -1,4 +1,4 @@
-core.directive('blSidebar', function($state, $rootScope, ActionFactory, AuthService, AUTH_EVENTS, SidebarFactory, TimerFactory, IterateFactory) {
+core.directive('blSidebar', function($rootScope, ActionFactory, AuthService, AUTH_EVENTS, SidebarFactory) {
     return {
         restrict: 'E',
         scope: {
@@ -27,24 +27,13 @@ core.directive('blSidebar', function($state, $rootScope, ActionFactory, AuthServ
 
             setUser();
 
-
             scope.items = SidebarFactory.getLinks(scope.userLoggedIn);
-
-            //need to clean up scope.localCtrl .... was originally used to link stuff
-            // scope.localCtrl = scope.control || {};
-            scope.selectedLink = 0;
-
-            // scope.$watch(function() {
-            //     return IterateFactory.linkValue;
-            // }, function(newVal, oldVal) {
-            //     if (typeof newVal !== 'undefined') {
-            //         scope.selectedLink = IterateFactory.linkValue;
-            //     }
-            // });
+            scope.selectedLink; //// WORKING ON THIS
 
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
+
             $rootScope.$on("iterate", () => {
                 if(ActionFactory.isActive('nav')){
                     scope.selectedLink = SidebarFactory.moveSelected();
@@ -53,8 +42,6 @@ core.directive('blSidebar', function($state, $rootScope, ActionFactory, AuthServ
             })
             $rootScope.$on("singleBlink", () => {
                 if(ActionFactory.isActive('nav')){
-                    console.log("doing this thing")
-                    // scope.selectedLink = null;
                     SidebarFactory.changeState();
                 }
             })

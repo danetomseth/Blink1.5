@@ -19,7 +19,7 @@ core.directive('blBox', function(){
                 } else {
                     box.removeClass("letter-grid");
                     letterBox.addClass("single-letter");
-                    scope.letters = scope.contents[0]; //["-", "-", scope.contents, "-", "-"]
+                    scope.letters = scope.contents[0];
                 }
             })
         }

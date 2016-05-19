@@ -1,5 +1,5 @@
-core.factory('SettingsFactory', function($state, $rootScope, $http, ActionFactory, AuthService) {
-    let user = $rootScope.user;
+core.factory('SettingsFactory', function($rootScope, $http, ActionFactory, user) {
+    let user = user;
     let itemIndex = 0;
     let returnIndex = 0;
     let returnOption;
@@ -50,7 +50,7 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, ActionFactor
             if (links[returnIndex] !== "NAV") {
                 console.log("return index", returnIndex)
                 options = (returnIndex === 0)? speeds:features;
-                $state.go(links[returnIndex]);
+                o(links[returnIndex]);
             }
             // Nav tab
             else {
@@ -73,21 +73,15 @@ core.factory('SettingsFactory', function($state, $rootScope, $http, ActionFactor
             } else {
                 selections = { "trackingFeature": features[returnOption] };
             }
-            return $http.put('/api/users/' + $rootScope.user._id, selections)
-                .then((updatedUser) => angular.copy(updatedUser.data, $rootScope.user));
+            return $http.put('/api/users/' + user._id, selections)
+                .then((updatedUser) => angular.copy(updatedUser.data, user));
         },
         setThreshold: (blinkRatio, blinkZero) => {
             $http.put("/api/users", {blinkZero: blinkZero, blinkRatio: blinkRatio})
             .then( user => {
                 return user.data;
             })
-        },
-        // getBlinkZero: () => { // Use Session.user.blinkZero instead.
-        //     return user.blinkZero;
-        // },
-        // getBlinkRatio: () => {
-        //     return user.blinkRatio;
-        // }
+        }
     }
 
     return settingsObj;
