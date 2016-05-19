@@ -1,15 +1,15 @@
 core.factory('ActionFactory', function($rootScope, $state) {
     let action = {};
     let states = {};
-    states.type = false;
-    states.home = false;
-    states.corners = false;
-    states.login = false;
-    states.settings = false;
-    states.signup = false;
-    states.newsfeed = false;
-    states.logout = false;
-    states.nav = false; // Not really a state. But convenient
+    // states.type = false;
+    // states.home = false;
+    // states.corners = false;
+    // states.login = false;
+    // states.settings = false;
+    // states.signup = false;
+    // states.newsfeed = false;
+    // states.logout = false;
+    // states.nav = false; // Not really a state. But convenient
 
     action.states = states;
 
@@ -34,7 +34,6 @@ core.factory('ActionFactory', function($rootScope, $state) {
             console.log('state start', toState, fromState);
             action.stopEvents('nav');
             action.stopEvents(fromState.name);
-
         })
 
     $rootScope.$on('$stateChangeSuccess',

@@ -1,11 +1,10 @@
 //this sets all of timer dependent functions to the same intervals to clear on state change
 
-core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, TrackingFactory) {
+core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, TrackingFactory, ActionFactory) {
 
     let rafFrame
     let startTime = 0;
     let iterationTime = 1000 // updated on state change
-    let weNeedToCheckEyePosition = false;
     let lastBox;
 
 
@@ -39,12 +38,12 @@ core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, Tr
             }
 
             // Check for eye positions
-            if(weNeedToCheckEyePosition){
+            if(ActionFactory.isActive('corners')){
                 let currentBox = PositionFactory.pupilPosition(positions);
                 //emit only on box change
                 if (lastBox !== currentBox){
-                    // console.log("emiting box", currentBox)
-                    $rootScope.$emit(currentBox); // emits the box the user is currently looking at
+                    console.log("emiting box", currentBox)
+                    $rootScope.$emit("changeBox", currentBox); // emits the box the user is currently looking at
                 }
                 lastBox = currentBox;
             }
@@ -60,10 +59,11 @@ core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, Tr
 
         // loop again
         requestAnimationFrame(loop);
-    }
+    };
+
 
     return {
-        start: loop
+        start: loop,
     }
 
 });

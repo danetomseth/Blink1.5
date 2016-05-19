@@ -41,7 +41,7 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     iterateObj.selectedBox = 2;
     iterateObj.word = "";
 
-  
+
 
     ////////////////////////////////////////////////////////////
     //////////// Common Funcs
@@ -86,18 +86,18 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     if ($rootScope.user) {
         delay = translateDelay[$rootScope.user.keyboardSpeed]
     }
-   
 
-    
 
-    
+
+
+
 
     ////////////////////////////////////////////////////////////
     //////////// Corners
     ////////////////////////////////////////////////////////////
 
 
-     
+
     let cornersCallback = (box) => {
         if (debounce) {
             debounce = false;
@@ -149,7 +149,7 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
         }
     }
 
-    
+
 
     function analyzePupilPositions() {
         $rootScope.$digest();
@@ -324,7 +324,7 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
         }
     }
 
-    
+
 
 
 
@@ -342,7 +342,7 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     let linkIterator = function() {
         iterateObj.linkValue = SidebarFactory.moveSelected();
     }
-    
+
 
     function navAction(cb) {
         let positions = TrackingFactory.getPositions();
@@ -355,7 +355,7 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
             frameId = window.requestAnimationFrame(analyzeEyePositions);
         }
     }
-    
+
 
     function goToPage() {
         SidebarFactory.changeState();
@@ -367,9 +367,9 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
         TimerFactory.clearAll();
         goToPage();
     }
- 
-    
- 
+
+
+
 
 
     ////////////////////////////////////////////////////////////
@@ -429,7 +429,7 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
         }, 750)
     }
 
-  
+
 
     ////////////////////////////////////////////////////////////
     /////////// Zeroing functions
