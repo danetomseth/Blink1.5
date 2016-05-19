@@ -47,7 +47,7 @@ core.factory('CornersFactory', function() {
         },
         delete: () => {
             let newPhrase = phrase[0].slice(0, -2);
-            angular.copy([newPhrase], phrase)
+            angular.copy([newPhrase], phrase);
         },
         goToBox: (box) => {
             angular.copy(gridBoxes[box], displayedBoxes);
@@ -55,9 +55,9 @@ core.factory('CornersFactory', function() {
         },
         select: (box) => {
             word += gridBoxes[currentBox][box];
-            let newPhrase = phrase[0] += gridBoxes[currentBox][box]
-            angular.copy([newPhrase], phrase)
-            angular.copy(gridBoxes, displayedBoxes)
+            let newPhrase = phrase[0] += gridBoxes[currentBox][box];
+            angular.copy([newPhrase], phrase);
+            angular.copy(gridBoxes, displayedBoxes);
         }
     };
     return functions;
