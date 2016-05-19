@@ -8,6 +8,7 @@ core.factory('TrackingFactory', function($rootScope, $state) {
     let drawing = false;
 
     let trackObj = {};
+
     trackObj.startTracking = (canvasElem, video, boundingBox) => {
         //new tracker
         tracker = new clm.tracker({searchWindow: 5});
@@ -15,11 +16,10 @@ core.factory('TrackingFactory', function($rootScope, $state) {
         canvas = canvasElem;
         context = canvas.getContext("2d");
         //helps remove the error when tracker first loads
-        
+
         setTimeout(function() {
             tracker.setResponseMode("blend", ["raw", "sobel"]);
-            tracker.start(video, boundingBox);
-            // tracker.start(video);
+            tracker.start(video);
             trackObj.startDrawing();
             $rootScope.trackerInitialized = true;
         }, 2000);
@@ -40,12 +40,9 @@ core.factory('TrackingFactory', function($rootScope, $state) {
         }
     }
 
-
     trackObj.getParams = () => {
         return tracker.getCurrentParameters();
     }
-
-
 
     trackObj.convergence = () => {
         return tracker.getConvergence();
@@ -76,5 +73,5 @@ core.factory('TrackingFactory', function($rootScope, $state) {
         }
     }
 
-    return trackObj
+    return trackObj;
 });

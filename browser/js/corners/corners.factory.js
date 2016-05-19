@@ -2,29 +2,21 @@ core.factory('CornersFactory', function() {
 
     //Not using ng-repeat so only need 5 boxes
 
-    let letterBox = [
-        {
-            contents: ["😀", "😬", "😁", "😂", "😃"]
-        },
-        {
-            contents: ["🍎", "🍇", "🍕", "🌯", "🍣"]
-        },
-        {
-            //contents: ["K", "L", "M", "N", "O"]
-            contents: ["", "", "", "", ""]
-        },
-        {
-            contents: ["P", "Q", "R", "S", "T"]
-        },
-        {
-            contents: ["U", "V", "W", "X", "Y"]
-        }
-    ];
+    let letterBox = [{
+        contents: ["A", "B", "C", "D", "E"]
+    }, {
+        contents: ["F", "G", "H", "I", "J"]
+    }, {
+        contents: ["K", "L", "M", "N", "O"]
+    }, {
+        contents: ["P", "Q", "R", "S", "T"]
+    }, {
+        contents: ["U", "V", "W", "X", "Y"]
+    }];
 
     /////////////////////////////////////////////////
     //////// 0: TL, 1: TR, 2: M, 3: BL, 4: BR //////
     /////////////////////////////////////////////////
-
 
     let gridBoxes = [
         letterBox[0].contents,
@@ -34,14 +26,10 @@ core.factory('CornersFactory', function() {
         letterBox[4].contents
     ]
 
-
-
     let phrase = [""]
     let word = '';
     let currentBox;
     let displayedBoxes = [];
-    let topLevel = false; // are we at the top level of the grids?
-
 
     let functions = {
         getBoxes: () => {
@@ -59,19 +47,17 @@ core.factory('CornersFactory', function() {
         },
         delete: () => {
             let newPhrase = phrase[0].slice(0, -2);
-            angular.copy([newPhrase], phrase)
+            angular.copy([newPhrase], phrase);
         },
         goToBox: (box) => {
-            topLevel = !topLevel // switch the state
-            if(topLevel){
-                angular.copy(gridBoxes[box], displayedBoxes)
-            } else {
-                word += gridBoxes[currentBox][box]
-                let newPhrase = phrase[0]+= gridBoxes[currentBox][box]
-                angular.copy([newPhrase], phrase)
-                angular.copy(gridBoxes, displayedBoxes)
-            }
+            angular.copy(gridBoxes[box], displayedBoxes);
             currentBox = box;
+        },
+        select: (box) => {
+            word += gridBoxes[currentBox][box];
+            let newPhrase = phrase[0] += gridBoxes[currentBox][box];
+            angular.copy([newPhrase], phrase);
+            angular.copy(gridBoxes, displayedBoxes);
         }
     };
     return functions;

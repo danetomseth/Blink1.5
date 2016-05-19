@@ -18,7 +18,10 @@ core.factory('PositionFactory', function(ConstantsFactory) {
     let eyeZero = 500;
     let eyeX = 0;
     let eyeY = 0;
-    const pupilThreshold = 0;
+    const pupilThreshold = 0.1;
+    // const pupilXThreshold = 0;
+    // const pupilYThreshold = 0.1;
+
     const browArray = [20, 21, 17, 16];
     const eyeArray = [63, 24, 64, 20, 21, 67, 29, 68, 17, 16];
     const rightEyeArray = [63, 24, 64, 20, 21];
@@ -74,7 +77,6 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             mouthZero = positions[57][1] - positions[60][1];
             diffZeroL += (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             diffZeroR += (positions[66][1] + positions[26][1] + positions[65][1]) - (positions[63][1] + positions[24][1] + positions[64][1]);
-
         },
         setEyeZero: (positions) => {
             leftZeroArray = leftEyeArray.map(function(index) {
@@ -104,7 +106,6 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             return (eyeTotal > eyeThreshold);
         },
         setPupilZero: (positions) => {
-
             pupilCount = 0;
             pupilArray.forEach(function(elem, index) {
                 pupilZeroArray[0] += positions[elem][0] //adds the x position
@@ -124,7 +125,6 @@ core.factory('PositionFactory', function(ConstantsFactory) {
         pupilPosition: (positions) => {
             eyeX = 0;
             eyeY = 0;
-            let returnBox = 2;; //defaults to center
             pupilArray.forEach(function(elem, index) {
                 eyeX += positions[elem][0] //adds the x position
                 eyeY += positions[elem][1] //adds the y position
@@ -141,14 +141,15 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             yDiff = yDiffAvg[0] + yDiffAvg[1] + yDiffAvg[2];
 
             if (xDiff < -pupilThreshold && yDiff > pupilThreshold) { // LEFT TOP
-                returnBox = 0;
+                return 0;
             } else if (xDiff > pupilThreshold && yDiff > pupilThreshold) { // RIGHT TOP
-                returnBox = 1;
+                return 1;
             } else if (xDiff < -pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM RIGHT
-                returnBox = 3;
+                return 3;
             } else if (xDiff > pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM LEFT
-                returnBox = 4;
+                return 4;
             }
+            else return 2;
 
             // let xDiff = (positions[33][0] - positions[32][0]) - eyeXZero;
 
@@ -178,9 +179,7 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             //     pupilCount = 0;
 
             // }
-
-
-            return returnBox;
+            // return returnBox;
         }
     }
 });

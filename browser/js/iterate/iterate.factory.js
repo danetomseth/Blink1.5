@@ -9,7 +9,6 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     var selectingLetter = false;
     var selectingOption = false;
     var currentBox = 0;
-    var lastBox = 0;
     var blinkHold = 0;
     let frameId;
     let callback;
@@ -132,7 +131,6 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     function analyzeEyePositions(cb) {
         $rootScope.$digest();
         var positions = TrackingFactory.getPositions();
-
         if (positions && PositionFactory.blinkCompare(positions) && startDebounce) {
             blinkDt = Date.now() - lastBlinkTime;
             // On double blink
@@ -157,7 +155,7 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
 
         if (positions && PositionFactory.blinkCompare(positions)) {
             console.log('triggered');
-            if(startDebounce) callback();
+            if (startDebounce) callback();
         }
         if (!stopFrame) {
             frameId = window.requestAnimationFrame(analyzeEyePositions);
@@ -181,7 +179,6 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
             CornersFactory.eyePosition(eyeX, eyeY); // if the eyes go more than the "threshold" away from center then go to the corner
         }
     }
-
 
     ////////////////////////////////////////////////////////////
     /////////// Candidates for an Action Factory?
@@ -215,7 +212,7 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
                 setTimeout(function() {
                     selectingOption = false;
                     debounce = true;
-                }, 750)
+                }, 750);
             }
         }
     }
@@ -265,50 +262,6 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
         })
     }
 
-
-
-    ////////////////////////////////////////////////////////////
-    //////////// Analyze functions that accept callbacks
-    ////////////////////////////////////////////////////////////
-    // let lastBlinkTime;
-    // let blinkDt;
-    //     function analyzeEyePositions(cb) {
-    //         var positions = TrackingFactory.getPositions();
-    //         if (positions) {
-    //             var blink = PositionFactory.blinkCompare(positions);
-    //             if (blink === 'delete') {
-    //                 if (mouthDebounce) {
-    //                     mouthDebounce = false;
-    //                     KeyboardFactory.delete();
-    //                     selectingLetter = false;
-    //                     setTimeout(function() {
-    //                         mouthDebounce = true;
-    //                     })
-    //                 }
-    //             } else if (blink) {
-    //                 cb();
-    //             }
-    //         }
-    //     }
-
-    // function analyzeBrowPositions(cb) {
-    //     var positions = TrackingFactory.getPositions();
-    //     if (positions) {
-    //         if (PositionFactory.browCompare(positions)) {
-    //             cb();
-    //         }
-    //     }
-    // }
-
-    // function readPositions() {
-    //     let positions = TrackingFactory.getPositions();
-    //     if (positions) {
-    //         let eyeX = positions[27][0] + positions[32][0]
-    //         let eyeY = positions[27][1] + positions[32][1]
-    //         CornersFactory.eyePosition(eyeX, eyeY); // if the eyes go more than the "threshold" away from center then go to the corner
-    //     }
-    // }
-
     ////////////////////////////////////////////////////////////
     //////////// Callback functions to send to analyzers
     ////////////////////////////////////////////////////////////
@@ -344,14 +297,31 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     let cornersCallback = (box) => {
         if (debounce) {
             debounce = false;
-            CornersFactory.goToBox(box)
-            debounceFn();
-            boxDelay();
-        } else if (blinkHold > 3) { //this checkes to see if the eyes are still closed
-            blinkHold = 0;
+            boxDebounce = false;
+            CornersFactory.goToBox(box);
+            debounceFn(); // wait to set debounce to true
+            boxDelay(); // wait to set boxDebounce back to true
+        }
+    }
+
+    let cornersSelect = (box) => {
+        if (debounce) {
+            debounce = false;
+            boxDebounce = false;
+            CornersFactory.select(box);
+            debounceFn(); // wait to set debounce to true
+            boxDelay(); // wait to set boxDebounce back to true
+            cornersCallback();
+        }
+    }
+
+    let cornersDelete = () => {
+         if (debounce) {
+            debounce = false;
+            boxDebounce = false;
             CornersFactory.delete();
-        } else {
-            blinkHold++
+            debounceFn(); // wait to set debounce to true
+            boxDelay(); // wait to set boxDebounce back to true
         }
     }
 
@@ -375,22 +345,47 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
         }
     }
 
-    function analyzePupilPositions(cb) {
-        var positions = TrackingFactory.getPositions();
-        if (positions) {
-            currentBox = PositionFactory.pupilPosition(positions);
-            let blinkStatus = PositionFactory.blinkCompare(positions);
+    let mainScreen = true;
+    let doubleBlink;
 
-            //position factory returns false if changes are too large
-            //eventually want to call zero again
-            if (blinkStatus) {
-                boxDebounce = false;
-                cb(lastBox); // this way, box doesn't jump down when selecting
-            } else {
-                blinkHold = 0;
-                if (boxDebounce) iterateObj.selectedBox = currentBox; //want some delay with box movement after one is selected
+    function analyzePupilPositions() {
+        $rootScope.$digest();
+        let positions = TrackingFactory.getPositions();
+
+        if (positions && startDebounce && boxDebounce) {
+            currentBox = PositionFactory.pupilPosition(positions);
+
+            // On blink
+            if (PositionFactory.blinkCompare(positions)) {
+                blinkDt = Date.now() - lastBlinkTime;
+                doubleBlink = ((blinkDt <= 750) && (blinkDt > 250));
+                if (mainScreen && !doubleBlink) {
+                    // Select a box from the main screen
+                    cornersCallback(currentBox);
+                    mainScreen = false;
+                } else if (mainScreen && doubleBlink) {
+                    // Delete on double blink for main screen
+                    cornersDelete();
+                } else if (blinkDt > 750) {
+                    // Single blink to select
+                    cornersSelect(currentBox);
+                    mainScreen = true;
+                } else if ((blinkDt <= 750) && (blinkDt > 250)) {
+                    // Double blink goes back to home page
+                    cornersCallback();
+                    mainScreen = true;
+                }
+                lastBlinkTime = Date.now();
             }
-            lastBox = currentBox;
+            // Highlight boxes based on pupil position
+            else {
+                iterateObj.selectedBox = currentBox;
+            }
+        }
+
+        // Keep running request animation frame
+        if (!stopFrame) {
+            frameId = window.requestAnimationFrame(analyzePupilPositions);
         }
     }
 
@@ -454,12 +449,16 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
                 break;
             case 'type':
                 lastBlinkTime = Date.now();
-                callback = keyboardCallback
+                callback = keyboardCallback;
+                //TimerFactory.startReading(analyzeEyePositions, 50, keyboardCallback);
                 TimerFactory.moveCursor(keyboardIterator, 750);
                 frameId = window.requestAnimationFrame(analyzeEyePositions);
                 break;
             case 'corners':
-                TimerFactory.startReading(analyzePupilPositions, 50, cornersCallback);
+                lastBlinkTime = Date.now();
+                callback = cornersCallback;
+                frameId = window.requestAnimationFrame(analyzePupilPositions);
+                // TimerFactory.startReading(analyzePupilPositions, 50, cornersCallback);
                 break;
             case 'popup':
                 PositionFactory.setBrowZero(positions);
