@@ -9,7 +9,6 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     var selectingLetter = false;
     var selectingOption = false;
     var currentBox = 0;
-    var lastBox = 2;
     var blinkHold = 0;
     let frameId;
     let callback;
@@ -337,6 +336,8 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
     }
 
     let mainScreen = true;
+    let doubleBlink;
+
     function analyzePupilPositions() {
         $rootScope.$digest();
         let positions = TrackingFactory.getPositions();
@@ -347,10 +348,14 @@ core.factory('IterateFactory', function($rootScope, ConstantsFactory, CornersFac
             // On blink
             if (PositionFactory.blinkCompare(positions)) {
                 blinkDt = Date.now() - lastBlinkTime;
-                if (mainScreen) {
+                doubleBlink = ((blinkDt <= 750) && (blinkDt > 250));
+                if (mainScreen && !doubleBlink) {
                     // Select a box from the main screen
                     cornersCallback(currentBox);
                     mainScreen = false;
+                } else if (mainScreen && doubleBlink) {
+                    // Delete on double blink for main screen
+                    CornersFactory.delete();
                 } else if (blinkDt > 750) {
                     // Single blink to select
                     cornersSelect(currentBox);
