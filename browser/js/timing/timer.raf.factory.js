@@ -18,8 +18,8 @@ core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, Tr
 
         // Always check if we should iterate
         if (timestamp - startTime > iterationTime){
-            // console.log("broadcasting iterate at time:", timestamp-startTime)
-            $rootScope.$broadcast("iterate")
+            // console.log("emiting iterate at time:", timestamp-startTime)
+            $rootScope.$emit("iterate")
             startTime = timestamp
         }
 
@@ -32,17 +32,17 @@ core.factory('TimerRAFFactory', function($rootScope, $state, PositionFactory, Tr
             // Check for blink
             let blink = PositionFactory.blinkCompare(positions)
             if(blink){
-                // console.log("broadcasting", blink)
-                $rootScope.$broadcast(blink) // broadcasts "doubleBlink" or "singleBlink"
+                // console.log("emiting", blink)
+                $rootScope.$emit(blink) // emits "doubleBlink" or "singleBlink"
             }
 
             // Check for eye positions
             if(weNeedToCheckEyePosition){
                 let currentBox = PositionFactory.pupilPosition(positions);
-                //broadcast only on box change
+                //emit only on box change
                 if (lastBox !== currentBox){
-                    // console.log("broadcasting box", currentBox)
-                    $rootScope.$broadcast(currentBox); // broadcasts the box the user is currently looking at
+                    // console.log("emiting box", currentBox)
+                    $rootScope.$emit(currentBox); // emits the box the user is currently looking at
                 }
                 lastBox = currentBox;
             }

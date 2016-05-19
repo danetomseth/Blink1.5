@@ -67,7 +67,8 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             if (change < ConstantsFactory.blinkRatio) {
                 let blinkDt = Date.now() - lastBlinkTime;
                 lastBlinkTime = Date.now();
-                return ((blinkDt <= 750) && (blinkDt > 250)) ? "doubleBlink" : "singleBlink"
+                if(blinkDt < 250) {return false} // debounce
+                return (blinkDt <= 750) ? "doubleBlink" : "singleBlink"
             } else {
                 return false;
             }
