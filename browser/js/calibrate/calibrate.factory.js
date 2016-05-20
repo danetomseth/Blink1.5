@@ -98,7 +98,7 @@ core.factory('CalibrateFactory', function($rootScope, $state, ConstantsFactory, 
         ConstantsFactory.setBlink(blinkRatio, blinkZero);
         calibrateObj.calibrationSet = true;
         setTimeout(function() {
-        cancelAnimationFrame(frameId);
+            cancelAnimationFrame(frameId);
     	},0);
     }
 

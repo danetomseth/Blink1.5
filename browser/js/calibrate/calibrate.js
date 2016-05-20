@@ -83,7 +83,7 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
 
 
 
-            $rootScope.$on('singleBlink', (event, data) => {
+            $rootScope.$on('singleBlink', () => {
                 if (CalibrateFactory.calibrationSet) {
                     testBlink();
                 }
