@@ -37,7 +37,11 @@ core.directive('blSidebar', function($rootScope, ActionFactory, AuthService, AUT
             $rootScope.$on("iterate", () => {
                 if(ActionFactory.isActive('nav')){
                     scope.selectedLink = SidebarFactory.moveSelected();
-                    scope.$digest();
+                }
+            })
+            $rootScope.$on("singleBlink", () => {
+                if(ActionFactory.nav){
+                    SidebarFactory.changeState();
                 }
             })
             $rootScope.$on("singleBlink", () => {

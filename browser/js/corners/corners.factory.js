@@ -14,16 +14,18 @@ core.factory('CornersFactory', function($rootScope, ActionFactory) {
         contents: ["U", "V", "W", "X", "Y"]
     }];
 
+    let calibrated = false;
+
     /////////////////////////////////////////////////
     //////// 0: TL, 1: TR, 2: M, 3: BL, 4: BR //////
     /////////////////////////////////////////////////
 
     let gridBoxes = [
-    letterBox[0].contents,
-    letterBox[1].contents,
-    letterBox[2].contents,
-    letterBox[3].contents,
-    letterBox[4].contents
+        letterBox[0].contents,
+        letterBox[1].contents,
+        letterBox[2].contents,
+        letterBox[3].contents,
+        letterBox[4].contents
     ]
 
     let phrase = [""]
@@ -32,33 +34,31 @@ core.factory('CornersFactory', function($rootScope, ActionFactory) {
     let displayedBoxes = [];
     let mainGrid = true;
 
-    $rootScope.$on("changeBox", function(thing, box){
-     if (ActionFactory.isActive('corners')) {
-        CornersFactory.selectedBox = box;
-    }
+    $rootScope.$on("changeBox", function(thing, box) {
+        if (ActionFactory.isActive('corners') && calibrated) {
+            CornersFactory.selectedBox = box;
+        }
     });
 
-    $rootScope.$on("singleBlink", function(){
-     if (ActionFactory.isActive('corners')) {
-        if (mainGrid) {
-            CornersFactory.goToBox(CornersFactory.selectedBox);
+    $rootScope.$on("singleBlink", function() {
+        if (ActionFactory.isActive('corners') && calibrated) {
+            if (mainGrid) {
+                CornersFactory.goToBox(CornersFactory.selectedBox);
+            } else {
+                CornersFactory.select(CornersFactory.selectedBox);
+            }
         }
-        else {
-            CornersFactory.select(CornersFactory.selectedBox);
-        }
-    }
-})
+    })
 
     $rootScope.$on("doubleBlink", function() {
-     if (ActionFactory.isActive('corners')) {
-        if (mainGrid) {
-            CornersFactory.delete();
+        if (ActionFactory.isActive('corners')) {
+            if (mainGrid) {
+                CornersFactory.delete();
+            } else {
+                CornersFactory.goToBox();
+            }
         }
-        else {
-            CornersFactory.goToBox();
-        }
-    }
-})
+    })
 
     let CornersFactory = {
         getBoxes: () => {
@@ -90,7 +90,8 @@ core.factory('CornersFactory', function($rootScope, ActionFactory) {
             angular.copy(gridBoxes, displayedBoxes);
             mainGrid = !mainGrid;
         },
-        selectedBox: 2
+        selectedBox: 2,
+        calibrated: calibrated
     };
     return CornersFactory;
 });

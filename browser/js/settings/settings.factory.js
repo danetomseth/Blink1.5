@@ -1,6 +1,5 @@
 core.factory('SettingsFactory', function($rootScope, $http, ActionFactory, Session) {
     let user = Session.user;
-    let itemIndex = 0;
 
     // ROWS: "Keyboard", "Features", "NAV"
     let options = [[1, 2, 3, 4, 5], ['eyes', 'eyebrows', 'mouth'], null];

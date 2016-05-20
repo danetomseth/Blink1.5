@@ -1,262 +1,99 @@
-core.directive("blCalibrate", function(PositionFactory, SettingsFactory, IterateFactory, TrackingFactory, ConstantsFactory, $interval, $rootScope) {
+core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, ActionFactory) {
     return {
         restrict: "E",
         templateUrl: 'templates/calibrate.html',
         link: function(scope, elem, attr) {
-            let requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-                window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-
-            let cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
             let calibrationComplete = false;
-            let frameId = 0;
-            let currentBlink;
-            let blinkZero = 0;
-            let blinkRatio = 0;
-            let maxVals = [];
-            let minVals = [];
-            let maxSum = 0;
-            let minSum = 0;
             let debounce = true;
-            let converge = 50000;
-            let zeroFinished = false;
-            let testFinished = false;
-            let calibrationFinished = false;
-            scope.animationCount = 0;
             scope.calStart = false;
-
-            let count = 0;
-            let total = 0;
-
-            scope.confirmBlink = "---";
-            scope.maxCount = 0;
-            scope.minCount = 0;
-
+            scope.confirmBlink = 10;
             scope.showMessage = false;
+            //scope.blinkCounts = [0,0];
 
-            scope.leftEye = 0;
-            scope.rightEye = 0;
-
-            function testDelay() {
-                setTimeout(function() {
-                    scope.showMessage = true;
-                    testFinished = true;
-                    scope.message = "Keep Settings?"
-                }, 5000)
-            }
-
-            function avgMaxMin(sum) {
-                maxSum = 0;
-                minSum = 0;
-                maxVals.forEach(function(val) {
-                    maxSum += val;
-                })
-                maxSum = maxSum / maxVals.length;
-
-                minVals.forEach(function(val) {
-                    minSum += val;
-                })
-                minSum = minSum / minVals.length;
-
-                if (sum > maxSum) {
-                    maxVals.push(sum);
-                } else if (sum < minSum) {
-                    minVals.push(sum);
+            // 0: open eye
+            // 1: middleBox
+            // 2: closed eye
+            // 3: countdown
+            scope.blinkStatus = []
+            
+            //used for css changes on scope
+            scope.$watch(function() {
+                return CalibrateFactory.blinkStatus
+            }, function(newVal, oldVal) {
+                if (typeof newVal !== 'undefined') {
+                    scope.blinkStatus = CalibrateFactory.blinkStatus;
                 }
-            }
+            });
 
-            function compareValues(vals) {
-                total = vals[0] + vals[1];
-                count++;
-                scope.blinkReady = {
-                    'opacity': '0.5'
+            //used for % calibration
+            scope.$watch(function() {
+                return CalibrateFactory.blinkCounts
+            }, function(newVal, oldVal) {
+                if (typeof newVal !== 'undefined') {
+                    scope.blinkCounts = CalibrateFactory.blinkCounts;
                 }
-                if (maxVals.length > 50 && minVals.length > 50) {
-                    setValues();
-                    scope.blinkReady = {
-                        'opacity': '1'
-                    }
-                }
-
-                if (maxVals.length <= 50) {
-                    scope.maxCount = (maxVals.length / 50) * 100;
-                } else {
-                    scope.maxReady = {
-                        'opacity': '0.5'
-                    }
-                }
-
-                if (minVals.length <= 50) {
-                    scope.minCount = (minVals.length / 50) * 100;
-                } else {
-                    scope.minReady = {
-                        'opacity': '0.5'
-                    }
-                }
-
-                //starting the array - with a little buffer
-                if (count > 40 && count < 50) {
-                    maxVals.push(total + 1);
-                    minVals.push(total - 1);
-                }
-                if (count > 50) {
-                    if (total) {
-                        avgMaxMin(total);
-                    }
-
-                }
-            };
+            });
 
 
-            let logCancel = false;
-
-            function readEyes() {
-                scope.$digest();
-                scope.animationCount++;
-
-                let positions = TrackingFactory.getPositions()
-                if (positions) {
-                    currentBlink = PositionFactory.getBlinkValue(positions)
-                }
-
-                if (converge > 0.5 && !zeroFinished) {
-                    $rootScope.zeroActive = true;
-                    converge = TrackingFactory.convergence();
-                    if (converge <= 0.5) {
-                        zeroFinished = true;
-                        //cancelDelay();
-                        $rootScope.zeroActive = false;
-                        $rootScope.$digest();
-                    }
-                } else {
-                    scope.leftEye = currentBlink[1].toFixed(1);
-                    scope.rightEye = currentBlink[0].toFixed(1);
-                    if (!calibrationComplete) {
-                        compareValues(currentBlink);
-                    } else {
-                        testBlinks(currentBlink)
-                    }
-                }
-                if (!calibrationFinished) {
-                    frameId = requestAnimationFrame(readEyes);
-                    if(logCancel) {
-                        console.log('current frame:', frameId);
-                    }
-                }
-            }
-
-
-
-            let setValues = function() {
-                //testDelay();
-                scope.confirmBlink = 10;
-                maxVals.forEach(function(val) {
-                    maxSum += val;
-                })
-                maxSum = maxSum / maxVals.length;
-
-                minVals.forEach(function(val) {
-                    minSum += val;
-                })
-                minSum = minSum / minVals.length;
-
-                blinkZero = maxSum;
-
-                blinkRatio = (minSum / maxSum) - 0.05;
-                calibrationComplete = true;
-
-            }
-
-
-
-            let testBlinks = (vals) => {
-                total = vals[0] + vals[1];
-                if ((total / blinkZero) < blinkRatio) {
-                    if (debounce) {
-                        if (scope.showMessage) {
-                            scope.confirmBox = {
-                                'border': '3px solid black'
-                            }
-                        } else {
-                            scope.blinkReady = {
-                                'color': 'red'
-                            }
+            let testBlink = () => {
+                if (debounce) {
+                    if (scope.showMessage) {
+                        scope.blinkStatus[3] = {
+                            'border': '3px solid black'
                         }
-                        debounce = false;
-                        blinkDelay()
+                    } else {
+                        scope.blinkStatus[1] = {
+                            'color': 'red'
+                        }
                     }
+                    debounce = false;
+                    blinkDelay()
                 }
             }
 
             function blinkDelay() {
                 if (scope.confirmBlink > 0) {
                     scope.confirmBlink--;
-                    if(scope.confirmBlink === 5) {
-                        logCancel = true;
-                        window.cancelAnimationFrame(frameId);
-                    }
-                    if(scope.confirmBlink === 3) {
-                        cancelDelay();
-                    }
                 }
                 if (scope.confirmBlink === 0) {
                     scope.showMessage = true;
-                    navDelay()
+                    moveToNav()
                     scope.confirmBlink = "--"
                     return;
                 }
                 setTimeout(function() {
-                    debounce = true;
-                    scope.blinkReady = {
+                    scope.blinkStatus[1] = {
                         'color': 'black'
                     }
-                    scope.confirmBox = {
+                    scope.blinkStatus[3] = {
                         'border': 'none'
                     }
-                }, 500)
+                }, 400);
             }
 
-            function navDelay() {
-                scope.countDown = 3;
-                let countDownInt = $interval(function() {
-                    if (scope.countDown === 0) {
-                        $interval.cancel(countDownInt);
-                        moveToNav();
-                    } else {
-                        scope.countDown--
-                    }
-                }, 750);
-
-            }
 
             function moveToNav() {
-                calibrationFinished = true;
-                SettingsFactory.setThreshold(blinkRatio, blinkZero)
-                ConstantsFactory.setBlink(blinkRatio, blinkZero);
-                $rootScope.nav = true;
-                return;
-            }
-
-            let cancelDelay = () => {
-                cancelAnimationFrame(frameId);
+                //set action factory here
+                CalibrateFactory.calibrationSet = false;
                 setTimeout(() => {
-                    cancelAnimationFrame(frameId);
-                }, 1000);
+                    ActionFactory.runEvents('nav');
+                }, 500);                
+
             }
 
-            let takeReadings = () => {
-                frameId = requestAnimationFrame(readEyes);
-                scope.display = "Keep Eyes Open";
-            }
+
+
+            $rootScope.$on('singleBlink', () => {
+                if (CalibrateFactory.calibrationSet) {
+                    testBlink();
+                }
+            });
 
             scope.start = () => {
+                CalibrateFactory.runCalibration();
                 scope.calStart = true;
-                scope.$evalAsync();
-                setTimeout(function() {
-                    takeReadings();
-                }, 500)
-
             }
-
         }
+
     }
 });

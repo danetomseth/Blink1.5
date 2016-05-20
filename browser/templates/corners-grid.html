@@ -1,5 +1,5 @@
 <!-- Box Grid -->
-<div flex>
+<div flex ng-show="calibrated">
     <!-- Top Row -->
     <div class="row row-centered grid-row">
         <div class="col-xs-4 grid-item" ng-click="selectBox(0)" ng-class="{'active-box': selectedBox == 0}">
@@ -21,4 +21,52 @@
         <div class="col-xs-4 grid-item grid-empty"></div>
         <div class="col-xs-4 grid-item" ng-click="selectBox(4)" ng-class="{'active-box': selectedBox == 4}"><bl-box contents=boxes[4]></bl-box></div>
     </div>
+</div>
+
+
+<div flex ng-hide="calibrated">
+    <!-- Top Row -->
+    <div class="row row-centered cal-row">
+        <div class="col-xs-4 cal-item" ng-click="selectBox(0)" ng-class="{'cal-active': calibrateBox == 0}">
+            <img ng-show="calibrateBox == 0" src="templates/img/focus.gif" alt="Look Here">
+            <!-- <div class="calibration-box">{{calBoxes[0]}}</div> -->
+        </div>
+        <div class="col-xs-4 cal-item grid-empty"></div>
+        <div class="col-xs-4 cal-item" ng-click="selectBox(1)" ng-class="{'cal-active': calibrateBox == 1}">
+            <!-- <div class="calibration-box">{{calBoxes[1]}}</div> -->
+            <img ng-show="calibrateBox == 1" src="templates/img/focus.gif" alt="Look Here">
+        </div>
+    <!-- Middle -->
+    <div class="row row-centered cal-row">
+        <div class="col-xs-4 cal-item grid-empty"></div>
+        <div class="col-xs-4 cal-item" ng-click="selectBox(2)" ng-class="{'cal-active': calibrateBox == 2}">
+            <!-- <div class="calibration-box">{{calBoxes[2]}}</div> -->
+            <img ng-show="calibrateBox == 2" src="templates/img/focus.gif" alt="Look Here">
+        </div>
+        <div class="col-xs-4 cal-item grid-empty"></div>
+    </div>
+    <!-- Bottom -->
+    <div class="row row-centered cal-row">
+        <div class="col-xs-4 cal-item" ng-click="selectBox(3)" ng-class="{'cal-active': calibrateBox == 3}">
+            <!-- <div class="calibration-box">{{calBoxes[3]}}</div> -->
+            <img ng-show="calibrateBox == 3" src="templates/img/focus.gif" alt="Look Here">
+        </div>
+        <div class="col-xs-4 cal-item grid-empty"></div>
+        <div class="col-xs-4 cal-item" ng-click="selectBox(4)" ng-class="{'cal-active': calibrateBox == 4}">
+            <!-- <div class="calibration-box">{{calBoxes[4]}}</div> -->
+            <img ng-show="calibrateBox == 4" src="templates/img/focus.gif" alt="Look Here">
+        </div>
+    </div>
+</div>
+
+
+
+<div id="demo-overlay" flex layout="column" layout-align="center" ng-hide="calStart">
+
+        <div>
+            <h1 class="main-title">Focus</h1>
+        </div>
+        <div>
+            <md-button id="demo-btn" class="md-raised" ng-click="start()">Start</md-button>
+        </div>
 </div>

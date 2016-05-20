@@ -35,7 +35,13 @@ core.factory('TimerFactory', function($rootScope, Session, $state, PositionFacto
             $rootScope.$digest();
 
             // Check for blink
-            let blink = PositionFactory.blinkCompare(positions)
+            let blink = PositionFactory.blinkCompare(positions);
+
+            // if(ActionFactory.home) {
+            //     let eyeValues = PositionFactory.getBlinkValue(positions);
+            //     $rootScope.$broadcast('calibrate', eyeValues);
+            // }
+
             if(blink){
                 startTime = timestamp;
                 $rootScope.$emit(blink) // emits "doubleBlink" or "singleBlink"

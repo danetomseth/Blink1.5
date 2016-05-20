@@ -28,7 +28,6 @@ core.factory('TrackingFactory', function($rootScope) {
         context.clearRect(0, 0, canvas.width, canvas.height);
         tracker.draw(canvas);
     };
-
     trackObj.convergence = () => {
         return tracker.getConvergence();
     }
