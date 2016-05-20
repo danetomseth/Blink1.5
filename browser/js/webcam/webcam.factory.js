@@ -2,10 +2,10 @@ core.factory('WebcamFactory', function($rootScope, $state) {
 
     // Subscribe to event.
     $rootScope.trackingInit = false;
-   
+
 
     // Emit event.
-    
+
 
     let errorCallback = function(e) {
         console.log('Error connecting to source!', e);
@@ -28,7 +28,6 @@ core.factory('WebcamFactory', function($rootScope, $state) {
             }
         },
         endWebcam: () => {
-            console.log('stopping video');
             $rootScope.videoStream.getVideoTracks()[0].stop();
         }
     }

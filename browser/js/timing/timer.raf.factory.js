@@ -29,8 +29,6 @@ core.factory('TimerFactory', function($rootScope, Session, $state, PositionFacto
             startTime = timestamp
         }
 
-
-
         let positions = TrackingFactory.getPositions();
         // Only run theses if we are tracking properly
         if (positions) {
@@ -48,12 +46,10 @@ core.factory('TimerFactory', function($rootScope, Session, $state, PositionFacto
                 let currentBox = PositionFactory.pupilPosition(positions);
                 //emit only on box change
                 if (lastBox !== currentBox){
-                    console.log("emiting box", currentBox)
                     $rootScope.$emit("changeBox", currentBox); // emits the box the user is currently looking at
                 }
                 lastBox = currentBox;
             }
-
 
             // Check for brow
 

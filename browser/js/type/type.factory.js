@@ -34,8 +34,6 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         letters: ['SPACE', 'SAY', '<<', 'STOP', 'NAV']
     }];
 
-
-
     let rowIndex = 0;
     let letterIndex = 0;
     let returnRow = 0;
@@ -44,10 +42,6 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
     let lastState = [];
     let lastAction;
     let selectingLetter = false;
-
-
-
-
 
     const setUndoState = () => {
         if (lastState.length > 5) {
@@ -73,22 +67,17 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         return phrase // send the current word back to the user
     }
 
-
     const resetDelay = () => {
         setTimeout(() => {
             keyboard.selectedLetter = null;
         }, 500)
     }
 
-
-
-
     let iterateRow = () => {
         returnRow = rowIndex; // save the row we're at
         (rowIndex > keyboard.alphabet.length - 2) ? rowIndex = 0 : rowIndex++; // if we're at the last row, go to the first row, otherwise, go to the next row
         return [returnRow, null];
     }
-
 
     let iterateLetter = () => {
         lastAction = 'row'
@@ -121,7 +110,6 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
                     setUndoState();
                     return phrase.slice(0, phrase.length - 1);
                 case 'NAV':
-                    console.log("nav")
                     ActionFactory.runEvents('nav');
                     break;
                 case 'STOP':
@@ -151,15 +139,12 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
 
     let doubleBlink = (selectingLetter) => {
         if (lastState.length > 1) { // undo the select that just happened from the first blink
-            console.log("popping off last thing", lastState)
             phrase = lastState.pop();
 
         }
         if (selectingLetter) { // if we are in a row, deselect it
-            console.log("deselecting the current row");
             resetKeyboardPosition();
         } else {
-            console.log("undoing the last thing, reverting from", phrase, "to", lastState);
             if (lastState.length > 1) {
                 phrase = lastState.pop();
                 resetKeyboardPosition();
@@ -168,19 +153,13 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         return phrase
     }
 
-
-
     let endOfRow = () => {
         letterIndex = 0;
     }
 
-
-
     let getCurrentLetter = () => {
         return [returnRow, returnLetter];
     }
-
-
 
     let moveKeyboard = () => {
         if (!selectingLetter) {
@@ -196,7 +175,6 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         }
     }
 
-
     let selectAction = () => {
         if (selectingLetter) {
             keyboard.selectedLetter = getCurrentLetter();
@@ -208,7 +186,6 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
             selectingLetter = true;
         }
     }
-
 
     $rootScope.$on('singleBlink', (event, data) => {
         if (ActionFactory.isActive('type')) {
@@ -229,6 +206,4 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
     })
 
     return keyboard;
-
-
 });

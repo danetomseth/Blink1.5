@@ -160,12 +160,10 @@ connectToDb
         return seedUsers();
     })
     .then(function (u) {
-        console.log(1, u)
         users = u
         // return postUserStuff().then(users => users = users);
     })
     .then(function () {
-        console.log(2, users)
         return seedThreads();
     })
     .then(function (t) {
