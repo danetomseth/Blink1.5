@@ -15,6 +15,8 @@ core.factory('ActionFactory', ['$rootScope', function($rootScope) {
         }
     }
 
+    //
+
     action.runEvents = (state) => {
         action.stopEvents();
         setTimeout(() => {states[state] = true;}, 0)
