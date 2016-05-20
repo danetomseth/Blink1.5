@@ -1,4 +1,4 @@
-core.factory('ActionFactory', function($rootScope) {
+core.factory('ActionFactory', ['$rootScope', function($rootScope) {
     let action = {};
     let states = {}; // these generate as the state is used for first time.
 
@@ -39,4 +39,4 @@ core.factory('ActionFactory', function($rootScope) {
     return action;
 
 
-});
+}]);
