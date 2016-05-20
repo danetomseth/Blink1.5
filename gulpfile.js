@@ -117,9 +117,7 @@ gulp.task('buildJSProduction', function () {
         .pipe(ngAnnotate())
         .pipe(ignore.exclude([ "**/*.map" ]))
         .pipe(uglify()
-        .on('error', function(e){
-            console.log(e);
-         }))
+        .on('error', gulpUtil.log))
         .pipe(gulp.dest('./public'));
 });
 
