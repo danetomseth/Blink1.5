@@ -114,10 +114,10 @@ gulp.task('buildJSProduction', function () {
         .pipe(concat('main.js'))
         .pipe(babel())
         .pipe(ngAnnotate())
-        // .pipe(uglify()
-        // .on('error', function(e){
-        //     console.log(e);
-        //  }))
+        .pipe(uglify()
+        .on('error', function(e){
+            console.log(e);
+         }))
         .pipe(gulp.dest('./public'));
 });
 

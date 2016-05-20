@@ -1,6 +1,6 @@
 core.factory('ActionFactory', ['$rootScope', function($rootScope) {
-    let action = {};
-    let states = {}; // these generate as the state is used for first time.
+    var action = {};
+    var states = {}; // these generate as the state is used for first time.
 
     action.states = states;
 
