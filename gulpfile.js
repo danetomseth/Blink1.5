@@ -17,6 +17,7 @@ var karma = require('karma').server;
 var istanbul = require('gulp-istanbul');
 var notify = require('gulp-notify');
 var ignore = require('gulp-ignore');
+var gulpUtil = require('gulp-util');
 
 // Development tasks
 // --------------------------------------------------------------
