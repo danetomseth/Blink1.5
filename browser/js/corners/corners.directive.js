@@ -1,4 +1,4 @@
-core.directive('blCorners', function($interval, $rootScope, TrackingFactory, CornersFactory, WebcamFactory, IterateFactory, TimerFactory, PositionFactory) {
+core.directive('blCorners', function($interval, $rootScope, CornersCalibrate, CornersFactory) {
 
     return {
         restrict: 'E',
@@ -16,20 +16,40 @@ core.directive('blCorners', function($interval, $rootScope, TrackingFactory, Cor
                 if (typeof newVal !== 'undefined') {
                     scope.selectedBox = CornersFactory.selectedBox;
                 }
-            },true);
+            }, true);
+
+            scope.$watch(function() {
+                return CornersCalibrate.selectedBox;
+            }, function(newVal, oldVal) {
+                if (typeof newVal !== 'undefined') {
+                    scope.calibrateBox = CornersCalibrate.selectedBox;
+                }
+            }, true);
+
+            scope.$watch(function() {
+                return CornersCalibrate.calBoxes;
+            }, function(newVal, oldVal) {
+                if (typeof newVal !== 'undefined') {
+                    scope.calBoxes = CornersCalibrate.calBoxes;
+                }
+            }, true);
+
+            scope.start = () => {
+                CornersCalibrate.runCalibration();
+            }
 
             // $rootScope.$on("changeBox", function(thing, box){
             //     scope.selectedBox = box;
             //     scope.$digest();
             // });
 
-          //   // Listen on DOM destroy (removal) event, to make sure interval is canceled after the DOM element was removed
-          //   elem.on('$destroy', function() {
-          //       if (angular.isDefined(countInterval)) {
-          //           $interval.cancel(countInterval);
-          //           countInterval = null;
-          //       }
-          // });
+            //   // Listen on DOM destroy (removal) event, to make sure interval is canceled after the DOM element was removed
+            //   elem.on('$destroy', function() {
+            //       if (angular.isDefined(countInterval)) {
+            //           $interval.cancel(countInterval);
+            //           countInterval = null;
+            //       }
+            // });
 
         }
     };

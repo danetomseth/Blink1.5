@@ -63,14 +63,13 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
                     return;
                 }
                 setTimeout(function() {
-                    debounce = true;
                     scope.blinkStatus[1] = {
                         'color': 'black'
                     }
                     scope.blinkStatus[3] = {
                         'border': 'none'
                     }
-                }, 400)
+                }, 400);
             }
 
 

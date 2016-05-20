@@ -123,12 +123,14 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             eyeXZero = positions[33][0] - positions[32][0];
             eyeYZero = positions[33][1] - positions[32][1];
         },
-        getPupilAverage: (positions) => {
-            pupilCount++;
+        getPupilValues: (positions) => {
+            let eyeXVal = 0;
+            let eyeYVal = 0;
             pupilArray.forEach(function(elem, index) {
-                pupilAverage[0] += positions[elem][0] //adds the x position
-                pupilAverage[1] += positions[elem][1] //adds the y position
+                eyeXVal += positions[elem][0] //adds the x position
+                eyeYVal += positions[elem][1] //adds the y position
             });
+            return [eyeXVal, eyeYVal];
         },
         pupilPosition: (positions) => {
             eyeX = 0;
@@ -188,6 +190,9 @@ core.factory('PositionFactory', function(ConstantsFactory) {
 
             // }
             // return returnBox;
+        },
+        pupilCalibrate: () => {
+
         }
     }
 });

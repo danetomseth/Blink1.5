@@ -1,5 +1,5 @@
 <!-- Box Grid -->
-<div flex>
+<div flex ng-show="calibrated">
     <!-- Top Row -->
     <div class="row row-centered grid-row">
         <div class="col-xs-4 grid-item" ng-click="selectBox(0)" ng-class="{'active-box': selectedBox == 0}">
@@ -20,5 +20,36 @@
         <div class="col-xs-4 grid-item" ng-click="selectBox(3)" ng-class="{'active-box': selectedBox == 3}"><bl-box contents=boxes[3]></bl-box></div>
         <div class="col-xs-4 grid-item grid-empty"></div>
         <div class="col-xs-4 grid-item" ng-click="selectBox(4)" ng-class="{'active-box': selectedBox == 4}"><bl-box contents=boxes[4]></bl-box></div>
+    </div>
+</div>
+
+
+<div flex ng-hide="calibrated">
+    <!-- Top Row -->
+    <div class="row row-centered grid-row">
+        <div class="col-xs-4 grid-item" ng-click="selectBox(0)" ng-class="{'active-box': calibrateBox == 0}">
+            <div class="calibration-box">{{calBoxes[0]}}</div>
+        </div>
+        <div class="col-xs-4 grid-item grid-empty"><md-button id="demo-btn" class="md-raised" ng-click="start()">Start</md-button></div>
+        <div class="col-xs-4 grid-item" ng-click="selectBox(1)" ng-class="{'active-box': calibrateBox == 1}">
+            <div class="calibration-box">{{calBoxes[1]}}</div>
+        </div>
+    <!-- Middle -->
+    <div class="row row-centered grid-row">
+        <div class="col-xs-4 grid-item grid-empty"></div>
+        <div class="col-xs-4 grid-item" ng-click="selectBox(2)" ng-class="{'active-box': calibrateBox == 2}">
+            <div class="calibration-box">{{calBoxes[2]}}</div>
+        </div>
+        <div class="col-xs-4 grid-item grid-empty"></div>
+    </div>
+    <!-- Bottom -->
+    <div class="row row-centered grid-row">
+        <div class="col-xs-4 grid-item" ng-click="selectBox(3)" ng-class="{'active-box': calibrateBox == 3}">
+            <div class="calibration-box">{{calBoxes[3]}}</div>
+        </div>
+        <div class="col-xs-4 grid-item grid-empty"></div>
+        <div class="col-xs-4 grid-item" ng-click="selectBox(4)" ng-class="{'active-box': calibrateBox == 4}">
+            <div class="calibration-box">{{calBoxes[4]}}</div>
+        </div>
     </div>
 </div>
