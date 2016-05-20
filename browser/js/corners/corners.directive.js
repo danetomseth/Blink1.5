@@ -5,6 +5,7 @@ core.directive('blCorners', function($interval, $rootScope, CornersCalibrate, Co
         scope: {},
         templateUrl: 'templates/corners-grid.html',
         link: function(scope, elem, attr) {
+            scope.calStart = false;
             scope.selectedBox = CornersFactory.selectedBox; //controls highlighting
             scope.boxes = CornersFactory.getBoxes() //controls contents
             scope.phrase = CornersFactory.getPhrase();
@@ -35,6 +36,7 @@ core.directive('blCorners', function($interval, $rootScope, CornersCalibrate, Co
             }, true);
 
             scope.start = () => {
+                scope.calStart = true;
                 CornersCalibrate.runCalibration();
             }
 

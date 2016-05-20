@@ -19,12 +19,14 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
     let tempArr = [];
     let xThresh = [0, 0];
     let yThresh = [0, 0];
+    let calRatioX = 0.3;
+    let calRatioY = 0.3;
 
 
     calibrateObj.selectedBox = 0;
     calibrateObj.calibrationSet = false;
 
-    calibrateObj.calBoxes = ['X', '', '', '', ''];
+    calibrateObj.calBoxes = ['', '', '', '', ''];
 
     let boxInt;
 
@@ -52,52 +54,39 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
         centerX = calibrationArray[2][0];
         centerY = calibrationArray[2][1];
 
-        zeroXNeg = ((findDiff(0)[0] + findDiff(3)[0]) / 2);
-        zeroYPos = ((findDiff(0)[1] + findDiff(1)[1]) / 2);
-        zeroYNeg = ((findDiff(3)[1] + findDiff(4)[1]) / 2);
-        zeroXPos = ((findDiff(1)[0] + findDiff(4)[0]) / 2); //this was wrong
+        // zeroXNeg = ((findDiff(0)[0] + findDiff(3)[0]) / 2);
+        // zeroYPos = ((findDiff(0)[1] + findDiff(1)[1]) / 2);
+        // zeroYNeg = ((findDiff(3)[1] + findDiff(4)[1]) / 2);
+        // zeroXPos = ((findDiff(1)[0] + findDiff(4)[0]) / 2); //this was wrong
 
 
         //[0] = negative
         //[1] = positive
 
-        xThresh[0] = ((findDiff(0)[0] + findDiff(3)[0]) / 2) * 0.5;
-        xThresh[1] = ((findDiff(1)[0] + findDiff(4)[0]) / 2) * 0.5;
+        xThresh[0] = ((findDiff(0)[0] + findDiff(3)[0]) / 2) * calRatioX;
+        xThresh[1] = ((findDiff(1)[0] + findDiff(4)[0]) / 2) * calRatioX;
 
-        let xAverage = (Math.abs(xThresh[0]) + xThresh[1]) / 2
-        xThresh[0] = -xAverage;
-        xThresh[1] = xAverage;
+        // let xAverage = ((Math.abs(xThresh[0]) + xThresh[1]) / 2) * calRatio;
+        // xThresh[0] = -xAverage;
+        // xThresh[1] = xAverage;
 
-        yThresh[0] = ((findDiff(3)[1] + findDiff(4)[1]) / 2) * 0.3;
-        yThresh[1] = ((findDiff(0)[1] + findDiff(1)[1]) / 2) * 0.3;
+        yThresh[0] = ((findDiff(3)[1] + findDiff(4)[1]) / 2) * calRatioY;
+        yThresh[1] = ((findDiff(0)[1] + findDiff(1)[1]) / 2) * calRatioY;
 
-        let yAverage = (Math.abs(yThresh[0]) + yThresh[1]) / 2
+        // let yAverage = ((Math.abs(yThresh[0]) + yThresh[1]) / 2) * calRatio
 
-        yThresh[0] = -yAverage;
-        yThresh[1] = yAverage;
-
-
-        // console.log('-x', zeroXNeg);
-        // console.log('-y', zeroYNeg);
-        // console.log('y', zeroYPos);
-        // console.log('x', zeroXPos);
-        // console.log('center', centerX, centerY);
+        // yThresh[0] = -yAverage;
+        // yThresh[1] = yAverage;
 
         console.log('xThresh', xThresh[0], xThresh[1]);
         console.log('yThresh', yThresh[0], yThresh[1]);
 
-        console.log('AvgX', xAverage);
-        console.log('AvgY', yAverage);
+        // console.log('AvgX', xAverage);
+        // console.log('AvgY', yAverage);
         console.log('----------------------');
 
         calibrateObj.calibrationSet = true;
 
-        // console.log('top right', findDiff(1));
-
-
-        // console.log('bottom left', findDiff(3));
-
-        // console.log('bottom right', findDiff(4));
     }
 
 
@@ -121,6 +110,7 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
 
     let changeBox = () => {
         readDelay();
+        calibrateObj.calBoxes = ['X', '', '', '', ''];
         boxInt = $interval(() => {
             setCalibrationValue()
             calibrateObj.selectedBox++;
@@ -154,6 +144,8 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
     let centerCount = 0;
     let xSum = 0;
     let ySum = 0;
+    let currentBox = 2;
+    let lastBox = 2;
 
     let calibrateValues = () => {
         if (readyToRead) {
@@ -163,6 +155,7 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
         if (calibrateObj.calibrationSet) {
             let xDiff = centerX - eyePos[0];
             let yDiff = centerY - eyePos[1];
+            
             xDiffAvg.push(xDiff);
             xDiffAvg.shift();
             xDiff = (xDiffAvg[0] + xDiffAvg[1] + xDiffAvg[2]) / 3;
@@ -172,21 +165,31 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
             yDiff = (yDiffAvg[0] + yDiffAvg[1] + yDiffAvg[2]) / 3;
 
             if (xDiff < xThresh[0] && yDiff > yThresh[1]) { // LEFT TOP
-                calibrateObj.selectedBox = 0;
+                currentBox = 0;
                 avgXDiffs[0].push()
             } else if (xDiff > xThresh[1] && yDiff > yThresh[1]) { // RIGHT TOP
-                calibrateObj.selectedBox = 1;
+                currentBox = 1;
             } else if (xDiff < xThresh[0] && yDiff < yThresh[0]) { // BOTTOM RIGHT
-                calibrateObj.selectedBox = 3;
+                currentBox = 3;
             } else if (xDiff > xThresh[1] && yDiff < yThresh[0]) { // BOTTOM LEFT
-                calibrateObj.selectedBox = 4;
+                currentBox = 4;
             } else {
-                calibrateObj.selectedBox = 2;
-                if((xThresh[1] / Math.abs(xDiff)) < 0.8 || (yThresh[1] / Math.abs(yDiff)) < 0.8) {
-                    avgXDiffs[2].push(xDiff);
-                    avgYDiffs[2].push(yDiff);
-                    centerCount++;
-                }
+                currentBox = 2;
+                // if((xThresh[1] / Math.abs(xDiff)) < 0.8 || (yThresh[1] / Math.abs(yDiff)) < 0.8) {
+                //     avgXDiffs[2].push(xDiff);
+                //     avgYDiffs[2].push(yDiff);
+                //     centerCount++;
+                // }
+            }
+
+            if(lastBox === currentBox) {
+				calibrateObj.selectedBox = currentBox;	            	
+            }
+            else if((Math.abs(xDiff) / xThresh[1]) > 1.5) {
+            	calibrateObj.selectedBox = currentBox;
+            }
+            else {
+            	lastBox = currentBox;
             }
 
             if (centerCount > 50) {
@@ -209,14 +212,17 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
                 console.log('yThresh', yThresh[0], yThresh[1]);
                 console.log('----------------------');
             }
-            if(calibrateObj.selectedBox !== 2) {
+            // if(calibrateObj.selectedBox !== 2) {
+            //     avgXDiffs[calibrateObj.selectedBox].push(xDiff);
+            //     avgYDiffs[calibrateObj.selectedBox].push(yDiff);
+            // }
+
                 avgXDiffs[calibrateObj.selectedBox].push(xDiff);
                 avgYDiffs[calibrateObj.selectedBox].push(yDiff);
-            }
 
             count++
 
-            if (count === 2000) {
+            if (count === 1500) {
                 calibrateObj.calibrationSet = false;
                 for (var i = 0; i < avgXDiffs.length; i++) {
                     xSum = 0;
