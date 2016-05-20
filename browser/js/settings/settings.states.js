@@ -10,13 +10,13 @@ core.config(function($stateProvider) {
         }
     });
 
-    $stateProvider.state('settings.keyboard', {
-        url: '/',
-        templateUrl: 'templates/settings.keyboard.html'
-    })
+    // $stateProvider.state('settings.keyboard', {
+    //     url: '/',
+    //     templateUrl: 'templates/settings.keyboard.html'
+    // })
 
-    $stateProvider.state('settings.features', {
-        url: '/',
-        templateUrl: 'templates/settings.features.html'
-    })
+    // $stateProvider.state('settings.features', {
+    //     url: '/',
+    //     templateUrl: 'templates/settings.features.html'
+    // })
 });

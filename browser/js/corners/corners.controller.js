@@ -7,7 +7,6 @@ core.config(function ($stateProvider) {
             // consider moving this into calibration function
             let count = 0
             let calibrated = false;
-            console.log("ENTERING")
 
             function pupilCheck(){
                 var converge = TrackingFactory.convergence();

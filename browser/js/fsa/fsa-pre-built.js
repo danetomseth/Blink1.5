@@ -119,8 +119,10 @@
         this.user = null;
 
         this.create = function (sessionId, user) {
+            console.log("Creating a session")
             this.id = sessionId;
             this.user = user;
+            console.log(this)
         };
 
         this.destroy = function () {
