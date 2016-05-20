@@ -1,4 +1,4 @@
-core.factory('CornersFactory', function() {
+core.factory('CornersFactory', function($rootScope, ActionFactory) {
 
     //Not using ng-repeat so only need 5 boxes
 
@@ -19,19 +19,48 @@ core.factory('CornersFactory', function() {
     /////////////////////////////////////////////////
 
     let gridBoxes = [
-        letterBox[0].contents,
-        letterBox[1].contents,
-        letterBox[2].contents,
-        letterBox[3].contents,
-        letterBox[4].contents
+    letterBox[0].contents,
+    letterBox[1].contents,
+    letterBox[2].contents,
+    letterBox[3].contents,
+    letterBox[4].contents
     ]
 
     let phrase = [""]
     let word = '';
     let currentBox;
     let displayedBoxes = [];
+    let mainGrid = true;
 
-    let functions = {
+    $rootScope.$on("changeBox", function(thing, box){
+     if (ActionFactory.isActive('corners')) {
+        CornersFactory.selectedBox = box;
+    }
+    });
+
+    $rootScope.$on("singleBlink", function(){
+     if (ActionFactory.isActive('corners')) {
+        if (mainGrid) {
+            CornersFactory.goToBox(CornersFactory.selectedBox);
+        }
+        else {
+            CornersFactory.select(CornersFactory.selectedBox);
+        }
+    }
+})
+
+    $rootScope.$on("doubleBlink", function() {
+     if (ActionFactory.isActive('corners')) {
+        if (mainGrid) {
+            CornersFactory.delete();
+        }
+        else {
+            CornersFactory.goToBox();
+        }
+    }
+})
+
+    let CornersFactory = {
         getBoxes: () => {
             angular.copy(gridBoxes, displayedBoxes);
             return displayedBoxes;
@@ -52,13 +81,16 @@ core.factory('CornersFactory', function() {
         goToBox: (box) => {
             angular.copy(gridBoxes[box], displayedBoxes);
             currentBox = box;
+            mainGrid = !mainGrid;
         },
         select: (box) => {
             word += gridBoxes[currentBox][box];
             let newPhrase = phrase[0] += gridBoxes[currentBox][box];
             angular.copy([newPhrase], phrase);
             angular.copy(gridBoxes, displayedBoxes);
-        }
+            mainGrid = !mainGrid;
+        },
+        selectedBox: 2
     };
-    return functions;
+    return CornersFactory;
 });

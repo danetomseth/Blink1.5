@@ -1,7 +1,6 @@
-core.directive('blSidebarWebcam', function(SidebarFactory, TimerRAFFactory, PositionFactory, $rootScope, WebcamFactory, TrackingFactory, TimerFactory, $mdSidenav) {
+core.directive('blSidebarWebcam', function(TimerFactory, $rootScope, WebcamFactory, TrackingFactory) {
     return {
         restrict: 'E',
-        controller: 'MainCtrl',
         templateUrl: 'templates/sidebar-webcam.html',
         link: function(scope) {
 
@@ -55,7 +54,7 @@ core.directive('blSidebarWebcam', function(SidebarFactory, TimerRAFFactory, Posi
             });
             // start all our things
 
-            $rootScope.$on("trackerInitialized", TimerRAFFactory.start);
+            $rootScope.$on("trackerInitialized", TimerFactory.start);
 
 
         }

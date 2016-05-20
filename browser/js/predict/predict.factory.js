@@ -6,7 +6,6 @@ core.factory("PredictFactory", function($http){
     return {
         nextWords: (sentence) => {
             var word = sentence.trim().split(" ").splice(-1)[0].toLowerCase()
-            console.log("predict factory word is", word)
                 return $http.get("/api/words/"+word)
                 .then(res => {
                     let upperWords = res.data.splice(0, 5).join(",").toUpperCase().split(",") // take the first 5, convert them to upper case
@@ -26,8 +25,8 @@ core.factory("PredictFactory", function($http){
             })
         },
         completeWord: (partial)=>{
-            let search = partial.split(" ").splice(-1)[0].toLowerCase() // grab the last partial word in the sentence to match
-            var regex = new RegExp("\\b("+search+")[^\\s]*\\b", "g") //new RegExp("\\b[^\\s]*("+partial+")[^\\s]*\\b", "g")
+            let search = partial.split(" ").splice(-1)[0].toLowerCase(); // grab the last partial word in the sentence to match
+            var regex = new RegExp("\\b("+search+")[^\\s]*\\b", "g");
             var i = 0, results = [];
             let result;
             while (result = regex.exec(words)) {
@@ -35,8 +34,6 @@ core.factory("PredictFactory", function($http){
                 i += 1;
                 if (i >= 5) {break;}
             }
-            // if(!results.length) {return} // if we found no results, return nothing
-            console.log("autocomplete results", results)
             return results
         }
     }

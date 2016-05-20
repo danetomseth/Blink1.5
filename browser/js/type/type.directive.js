@@ -1,50 +1,42 @@
-core.directive('blLetterType', function(KeyboardFactory, SpeechFactory, TimerFactory) {
+core.directive('blLetterType', function(TypeFactory, SpeechFactory) {
     return {
         restrict: 'E',
         templateUrl: 'templates/type-keyboard.html',
-        link: function(scope, elem, attr) {
-            let delay = scope.delay; // reference from ScrollCtrl
-            
+        link: function(scope) {
             scope.wordInput = '';
             scope.selected = [null, null];
             scope.speaking = false;
 
             //makes sure first element is highlighted on page load
-            scope.keyboard = KeyboardFactory.alphabet;
-            scope.browDebounce = true;
+            scope.keyboard = TypeFactory.alphabet;
 
             scope.$watch(function() {
-                return KeyboardFactory.selectedLetter
+                return TypeFactory.selectedLetter
             }, function(newVal, oldVal) {
                 if (typeof newVal !== 'undefined') {
-                    if(KeyboardFactory.selectedLetter) {
-                        scope.selected = KeyboardFactory.selectedLetter;
+                    if(TypeFactory.selectedLetter) {
+                        scope.selected = TypeFactory.selectedLetter;
                     }
                     else scope.selected = [null, null];
                 }
             });
 
             scope.$watch(function() {
-                return KeyboardFactory.word
+                return TypeFactory.word
             }, function(newVal, oldVal) {
                 if (typeof newVal !== 'undefined') {
-                    scope.wordInput = KeyboardFactory.word;
+                    scope.wordInput = TypeFactory.word;
                 }
             });
 
-            scope.scopeValue = KeyboardFactory.scopeValue;
-
-            scope.say = () => SpeechFactory.say(scope.wordInput, "UK English Male", {onstart: togglePlay, onend: togglePlay});
+            scope.scopeValue = TypeFactory.scopeValue;
 
             function togglePlay(){
                 scope.speaking = !scope.speaking;
                 console.log("playing", scope.speaking)
             }
-          //   elem.on('$destroy', function() {
-          //       if (angular.isDefined(countInterval)) {
-          //           $interval.cancel(countInterval);
-          //       }
-          // });
+
+            scope.say = () => SpeechFactory.say(scope.wordInput, "UK English Male", {onstart: togglePlay, onend: togglePlay});
 
         }
 

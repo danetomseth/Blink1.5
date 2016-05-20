@@ -1,6 +1,6 @@
-core.controller('SidebarCtrl', function($scope, $state, $rootScope, $mdSidenav, SidebarFactory, TimerFactory, AuthService, AUTH_EVENTS) {
+core.controller('SidebarCtrl', function($scope, $state, $rootScope, AuthService, ActionFactory) {
 
-   
+
     $scope.logOut = function() {
         return AuthService.logout()
             .then(function() {
@@ -10,12 +10,12 @@ core.controller('SidebarCtrl', function($scope, $state, $rootScope, $mdSidenav, 
 
     $scope.toggleCaregiver = () => {
         $rootScope.caregiver = !$rootScope.caregiver
-        TimerFactory.clearAll();
+        ActionFactory.stopEvents();
     }
 
     $scope.blink =() => {
         console.log('sidebar blink');
-        $rootScope.$broadcast('blink', 'Event');
+        $rootScope.$broadcast('singleBlink', 'Event');
     }
 
     $scope.move =() => {
