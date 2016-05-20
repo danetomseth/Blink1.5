@@ -14,12 +14,10 @@ core.controller('SidebarCtrl', function($scope, $state, $rootScope, AuthService,
     }
 
     $scope.blink =() => {
-        console.log('sidebar blink');
         $rootScope.$broadcast('singleBlink', 'Event');
     }
 
     $scope.move =() => {
-        console.log('sidebar move');
         $rootScope.$broadcast('iterate', 'Event');
     }
 

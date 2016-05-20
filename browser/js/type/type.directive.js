@@ -11,7 +11,7 @@ core.directive('blLetterType', function(TypeFactory, SpeechFactory) {
             scope.keyboard = TypeFactory.alphabet;
 
             scope.$watch(function() {
-                return TypeFactory.selectedLetter
+                return TypeFactory.selectedLetter;
             }, function(newVal, oldVal) {
                 if (typeof newVal !== 'undefined') {
                     if(TypeFactory.selectedLetter) {
@@ -33,11 +33,9 @@ core.directive('blLetterType', function(TypeFactory, SpeechFactory) {
 
             function togglePlay(){
                 scope.speaking = !scope.speaking;
-                console.log("playing", scope.speaking)
             }
 
             scope.say = () => SpeechFactory.say(scope.wordInput, "UK English Male", {onstart: togglePlay, onend: togglePlay});
-
         }
 
     }

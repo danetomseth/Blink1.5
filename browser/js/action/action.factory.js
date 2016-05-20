@@ -22,14 +22,12 @@ core.factory('ActionFactory', function($rootScope) {
 
     $rootScope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams, options) {
-            console.log('state start', toState, fromState);
             action.stopEvents('nav');
             action.stopEvents(fromState.name);
         })
 
     $rootScope.$on('$stateChangeSuccess',
         function(event, toState, toParams, fromState, fromParams) {
-            console.log('state success', toState.name);
             action.runEvents(toState.name);
         });
 

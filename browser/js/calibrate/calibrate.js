@@ -7,8 +7,6 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                 window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
             let cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
-
-
             let calibrationComplete = false;
             let frameId = 0;
             let currentBlink;
@@ -38,11 +36,6 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
             scope.leftEye = 0;
             scope.rightEye = 0;
 
-
-
-
-
-
             function testDelay() {
                 setTimeout(function() {
                     scope.showMessage = true;
@@ -50,8 +43,6 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                     scope.message = "Keep Settings?"
                 }, 5000)
             }
-
-
 
             function avgMaxMin(sum) {
                 maxSum = 0;
@@ -73,7 +64,6 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                 }
             }
 
-
             function compareValues(vals) {
                 total = vals[0] + vals[1];
                 count++;
@@ -86,8 +76,6 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                         'opacity': '1'
                     }
                 }
-
-                // not that important
 
                 if (maxVals.length <= 50) {
                     scope.maxCount = (maxVals.length / 50) * 100;
@@ -104,7 +92,6 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                         'opacity': '0.5'
                     }
                 }
-                /// to here
 
                 //starting the array - with a little buffer
                 if (count > 40 && count < 50) {
@@ -150,8 +137,6 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                     }
                 }
                 if (!calibrationFinished) {
-                    //frameId = window.requestAnimationFrame(readEyes);
-                    console.log('previous frame:', frameId);
                     frameId = requestAnimationFrame(readEyes);
                     if(logCancel) {
                         console.log('current frame:', frameId);
@@ -208,11 +193,8 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
                     if(scope.confirmBlink === 5) {
                         logCancel = true;
                         window.cancelAnimationFrame(frameId);
-                        console.log('an1', frameId);
-                        console.log('cancel!!!! #1');
                     }
                     if(scope.confirmBlink === 3) {
-                        console.log('cancel with delay #2');
                         cancelDelay();
                     }
                 }
@@ -255,12 +237,8 @@ core.directive("blCalibrate", function(PositionFactory, SettingsFactory, Iterate
             }
 
             let cancelDelay = () => {
-                console.log("delay start");
-                console.log('an2', frameId);
                 cancelAnimationFrame(frameId);
                 setTimeout(() => {
-                    console.log('delay finished');
-                    console.log('an3', frameId);
                     cancelAnimationFrame(frameId);
                 }, 1000);
             }
