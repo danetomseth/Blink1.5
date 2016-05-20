@@ -2,18 +2,11 @@ core.config(function($stateProvider) {
     $stateProvider.state('corners', {
         url: '/corners',
         controller: 'CornersCtrl',
-        templateUrl: 'templates/corners.html',
-        onEnter: function(TrackingFactory, PositionFactory) {
-
-        }
+        templateUrl: 'templates/corners.html'
     });
 });
 
-core.controller('CornersCtrl', function($scope, CornersFactory, IterateFactory, CornersCalibrate) {
-
-	
-    
-
+core.controller('CornersCtrl', function($scope, CornersFactory, CornersCalibrate) {
 
 
     // consider moving this into calibration function

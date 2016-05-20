@@ -2,10 +2,7 @@ core.config(function($stateProvider) {
     $stateProvider.state('home', {
         url: '/',
         templateUrl: 'templates/home.html',
-        controller: 'HomeCtrl',
-        onEnter: function(IterateFactory) {
-        	//IterateFactory.zero('nav');
-        }
+        controller: 'HomeCtrl'
     });
 
 });

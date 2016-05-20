@@ -81,7 +81,6 @@ core.factory('CalibrateFactory', function($rootScope, $state, ConstantsFactory, 
 
     //once calibration arrays are full, set values
     let setValues = function() {
-    	console.log('Finished!!!');
         maxVals.forEach(function(val) {
             maxSum += val;
         })

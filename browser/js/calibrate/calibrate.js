@@ -3,7 +3,6 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
         restrict: "E",
         templateUrl: 'templates/calibrate.html',
         link: function(scope, elem, attr) {
-
             let calibrationComplete = false;
             let debounce = true;
             scope.calStart = false;
@@ -94,8 +93,7 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
                 CalibrateFactory.runCalibration();
                 scope.calStart = true;
             }
-
-
         }
+
     }
 });

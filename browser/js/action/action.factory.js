@@ -1,15 +1,6 @@
-core.factory('ActionFactory', function($rootScope, $state) {
+core.factory('ActionFactory', function($rootScope) {
     let action = {};
-    let states = {};
-    // states.type = false;
-    // states.home = false;
-    // states.corners = false;
-    // states.login = false;
-    // states.settings = false;
-    // states.signup = false;
-    // states.newsfeed = false;
-    // states.logout = false;
-    // states.nav = false; // Not really a state. But convenient
+    let states = {}; // these generate as the state is used for first time.
 
     action.states = states;
 
@@ -31,14 +22,12 @@ core.factory('ActionFactory', function($rootScope, $state) {
 
     $rootScope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams, options) {
-            console.log('state start', toState, fromState);
             action.stopEvents('nav');
             action.stopEvents(fromState.name);
         })
 
     $rootScope.$on('$stateChangeSuccess',
         function(event, toState, toParams, fromState, fromParams) {
-            console.log('state success', toState.name);
             action.runEvents(toState.name);
         });
 

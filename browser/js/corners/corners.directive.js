@@ -1,5 +1,4 @@
-core.directive('blCorners', function($interval, $rootScope, CornersCalibrate, CornersFactory) {
-
+core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactory) {
     return {
         restrict: 'E',
         scope: {},
@@ -13,7 +12,7 @@ core.directive('blCorners', function($interval, $rootScope, CornersCalibrate, Co
 
             scope.$watch(function() {
                 return CornersFactory.selectedBox;
-            }, function(newVal, oldVal) {
+            }, function(newVal) {
                 if (typeof newVal !== 'undefined') {
                     scope.selectedBox = CornersFactory.selectedBox;
                 }
@@ -43,14 +42,6 @@ core.directive('blCorners', function($interval, $rootScope, CornersCalibrate, Co
             // $rootScope.$on("changeBox", function(thing, box){
             //     scope.selectedBox = box;
             //     scope.$digest();
-            // });
-
-            //   // Listen on DOM destroy (removal) event, to make sure interval is canceled after the DOM element was removed
-            //   elem.on('$destroy', function() {
-            //       if (angular.isDefined(countInterval)) {
-            //           $interval.cancel(countInterval);
-            //           countInterval = null;
-            //       }
             // });
 
         }

@@ -1,4 +1,4 @@
-core.factory('SidebarFactory', function($state, $mdSidenav, ActionFactory) {
+core.factory('SidebarFactory', function($state) {
 
     let itemIndex = 0;
     let returnIndex = 0;
@@ -29,7 +29,6 @@ core.factory('SidebarFactory', function($state, $mdSidenav, ActionFactory) {
             if(itemIndex >= userLinks.length) {
                 itemIndex = 0;
             }
-            console.log(returnIndex);
             return returnIndex;
         },
         getLinks: (loggedIn) => {
@@ -46,7 +45,6 @@ core.factory('SidebarFactory', function($state, $mdSidenav, ActionFactory) {
         },
         changeState: () => {
             itemIndex = 0;
-            console.log("GOING TO ",userLinks[returnIndex].state)
             $state.go(userLinks[returnIndex].state, null, {reload: true})
         }
     }
