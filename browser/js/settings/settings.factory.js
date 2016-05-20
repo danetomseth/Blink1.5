@@ -1,7 +1,5 @@
 core.factory('SettingsFactory', function($rootScope, $http, ActionFactory, Session) {
     let user = Session.user;
-    console.log("Session is,", Session)
-    console.log("Session.user is", user)
     let itemIndex = 0;
 
     // ROWS: "Keyboard", "Features", "NAV"
@@ -71,6 +69,7 @@ core.factory('SettingsFactory', function($rootScope, $http, ActionFactory, Sessi
             return $http.put('/api/users/' + user._id, settingsObj)
                 .then((updatedUser) => angular.copy(updatedUser.data, user));
         },
+        // This is used on the calibration page
         setThreshold: (blinkRatio, blinkZero) => {
             $http.put("/api/users", {blinkZero: blinkZero, blinkRatio: blinkRatio})
             .then( user => {

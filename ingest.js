@@ -13,7 +13,6 @@ const clean = (text) => {
 
 const checkWord = (word, nextWord) =>{
     let wordModel = fs.readFileSync(store+word+".json") || {} // either we read an existing file, ore we create an object to write. Sync for ease
-    console.log("wordModel before", wordModel);
     if (!wordModel[word]) { // if our wordModel doesn't have the word in it for some reason
         wordModel[word] = {f:1, n: {}}; // put the word in there, give it a frequency of 1 and an empty sub-dict
     } else {
@@ -27,9 +26,7 @@ const checkWord = (word, nextWord) =>{
 }
 
 const ingest = (text) => {
-    console.log("ingesting");
     let data = clean(text);
-    console.log(data.length, "words");
     for (let i in data) {
         let word = data[i]; // the word we're looking at
         let nextWord = data[i+1]; // the next word (which is the word this came after)
