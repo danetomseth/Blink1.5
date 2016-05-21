@@ -40,7 +40,7 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
                 }
                 if (scope.confirmBlink === 0) {
                     scope.showMessage = true;
-                    moveToNav()
+                    countDelay()
                     scope.confirmBlink = "--"
                     return;
                 }
@@ -68,6 +68,18 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
                     }
                     blinkDelay()
                 
+            }
+
+            let countInt;
+            function countDelay () {
+                scope.countDown = 5;
+                $interval(() => {
+                    scope.countDown--
+                    if(scope.countDown === 0) {
+                        moveToNav();
+                        $interval.cancel(countInt)
+                    }
+                }, 1000)
             }
 
             

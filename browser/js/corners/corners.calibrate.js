@@ -1,10 +1,10 @@
-core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory, TrackingFactory) {
+core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory, TrackingFactory, ConstantsFactory) {
     let calibrateObj = {};
     let eyePos = [0, 0];
     let readyToRead = false;
     let count = 0;
-    let centerX;
-    let centerY;
+
+    let center = [0,0]; //[x, y];
     let calibrationArray = [];
     let xDiffAvg = [0, 0, 0];
     let yDiffAvg = [0, 0, 0];
@@ -17,6 +17,7 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
 
     calibrateObj.selectedBox = 0;
     calibrateObj.calibrationSet = false;
+    calibrateObj.calibrationFinished = false;
 
     calibrateObj.calBoxes = ['', '', '', '', ''];
 
@@ -36,15 +37,15 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
 
 
     let findDiff = (box) => {
-        let xDiff = centerX - calibrationArray[box][0];
-        let yDiff = centerY - calibrationArray[box][1];
+        let xDiff = center[0] - calibrationArray[box][0];
+        let yDiff = center[1] - calibrationArray[box][1];
         return [xDiff, yDiff];
     }
 
     let setZeros = () => {
 
-        centerX = calibrationArray[2][0];
-        centerY = calibrationArray[2][1];
+        center[0] = calibrationArray[2][0];
+        center[1] = calibrationArray[2][1];
 
 
         xThresh[0] = ((findDiff(0)[0] + findDiff(3)[0]) / 2) * calRatioX;
@@ -58,8 +59,9 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
         // console.log('xThresh', xThresh[0], xThresh[1]);
         // console.log('yThresh', yThresh[0], yThresh[1]);
         // console.log('----------------------');
-
-        calibrateObj.calibrationSet = true;
+        // calibrateObj.calibrationSet = true;
+        ConstantsFactory.setPupil(center, xThresh, yThresh);
+        calibrateObj.calibrationFinished = true;
 
     }
 
@@ -98,7 +100,7 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
                 $interval.cancel(boxInt);
                 setZeros()
             }
-        }, 3000);
+        }, 2000);
     }
     let avgXDiffs = [
         [],
@@ -127,8 +129,8 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
         }
 
         if (calibrateObj.calibrationSet) {
-            let xDiff = centerX - eyePos[0];
-            let yDiff = centerY - eyePos[1];
+            let xDiff = center[0] - eyePos[0];
+            let yDiff = center[1] - eyePos[1];
             
             xDiffAvg.push(xDiff);
             xDiffAvg.shift();
@@ -194,7 +196,11 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
             //     avgXDiffs[calibrateObj.selectedBox].push(xDiff);
             //     avgYDiffs[calibrateObj.selectedBox].push(yDiff);
 
-            // count++
+            count++
+
+            // if (count === 500) {
+            //     calibrateObj.calibrationFinished = true;
+            // }
 
             // if (count === 1500) {
             //     calibrateObj.calibrationSet = false;
@@ -231,11 +237,12 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
             eyePos = PositionFactory.getPupilValues(positions);
             calibrateValues();
         }
-        // if (!calibrateObj.calibrationSet) {
-        //     frameId = requestAnimationFrame(getEyeValues);
-        // }
+        if (!calibrateObj.calibrationFinished) {
+            requestAnimationFrame(getEyeValues);
+        }
+        
 
-        frameId = requestAnimationFrame(getEyeValues);
+        // frameId = requestAnimationFrame(getEyeValues);
 
     }
 

@@ -5,7 +5,7 @@ core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactor
         templateUrl: 'templates/corners-grid.html',
         link: function(scope, elem, attr) {
 
-            scope.calibrated = true;
+            // scope.calibrated = true;
             scope.calStart = false;
             scope.selectedBox = CornersFactory.selectedBox; //controls highlighting
             scope.boxes = CornersFactory.getBoxes() //controls contents
@@ -36,14 +36,27 @@ core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactor
                 }
             }, true);
 
+            scope.$watch(function() {
+                return CornersCalibrate.calibrationFinished;
+            }, function(newVal) {
+                if (typeof newVal !== 'undefined') {
+
+                    scope.calibrated = CornersCalibrate.calibrationFinished;
+                    console.log('updated', scope.calibrated);
+                }
+            }, true);
+
             scope.start = () => {
                 scope.calStart = true;
                 CornersCalibrate.runCalibration();
             }
 
             // $rootScope.$on("changeBox", function(thing, box){
-            //     scope.selectedBox = box;
-            //     scope.$digest();
+            //     if(scope.calibrated) {
+            //         console.log('current box', box);
+            //         scope.selectedBox = box;
+            //         scope.$digest();
+            //     }
             // });
 
         }
