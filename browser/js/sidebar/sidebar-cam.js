@@ -45,7 +45,7 @@ core.directive('blSidebarWebcam', function(TimerFactory, $rootScope, WebcamFacto
                 var canvasWidth = (containerWidth / 4) * 2;
                 var canvasHeight = ((containerWidth / 3) * .75) * 2.5;
 
-                ctx.strokeStyle = "#82ff32";
+                ctx.strokeStyle = "rgba(130,255,50, 0.5)";
                 ctx.strokeRect(middleX, middleY, canvasWidth, canvasHeight);
 
                 TrackingFactory.startTracking(canvas, video, [middleX, middleY, canvasWidth, canvasHeight]);

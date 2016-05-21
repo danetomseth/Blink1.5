@@ -1,4 +1,4 @@
-core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, ActionFactory) {
+core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, ActionFactory, $interval) {
     return {
         restrict: "E",
         templateUrl: 'templates/calibrate.html',
@@ -6,7 +6,7 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
             let calibrationComplete = false;
             let debounce = true;
             scope.calStart = false;
-            scope.confirmBlink = 10;
+            scope.confirmBlink = 5;
             scope.showMessage = false;
             //scope.blinkCounts = [0,0];
 
@@ -40,7 +40,7 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
                 }
                 if (scope.confirmBlink === 0) {
                     scope.showMessage = true;
-                    moveToNav()
+                    countDelay()
                     scope.confirmBlink = "--"
                     return;
                 }
@@ -68,6 +68,18 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
                     }
                     blinkDelay()
                 
+            }
+
+            let countInt;
+            function countDelay () {
+                scope.countDown = 5;
+                countInt = $interval(() => {
+                    scope.countDown--
+                    if(scope.countDown === 0) {
+                        moveToNav();
+                        $interval.cancel(countInt)
+                    }
+                }, 1000)
             }
 
             

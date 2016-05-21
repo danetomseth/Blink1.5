@@ -7,8 +7,13 @@ core.factory('PositionFactory', function(ConstantsFactory) {
     let pupilZeroArray = [0,0];
     let xDiffAvg = [0,0,0];
     let yDiffAvg = [0,0,0];
+    let xDiff = 0;
+    let yDiff = 0;
     let eyeX = 0;
     let eyeY = 0;
+    let eyePos = [0,0];
+    let currentBox = 0;
+    let lastBox = 0;
     const pupilThreshold = 0.1;
     const browArray = [20, 21, 17, 16];
     const pupilArray = [27, 32];
@@ -83,33 +88,79 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             return [eyeXVal, eyeYVal];
         },
         pupilPosition: (positions) => {
-            eyeX = 0;
-            eyeY = 0;
-            pupilArray.forEach(function(elem) {
-                eyeX += positions[elem][0] //adds the x position
-                eyeY += positions[elem][1] //adds the y position
+            if(!ConstantsFactory.pupilsCalibrated) {
+                return null
+            }
+            let eyeXVal = 0;
+            let eyeYVal = 0;
+            pupilArray.forEach(function(elem, index) {
+                eyeXVal += positions[elem][0] //adds the x position
+                eyeYVal += positions[elem][1] //adds the y position
             });
-
-            let xDiff = pupilZeroArray[0] - eyeX;
-            let yDiff = pupilZeroArray[1] - eyeY;
+            eyePos = [eyeXVal, eyeYVal];
+            xDiff = ConstantsFactory.center[0] - eyePos[0];
+            yDiff = ConstantsFactory.center[1] - eyePos[1];
+            
             xDiffAvg.push(xDiff);
             xDiffAvg.shift();
-            xDiff = xDiffAvg[0] + xDiffAvg[1] + xDiffAvg[2];
+            xDiff = (xDiffAvg[0] + xDiffAvg[1] + xDiffAvg[2]) / 3;
 
             yDiffAvg.push(yDiff);
             yDiffAvg.shift();
-            yDiff = yDiffAvg[0] + yDiffAvg[1] + yDiffAvg[2];
+            yDiff = (yDiffAvg[0] + yDiffAvg[1] + yDiffAvg[2]) / 3;
 
-            if (xDiff < -pupilThreshold && yDiff > pupilThreshold) { // LEFT TOP
-                return 0;
-            } else if (xDiff > pupilThreshold && yDiff > pupilThreshold) { // RIGHT TOP
-                return 1;
-            } else if (xDiff < -pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM RIGHT
-                return 3;
-            } else if (xDiff > pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM LEFT
-                return 4;
+            if (xDiff < ConstantsFactory.xThresh[0] && yDiff > ConstantsFactory.yThresh[1]) { // LEFT TOP
+                currentBox = 0;
+            } else if (xDiff > ConstantsFactory.xThresh[1] && yDiff > ConstantsFactory.yThresh[1]) { // RIGHT TOP
+                currentBox = 1;
+            } else if (xDiff < ConstantsFactory.xThresh[0] && yDiff < ConstantsFactory.yThresh[0]) { // BOTTOM RIGHT
+                currentBox = 3;
+            } else if (xDiff > ConstantsFactory.xThresh[1] && yDiff < ConstantsFactory.yThresh[0]) { // BOTTOM LEFT
+                currentBox = 4;
+            } else {
+                currentBox = 2;
+                
             }
-            else return 2;
+
+            if(lastBox === currentBox) {
+                return currentBox;                 
+            }
+            else if((Math.abs(xDiff) / ConstantsFactory.xThresh[1]) > 1.5) {
+                return currentBox
+            }
+            else {
+                lastBox = currentBox;
+            }
+
+            return currentBox;
+
+            // eyeX = 0;
+            // eyeY = 0;
+            // pupilArray.forEach(function(elem) {
+            //     eyeX += positions[elem][0] //adds the x position
+            //     eyeY += positions[elem][1] //adds the y position
+            // });
+
+            // let xDiff = pupilZeroArray[0] - eyeX;
+            // let yDiff = pupilZeroArray[1] - eyeY;
+            // xDiffAvg.push(xDiff);
+            // xDiffAvg.shift();
+            // xDiff = xDiffAvg[0] + xDiffAvg[1] + xDiffAvg[2];
+
+            // yDiffAvg.push(yDiff);
+            // yDiffAvg.shift();
+            // yDiff = yDiffAvg[0] + yDiffAvg[1] + yDiffAvg[2];
+
+            // if (xDiff < -pupilThreshold && yDiff > pupilThreshold) { // LEFT TOP
+            //     return 0;
+            // } else if (xDiff > pupilThreshold && yDiff > pupilThreshold) { // RIGHT TOP
+            //     return 1;
+            // } else if (xDiff < -pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM RIGHT
+            //     return 3;
+            // } else if (xDiff > pupilThreshold && yDiff < -pupilThreshold) { // BOTTOM LEFT
+            //     return 4;
+            // }
+            // else return 2;
         }
     }
 });

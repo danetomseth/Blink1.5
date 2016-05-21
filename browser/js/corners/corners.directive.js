@@ -1,11 +1,11 @@
-core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactory) {
+core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactory, ActionFactory) {
     return {
         restrict: 'E',
         scope: {},
         templateUrl: 'templates/corners-grid.html',
         link: function(scope, elem, attr) {
 
-            scope.calibrated = true;
+            // scope.calibrated = true;
             scope.calStart = false;
             scope.selectedBox = CornersFactory.selectedBox; //controls highlighting
             scope.boxes = CornersFactory.getBoxes() //controls contents
@@ -36,15 +36,29 @@ core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactor
                 }
             }, true);
 
+            scope.$watch(function() {
+                return CornersCalibrate.calibrationFinished;
+            }, function(newVal) {
+                if (typeof newVal !== 'undefined') {
+
+                    scope.calibrated = CornersCalibrate.calibrationFinished;
+                    console.log('updated', scope.calibrated);
+                }
+            }, true);
+
             scope.start = () => {
                 scope.calStart = true;
                 CornersCalibrate.runCalibration();
             }
 
-            // $rootScope.$on("changeBox", function(thing, box){
-            //     scope.selectedBox = box;
-            //     scope.$digest();
-            // });
+            $rootScope.$on("singleBlink", function(thing, box){
+                if(!scope.calStart && ActionFactory.isActive('corners')) {
+                    scope.start();
+                    console.log('current box', box);
+                    //scope.selectedBox = box;
+                    scope.$digest();
+                }
+            });
 
         }
     };
