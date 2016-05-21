@@ -13,6 +13,13 @@ core.factory('PositionFactory', function(ConstantsFactory) {
     const browArray = [20, 21, 17, 16];
     const pupilArray = [27, 32];
     let lastBlinkTime;
+    let debounce = true;
+
+    let blinkDelay = () => {
+        setTimeout(function() {
+            debounce = true;
+        }, 500);
+    }
 
     return {
         // Indicate if movement is above threshold: POSSIBLY DEPRICATED
@@ -37,14 +44,23 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             var diffL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             var diffR = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             change = ((diffL + diffR) / ConstantsFactory.blinkZero);
-            if (change < ConstantsFactory.blinkRatio) {
-                let blinkDt = Date.now() - lastBlinkTime;
-                lastBlinkTime = Date.now();
-                if(blinkDt < 250) {return false} // debounce
-                return (blinkDt <= 750) ? "doubleBlink" : "singleBlink"
-            } else {
-                return false;
+
+            if(change < ConstantsFactory.blinkRatio) {
+                if(debounce) {
+                    debounce = false;
+                    blinkDelay();
+                    return "singleBlink";
+                }
             }
+            else return false 
+            // if (change < ConstantsFactory.blinkRatio) {
+            //     let blinkDt = Date.now() - lastBlinkTime;
+            //     lastBlinkTime = Date.now();
+            //     if(blinkDt < 250) {return false} // debounce
+            //     return (blinkDt <= 750) ? "doubleBlink" : "singleBlink"
+            // } else {
+            //     return false;
+            // }
         },
         getBlinkValue: (positions) => { // used in calibrate.js only
             diffZeroL = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
