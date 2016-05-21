@@ -4,6 +4,8 @@ core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactor
         scope: {},
         templateUrl: 'templates/corners-grid.html',
         link: function(scope, elem, attr) {
+
+            scope.calibrated = true;
             scope.calStart = false;
             scope.selectedBox = CornersFactory.selectedBox; //controls highlighting
             scope.boxes = CornersFactory.getBoxes() //controls contents

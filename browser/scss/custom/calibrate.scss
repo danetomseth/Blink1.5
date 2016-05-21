@@ -3,16 +3,16 @@
 	top: 0;
 	width: 79%;
 	height: 100%;
-	color: nth($primary, 1);
+	color: nth($purple, 1);
 	font-weight: bold;
 	line-height: 100%;
 	text-align: center;
-	background: rgba(255,255,255, 0.8);
+	background: rgba(245,245,245, 0.8);
 	z-index: 500;
 }
 
 #demo-btn {
-	background: nth($primary, 1);
+	background: nth($purple, 1);
 	color: white;
 }
 
@@ -42,7 +42,7 @@
 	}
 }
 .orange {
-	color: nth($background, 2);
+	color: nth($purple, 1);
 }
 
 .message {
@@ -54,7 +54,7 @@
 	padding: 10px;
 	div {
 		background: white;
-		color: nth($primary, 1);
+		color: nth($purple, 1);
 		width: 75%;
 		height: 250px;
 		text-align: center;
@@ -65,12 +65,13 @@
 .blink-box {
 	height: 250px;
 	width: 250px;
-	background: nth($primary, 1); 
+	// background: nth($purple, 1); 
+	background-image: url("templates/img/lightpaperfibers.png");
 	line-height: 250px;
 	padding: 0 10px;
 	margin: 0 20px;
 	text-align: center;
-	color: white;
+	color: nth($text, 2);
 }
 
 .box-wrap {
@@ -87,14 +88,12 @@
 	position: absolute;
   	top: 50%;
   	transform: translateY(-50%);
-	background: nth($primary, 1); 
+	background: nth($blue, 1); 
 	line-height: 50px;
 	text-align: center;
 	padding: 0 10px;
 	color: white;
 	font-size: 1em;
-	border: 2px solid;
-    border-radius: 10px;
 }
 
 .primary-info {
@@ -105,7 +104,7 @@
 
 .center-box {
 	//min-height: 300px;
-	border: 3px solid nth($accent, 1);
+	border: 3px solid nth($blue, 1);
 }
 
 .eye-reading {
@@ -129,8 +128,7 @@
 .cal-display {
 	div {
 
-		background: nth($primary, 4); 
-		border: 1px solid nth($accent, 1);
+		border: 1px solid nth($purple, 1);
 	}
 	p {
 		color: nth($text, 1);

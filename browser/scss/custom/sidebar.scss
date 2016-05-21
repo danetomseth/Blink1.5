@@ -1,11 +1,14 @@
-md-sidenav {
-    position: absolute;
-    padding-top: 10px;
-    //padding-left: 15px;
-    background: linear-gradient(nth($primary, 1), nth($text, 1));
+
+
+#sidebar {
+    // position: absolute;
+    // left: 0;
+    padding: 15px;
+    padding-left: 15px;
+    background: white;
     height: 100vh !important;
-    border-right: 2px solid nth($background, 1);
-    //box-shadow: 2px 3px 3px $tempA;
+    box-shadow: 2px 3px 3px nth($background, 2);
+    //width: 88%;
 }
 
 #welcomeMessage {
@@ -16,52 +19,53 @@ md-sidenav {
 logo {
   width: 100%;
   padding-top: 5px;
+  padding-bottom: 5px;
   font-family: 'Belgrano', serif !important;
-  font-size: 66px;
-  color: nth($text, 1);
-  font-weight: 400;
-  letter-spacing: 2px;
+  font-size: 70px;
+  color: nth($blue, 2);
+  letter-spacing: 3px;
 }
 
-#webcam-directive {
-    display: block;
-    width: 100%;
 
-}
 
-#sidebar-container {
-    display: block;
-    width: 23%;
-}
+// #sidebar-container {
+//     display: block;
+//     // width: 20%;
+// }
 
-#locked-sidebar {
-    width: 100%;
-    margin: 0px;
-}
-
-#nav-btn {
+.nav-btn {
     font-size: 1.5em;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: nth($text, 3);
+    margin-bottom: 5px;
     width: 90%;
-    height: auto;
     text-align: left;
-    padding: 5px 10px;
-    //background-color: nth($accent, 1);
-    //color: nth($text, 1);
+    padding-bottom: 10px;
+    background: none;
+    border: none;
+}
+
+.nav-btn:hover {
+    color: nth($blue, 1)!important;
+    text-shadow: 3px 3px nth($background, 1);
+    border-bottom: 1px solid nth($purple, 1);
 }
 
 .std-btn {
     font-size: 2em;
-    background-color: white !important;
-    color: nth($primary, 1) !important;
+    color: nth($text, 3)!important;
 }
 
-
-
+#webcam-directive {
+    display: block;
+    //width: 90%;
+    //position: absolute;
+    //bottom: 20px;
+}
 #sidebar-webcam-container {
     position: relative;
-    border: 2px solid nth($accent, 1);
-
-    width: 98%;
+    border: 1px solid nth($background, 4);
+    //width: 98%;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -85,17 +89,30 @@ logo {
     // top: -75px;
     z-index: 900;
 }
-
-.nav-bottom {
-    //padding-top: 5px;
+.web-box {
+    width: 100%;
+    position: relative;
+    top: 15%;
 }
 
-.static-btn {
-    position: absolute;
-    bottom: 10px;
+.nav-highlight {
+    color: nth($blue, 1)!important;
+    text-shadow: 3px 3px nth($background, 1);
+    border-bottom: 1px solid nth($purple, 1);
 }
 
-.btn-highlight {
-    background-color: nth($primary, 1) !important;
-    color: white !important;
+a:focus {
+    outline: none;
+   outline: none !important;
+   outline-offset: none;
 }
+
+button:focus {
+    color: nth($blue, 1)!important;
+    text-shadow: 3px 3px nth($background, 1);
+    border-bottom: 1px solid nth($purple, 1);
+    outline: none;
+   outline: none !important;
+   outline-offset: none;
+}
+

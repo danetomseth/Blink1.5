@@ -24,7 +24,7 @@ $blue: #9CD3CD;*/
 }
 
 .single-letter {
-    //color: nth($accent, 1) !important;
+    //color: nth($purple, 1) !important;
     text-align: center;
     width: 100%;
 
@@ -35,8 +35,8 @@ $blue: #9CD3CD;*/
 
 .grid-item {
     height: 250px;
-    border: 2px solid nth($primary, 1);
-    background: nth($accent, 1);
+    border: 2px solid nth($text, 1);
+    background: nth($purple, 1);
 }
 
 
@@ -49,15 +49,15 @@ $blue: #9CD3CD;*/
 .grid-word {
 	border: none;
 	background: none;
-	//color: nth($primary, 1);
+	//color: nth($text, 1);
 }
 
 
 
 .active-box {
-    background-color: nth($primary, 1);
-    box-shadow: 3px 3px 3px nth($accentB, 1);
-    border: 2px solid nth($accent, 1);
+    background-color: nth($text, 1);
+    box-shadow: 3px 3px 3px nth($purple, 1);
+    border: 2px solid nth($purple, 1);
     //color: nth($text, 1);
     z-index: 10;
 }
@@ -91,7 +91,7 @@ $blue: #9CD3CD;*/
 
 .cal-active {
     //border: 2px solid nth($background, 1);
-    //background-color: nth($primary, 1);
+    //background-color: nth($text, 1);
     color: white;
 }
 

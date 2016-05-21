@@ -1,15 +1,22 @@
 <!-- Locked Open  -->
-<md-sidenav id="locked-sidebar" md-is-locked-open="true" class="md-primary md-sidenav-left" md-component-id="left">
+<!-- <md-sidenav md-is-locked-open="true" class="md-primary md-sidenav-left" md-component-id="left"> -->
+<div id="sidebar">
     <logo class="pull-right">Blink</logo>
-    <div class="dynamicBox">
-            <md-button class="md-raised std-btn" id="nav-btn" ng-repeat="item in items"  ui-sref="{{ item.state }}" ng-class="{'btn-highlight' : $index === selectedLink}">{{item.label}}</md-button>
+    <div>
+            <button class="nav-btn" ng-repeat="item in items"  ui-sref="{{ item.state }}" ng-class="{'nav-highlight' : $index === selectedLink}">{{item.label}}</button>
+
+
 
     </div>
-    <div class="dynamicBox">
+
+    <div class="web-box">
+     <bl-sidebar-webcam ng-style="webcamDir" id="webcam-directive"></bl-sidebar-webcam>
+     </div>
+    <!-- <div class="dynamicBox">
     <md-button ng-click="move()" class="md-raised md-primary">Move</md-button>
-    <md-button ng-click="blink()" class="md-raised md-primary">Blink</md-button>
+    <md-button ng-click="blink()" class="md-raised md-primary">Blink</md-button> -->
     
     <!-- <md-button style="text-align:left" class="md-raised static-btn" id="nav-btn" ng-click="toggleCaregiver()"><span ng-hide="$root.caregiver">Caregiver</span><span ng-show="$root.caregiver">Patient</span></md-button> -->
-    </div>
-    <bl-sidebar-webcam ng-style="webcamDir" id="webcam-directive"></bl-sidebar-webcam>
-</md-sidenav>
+
+</div>
+<!-- </md-sidenav> -->
