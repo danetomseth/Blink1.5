@@ -2,8 +2,6 @@
 
 core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, SpeechFactory) {
 
-
-
     let keyboard = {};
 
     keyboard.active = false;
