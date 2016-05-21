@@ -34,9 +34,14 @@ $blue: #9CD3CD;*/
 
 
 .grid-item {
+    margin: 5px;
+    width: 31%;
+
     height: 250px;
-    border: 2px solid nth($text, 1);
-    background: nth($purple, 1);
+    border: 2px solid nth($blue, 1);
+    background: nth($background, 1);
+    box-shadow: 2px 2px 2px 1px rgba(133,49,117, 0.6);
+    box-shadow: 0px 5px 5px -3px rgba(0,0,0, 0.2), 0px 8px 10px 1px rgba(0,0,0, 0.14), 0px 3px 14px 2px rgba(0,0,0, 0.1);
 }
 
 
@@ -44,22 +49,28 @@ $blue: #9CD3CD;*/
 .grid-empty {
 	background: none;
 	border: none;
+    box-shadow: none;
 }
 
 .grid-word {
 	border: none;
 	background: none;
+    box-shadow: none;
 	//color: nth($text, 1);
 }
 
 
 
 .active-box {
-    background-color: nth($text, 1);
-    box-shadow: 3px 3px 3px nth($purple, 1);
-    border: 2px solid nth($purple, 1);
-    //color: nth($text, 1);
+    // background-color: nth($text, 1);
+    // box-shadow: 3px 3px 3px nth($purple, 1);
+    // border: 2px solid nth($purple, 1);
+
+    background: nth($background, 2);
+    box-shadow: 0px 5px 5px -3px rgba(133,49,117, 0.3), 0px 8px 10px 1px rgba(133,49,117, 0.3), 0px 3px 14px 2px rgba(133,49,117, 0.5);
     z-index: 10;
+
+
 }
 
 

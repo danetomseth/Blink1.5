@@ -37,6 +37,8 @@ $text: (
   white
   );
 
+$keyboard: 'Roboto Slab', serif;
+
 
 
 @import 'home/main';
@@ -55,6 +57,10 @@ $text: (
 @import 'custom/loading';
 @import 'custom/calibrate';
 @import 'custom/highlight';
+
+#content-padding {
+  padding: 30px 15px;
+}
 
 * {
   box-sizing: border-box;

@@ -1,11 +1,12 @@
 
 <div layout="column" layout-margin>
-        <div flex>
+        <div flex id="input-box">
             <form>
-                <md-input-container class="md-block">
+                <span ng-show="speaking" id="speaker-icon" class="glyphicon glyphicon-volume-up pull-right "></span>
+                <md-input-container class="md-block text-container">
                     <label>Message</label>
-                    <input name="Text" ng-model="wordInput" class="inputBox" flex="80">
-                    <span ng-show="speaking" class="glyphicon glyphicon-volume-up"></span>
+                    <textarea name="Text" rows="5" md-maxlength="150" ng-model="wordInput" class="text-area"  flex="100">
+                    </textarea>
                 </md-input-container>
                 <!-- <md-intput-container class="md-block">
                     <md-button ng-click="say()" class="md-raised primary-btn">Say</md-button>
@@ -13,10 +14,10 @@
                     <md-button ng-click="stop()" class="md-raised primary-btn">-</md-button>
                 </md-intput-container> -->
             </form>
-    </div>
+        </div>
     <div flex id="keyboard">
-        <div flex layout="row" ng-repeat="(key, val) in keyboard" class="keyboard-row">
-            <div flex="20" class="md-whiteframe-3dp row-box" ng-repeat="letter in keyboard[key]['letters']" ng-class=" {'letter-hover': (letter ===   keyboard[key]['letters'][scopeValue[1]] && {{key}} === scopeValue[0]), 'hover-row': {{key}} === scopeValue[0], 'selected': ($index === selected[1] && {{key}} === selected[0])}">{{letter}}</div>
+        <div flex layout="row" layout-align="center" ng-repeat="(key, val) in keyboard" class="keyboard-row">
+            <div flex="20" class="md-whiteframe-8dp row-box" ng-repeat="letter in keyboard[key]['letters']" ng-class=" {'highlight-item': (letter ===   keyboard[key]['letters'][scopeValue[1]] && {{key}} === scopeValue[0]), 'highlight-row': {{key}} === scopeValue[0], 'selected-item': ($index === selected[1] && {{key}} === selected[0])}">{{letter}}</div>
         </div>
     </div>
 </div>

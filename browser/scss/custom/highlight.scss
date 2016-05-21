@@ -1,3 +1,17 @@
-.highlight {
-	
+
+
+
+.highlight-row {
+	background: rgba(0,0,0, 0.8) !important;
+	color: white;
+}
+
+.highlight-item {
+	//background: white !important;
+	background: nth($purple, 1) !important;
+}
+
+.selected-item {
+	color: nth($blue, 1) !important;
+    background: white !important;
 }
