@@ -6,73 +6,39 @@
   }
 }
 
-//blue
-$primary: (
-        #4484ce,
-        #3477c5,
-        #2e6bb1,
-        #295f9c,
-        #245288,
-
+$purple: (
+ #853175,
+ #59214F,
+ #451A3D
  );
 
-//grey-ish
-$accent: (
-        #d9d9d9,
-        #cccccc,
-        #bfbfbf,
-        #b3b3b3,
-        #a6a6a6,
+$blue: (
+  #43D1D1,
+  #41B1AC,
+  #349292,
+  #0000ee
   );
 
-$tempP: #1A324E;
-$tempA: #D6665C;
-
-
-//orange-ish
-$accentB: (
-        #f19f4d,
-        #ef9235,
-        #ed851e,
-        #e07912,
-        #c86c10,
- );
-
-
-//red
-$forest: (
-  #FF958D,
-  #FFE2DF,
-  #FFBAB4,
-  #FF756B,
-  #F8564A
-  );
-//yellowish
 $background: (
-        #dfba00,
-        #ffd713,
-        #ffdc2d,
-        #ffe046,
-        #ffe460,
+  #F2F2F2,
+  #EFEFEF,
+  #f5f5f5,
+  #444444,
+  #666666,
+  #989898
   );
 
-//0 white
-//1 black
-//2 primary - blue
-//3 accent - marine
-//4 forest
 $text: (
-  white,
-  black,
-  rgba(119,201,212,1),
-  rgba(255,219,141,1),
-  rgba(255,149,141,1),
+  #000000,
+  #333333,
+  #444444,
+  #666666,
+  #989898,
+  white
   );
 
 
 
-
-//@import 'material/main';
 @import 'home/main';
 @import 'about/main';
 @import 'tutorial/main';
@@ -83,31 +49,32 @@ $text: (
 @import 'custom/sidebar';
 @import 'custom/corners';
 @import 'custom/home';
-@import 'custom/webcam';
 @import 'custom/newsfeed';
 @import 'custom/settings';
 @import 'custom/buttons';
 @import 'custom/loading';
 @import 'custom/calibrate';
-
-
+@import 'custom/highlight';
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'PT Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 18px;
   height: 100vh;
+  // background: nth($background, 2);
+  background-image: url("templates/img/handmadepaper.png");
+  // background:
+  // radial-gradient(nth($background, 2) 15%, transparent 16%) 0 0,
+  // radial-gradient(nth($background, 2) 15%, transparent 16%) 8px 8px,
+  // radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+  // radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+  // background-color: white;
+  // background-size:16px 16px;
 }
 
 #content {
   height: 100vh;
-}
-
-#main {
-  padding-top: 60px;
-  margin: 0 auto;
-  color: nth($text, 1);
 }

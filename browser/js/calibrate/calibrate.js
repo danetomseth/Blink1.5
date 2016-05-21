@@ -14,7 +14,7 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
             // 1: middleBox
             // 2: closed eye
             // 3: countdown
-            scope.blinkStatus = []
+            scope.blinkStatus = CalibrateFactory.blinkStatus;
             
             //used for css changes on scope
             scope.$watch(function() {
@@ -33,23 +33,6 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
                     scope.blinkCounts = CalibrateFactory.blinkCounts;
                 }
             });
-
-
-            let testBlink = () => {
-                if (debounce) {
-                    if (scope.showMessage) {
-                        scope.blinkStatus[3] = {
-                            'border': '3px solid black'
-                        }
-                    } else {
-                        scope.blinkStatus[1] = {
-                            'color': 'red'
-                        }
-                    }
-                    debounce = false;
-                    blinkDelay()
-                }
-            }
 
             function blinkDelay() {
                 if (scope.confirmBlink > 0) {
@@ -70,6 +53,24 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
                     }
                 }, 400);
             }
+
+
+            let testBlink = () => {
+                console.log('confirm', scope.confirmBlink);
+                    if (scope.showMessage) {
+                        scope.blinkStatus[3] = {
+                            'border': '3px solid black'
+                        }
+                    } else {
+                        scope.blinkStatus[1] = {
+                            'color': 'red'
+                        }
+                    }
+                    blinkDelay()
+                
+            }
+
+            
 
 
             function moveToNav() {
