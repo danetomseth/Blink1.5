@@ -1,8 +1,13 @@
 'use strict';
 var path = require('path');
+const sslRedirect= require('heroku-ssl-redirect');
 var express = require('express');
 var app = express();
 module.exports = app;
+
+//first things first, get us to SSL in production
+app.use((sslRedirect()));
+
 
 // Pass our express application pipeline into the configuration
 // function located at server/app/configure/index.js
