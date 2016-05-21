@@ -12,6 +12,11 @@ img.md-card-image {
     width: auto;
 }
 
+md-card {
+    color: black;
+    width: 100%;
+}
+
 .md-button{
     font-size: 1.8em;
     color: nth($text, 3)!important;
@@ -21,9 +26,7 @@ img.md-card-image {
     background-color: white;
 }
 
-md-card {
-    color: black;
-}
+
 
 .uppercase::first-letter {
   text-transform: uppercase;
