@@ -1,6 +1,4 @@
-core.factory('SettingsFactory', function($rootScope, $http, ActionFactory, Session) {
-    let user = Session.user;
-
+core.factory('SettingsFactory', function($rootScope, $http, ActionFactory) {
     // ROWS: "Keyboard", "Features", "NAV"
     let options = [[1, 2, 3, 4, 5], ['eyes', 'eyebrows', 'mouth'], null];
 
@@ -57,7 +55,7 @@ core.factory('SettingsFactory', function($rootScope, $http, ActionFactory, Sessi
             }
             return currentOption;
         },
-        selectOption: () => {
+        selectOption: (user) => {
             let settingsObj;
             if (changeRow === 0) {
                 settingsObj = { "keyboardSpeed": options[0][currentOption] };
@@ -65,7 +63,7 @@ core.factory('SettingsFactory', function($rootScope, $http, ActionFactory, Sessi
                 settingsObj = { "trackingFeature": options[1][currentOption] };
             }
             iterateRow = true;
-            return $http.put('/api/users/' + user._id, settingsObj)
+            return $http.put('/api/users/', settingsObj) // if no userID is passed, the backend uses req.user.id as the id
                 .then((updatedUser) => angular.copy(updatedUser.data, user));
         },
         // This is used on the calibration page

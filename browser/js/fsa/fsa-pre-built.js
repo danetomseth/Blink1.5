@@ -86,6 +86,14 @@
 
         };
 
+        this.signup = function (userInfo) {
+            return $http.post('/signup', userInfo)
+            .then(onSuccessfulLogin)
+            .catch(function(err){
+                return $q.reject({ message: 'There was an error signing up:' + err})
+            })
+        }
+
         this.login = function (credentials) {
             return $http.post('/login', credentials)
                 .then(onSuccessfulLogin)

@@ -1,9 +1,7 @@
-
-
-
 #keyboard {
 
 }
+
 #speaker-icon {
     font-size: 2em;
 }
@@ -11,7 +9,6 @@
 #bottom-keyboard {
     background: white;
 }
-
 
 #input-box {
     margin: 0 45px;
@@ -21,13 +18,13 @@
 
 .text-area {
     font-family: $keyboard;
-    font-size: 1.6em;
-
+    font-size: 1.8em;
 }
 
 .text-container {
     padding: 5px 0px;
 }
+
 .keyboard-row:last-of-type  {
     .row-box{
         background: rgba(220,220,220, 0.8);
@@ -40,8 +37,6 @@
         background: rgba(220,220,220, 0.6);
     }
 }
-
-
 
 .keyboard-row {
     height: 9vh;
@@ -60,12 +55,3 @@
     background-color: white;
     color: nth($text, 3);
 }
-
-
-
-
-
-
-
-
-

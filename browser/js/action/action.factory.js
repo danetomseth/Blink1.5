@@ -1,6 +1,6 @@
-core.factory('ActionFactory', function($rootScope) {
-    let action = {};
-    let states = {}; // these generate as the state is used for first time.
+core.factory('ActionFactory', ['$rootScope', function($rootScope) {
+    var action = {};
+    var states = {}; // these generate as the state is used for first time.
 
     action.states = states;
 
@@ -14,6 +14,8 @@ core.factory('ActionFactory', function($rootScope) {
             });
         }
     }
+
+    //
 
     action.runEvents = (state) => {
         action.stopEvents();
@@ -39,4 +41,4 @@ core.factory('ActionFactory', function($rootScope) {
     return action;
 
 
-});
+}]);
