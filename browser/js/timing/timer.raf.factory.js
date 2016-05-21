@@ -1,6 +1,6 @@
 //this sets all of timer dependent functions to the same intervals to clear on state change
 
-core.factory('TimerFactory', function($rootScope, Session, $state, PositionFactory, TrackingFactory, ActionFactory) {
+core.factory('TimerFactory', function($rootScope, Session, $state, PositionFactory, TrackingFactory, ActionFactory, ConstantsFactory) {
 
     const translateDelay = {
         0: 1400,
@@ -13,6 +13,15 @@ core.factory('TimerFactory', function($rootScope, Session, $state, PositionFacto
     let iterationTime = (Session.user) ? translateDelay(Session.user.keyboardSpeed) : 750;
     let startTime = 0;
     let lastBox;
+    let boxDebounce = true
+
+
+    let boxDelay = () => {
+        boxDebounce = false;
+        setTimeout(() => {
+            boxDebounce = true;
+        }, 100);
+    }
 
 
 
@@ -48,13 +57,13 @@ core.factory('TimerFactory', function($rootScope, Session, $state, PositionFacto
             }
 
             // Check for eye positions
-            if(ActionFactory.isActive('corners')){
+            if(ActionFactory.isActive('corners') && ConstantsFactory.pupilsCalibrated){
                 let currentBox = PositionFactory.pupilPosition(positions);
                 //emit only on box change
-                if (lastBox !== currentBox){
+                if (boxDebounce){
                     $rootScope.$emit("changeBox", currentBox); // emits the box the user is currently looking at
+                    boxDelay();
                 }
-                lastBox = currentBox;
             }
 
             // Check for brow

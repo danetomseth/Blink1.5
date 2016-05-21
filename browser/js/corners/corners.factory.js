@@ -1,4 +1,4 @@
-core.factory('CornersFactory', function($rootScope, ActionFactory) {
+core.factory('CornersFactory', function($rootScope, ActionFactory, ConstantsFactory) {
 
     //Not using ng-repeat so only need 5 boxes
 
@@ -35,16 +35,18 @@ core.factory('CornersFactory', function($rootScope, ActionFactory) {
     let mainGrid = true;
 
     $rootScope.$on("changeBox", function(thing, box) {
-        if (ActionFactory.isActive('corners') && calibrated) {
+        if (ActionFactory.isActive('corners') && ConstantsFactory.pupilsCalibrated) {
+            console.log('current box', box);
             CornersFactory.selectedBox = box;
         }
     });
 
     $rootScope.$on("singleBlink", function() {
-        if (ActionFactory.isActive('corners') && calibrated) {
+        if (ActionFactory.isActive('corners') && ConstantsFactory.pupilsCalibrated) {
             if (mainGrid) {
                 CornersFactory.goToBox(CornersFactory.selectedBox);
             } else {
+                console.log('corners box:',CornersFactory.selectedBox);
                 CornersFactory.select(CornersFactory.selectedBox);
             }
         }
