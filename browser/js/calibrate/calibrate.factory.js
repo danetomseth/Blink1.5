@@ -12,10 +12,12 @@ core.factory('CalibrateFactory', function($rootScope, $state, ConstantsFactory, 
     calibrateObj.currentValue = 0;
     calibrateObj.blinkCounts = [0,0];
 
-    calibrateObj.blinkStatus = [0,0,0];
+    calibrateObj.blinkStatus = [{'opacity': '0.3'},{'opacity': '0.3'},{'opacity': '0.3'}];
 
     calibrateObj.calibrationSet = false;
     calibrateObj.startCalibration = false;
+
+
 
 
     function avgMaxMin(sum) {
@@ -41,6 +43,8 @@ core.factory('CalibrateFactory', function($rootScope, $state, ConstantsFactory, 
 
     function compareValues(total) {
         count++;
+        calibrateObj.blinkStatus[2] = {'opacity': '1'};
+        calibrateObj.blinkStatus[0] = {'opacity': '1'};
         if (maxVals.length < 50) {
            	calibrateObj.blinkCounts[0] = (maxVals.length / 50) * 100;
         } else {
@@ -97,9 +101,6 @@ core.factory('CalibrateFactory', function($rootScope, $state, ConstantsFactory, 
         SettingsFactory.setThreshold(blinkRatio, blinkZero)
         ConstantsFactory.setBlink(blinkRatio, blinkZero);
         calibrateObj.calibrationSet = true;
-        setTimeout(function() {
-            cancelAnimationFrame(frameId);
-    	},0);
     }
 
     calibrateObj.runCalibration = () => {
