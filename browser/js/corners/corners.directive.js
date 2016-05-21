@@ -1,4 +1,4 @@
-core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactory) {
+core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactory, ActionFactory) {
     return {
         restrict: 'E',
         scope: {},
@@ -51,13 +51,14 @@ core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactor
                 CornersCalibrate.runCalibration();
             }
 
-            // $rootScope.$on("changeBox", function(thing, box){
-            //     if(scope.calibrated) {
-            //         console.log('current box', box);
-            //         scope.selectedBox = box;
-            //         scope.$digest();
-            //     }
-            // });
+            $rootScope.$on("singleBlink", function(thing, box){
+                if(!scope.calStart && ActionFactory.isActive('corners')) {
+                    scope.start();
+                    console.log('current box', box);
+                    //scope.selectedBox = box;
+                    scope.$digest();
+                }
+            });
 
         }
     };

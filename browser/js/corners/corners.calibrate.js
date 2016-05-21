@@ -11,8 +11,8 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
     let tempArr = [];
     let xThresh = [0, 0];
     let yThresh = [0, 0];
-    let calRatioX = 0.3;
-    let calRatioY = 0.3;
+    let calRatioX = 0.5;
+    let calRatioY = 0.5;
 
 
     calibrateObj.selectedBox = 0;
