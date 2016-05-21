@@ -1,8 +1,11 @@
 #settings-panel {
-    background: white;
-    border-style: solid;
-    border-color: nth($background, 4);
-    border-width: 4px;
+    height: 90vh;
+    align-items: stretch;
+    padding: 10px;
+}
+
+.settings-row {
+    padding-bottom: 2em;
 }
 
 img.md-card-image {
@@ -11,13 +14,11 @@ img.md-card-image {
 
 .md-button{
     font-size: 1.8em;
-    color: nth($text, 1);
-    background-color: white;
+    color: nth($text, 3)!important;
 }
 
-.md-button.current {
-    background-color: nth($background, 1);
-    font-weight: bold;
+.md-button.md-fab {
+    background-color: white;
 }
 
 md-card {
@@ -26,8 +27,4 @@ md-card {
 
 .uppercase::first-letter {
   text-transform: uppercase;
-}
-
-.md-toolbar-tools {
-    height: 1em;
 }

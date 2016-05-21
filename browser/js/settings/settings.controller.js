@@ -1,7 +1,7 @@
-core.controller('SettingsCtrl', function($scope, user, SettingsFactory, Session) {
+core.controller('SettingsCtrl', function($scope, SettingsFactory, Session) {
 
     $scope.user = Session.user;
-    $scope.name = user.firstName + " " + user.lastName;
+    $scope.name = Session.user.firstName + " " + Session.user.lastName;
     $scope.selections = SettingsFactory.selections;
 
     $scope.speeds = [1, 2, 3, 4, 5];

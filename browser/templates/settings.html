@@ -1,48 +1,39 @@
-<div class="content-padding" id="settings-panel">
-<div flex-xs flex-gt-xs="35" layout="column" class="pull-right" ng-cloak>
-    <md-card>
-        <md-card-title>
-            <md-card-title-text>
-                <span class="md-headline">{{name}}</span>
-                <span class="md-subhead">Member</span>
-            </md-card-title-text>
-            <md-card-title-media>
-                <img class="md-media-lg card-media" ng-src="{{user.profilePicture}}" class="md-card-image" alt="Profile Picture">
-            </md-card-title-media>
-        </md-card-title>
-        <md-card-content>
-            <p class="md-subhead">Keyboard Speed:
-                <p class="uppercase">{{user.keyboardSpeed}}</p>
-            </p>
-            <p class="md-subhead">Selecting with:
-                <p class="uppercase">{{user.trackingFeature}}</p>
-            </p>
-        </md-card-content>
-    </md-card>
-</div>
-<div flex-gt-xs="65" layout="column" ng-class="{'highlight-row': selections.row === 0}">
-    <h1>Keyboard Speed</h1>
-</div>
-    <p class="md-no-sticky">(slowest to fastest)</p>
-    <md-button ng-class="{'md-fab': true, 'current': (speed == user.keyboardSpeed), 'highlight-item' : (speed === selections[0])}" ng-repeat="speed in speeds" ng-click="setSpeed(speed)">{{speed}}{{keyboardSpeed}}</md-button>
-<div flex-gt-xs="65" layout="column" ng-class="{'highlight-row': selections.row === 1}">
-<h1>Feature Tracking</h1>
-</div>
-    <p class="md-no-sticky">Tracking Feature</p>
-    <md-button ng-class="{'md-whiteframe-z1': true, 'current': (feature == user.trackingFeature), 'highlight-item': ($index == selections[1])}" ng-repeat="feature in features" ng-click="setFeatures(feature)">
-        {{feature}}
-    </md-button>
-<div flex-gt-xs="65" layout="column" ng-class="{'highlight-row': selections.row === 2}">
-<h1>Back to Nav</h1>
-</div>
-</div>
+<div class="content-padding">
+    <div flex-xs flex-gt-xs="35" layout="column" class="pull-right" ng-cloak>
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{name}}</span>
+                    <span class="md-subhead">Member</span>
+                </md-card-title-text>
+                <md-card-title-media>
+                    <img class="md-media-lg card-media" ng-src="{{user.profilePicture}}" class="md-card-image" alt="Profile Picture">
+                </md-card-title-media>
+            </md-card-title>
+            <md-card-content>
+                <p class="md-subhead">Keyboard Speed:
+                    <p class="uppercase">{{user.keyboardSpeed}}</p>
+                </p>
+                <p class="md-subhead">Selecting with:
+                    <p class="uppercase">{{user.trackingFeature}}</p>
+                </p>
+            </md-card-content>
+        </md-card>
+    </div>
+    <div id="settings-panel" flex-gt-xs="65">
+        <div class="settings-row">
+                <h1 ng-class="{'text-selected': selections.row === 0}">Keyboard Speed</h1>
+            <md-button ng-class="{'md-fab': true, 'selected-item': (speed == user.keyboardSpeed), 'text-highlight' : (speed === selections[0])}" ng-repeat="speed in speeds" ng-click="setSpeed(speed)">{{speed}}{{keyboardSpeed}}</md-button>
+        </div>
 
-<!--   <md-tabs md-stretch-tabs md-selected="selections.selectedTab">
+        <div class="settings-row">
+            <h1 ng-class="{'text-selected': selections.row === 1}">Feature Tracking</h1>
+        <md-button ng-class="{'selected-item': (feature == user.trackingFeature), 'text-highlight': ($index == selections[1])}" ng-repeat="feature in features" ng-click="setFeatures(feature)">
+            {{feature}}
+        </md-button>
+        </div>
 
-     <md-tab label="Keyboard Speed" ui-sref="settings.keyboard" ng-class="{'highlight-item' : selections.selectedTab=== 0}"></md-tab>
-
-
-     <md-tab label="Feature Selection" ui-sref="settings.features" ng-class="{'highlighted' : selections.selectedTab === 1}"></md-tab>
-     <md-tab label="NAV" ng-class="{'highlighted' : selections.selectedTab === 2}"></md-tab>
-  </md-tabs>
-  <div id="content" ui-view flex> </div> -->
+        <div class="settings-row">
+            <h1 ng-class="{'text-selected': selections.row === 2}">Back to Nav</h1>
+        </div>
+    </div>
