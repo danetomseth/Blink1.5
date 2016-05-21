@@ -3,11 +3,11 @@ core.config(function($stateProvider) {
         url: '/settings',
         controller: 'SettingsCtrl',
         templateUrl: 'templates/settings.html',
-        resolve: {
-            user: function(AuthService) {
-                return AuthService.getLoggedInUser();
-            }
-        }
+        // resolve: {
+        //     user: function(AuthService) {
+        //         return AuthService.getLoggedInUser();
+        //     }
+        // }
     });
 
     // $stateProvider.state('settings.keyboard', {
