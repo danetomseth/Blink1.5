@@ -51,6 +51,7 @@
     app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
 
         function onSuccessfulLogin(response) {
+            console.log(5)
             var data = response.data;
             Session.create(data.id, data.user);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
@@ -85,6 +86,15 @@
             });
 
         };
+
+        this.signup = function (userInfo) {
+            console.log(1)
+            return $http.post('/signup', userInfo)
+            .then(onSuccessfulLogin)
+            .catch(function(err){
+                return $q.reject({ message: 'There was an error signing up:' + err})
+            })
+        }
 
         this.login = function (credentials) {
             return $http.post('/login', credentials)
