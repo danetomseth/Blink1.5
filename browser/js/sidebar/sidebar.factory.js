@@ -12,6 +12,7 @@ core.factory('SidebarFactory', function($state) {
 
     let loggedInLinks = [
         // { label: 'Social', state: 'newsfeed', auth: true},
+        { label: 'Chat', state: 'chat', auth: true},
         { label: 'Settings', state: 'settings', auth: true},
         { label: 'Logout', state: 'logout', auth: true}
     ];
