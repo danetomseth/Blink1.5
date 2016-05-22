@@ -48,7 +48,7 @@
         ]);
     });
 
-    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q, $state) {
+    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q, $state, ConstantsFactory) {
 
         function onSuccessfulLogin(response) {
             var data = response.data;
@@ -84,12 +84,14 @@
             .then((res) => {
                 if(res.data.user){ // if we get a logged in user back, then log them in
                     onSuccessfulLogin(res)
+                    ConstantsFactory.setBlink(res.data.user.blinkRatio, res.data.user.blinkZero)
                     $state.go('type');
                 } else if (res.data.blinkZero) {
                     console.log("We know you and your blinks:", res.data)
+                    ConstantsFactory.setBlink(res.data.blinkRatio, res.data.blinkZero)
                     $state.go('home');
                 } else {
-                    console.log("We don't know you...let's configure")
+                    console.log("We don't know you...let's calibrate you")
                     $state.go('calibrate');
                 }
             })
