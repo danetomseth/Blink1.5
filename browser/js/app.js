@@ -108,7 +108,9 @@ app.config(function($urlRouterProvider, $locationProvider) {
 });
 
 // This app.run is for controlling access to specific states.
-app.run(function($rootScope, AuthService, $state) {
+app.run(function($rootScope, AuthService, $state, Session) {
+
+
      //initially sets caregiver to false
     $rootScope.caregiver = false;
     // The given state requires an authenticated user.
@@ -140,6 +142,7 @@ app.run(function($rootScope, AuthService, $state) {
             // If a user is retrieved, then renavigate to the destination
             // (the second time, AuthService.isAuthenticated() will work)
             // otherwise, if no user is logged in, go to "login" state.
+
             if (user) {
                 $state.go(toState.name, toParams);
             } else {
