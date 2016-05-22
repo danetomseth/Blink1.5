@@ -53,8 +53,6 @@
         function onSuccessfulLogin(response) {
             var data = response.data;
             Session.create(data.id, data.user);
-            console.log("creating session");
-            console.log(Session.user);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             return data.user;
         }
