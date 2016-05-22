@@ -4,7 +4,12 @@ core.config(function ($stateProvider) {
         controller: 'TypeCtrl',
         templateUrl: 'templates/type.html',
         onEnter: function(TypeFactory) {
-            TypeFactory.active = true;
+            TypeFactory.setSpecialFunction({
+                text: "STOP",
+                function: () =>{
+                    console.log("inside specialfunc")
+                }
+            })
         }
     });
 });

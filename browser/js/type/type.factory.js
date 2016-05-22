@@ -5,11 +5,18 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
 
 
     let keyboard = {};
+    let specialFunction;
 
-    keyboard.active = false;
+    // keyboard.active = false;
     keyboard.scopeValue = [];
     keyboard.selectedLetter;
     keyboard.word = '';
+
+    keyboard.setSpecialFunction = (specialFunc) => {
+        specialFunction = specialFunc
+        keyboard.alphabet[6].letters[3] = specialFunction.text;
+        console.log(specialFunc.function)
+    }
 
     keyboard.alphabet = [{
         row: 0,
@@ -31,8 +38,9 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         letters: ["U", "V", "W", "X", "Y"]
     }, {
         row: 6,
-        letters: ['SPACE', 'SAY', '<<', 'STOP', 'NAV']
+        letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV']
     }];
+
 
     let rowIndex = 0;
     let letterIndex = 0;
@@ -112,7 +120,9 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
                 case 'NAV':
                     ActionFactory.runEvents('nav');
                     break;
-                case 'STOP':
+                case specialFunction.text:
+                    console.log("rn the thing");
+                    specialFunction.function();
                     break;
                 default:
                     console.log("Error: Action " + action + " not found");
