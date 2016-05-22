@@ -8,6 +8,7 @@ core.directive('blBox', function(){
         },
         link: function(scope, elem, attrs){
             var box = angular.element(elem[0].children[0]);
+            var setHeight = angular.element(elem[0].children[0].clientWidth);
             var letterBox = angular.element(elem[0].children[0].children[0]);
 
             scope.$watch("contents", function(){

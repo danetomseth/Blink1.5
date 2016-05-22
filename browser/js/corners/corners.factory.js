@@ -53,7 +53,7 @@ core.factory('CornersFactory', function($rootScope, ActionFactory, ConstantsFact
     })
 
     $rootScope.$on("doubleBlink", function() {
-        if (ActionFactory.isActive('corners')) {
+        if (ActionFactory.isActive('corners') && ConstantsFactory.pupilsCalibrated) {
             if (mainGrid) {
                 CornersFactory.delete();
             } else {

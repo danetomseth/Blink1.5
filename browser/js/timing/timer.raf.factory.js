@@ -20,7 +20,7 @@ core.factory('TimerFactory', function($rootScope, Session, $state, PositionFacto
         boxDebounce = false;
         setTimeout(() => {
             boxDebounce = true;
-        }, 100);
+        }, 300);
     }
 
 

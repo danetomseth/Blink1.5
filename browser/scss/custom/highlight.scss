@@ -1,10 +1,13 @@
 .highlight-row {
 	background: rgba(0,0,0, 0.7) !important;
+    //transition: background 0.25s ease-out;
+    transition: background 0.2s ease-in-out;
 	color: white;
 }
 
 .highlight-item {
 	background: nth($purple, 1) !important;
+    transition: all 0.1s ease-in-out;
 }
 
 .selected-item {
@@ -22,3 +25,53 @@
 .text-highlight {
     color: nth($purple, 1) !important;
 }
+
+
+
+
+
+// .highlight-item-add {
+//   -webkit-transition:all ease 0.5s;
+//   -moz-transition:all ease 0.5s;
+//   -o-transition:all ease 0.5s;
+//   transition:all ease 0.5s;
+// } 
+
+
+// .highlight-item-remove {
+//   -webkit-transition: background 2s, -webkit-transform 2s;
+//     transition: background 2s, transform 2s;
+// }
+
+// .highlight-item-add {
+//   -webkit-transition: background 2s, -webkit-transform 2s;
+//     transition: background 2s, transform 2s;
+// }
+
+// .highlight-row-add {
+//    -webkit-animation-name: example; /* Chrome, Safari, Opera */
+//     -webkit-animation-duration: 4s; /* Chrome, Safari, Opera */
+//     animation-name: example;
+//     animation-duration: 4s;
+// }
+
+
+// .highlight-row-remove {
+//     -webkit-animation-name: example; Chrome, Safari, Opera
+//     -webkit-animation-duration: 4s; /* Chrome, Safari, Opera */
+//     animation-name: example;
+//     animation-duration: 4s;
+// }
+
+// /* Chrome, Safari, Opera */
+// @-webkit-keyframes example {
+//     from {}
+//     to {background-color: rgba(0,0,0, 0.7) !important;}
+// }
+
+
+
+
+
+
+

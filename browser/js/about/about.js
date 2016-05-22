@@ -10,6 +10,14 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('AboutController', function ($scope) {
+	$scope.change = () => {
+		console.log('clicked');
+		$scope.changeClass = 'highlight-item';
+	}
 
+	$scope.clear = () => {
+		console.log('clicked clear');
+		$scope.changeClass = '';
+	}
 
 });

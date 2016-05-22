@@ -6,6 +6,11 @@ core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactor
         link: function(scope, elem, attr) {
 
             // scope.calibrated = true;
+            let boxWidth = angular.element(document.getElementById("heightItem"))[0].clientWidth;
+            let setHeight = boxWidth * 0.65 + 'px';
+            scope.setHeight = {
+                'height' : setHeight
+            }
             scope.calStart = false;
             scope.selectedBox = CornersFactory.selectedBox; //controls highlighting
             scope.boxes = CornersFactory.getBoxes() //controls contents
@@ -20,6 +25,16 @@ core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactor
                 }
             }, true);
 
+
+
+
+
+
+
+
+            //Calibration functions
+
+            //switches current calibrate location 
             scope.$watch(function() {
                 return CornersCalibrate.selectedBox;
             }, function(newVal, oldVal) {
@@ -40,7 +55,6 @@ core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactor
                 return CornersCalibrate.calibrationFinished;
             }, function(newVal) {
                 if (typeof newVal !== 'undefined') {
-
                     scope.calibrated = CornersCalibrate.calibrationFinished;
                     console.log('updated', scope.calibrated);
                 }
@@ -51,11 +65,10 @@ core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactor
                 CornersCalibrate.runCalibration();
             }
 
+
             $rootScope.$on("singleBlink", function(thing, box){
                 if(!scope.calStart && ActionFactory.isActive('corners')) {
                     scope.start();
-                    console.log('current box', box);
-                    //scope.selectedBox = box;
                     scope.$digest();
                 }
             });

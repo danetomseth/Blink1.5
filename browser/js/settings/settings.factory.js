@@ -73,6 +73,8 @@ core.factory('SettingsFactory', function($rootScope, $http, ActionFactory) {
                 return user.data;
             })
         }
+
+
     }
 
     return settingsObj;

@@ -116,7 +116,8 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
                     return phrase;
                 case '<<':
                     setUndoState();
-                    return phrase.slice(0, phrase.length - 1);
+                    phrase = phrase.slice(0, phrase.length - 1);
+                    return phrase;
                 case 'NAV':
                     ActionFactory.runEvents('nav');
                     break;
@@ -199,6 +200,7 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
 
     $rootScope.$on('singleBlink', (event, data) => {
         if (ActionFactory.isActive('type')) {
+            console.log('blink!!!!');
             selectAction();
         }
     });

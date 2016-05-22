@@ -97,7 +97,7 @@ core.factory('CalibrateFactory', function($rootScope, $state, ConstantsFactory, 
 
         blinkZero = maxSum;
 
-        blinkRatio = (minSum / maxSum);
+        blinkRatio = (minSum / maxSum) * 0.95;
         SettingsFactory.setThreshold(blinkRatio, blinkZero)
         ConstantsFactory.setBlink(blinkRatio, blinkZero);
         calibrateObj.calibrationSet = true;
