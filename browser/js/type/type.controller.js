@@ -14,7 +14,7 @@ core.config(function ($stateProvider) {
     });
 });
 
-core.controller('TypeCtrl', function($scope, ConstantsFactory, TypeFactory) {
+core.controller('TypeCtrl', function($scope, ConstantsFactory) {
 
     // Key-value pairs for keyboard speed based on user's settings
     $scope.start = function() {
@@ -23,12 +23,7 @@ core.controller('TypeCtrl', function($scope, ConstantsFactory, TypeFactory) {
 
     $scope.stop = function() {
         ConstantsFactory.decrease()
-    },
-
-    $scope.specialAction = () => {
-        console.log("typecntrl specialAction")
     }
-
 
 });
 
