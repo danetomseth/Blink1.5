@@ -12,7 +12,7 @@ core.directive('blLetterType', function(TypeFactory, SpeechFactory) {
 
             scope.$watch(function() {
                 return TypeFactory.selectedLetter;
-            }, function(newVal, oldVal) {
+            }, function(newVal) {
                 if (typeof newVal !== 'undefined') {
                     if(TypeFactory.selectedLetter) {
                         scope.selected = TypeFactory.selectedLetter;
@@ -23,7 +23,7 @@ core.directive('blLetterType', function(TypeFactory, SpeechFactory) {
 
             scope.$watch(function() {
                 return TypeFactory.word
-            }, function(newVal, oldVal) {
+            }, function(newVal) {
                 if (typeof newVal !== 'undefined') {
                     scope.wordInput = TypeFactory.word;
                 }

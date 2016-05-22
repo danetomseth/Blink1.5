@@ -47,6 +47,8 @@ module.exports = function (app) {
     app.get('/session', function (req, res) {
         if (req.user) {
             res.send({ user: req.user.sanitize() });
+        } else if(req.session.calibrate) {
+            res.send(req.session.calibrate)
         } else {
             res.status(401).send('No authenticated user.');
         }
