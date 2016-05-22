@@ -11,11 +11,11 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
     let tempArr = [];
     let xThresh = [0, 0];
     let yThresh = [0, 0];
-    let calRatioX = 0.5;
-    let calRatioY = 0.5;
+    let calRatioX = 0.4;
+    let calRatioY = 0.4;
 
 
-    calibrateObj.selectedBox = 0;
+    // calibrateObj.selectedBox = 0;
     calibrateObj.calibrationSet = false;
     calibrateObj.calibrationFinished = false;
 
@@ -85,6 +85,7 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
     }
 
     let changeBox = () => {
+        calibrateObj.selectedBox = 0;
         readDelay();
         calibrateObj.calBoxes = ['X', '', '', '', ''];
         boxInt = $interval(() => {

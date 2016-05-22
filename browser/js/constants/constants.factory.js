@@ -1,8 +1,10 @@
 core.factory('ConstantsFactory', function($rootScope, Session, SettingsFactory) {
 	let calibrateVal = {};
 
-	calibrateVal.blinkRatio = 0.78; //default value
-	calibrateVal.blinkZero = 50.73;
+	console.log('user', Session.user);
+
+	calibrateVal.blinkRatio = 0.5; //default value
+	calibrateVal.blinkZero = 45.73;
 
 	calibrateVal.center = [0,0];
 	calibrateVal.xThresh = [0,0];

@@ -47,6 +47,11 @@ logo {
     color: nth($text, 3)!important;
 }
 
+.std-btn:focus {
+    color: nth($blue, 1)!important;
+    border-bottom: 1px solid nth($purple, 1);
+}
+
 #webcam-directive {
     display: block;
     //width: 90%;
@@ -99,9 +104,8 @@ a:focus {
 }
 
 button:focus {
-    color: nth($blue, 1)!important;
-    text-shadow: 3px 3px nth($background, 1);
-    border-bottom: 1px solid nth($purple, 1);
+    color: white !important;
+    //border-bottom: 1px solid nth($purple, 1);
     outline: none;
    outline: none !important;
    outline-offset: none;
