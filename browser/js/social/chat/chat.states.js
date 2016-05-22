@@ -7,6 +7,16 @@ core.config(function($stateProvider){
             user: function(AuthService) {
                 return AuthService.getLoggedInUser();
             }
+        },
+        onEnter: function(ActionFactory, TypeFactory) {
+            let socket = io();
+            ActionFactory.runEvents('type');
+            TypeFactory.setSpecialFunction({
+                text: "POST",
+                function: function(){
+                    return socket.emit('chat', TypeFactory.word)
+                }
+            })
         }
     })
 });
