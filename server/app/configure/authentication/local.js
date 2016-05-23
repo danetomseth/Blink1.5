@@ -30,6 +30,10 @@ module.exports = function (app) {
 
     app.post('/signup', (req, res, next) => {
 
+        req.body.blinkZero = req.session.calibrate.blinkZero
+        req.body.blinkRatio = req.session.calibrate.blinkRatio
+        console.log(req.body)
+
         let signupCB = (err, user) => {
             if (err) return next(err);
 
