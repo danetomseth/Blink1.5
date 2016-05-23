@@ -104,8 +104,8 @@ a:focus {
 }
 
 button:focus {
-    color: white !important;
-    //border-bottom: 1px solid nth($purple, 1);
+    color: nth($blue, 1) !important;
+    border-bottom: 1px solid nth($purple, 1);
     outline: none;
    outline: none !important;
    outline-offset: none;

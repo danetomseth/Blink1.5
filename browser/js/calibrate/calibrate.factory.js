@@ -71,8 +71,8 @@ core.factory('CalibrateFactory', function($rootScope, $state, ConstantsFactory, 
 
         //starting the array - with a little buffer
         if (count > 40 && count < 50) {
-            maxVals.push(total + 1);
-            minVals.push(total - 1);
+            maxVals.push(total);
+            minVals.push(total - 3);
         }
         if (count > 50) {
             if (total) {

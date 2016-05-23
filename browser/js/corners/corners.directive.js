@@ -5,13 +5,17 @@ core.directive('blCorners', function($rootScope, CornersCalibrate, CornersFactor
         templateUrl: 'templates/corners-grid.html',
         link: function(scope, elem, attr) {
 
-            // scope.calibrated = true;
+            scope.calibrated = true;
             let boxWidth = angular.element(document.getElementById("heightItem"))[0].clientWidth;
             let setHeight = boxWidth * 0.65 + 'px';
+            let rowHeight = (boxWidth * 0.65) / 3 + 'px';
+            scope.rowHeight = {
+                'height' : rowHeight
+            }
             scope.setHeight = {
                 'height' : setHeight
             }
-            scope.calStart = false;
+            console.log('set height', setHeight);
             scope.selectedBox = CornersFactory.selectedBox; //controls highlighting
             scope.boxes = CornersFactory.getBoxes() //controls contents
             scope.phrase = CornersFactory.getPhrase();

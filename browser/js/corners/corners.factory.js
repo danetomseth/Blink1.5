@@ -36,7 +36,6 @@ core.factory('CornersFactory', function($rootScope, ActionFactory, ConstantsFact
 
     $rootScope.$on("changeBox", function(thing, box) {
         if (ActionFactory.isActive('corners') && ConstantsFactory.pupilsCalibrated) {
-            console.log('current box', box);
             CornersFactory.selectedBox = box;
         }
     });
