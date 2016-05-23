@@ -2,10 +2,10 @@
 <div flex ng-show="calibrated">
     <!-- Top Row -->
     <div class="row-centered grid-row" ng-style="setHeight">
-        <div id="heightItem" class="col-xs-4 grid-item md-whiteframe-5md" ng-click="selectBox(0)" ng-class="{'active-box': selectedBox == 0}">
+        <div ng-style="setHeight" id="heightItem" class="col-xs-4 grid-item md-whiteframe-5md" ng-click="selectBox(0)" ng-class="{'active-box': selectedBox == 0}">
             <bl-box  contents="boxes[0]"></bl-box> <!-- Box Directive -->
         </div>
-        <div ng-style="setHeight" class="col-xs-4 grid-item grid-word">{{phrase[0]}}</div>
+        <div  ng-style="setHeight" class="col-xs-4 grid-item grid-word">{{phrase[0]}}</div>
         <!-- <div class="col-xs-4 grid-item grid-word">Word:{{phrase[0]}}</div> -->
         <div class="col-xs-4 grid-item" ng-click="selectBox(1)" ng-class="{'active-box': selectedBox == 1}"><bl-box  contents=boxes[1]></bl-box></div>
     </div>
@@ -42,9 +42,7 @@
     <div class="row-centered cal-row" ng-style="setHeight">
         <div class="col-xs-4 cal-item grid-empty"></div>
         <div class="col-xs-4 cal-item" ng-click="selectBox(2)" ng-class="{'cal-active': calibrateBox == 2}">
-            <!-- <div class="calibration-box">{{calBoxes[2]}}</div> -->
-            <!-- <img  src="templates/img/focushere.gif" alt="Look Here"> -->
-            <img ng-show="calibrateBox == 2" src="templates/img/focushere.gif" alt="Look Here">
+            <img class="m-img" ng-show="calibrateBox == 2" src="templates/img/focushere.gif" alt="Look Here">
         </div>
         <div class="col-xs-4 cal-item grid-empty"></div>
     </div>

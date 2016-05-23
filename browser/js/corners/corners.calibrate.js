@@ -15,7 +15,6 @@ core.factory('CornersCalibrate', function($rootScope, $interval, PositionFactory
     let calRatioY = 0.4;
 
 
-    // calibrateObj.selectedBox = 0;
     calibrateObj.calibrationSet = false;
     calibrateObj.calibrationFinished = false;
 

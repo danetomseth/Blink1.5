@@ -36,6 +36,10 @@
 	}
 }
 
+.calibrate-progress {
+
+}
+
 .center-div {
 	margin: 0 auto;
 	div {
@@ -77,9 +81,69 @@
 
 .box-wrap {
 	height:250px;
-	width: 200px;
 	position: relative;
+	text-align: center;
+    padding-left: 75px;
+    padding-right: 75px;
+	p {
+		color: nth($purple, 1);
+		font-size: 2em;
+		font-family: $keyboard;
+	}
 
+}
+
+md-progress-circular {
+	//background: nth($blue, 1) !important;
+	color: nth($blue, 1) !important;
+	border-left-color: nth($blue, 1) !important;
+	border-top-color: nth($blue, 1) !important;
+}
+
+#calibrate-progress {
+	//background: nth($blue, 1) !important;
+	color: nth($blue, 1) !important;
+	border-left-color: nth($blue, 1) !important;
+	border-top-color: nth($blue, 1) !important;
+}
+
+md-progress-circular.md-default-theme {
+
+  path {
+    stroke: nth($blue, 1) !important;
+  }
+
+  &.md-warn {
+    path {
+      stroke: nth($blue, 1) !important;
+    }
+  }
+
+  &.md-accent {
+    path {
+      stroke: nth($blue, 1) !important;
+    }
+  }
+
+}
+
+md-progress-circular.md-default-theme .md-inner .md-left .md-half-circle, md-progress-circular .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme .md-inner .md-right .md-half-circle, md-progress-circular .md-inner .md-right .md-half-circle {
+    border-top-color: nth($blue, 1);
+}
+
+md-progress-circular.md-default-theme .md-inner .md-right .md-half-circle, md-progress-circular .md-inner .md-right .md-half-circle {
+    border-right-color: nth($blue, 1);
+    //border-color: nth($blue, 1) !important;
+}
+
+md-progress-circular.md-default-theme .md-inner .md-left .md-half-circle, md-progress-circular .md-inner .md-left .md-half-circle {
+    border-left-color: nth($blue, 1);
+    border-bottom-color: nth($blue, 1);
+}
+
+md-progress-circular.md-default-theme .md-inner .md-gap, md-progress-circular .md-inner .md-gap {
+    border-top-color: nth($blue, 1);
+    border-bottom-color: nth($blue, 1);
 }
 
 .detail-info {
