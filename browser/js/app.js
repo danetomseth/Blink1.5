@@ -114,9 +114,24 @@ app.run(function($rootScope, AuthService, $state, Session) {
      //initially sets caregiver to false
     $rootScope.caregiver = false;
     // The given state requires an authenticated user.
+    AuthService.getLoggedInUser().then(function(user) {
+            // If a user is retrieved, then renavigate to the destination
+            // (the second time, AuthService.isAuthenticated() will work)
+            // otherwise, if no user is logged in, go to "login" state.
+            if (user) {
+                let threshold = {
+                    ratio: user.blinkRatio,
+                    zero: user.blinkZero
+                }
+                $rootScope.$emit("userThreshold", threshold);
+            } else {
+                console.log('no user!!');
+            }
+        });
     var destinationStateRequiresAuth = function(state) {
         return state.data && state.data.authenticate;
     };
+
 
     // $stateChangeStart is an event fired
     // whenever the process of changing a state begins.

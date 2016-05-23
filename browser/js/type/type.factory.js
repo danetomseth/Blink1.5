@@ -18,7 +18,10 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         console.log(specialFunc.function)
     }
 
-    keyboard.alphabet = [{
+
+
+
+    keyboard.altA = [{
         row: 0,
         letters: ["I", "I'M", "CAN", "WE", "HELLO"]
     }, {
@@ -38,6 +41,33 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         letters: ["U", "V", "W", "X", "Y"]
     }, {
         row: 6,
+        letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV']
+    }];
+
+    keyboard.alphabet = [{
+        row: 0,
+        letters: ["I", "I'M", "CAN", "WE", "HELLO"]
+    }, {
+        row: 1,
+        letters: ["A", "I", "W", "S", "L"]
+    }, {
+        row: 2,
+        letters: ["O", "R", "T", "J", "B"]
+    }, {
+        row: 3,
+        letters: ["E", "N", "C", "U", "G"]
+    }, {
+        row: 4,
+        letters: ["Z", "Y", "M", "H", "X1"]
+    }, {
+        row: 5,
+        letters: ["K", "P", "F", "X2", "X3"]
+    }, {
+        row: 6,
+        letters: ['D', 'Q', 'V', "X", 'X4']
+    },
+    {
+        row: 7,
         letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV']
     }];
 
@@ -61,6 +91,7 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
     const resetKeyboardPosition = () => {
         letterIndex = 0;
         rowIndex = 0;
+        selectingLetter = false;
     }
 
     const predictWords = () => {
@@ -148,20 +179,21 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         }
     }
 
-    let doubleBlink = (selectingLetter) => {
-        if (lastState.length > 1) { // undo the select that just happened from the first blink
-            phrase = lastState.pop();
+    let doubleBlink = () => {
 
-        }
-        if (selectingLetter) { // if we are in a row, deselect it
+
+        if (selectingLetter) { // undo the select that just happened from the first blink
+            phrase = phrase.slice(0, phrase.length - 1);
             resetKeyboardPosition();
-        } else {
-            if (lastState.length > 1) {
-                phrase = lastState.pop();
-                resetKeyboardPosition();
-            }
         }
-        return phrase
+        else {
+            phrase = phrase.slice(0, phrase.length - 1);
+            resetKeyboardPosition();
+        }
+
+
+        return phrase;
+        
     }
 
     let endOfRow = () => {
@@ -198,16 +230,21 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         }
     }
 
+    keyboard.clearInput = () => {
+        resetKeyboardPosition();
+        phrase = "";
+        selectingLetter = false;
+    }
+
     $rootScope.$on('singleBlink', (event, data) => {
         if (ActionFactory.isActive('type')) {
-            console.log('blink!!!!');
             selectAction();
         }
     });
 
     $rootScope.$on('doubleBlink', (event, data) => {
         if (ActionFactory.isActive('type')) {
-            doubleBlink();
+            keyboard.word = doubleBlink();
         }
     });
 

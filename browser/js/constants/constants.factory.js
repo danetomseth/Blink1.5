@@ -1,7 +1,17 @@
-core.factory('ConstantsFactory', function($rootScope, Session, SettingsFactory) {
+core.factory('ConstantsFactory', function($rootScope, SettingsFactory) {
 	let calibrateVal = {};
 
-	console.log('user', Session.user);
+	let disableBlink = false;
+
+	$rootScope.$on("userThreshold", (event, data) => {
+        console.log('data', data);
+        calibrateVal.blinkRatio = data.ratio
+		calibrateVal.blinkZero = data.zero;
+		if(disableBlink) {
+			calibrateVal.blinkRatio = 0
+		}
+    });
+
 
 	calibrateVal.blinkRatio = 0.5; //default value
 	calibrateVal.blinkZero = 45.73;

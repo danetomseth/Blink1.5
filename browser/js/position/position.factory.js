@@ -4,14 +4,14 @@ core.factory('PositionFactory', function(ConstantsFactory) {
     let diffZeroL = 0;
     let diffZeroR = 0;
     let browZero = [];
-    let pupilZeroArray = [0,0];
-    let xDiffAvg = [0,0,0];
-    let yDiffAvg = [0,0,0];
+    let pupilZeroArray = [0, 0];
+    let xDiffAvg = [0, 0, 0];
+    let yDiffAvg = [0, 0, 0];
     let xDiff = 0;
     let yDiff = 0;
     let eyeX = 0;
     let eyeY = 0;
-    let eyePos = [0,0];
+    let eyePos = [0, 0];
     let currentBox = 0;
     let lastBox = 0;
     const pupilThreshold = 0.1;
@@ -50,14 +50,31 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             var diffR = (positions[69][1] + positions[31][1] + positions[70][1]) - (positions[68][1] + positions[29][1] + positions[67][1]);
             change = ((diffL + diffR) / ConstantsFactory.blinkZero);
 
-            if(change < ConstantsFactory.blinkRatio) {
-                if(debounce) {
-                    debounce = false;
-                    blinkDelay();
-                    return "singleBlink";
+            // if (change < ConstantsFactory.blinkRatio) {
+            //     if (debounce) {
+            //         debounce = false;
+            //         blinkDelay();
+            //         return "singleBlink";
+            //     }
+            // } else return false
+
+            if (change < ConstantsFactory.blinkRatio) {
+                let blinkDt = Date.now() - lastBlinkTime;
+                lastBlinkTime = Date.now();
+                
+
+                if (blinkDt < 125) {
+                    return false
+                } else {
+                    if (blinkDt <= 320) {
+                        console.log('val', change);
+                        console.log('doubleeeee', blinkDt);
+                        return 'doubleBlink';
+                    } else {
+                        return 'singleBlink'
+                    }
                 }
             }
-            else return false 
             // if (change < ConstantsFactory.blinkRatio) {
             //     let blinkDt = Date.now() - lastBlinkTime;
             //     lastBlinkTime = Date.now();
@@ -88,7 +105,7 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             return [eyeXVal, eyeYVal];
         },
         pupilPosition: (positions) => {
-            if(!ConstantsFactory.pupilsCalibrated) {
+            if (!ConstantsFactory.pupilsCalibrated) {
                 return null
             }
             let eyeXVal = 0;
@@ -100,7 +117,7 @@ core.factory('PositionFactory', function(ConstantsFactory) {
             eyePos = [eyeXVal, eyeYVal];
             xDiff = ConstantsFactory.center[0] - eyePos[0];
             yDiff = ConstantsFactory.center[1] - eyePos[1];
-            
+
             xDiffAvg.push(xDiff);
             xDiffAvg.shift();
             xDiff = (xDiffAvg[0] + xDiffAvg[1] + xDiffAvg[2]) / 3;
@@ -119,16 +136,14 @@ core.factory('PositionFactory', function(ConstantsFactory) {
                 currentBox = 4;
             } else {
                 currentBox = 2;
-                
+
             }
 
-            if(lastBox === currentBox) {
-                return currentBox;                 
-            }
-            else if((Math.abs(xDiff) / ConstantsFactory.xThresh[1]) > 1.5) {
+            if (lastBox === currentBox) {
+                return currentBox;
+            } else if ((Math.abs(xDiff) / ConstantsFactory.xThresh[1]) > 1.5) {
                 return currentBox
-            }
-            else {
+            } else {
                 lastBox = currentBox;
             }
 
