@@ -1,12 +1,16 @@
-#home {
-  fullstack-logo {
-    padding-top: 30px;
-    width: 150px;
-    margin: 0 auto;
-  }
-  h1 {
-    margin-top: 40px;
-    text-align: center;
-  }
+.jumbotron {
+    padding-top: 0px;
+    margin-bottom: 0px;
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1414775838024-666765beb5d9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=9baeedb83968302458db37bafbbd0b06');
+    opacity: 0.75;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    text-shadow: black 0.4em 0.4em 0.4em;
 }
 
+.home-text {
+    padding: 2em;
+    width: 75%;
+}
