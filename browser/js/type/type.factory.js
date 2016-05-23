@@ -1,6 +1,6 @@
 // Basic iteration and letter select/get
 
-core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, SpeechFactory) {
+core.factory("TypeFactory", function($rootScope, $state, ActionFactory, PredictFactory, SpeechFactory) {
 
 
 
@@ -12,6 +12,8 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
     keyboard.selectedLetter;
     keyboard.word = '';
 
+    let currentKeyboard = 'A';
+
     keyboard.setSpecialFunction = (specialFunc) => {
         specialFunction = specialFunc
         keyboard.alphabet[6].letters[3] = specialFunction.text;
@@ -21,7 +23,7 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
 
 
 
-    keyboard.altA = [{
+    keyboard.alphabetA = [{
         row: 0,
         letters: ["I", "I'M", "CAN", "WE", "HELLO"]
     }, {
@@ -41,10 +43,10 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         letters: ["U", "V", "W", "X", "Y"]
     }, {
         row: 6,
-        letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV']
+        letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV', "ALT"]
     }];
 
-    keyboard.alphabet = [{
+    keyboard.alphabetB = [{
         row: 0,
         letters: ["I", "I'M", "CAN", "WE", "HELLO"]
     }, {
@@ -58,18 +60,20 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         letters: ["E", "N", "C", "U", "G"]
     }, {
         row: 4,
-        letters: ["Z", "Y", "M", "H", "X1"]
+        letters: ["H", "Y", "M", "Z", "ALT1"]
     }, {
         row: 5,
-        letters: ["K", "P", "F", "X2", "X3"]
+        letters: ["K", "P", "F", "ALT2", "ALT3"]
     }, {
         row: 6,
-        letters: ['D', 'Q', 'V', "X", 'X4']
+        letters: ['D', 'Q', 'V', "X", 'ALT4']
     },
     {
         row: 7,
-        letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV']
+        letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV', "ALT"]
     }];
+
+    keyboard.alphabet = keyboard.alphabetA;
 
 
     let rowIndex = 0;
@@ -92,6 +96,18 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         letterIndex = 0;
         rowIndex = 0;
         selectingLetter = false;
+    }
+
+    const changeKeyboard = () => {
+        if(currentKeyboard === 'A') {
+            keyboard.alphabet = keyboard.alphabetB
+        }
+        else {
+            keyboard.alphabet = keyboard.alphabetB
+            currentKeyboard = "A"
+        }
+        resetKeyboardPosition();
+        $state.reload();
     }
 
     const predictWords = () => {
@@ -151,6 +167,9 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
                     return phrase;
                 case 'NAV':
                     ActionFactory.runEvents('nav');
+                    break;
+                case 'ALT':
+                    changeKeyboard();
                     break;
                 case specialFunction.text:
                     console.log("rn the thing");
