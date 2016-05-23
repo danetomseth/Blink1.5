@@ -1,38 +1,18 @@
 #about {
-
-  margin: 0 auto;
-  width: 90%;
-  @include clearfix;
-
-  p {
-    width: 40%;
     margin: 0 auto;
-    text-align: justify;
-    font-size: 22px;
-    font-weight: 300;
-    float: left;
-  }
+    width: 90%;
+    @include clearfix;
 
-  .carousel {
-    float: right;
-    width: 55%;
-    overflow: hidden;
-    margin: 0 auto;
-    .carousel-inner {
-      height: 500px !important;
+    table, th {
+        border: none;
+        padding-top: 2em;
     }
-    .carousel-control {
-      background: none;
+    td {
+        font-size: 1.05em;
+        vertical-align: top;
     }
-    .carousel-indicators {
-      display: none;
+    h3 {
+        font-family: 'Belgrano', serif !important;
+        font-size: 26px;
     }
-    img {
-      max-width: 100%;
-      max-height: 500px;
-      display: block;
-      margin: 0 auto;
-    }
-  }
-
 }
