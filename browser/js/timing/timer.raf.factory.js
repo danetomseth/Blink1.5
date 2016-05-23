@@ -23,8 +23,6 @@ core.factory('TimerFactory', function($rootScope, Session, $state, PositionFacto
         }, 300);
     }
 
-
-
     // Run a RAF Step
 
     function loop (timestamp){
