@@ -21,7 +21,7 @@ bl-box {
 .letter-grid {
     div{
         // line-height: 83.33px;
-        line-height: 100%;
+        //line-height: 100%;
         text-align: center;
         font-weight: bold;
         font-size: 1em;
@@ -39,8 +39,8 @@ bl-box {
 
 .single-letter {
     //color: nth($purple, 1) !important;
-    height: 100%;
-    line-height: 270%;
+    // height: 100%;
+    line-height: 240%;
     font-family: $keyboard; 
     text-align: center;
     width: 100%;
