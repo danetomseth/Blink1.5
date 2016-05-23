@@ -23,24 +23,47 @@ core.factory("TypeFactory", function($rootScope, $state, ActionFactory, PredictF
 
 
 
+    // keyboard.alphabetA = [{
+    //     row: 0,
+    //     letters: ["I", "I'M", "CAN", "WE", "HELLO"]
+    // }, {
+    //     row: 1,
+    //     letters: ["A", "B", "C", "D", "E"]
+    // }, {
+    //     row: 2,
+    //     letters: ["F", "G", "H", "I", "J"]
+    // }, {
+    //     row: 3,
+    //     letters: ["K", "L", "M", "N", "O"]
+    // }, {
+    //     row: 4,
+    //     letters: ["P", "Q", "R", "S", "T"]
+    // }, {
+    //     row: 5,
+    //     letters: ["U", "V", "W", "X", "Y"]
+    // }, {
+    //     row: 6,
+    //     letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV', "ALT"]
+    // }];
+
     keyboard.alphabetA = [{
         row: 0,
         letters: ["I", "I'M", "CAN", "WE", "HELLO"]
     }, {
         row: 1,
-        letters: ["A", "B", "C", "D", "E"]
+        letters: ["A", "B", "C", "D", "E", "F"]
     }, {
         row: 2,
-        letters: ["F", "G", "H", "I", "J"]
+        letters: ["G", "H", "I", "J", "K", "L"]
     }, {
         row: 3,
-        letters: ["K", "L", "M", "N", "O"]
+        letters: ["M", "N", "O", "P", "Q", "."]
     }, {
         row: 4,
-        letters: ["P", "Q", "R", "S", "T"]
+        letters: ["R", "S", "T", "U", "V", ".COM"]
     }, {
         row: 5,
-        letters: ["U", "V", "W", "X", "Y"]
+        letters: ["W", "X", "Y", "Z", "@", ".ORG"]
     }, {
         row: 6,
         letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV', "ALT"]
