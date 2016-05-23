@@ -7,7 +7,7 @@ core.factory('SidebarFactory', function($state) {
         { label: 'Home', state: 'home'},
         { label: 'About', state: 'about'},
         { label: 'Type', state: 'type'},
-        { label: 'Corners', state: 'corners'},
+        { label: 'Grid', state: 'corners'},
     ];
 
     let loggedInLinks = [
