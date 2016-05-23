@@ -21,7 +21,7 @@ bl-box {
 .letter-grid {
     div{
         // line-height: 83.33px;
-        line-height: 170%;
+        line-height: 100%;
         text-align: center;
         font-weight: bold;
         font-size: 1em;
@@ -29,8 +29,17 @@ bl-box {
     }
 }
 
+.row-3 {
+        height: 33%;
+        display: block;
+    
+    div {
+    }
+}
+
 .single-letter {
     //color: nth($purple, 1) !important;
+    height: 100%;
     line-height: 270%;
     font-family: $keyboard; 
     text-align: center;
@@ -96,7 +105,8 @@ bl-box {
 
 
 .cal-item {
-    height: 250px;
+    height: 100%;
+    border: 1px solid black;
     // img {
     //     position: relative;
     //     left: 5px;
@@ -126,6 +136,11 @@ bl-box {
     position: absolute;
     top: 0px;
     left: 0px;
+}
+
+.m-img {
+    position: relative;
+    top: 18%;
 }
 
 
