@@ -43,6 +43,7 @@ router.put('/:id/friends', (req, res) => { // edit one
 
 // must be user or admin
 router.put('/:id?', ensure.authenticated, ensure.selfOrAdmin, (req, res) => { // edit one
+    if (req.body.blinkZero) {req.session.calibrate = req.body}
     if (!req.user) {return res.send("no user found")}
     let userId = req.params.id || req.user._id
     User.findById(req.user._id)
