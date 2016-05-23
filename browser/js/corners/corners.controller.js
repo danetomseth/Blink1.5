@@ -1,6 +1,6 @@
 core.config(function($stateProvider) {
     $stateProvider.state('corners', {
-        url: '/corners',
+        url: '/grid',
         controller: 'CornersCtrl',
         templateUrl: 'templates/corners.html'
     });
