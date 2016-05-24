@@ -12,3 +12,7 @@ Key features include:
 * Basic real-time chat to connect users with each other
 
 NOTE: This app utilizes clmtrackr.js for feature tracking.
+
+![](https://media.giphy.com/media/12Vvpxe2St2Y6s/giphy.gif)
+![](https://media.giphy.com/media/Wkn3sMKDZrrVK/giphy.gif)
+
