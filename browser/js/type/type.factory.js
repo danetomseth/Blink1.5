@@ -1,6 +1,6 @@
 // Basic iteration and letter select/get
 
-core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, SpeechFactory) {
+core.factory("TypeFactory", function($rootScope, $state, ActionFactory, PredictFactory, SpeechFactory) {
 
 
 
@@ -12,6 +12,8 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
     keyboard.selectedLetter;
     keyboard.word = '';
 
+    let currentKeyboard = 'A';
+
     keyboard.setSpecialFunction = (specialFunc) => {
         specialFunction = specialFunc
         keyboard.alphabet[6].letters[3] = specialFunction.text;
@@ -21,30 +23,53 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
 
 
 
-    keyboard.altA = [{
+    // keyboard.alphabetA = [{
+    //     row: 0,
+    //     letters: ["I", "I'M", "CAN", "WE", "HELLO"]
+    // }, {
+    //     row: 1,
+    //     letters: ["A", "B", "C", "D", "E"]
+    // }, {
+    //     row: 2,
+    //     letters: ["F", "G", "H", "I", "J"]
+    // }, {
+    //     row: 3,
+    //     letters: ["K", "L", "M", "N", "O"]
+    // }, {
+    //     row: 4,
+    //     letters: ["P", "Q", "R", "S", "T"]
+    // }, {
+    //     row: 5,
+    //     letters: ["U", "V", "W", "X", "Y"]
+    // }, {
+    //     row: 6,
+    //     letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV', "ALT"]
+    // }];
+
+    keyboard.alphabetA = [{
         row: 0,
         letters: ["I", "I'M", "CAN", "WE", "HELLO"]
     }, {
         row: 1,
-        letters: ["A", "B", "C", "D", "E"]
+        letters: ["A", "B", "C", "D", "E", "F"]
     }, {
         row: 2,
-        letters: ["F", "G", "H", "I", "J"]
+        letters: ["G", "H", "I", "J", "K", "L"]
     }, {
         row: 3,
-        letters: ["K", "L", "M", "N", "O"]
+        letters: ["M", "N", "O", "P", "Q", "."]
     }, {
         row: 4,
-        letters: ["P", "Q", "R", "S", "T"]
+        letters: ["R", "S", "T", "U", "V", ".COM"]
     }, {
         row: 5,
-        letters: ["U", "V", "W", "X", "Y"]
+        letters: ["W", "X", "Y", "Z", "@", ".ORG"]
     }, {
         row: 6,
-        letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV']
+        letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV', "ALT"]
     }];
 
-    keyboard.alphabet = [{
+    keyboard.alphabetB = [{
         row: 0,
         letters: ["I", "I'M", "CAN", "WE", "HELLO"]
     }, {
@@ -58,18 +83,20 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         letters: ["E", "N", "C", "U", "G"]
     }, {
         row: 4,
-        letters: ["Z", "Y", "M", "H", "X1"]
+        letters: ["H", "Y", "M", "Z", "ALT1"]
     }, {
         row: 5,
-        letters: ["K", "P", "F", "X2", "X3"]
+        letters: ["K", "P", "F", "ALT2", "ALT3"]
     }, {
         row: 6,
-        letters: ['D', 'Q', 'V', "X", 'X4']
+        letters: ['D', 'Q', 'V', "X", 'ALT4']
     },
     {
         row: 7,
-        letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV']
+        letters: ['SPACE', 'SAY', '<<', "PLACEHOLD", 'NAV', "ALT"]
     }];
+
+    keyboard.alphabet = keyboard.alphabetA;
 
 
     let rowIndex = 0;
@@ -92,6 +119,18 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
         letterIndex = 0;
         rowIndex = 0;
         selectingLetter = false;
+    }
+
+    const changeKeyboard = () => {
+        if(currentKeyboard === 'A') {
+            keyboard.alphabet = keyboard.alphabetB
+        }
+        else {
+            keyboard.alphabet = keyboard.alphabetB
+            currentKeyboard = "A"
+        }
+        resetKeyboardPosition();
+        $state.reload();
     }
 
     const predictWords = () => {
@@ -151,6 +190,9 @@ core.factory("TypeFactory", function($rootScope, ActionFactory, PredictFactory, 
                     return phrase;
                 case 'NAV':
                     ActionFactory.runEvents('nav');
+                    break;
+                case 'ALT':
+                    changeKeyboard();
                     break;
                 case specialFunction.text:
                     console.log("rn the thing");

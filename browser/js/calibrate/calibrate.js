@@ -95,8 +95,12 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
             }
 
 
-
+            let blinkStart = true;
             $rootScope.$on('singleBlink', () => {
+                if(blinkStart) {
+                    blinkStart = false;
+                    scope.start();
+                }
                 if (CalibrateFactory.calibrationSet) {
                     testBlink();
                 }

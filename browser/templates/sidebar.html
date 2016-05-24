@@ -4,7 +4,13 @@
     <logo class="pull-right">Blink</logo>
     <div>
             <button class="nav-btn" ng-repeat="item in items"  ui-sref="{{ item.state }}" ng-class="{'nav-highlight' : $index === selectedLink}">{{item.label}}</button>
+
+
+
     </div>
+     <!-- <div class="dynamicBox">
+        <md-button ng-click="blink()" class="md-raised md-primary">Blink</md-button>
+    </div> -->
 
     <div class="web-box">
      <bl-sidebar-webcam ng-style="webcamDir" id="webcam-directive"></bl-sidebar-webcam>
