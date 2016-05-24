@@ -14,3 +14,17 @@
     padding: 2em;
     width: 75%;
 }
+
+
+#home-img {
+    height: 100%;
+}
+
+.calibrate-btn {
+    color: white !important;
+    background-color: nth($blue, 1) !important;
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+
+}

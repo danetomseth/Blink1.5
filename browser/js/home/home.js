@@ -7,7 +7,7 @@ core.config(function($stateProvider) {
 
 });
 
-core.controller('HomeCtrl', function($scope, $mdBottomSheet) {
+core.controller('HomeCtrl', function($scope, $mdBottomSheet, ConstantsFactory) {
 
     $scope.boxInput = "";
     $scope.openBottomSheet = function() {
@@ -19,5 +19,15 @@ core.controller('HomeCtrl', function($scope, $mdBottomSheet) {
       parent: angular.element(document.getElementById('content'))
     });
   };
+
+
+  $scope.calibrated = ConstantsFactory.blinkCalibrated;
+  console.log($scope.calibrated);
+
+
+
+  $scope.showCalibration = () => {
+    $scope.calibrated = false;
+  }
 
 });

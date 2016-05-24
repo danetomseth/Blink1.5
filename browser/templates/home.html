@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="jumbotron">
 <div class="home-text">
     <h1>Welcome to Blink!</h1>
@@ -16,4 +16,11 @@
     </ul>
     <h3>For more insight into LIS, you can <a href="https://www.ted.com/talks/kitra_cahana_my_father_locked_in_his_body_but_soaring_free">watch</a> or <a href="http://www.npr.org/2015/01/09/375928581/locked-man">listen</a>.</h3>
     </div>
-</div>
+</div> -->
+
+<bl-calibrate ng-hide="calibrated"></bl-calibrate>
+
+
+
+<img ng-show="calibrated" id="home-img" src="http://i.imgur.com/MpGkPa1.jpg?1" alt="homepage">
+<md-button ng-hide="calibrated" class="md-raised calibrate-btn" ng-click="showCalibration()">Calibrate</md-button>

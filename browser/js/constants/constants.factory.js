@@ -6,6 +6,7 @@ core.factory('ConstantsFactory', function($rootScope, SettingsFactory) {
 	$rootScope.$on("userThreshold", (event, data) => {
         console.log('data', data);
         calibrateVal.blinkRatio = data.ratio
+		calibrateVal.blinkCalibrated = true;
 		calibrateVal.blinkZero = data.zero;
 		if(disableBlink) {
 			calibrateVal.blinkRatio = 0
@@ -21,10 +22,12 @@ core.factory('ConstantsFactory', function($rootScope, SettingsFactory) {
 	calibrateVal.yThresh = [0,0];
 
 	calibrateVal.pupilsCalibrated = false;
+	calibrateVal.blinkCalibrated = false;
 
 	calibrateVal.setBlink = (ratio, zero) => {
 		calibrateVal.blinkRatio = ratio;
 		calibrateVal.blinkZero = zero;
+		calibrateVal.blinkCalibrated = true;
 		console.log('ratio', ratio);
 		console.log('zero', zero);
 	}
