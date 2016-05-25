@@ -7,6 +7,10 @@
         border: none;
         padding-top: 2em;
     }
+    img {
+        max-width: 390px;
+        max-height: 30vh;
+    }
     td {
         font-size: 1.05em;
         vertical-align: top;
@@ -23,3 +27,6 @@
     padding: 75px;
     min-height: 200px;
 }
+.about-row {
+        height: 20vh;
+    }
