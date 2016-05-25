@@ -72,7 +72,7 @@ core.directive("blCalibrate", function(CalibrateFactory, $state, $rootScope, Act
 
             let countInt;
             function countDelay () {
-                scope.countDown = 5;
+                scope.countDown = 3;
                 countInt = $interval(() => {
                     scope.countDown--
                     if(scope.countDown === 0) {
