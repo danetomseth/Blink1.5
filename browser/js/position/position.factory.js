@@ -67,8 +67,6 @@ core.factory('PositionFactory', function(ConstantsFactory) {
                     return false
                 } else {
                     if (blinkDt <= 320) {
-                        console.log('val', change);
-                        console.log('doubleeeee', blinkDt);
                         return 'doubleBlink';
                     } else {
                         return 'singleBlink'

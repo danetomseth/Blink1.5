@@ -5,15 +5,20 @@ core.factory('SidebarFactory', function($state) {
 
     let links = [
         { label: 'Home', state: 'home'},
-        { label: 'About', state: 'about'},
+        
         { label: 'Type', state: 'type'},
         { label: 'Grid', state: 'corners'},
     ];
+
+    let bottomLinks = [
+        {label: 'About', state: 'about'}
+    ]
 
     let loggedInLinks = [
         // { label: 'Social', state: 'newsfeed', auth: true},
         { label: 'Chat', state: 'chat', auth: true},
         { label: 'Settings', state: 'settings', auth: true},
+        {label: 'About', state: 'about'},
         { label: 'Logout', state: 'logout', auth: true}
     ];
 
@@ -41,7 +46,7 @@ core.factory('SidebarFactory', function($state) {
 
             }
             else {
-                userLinks = links.concat(loggedOutLinks);
+                userLinks = links.concat(bottomLinks).concat(loggedOutLinks);
                 return userLinks
             }
         },

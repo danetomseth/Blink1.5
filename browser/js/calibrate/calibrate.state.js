@@ -3,4 +3,4 @@ core.config(function($stateProvider){
         url: '/calibrate',
         template: '<bl-calibrate></bl-calibrate>'
     })
-})
+});
